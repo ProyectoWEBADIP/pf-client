@@ -1,7 +1,20 @@
 .contNav{
     background-color: orange;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    padding: 2rem;
     align-items: center;
+}
+
+.contImg{
+    width: 60px;
+    height: 60px;
+    padding: 10px;
+
+}
+
+.contImg img {
+  width: 100%; /* La imagen ocupará el ancho completo del div */
+  height: 100%; /* La imagen ocupará la altura completa del div */
+  object-fit: cover; /* Ajusta la imagen manteniendo la relación de aspecto y cubriendo el área disponible */
 }
