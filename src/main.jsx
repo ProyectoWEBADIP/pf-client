@@ -24,7 +24,7 @@ const theme = createTheme({
     },
   },})
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <BrowserRouter>
       <React.StrictMode>
