@@ -1,5 +1,8 @@
+/* eslint-disable no-unused-vars */
+import { useDispatch } from "react-redux";
 import Validation from "./validaciones";
 import { useState } from "react";
+import { registerUser } from "../../redux/login-registerActions/loginActions";
 
 export default function SingUp(){
 
@@ -8,7 +11,9 @@ export default function SingUp(){
     
     const [error, setError] = useState({})
 
-    const handlerSubmit = (event) => {
+      
+      const dispatch = useDispatch()
+    const handleChange = (event) => {
         
         setInput({
             ...input,
@@ -20,8 +25,10 @@ export default function SingUp(){
         }) )
     }
     
+    function handleSubmit(){
+      dispatch(registerUser(input))
+    }
     return (
-        
         <form className="bg-slate-300 p-4 text-center">
           <div className="mb-4">
             <label htmlFor="nombre" className="block mb-1">
@@ -30,7 +37,7 @@ export default function SingUp(){
             {error.nombre && <p className="text-red-500">{error.nombre}</p>}
             <input
               className="w-full px-4 py-2 border rounded"
-              onChange={handlerSubmit}
+              onChange={handleChange}
               name="nombre"
               value={input.nombre}
               type="text"
@@ -43,7 +50,7 @@ export default function SingUp(){
             {error.apellido && <p className="text-red-500">{error.apellido}</p>}
             <input
               className="w-full px-4 py-2 border rounded"
-              onChange={handlerSubmit}
+              onChange={handleChange}
               name="apellido"
               value={input.apellido}
               type="text"
@@ -57,7 +64,7 @@ export default function SingUp(){
             <input
               className="w-full px-4 py-2 border rounded"
               placeholder="Sin puntos ni comas"
-              onChange={handlerSubmit}
+              onChange={handleChange}
               name="DNI"
               value={input.DNI}
               type="number"
@@ -71,7 +78,7 @@ export default function SingUp(){
             {error.fechaNacimiento && <p className="text-red-500">{error.fechaNacimiento}</p>}
             <input
               className="w-full px-4 py-2 border rounded"
-              onChange={handlerSubmit}
+              onChange={handleChange}
               name="fechaNacimiento"
               value={input.fechaNacimiento}
               type="date"
@@ -85,7 +92,7 @@ export default function SingUp(){
             {error.email && <p className="text-red-500">{error.email}</p>}
             <input
               className="w-full px-4 py-2 border rounded"
-              onChange={handlerSubmit}
+              onChange={handleChange}
               name="email"
               value={input.email}
               type="email"
@@ -98,7 +105,7 @@ export default function SingUp(){
             {error.contraseña && <p className="text-red-500">{error.contraseña}</p>}
             <input
               className="w-full px-4 py-2 border rounded"
-              onChange={handlerSubmit}
+              onChange={handleChange}
               name="contraseña"
               value={input.contraseña}
               type="password"
@@ -112,7 +119,7 @@ export default function SingUp(){
             {error.verificacionContraseña && <p className="text-red-500">{error.verificacionContraseña}</p>}
             <input
               className="w-full px-4 py-2 border rounded"
-              onChange={handlerSubmit}
+              onChange={handleChange}
               name="verificacionContraseña"
               value={input.verificacionContraseña}
               type="password"
@@ -125,7 +132,7 @@ export default function SingUp(){
             </label>
             <input
               className="w-full px-4 py-2 border rounded"
-              onChange={handlerSubmit}
+              onChange={handleChange}
               value={input.imagen}
               type="file"
               name="imagen"
@@ -134,7 +141,7 @@ export default function SingUp(){
           </div>
           <button
             className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-            onClick={handlerSubmit}
+            onClick={handleChange}
           >
             Registrarse
           </button>
