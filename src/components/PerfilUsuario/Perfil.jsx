@@ -26,7 +26,6 @@ export default function perfil(){
                 </div>
             </div>
 
-            <Link to={"/loguin"} className={style.logout}>Cerrar sesión</Link>
             </div>
         </div>
     )
