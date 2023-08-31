@@ -1,0 +1,32 @@
+.escudo{
+    background-image: "../../Escudo ADIP sin fondo.png";
+}
+
+.contenedorCard{
+    background-color: lightgray;
+    margin: 10px;
+    text-align: center;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.title{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.competencia{
+    font-size: 14px;
+    
+}
+
+.result{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.button{
+    border-radius: 5px;
+    border: 1px;
+    background-color: orange;
+}

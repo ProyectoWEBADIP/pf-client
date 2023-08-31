@@ -1,0 +1,18 @@
+.cardCont{
+    background-color: orange;
+    display: flex;
+    width: 20rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px;
+    padding: 1rem;
+}
+.title{
+    font-size: x-large;
+    color: white;
+    font-weight: bold;
+}
+

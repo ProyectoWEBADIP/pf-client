@@ -1,0 +1,10 @@
+.cont{
+    display: flex;
+    justify-content: center;
+    
+}
+.text{
+    font-size: x-large;
+    display: flex;
+    align-items: center;    
+}
