@@ -23,7 +23,8 @@ export default function CrearNoticia ()  {
       )
     }
    
-    console.log(error)
+    
+    
   
     return (
       <div className="container mx-auto">
@@ -67,7 +68,13 @@ export default function CrearNoticia ()  {
             <label className="block mb-1" htmlFor="imagen">
               Foto:
             </label>
-            <input className="w-full px-4 py-2 border rounded" type="file" name="imagen" accept="image/*"/>
+            <input className="w-full px-4 py-2 border rounded" type="file" 
+            name="imagen" 
+            accept="image/*"/>
+            onChange={(e)=>{
+              setInput({
+                ...input,
+                imagen: e.target.files[0]}) }}
           </div>
           
           <br/>
