@@ -24,9 +24,9 @@ function App() {
       <Route path={"/detalle/:id"} element={<NoticiaDetail/>}/>
       <Route path={"/crearNoticia"} element={<CrearNoticia/>}/>
       <Route path={"/miPerfil"} element={<PerfilUsuario/>} />
+      </Routes>
       
 
-      </Routes>
       
 
     </div>
