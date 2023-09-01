@@ -1,5 +1,7 @@
 import CardsNoticias from "../CardsNoticias/CardsNoticias"
 import CardPartidoContainer from "../CardPartidoContainer/CardPartidoContainer"
+import { Typography } from "@mui/material"
+import Filtros from "../Filtros/Filtros"
 
 
 export default function Home (){
@@ -8,22 +10,13 @@ export default function Home (){
     return (
         <div>
             <CardPartidoContainer/>
-
-            <h1>Noticias</h1>
+            <Typography variant="h2" fontWeight="bold">Noticias</Typography>
             <br/>
-            <div className="Filtros">
-                <label>Filtros :</label>
-                <select value="filtros">
-                    <option value="cat" disabled selected hidden>Selecciona una cateogoría</option>
-                </select>
 
-                <label>Ordenar por:</label>
-                <select value="ordenamiento">
-                    <option value="order" disabled selected hidden>Seleccionar</option>
-                    <option value="order">Más reciente</option>
-                    
-                </select>
-            </div>
+           
+            <Filtros/>
+
+            
             <CardsNoticias/>
         </div>
     )
