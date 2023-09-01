@@ -14,13 +14,13 @@ export default function CardPartidoContainer(){
         descripcion: "En Villa Castells, la primera masculina se quedo con los 3 puntos de un partido trabado con un gol de penal de plastino"
     },
     {
-        titulo: "POSTERIOR",
+        titulo: "PROXIMO",
         categoria: "PRIMERA MASCULINA",
         competencia: "TORNEO APERTURA 2023",
         escudoLocal: "C:\Users\Usuario\Desktop\Escudo ADIP sin fondo.png",
         escudoVisitante: "C:\Users\Usuario\Desktop\Escudo ADIP sin fondo.png",
-        resultado: "1-0",
-        fecha: "Domingo 27/8 15:30", 
+        resultado: "VS",
+        fecha: "Domingo 3/9 15:30", 
         ubicacion: "ADIP (10 Y 485)",
         descripcion: "En Villa Castells, la primera masculina se quedo con los 3 puntos de un partido trabado con un gol de penal de plastino"
     },
@@ -36,13 +36,13 @@ export default function CardPartidoContainer(){
         descripcion: "En Villa Castells, la primera masculina se quedo con los 3 puntos de un partido trabado con un gol de penal de plastino"
     },
     {
-        titulo: "POSTERIOR",
+        titulo: "PROXIMO",
         categoria: "PRIMERA FEMENINA",
         competencia: "TORNEO APERTURA 2023",
         escudoLocal: "C:\Users\Usuario\Desktop\Escudo ADIP sin fondo.png",
         escudoVisitante: "C:\Users\Usuario\Desktop\Escudo ADIP sin fondo.png",
-        resultado: "1-0",
-        fecha: "Domingo 27/8 15:30", 
+        resultado: "VS",
+        fecha: "Domingo 3/9 15:30", 
         ubicacion: "ADIP (10 Y 485)",
         descripcion: "En Villa Castells, la primera masculina se quedo con los 3 puntos de un partido trabado con un gol de penal de plastino"
     },

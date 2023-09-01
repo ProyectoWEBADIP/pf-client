@@ -1,17 +1,26 @@
 .escudo{
-    background-image: "../../Escudo ADIP sin fondo.png";
+    width: 60px;
+    height: 60px;
+    padding: 10px;
 }
 
-.contenedorCard{
+.escudo img {
+    width: 100%; /* La imagen ocupará el ancho completo del div */
+    height: 100%; /* La imagen ocupará la altura completa del div */
+    object-fit: cover; /* Ajusta la imagen manteniendo la relación de aspecto y cubriendo el área disponible */
+  
+}
+
+/* .contenedorCard{
     background-color: lightgray;
     margin: 10px;
     text-align: center;
     border-radius: 4px;
     padding: 5px;
-}
+} */
 
 .title{
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
 }
 

@@ -10,6 +10,7 @@ export function localLogin(userCredentials) {
         `http://localhost:3001/auth/login`,
         userCredentials
       );
+      console.log(userCredentials)
       dispatch({ type: LOCAL_LOGIN, payload: data });
     } catch (error) {
       dispatch({ type: LOCAL_LOGIN, payload: error });
