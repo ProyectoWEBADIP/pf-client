@@ -26,7 +26,6 @@ export default function SingUp(){
             [event.target.name] : event.target.value
         }) )
     }
-    
 
     const submitImage = async (e) => {
       e.preventDefault()
@@ -41,8 +40,6 @@ export default function SingUp(){
       } catch (error) {
         console.log(error.message);
       }
-      
-
     }
     
     function handleSubmit(){
