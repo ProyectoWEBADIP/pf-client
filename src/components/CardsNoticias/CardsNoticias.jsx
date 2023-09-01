@@ -1,26 +1,28 @@
 import React from "react";
 import CardNoticia from "../cardNoticia/CardNoticia";
 import "./cardsNoticias.css";
+import { Container, display, padding } from "@mui/system";
+import { Grid } from "@mui/material";
 
 const CardsNoticias = () => {
   const arr = [
     {
       id: 1,
-      titulo: "¡Equipo local gana el campeonato de fútbol!",
+      titulo: "¡ADIP gano y goleó el fin de semana!",
       body: "El equipo de fútbol local logró una victoria impresionante en la final del campeonato, asegurándose el título después de un emocionante partido que mantuvo a los fanáticos al borde de sus asientos.",
-      img: "https://diariohoynet.nyc3.cdn.digitaloceanspaces.com/adjuntos/galerias/000/496/0000496131.jpg",
+      img: "https://diariohoynet.nyc3.cdn.digitaloceanspaces.com/adjuntos/galerias/000/569/0000569277.jpg",
     },
     {
       id: 2,
-      titulo: "Atleta nacional establece nuevo récord en los Juegos Olímpicos",
+      titulo: "ADIP es el nuevo tricampeón!"  ,
       body: "Nuestro destacado atleta nacional dejó su marca en los Juegos Olímpicos al establecer un nuevo récord en la prueba de sprint. Su dedicación y esfuerzo finalmente dieron sus frutos, ganándose un lugar en la historia del deporte.",
-      img: "https://www.clarin.com/img/2023/07/08/optYrcwoz_360x240__1.jpg",
+      img: "https://diariohoynet.nyc3.cdn.digitaloceanspaces.com/adjuntos/galerias/000/568/0000568061.jpg",
     },
     {
       id: 3,
-      titulo: "Equipo de baloncesto se clasifica para las finales de la liga",
+      titulo: "Otro finde de fútbol para nuestras infantiles",
       body: "El equipo de baloncesto de nuestra ciudad demostró su habilidad en la cancha al asegurarse un lugar en las finales de la liga. Después de una temporada llena de desafíos, están listos para competir por el campeonato.",
-      img: "https://www.clarin.com/img/2022/08/26/JUfs6IdeN_360x240__1.jpg",
+      img: "https://media.cdn.eldestapeweb.com/eldestape/072022/1658882126514/feli-futbol-femenino2-jpeg..webp?cw=1322&ch=743&extw=jpeg",
     },
     {
       id: 4,
@@ -36,7 +38,7 @@ const CardsNoticias = () => {
     },
   ];
   return (
-    <div className="cont">
+    <Container sx={{display:"flex", flexWrap:"wrap"}}>
       {arr?.map((e) => (
         <CardNoticia
           key={e.id}
@@ -46,7 +48,8 @@ const CardsNoticias = () => {
           img={e.img}
         />
       ))}
-    </div>
+   
+    </Container>
   );
 };
 

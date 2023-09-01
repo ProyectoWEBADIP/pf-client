@@ -1,18 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './cardNoticia.css';
+import { Card, CardActionArea, CardContent, CardMedia, Typography, Button } from '@mui/material';
 
 
-const CardNoticia = ({titulo,id,img}) => {
+const CardNoticia = ({titulo, id, img}) => {
     
   return (
-    <div className='cardCont'>
-      <Link to={`/detalle/${id}`}>
-      <div className='contTitle'>
-        <h1 className='title'>{titulo}</h1>
-      </div>
-      </Link>      
-    </div>
+    <>
+    <Card sx={{m:2, minWidth:300 , minHeight: 350, maxHeight:350, maxWidth:300 }}>
+      <CardActionArea>
+      <CardMedia component="img" image={img} height="200px"/>
+      <CardContent>
+          <Typography variant='h6'>{titulo}</Typography>
+          <Button href={`/detalle/${id}`}>Ver más</Button>
+      </CardContent>
+      </CardActionArea>
+    </Card>
+    </>
   )
 }
 
