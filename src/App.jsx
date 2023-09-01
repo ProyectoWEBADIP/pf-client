@@ -7,12 +7,14 @@ import SingUp from "../src/components/Login/SingUp"
 import NoticiaDetail from "./components/detailNoticia/NoticiaDetail";
 import CrearNoticia from "./components/CraerNoticia/CrearNoticia";
 import PerfilUsuario from "./components/PerfilUsuario/Perfil"
+import FiltroDeFechas from "./components/FiltroDeFechas/FiltroDeFechas";
 
 
 function App() {
   return (
     <div>
       <Navbar/>
+      <FiltroDeFechas />
       <Routes>
       <Route path={"/"} element={<Home/>}/>
       <Route path={"/login"} element={<Login/>}/>
