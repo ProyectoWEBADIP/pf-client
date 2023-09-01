@@ -53,7 +53,6 @@ export default function SearchBar() {
     setPost(event.target.value)
     
   }
-console.log(post);
   return (
     <>
            <Search>
