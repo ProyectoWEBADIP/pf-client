@@ -4,9 +4,13 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getHistory,
+  googleRegisterUser,
   loading,
   localLogin,
 } from '../../redux/login-registerActions/loginActions';
+import { GoogleLogin } from '@react-oauth/google';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
 export default function Login() {
   const [error, setError] = useState({});
   const [users, setUsers] = useState({ email: '', password: '' });
@@ -14,6 +18,9 @@ export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loginRegisterErrors = useSelector((state) => state.loginRegisterErrors);
+
+  const successLogin = useSelector((state) => state.successLogin);
+
   const logginIn = useSelector((state) => state.logginIn);
   const actualPath = useSelector((state) => state.actualPath);
   const handleChange = (event) => {
@@ -22,14 +29,23 @@ export default function Login() {
       [event.target.name]: event.target.value,
     });
   };
+function handleError(){}
 
+  function handleSuccess(credentials){
+  if(credentials.credential){
+  dispatch(googleRegisterUser(credentials))
+  navigate("/")
+}
+  }
+
+//LOGIN LOCAL CON PASS Y EMAIL
   function login(event) {
     event.preventDefault();
     dispatch(localLogin(users));
     dispatch(loading());
   }
-
   return (
+   <GoogleOAuthProvider clientId={CLIENT_ID}>
     <div>
       {!localStorage.userLogin === true ? (
         <div className="bg-slate-300 p-4 h-screen flex flex-col justify-center items-center">
@@ -80,6 +96,11 @@ export default function Login() {
       ) : actualPath?(
         navigate(`${actualPath}`)
       ):navigate('/')}
+      <div>
+        <GoogleLogin useOneTap onError={handleError} onSuccess={handleSuccess}/>
+      </div>
+      <p>{successLogin}</p>
     </div>
+   </GoogleOAuthProvider>
   );
 }

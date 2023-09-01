@@ -8,7 +8,6 @@ export default function SearchBar() {
     setPost(event.target.value)
     
   }
-console.log(post);
   return (
     <div>
         <input type="search" placeholder="Busqueda..." onChange={handleChange} value={post} />

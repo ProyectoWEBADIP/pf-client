@@ -14,6 +14,7 @@ const initialState = {
   //LOGIN_STATES//
   loggedIn: false,
   usuario: [],
+  successLogin: '',
   actualPath: '',
   logginIn: false,
   //LOGIN_ERRORS//
@@ -67,13 +68,23 @@ export default function rootReducer(state = initialState, action) {
         usuario: [],
         loggedIn: false,
         actualPath: '',
+        successLogin: '',
       };
     //REGISTER CASES//
     case REGISTER_USER:
+      localStorage.setItem(
+        'access_token',
+        action.payload.access_token.access_token
+      );
+      localStorage.setItem('userLogin', true);
       return {
         ...state,
-        usuario: action.payload,
+        successLogin: action.payload.message,
+        logginIn: false,
+        loggedIn: true,
+        loginRegisterErrors: {},
       };
+
     default:
       return { ...state };
   }
