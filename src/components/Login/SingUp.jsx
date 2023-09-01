@@ -4,10 +4,12 @@ import Validation from "./validaciones";
 import { useState } from "react";
 import { registerUser } from "../../redux/login-registerActions/loginActions";
 
+import axios from "axios";
+
 export default function SingUp(){
 
 
-    const [input, setInput] = useState({nombre: "", apellido: "", DNI: "", email: "", fechaNacimiento: "", imagen: "", contraseña: "", verificacionContraseña:""})
+    const [input, setInput] = useState({nombre: "", apellido: "", DNI: "", email: "", fechaNacimiento: "", imagen: [], contraseña: "", verificacionContraseña:""})
     
     const [error, setError] = useState({})
 
@@ -23,6 +25,24 @@ export default function SingUp(){
             ...input,
             [event.target.name] : event.target.value
         }) )
+    }
+    
+
+    const submitImage = async (e) => {
+      e.preventDefault()
+      try {
+      const formData = new FormData()
+      formData.append("file", input.imagen)
+      formData.append("upload_preset", "Usuarios")
+      formData.append("cloud_name", "drpdobxfu")
+      
+        const { data } = await axios.post("https://api.cloudinary.com/v1_1/drpdobxfu/image/upload", formData)
+        setInput({...input, imagen: data.secure_url})
+      } catch (error) {
+        console.log(error.message);
+      }
+      
+
     }
     
     function handleSubmit(){
@@ -128,16 +148,17 @@ export default function SingUp(){
           </div>
           <div className="mb-4">
             <label htmlFor="imagen" className="block mb-1">
-              Foto:
+              Foto de perfil:
             </label>
             <input
               className="w-full px-4 py-2 border rounded"
-              onChange={handleChange}
-              value={input.imagen}
+              onChange={(e) => { setInput({...input, imagen: e.target.files[0]}) }}
+              
               type="file"
               name="imagen"
               accept="image/*"
             />
+            <button onClick={submitImage}>upLoad</button>
           </div>
           <button
             className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"

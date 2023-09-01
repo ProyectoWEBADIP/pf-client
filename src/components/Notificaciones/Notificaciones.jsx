@@ -25,6 +25,7 @@ function Notificaciones() {
         onClick={openAndClose}
         style={{ cursor: "pointer" }}
         aria-label="Notificaciones"
+        color="inherit"
       >
         <NotificationsIcon />
       </IconButton>
@@ -33,7 +34,7 @@ function Notificaciones() {
           style={{
             position: "absolute",
             top: "100%",
-            left: 0,
+            left: -150,
             backgroundColor: "white",
             border: "1px solid #ccc",
             borderRadius: "10px",
