@@ -7,6 +7,7 @@ import {
   HISTORY,
   LOGGIN_IN,
   REGISTER_USER,
+  REGISTER_USER_LOCAL
 } from './actionTypes';
 //?LOGIN ACTIONS
 export function localLogin(userCredentials) {
@@ -46,7 +47,7 @@ export function registerUser(userData) {
         `http://localhost:3001/auth/register`,
         userData
       );
-      dispatch({ type: REGISTER_USER, payload: data });
+      dispatch({ type: REGISTER_USER_LOCAL, payload: data });
     } catch (error) {
       dispatch({ type: LOGIN_REGISTER_ERRORS, payload: error });
     }

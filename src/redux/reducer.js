@@ -71,7 +71,7 @@ export default function rootReducer(state = initialState, action) {
         successLogin: '',
       };
     //REGISTER CASES//
-    case REGISTER_USER:
+    case REGISTER_USER: //REGISTRO CON GOOGLE
       localStorage.setItem(
         'access_token',
         action.payload.access_token.access_token
@@ -84,7 +84,7 @@ export default function rootReducer(state = initialState, action) {
         loggedIn: true,
         loginRegisterErrors: {},
       };
-
+    
     default:
       return { ...state };
   }
