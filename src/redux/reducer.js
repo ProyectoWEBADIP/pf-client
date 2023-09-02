@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { GET_ALL_NOTICIAS } from './noticiasActions/noticiasActionTypes';
+import { FILTER_NOTICIAS, GET_ALL_NOTICIAS ,GET_NOTICIA_DETAIL} from './noticiasActions/noticiasActionTypes';
 //LOGIN_REGISTER ACTION TYPES//
 import {
   LOCAL_LOGIN,
@@ -25,7 +25,6 @@ const initialState = {
   perfilUsuario: [],
   //NOTICIAS STATES//
   noticias: [],
-  copiaNoticias: [],
   detalleNoticia: {},
 };
 
@@ -35,8 +34,16 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         noticias: action.payload,
-        copiaNoticias: action.payload,
       };
+      case GET_NOTICIA_DETAIL:
+        return {
+...state,
+detalleNoticia: action.payload
+        }
+        case FILTER_NOTICIAS:
+          return {
+            noticias:action.payload
+          }
     //LOCAL_LOGIN CASES//
     case LOCAL_LOGIN:
       if (action.payload.statusCode !== 203) {

@@ -9,6 +9,7 @@ const CardNoticia = (props) => {
     <div className="cardCont">
       <Link to={`/detalle/${props.id}`}>
         <div className="contTitle">
+          <p>{props.date.split('T')[0]}</p>
           <h1 className="title">{props.title}</h1>
         </div>
       </Link>
