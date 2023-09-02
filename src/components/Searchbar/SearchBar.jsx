@@ -47,9 +47,9 @@ export default function SearchBar() {
   const [post, setPost] = useState("");
 
   const handleChange = (event) => {
-    setPost(event.target.value);
-  };
-  
+    setPost(event.target.value)
+    
+  }
   return (
     <>
       <Search>
