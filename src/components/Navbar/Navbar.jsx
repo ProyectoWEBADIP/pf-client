@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../Searchbar/SearchBar";
@@ -9,16 +10,19 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { logout } from "../../redux/login-registerActions/loginActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useSelect } from "@mui/base";
 
 
 const Navbar = () => {
-  const [auth, setAuth] = React.useState(true)
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const access_token = localStorage.access_token
+  //!HOOKS
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const id = localStorage.userId
+  const [auth, setAuth] = React.useState(true)
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const access_token = localStorage.access_token
+
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -104,11 +108,13 @@ const Navbar = () => {
                 
                 { access_token ? (
                   <div>
-                  <MenuItem onClick={handleClose}><Button href="/miPerfil">Mi Perfil</Button></MenuItem>
+                  <MenuItem onClick={handleClose}><Link to={`/${id}/profile`}>
+                  <Button >Mi Perfil</Button>
+                  </Link></MenuItem>
                   <MenuItem><Button onClick={() => logOut()}>Cerrar sesión</Button></MenuItem>
                   </div>
                 ) : (
-                  <MenuItem onClick={handleClose}><Button href="/login" >Log in</Button></MenuItem>  
+                  <MenuItem onClick={handleClose}><Button href="/login" >Iniciar sesión</Button></MenuItem>  
                 )}
                                 
               </Menu>

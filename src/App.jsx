@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useSelector } from "react-redux";
 import CardsNoticias from "./components/CardsNoticias/CardsNoticias";
 import { Route, Routes, useLocation } from "react-router-dom";
@@ -23,7 +24,7 @@ function App() {
       <Route path={"/login/SignUp"} element={<SingUp/>}/>
       <Route path={"/detalle/:id"} element={<NoticiaDetail/>}/>
       <Route path={"/crearNoticia"} element={<CrearNoticia/>}/>
-      <Route path={"/miPerfil"} element={<PerfilUsuario/>} />
+      <Route path={"/:id/profile"} element={<PerfilUsuario/>} />
       </Routes>
       
 

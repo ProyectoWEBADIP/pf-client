@@ -8,17 +8,21 @@ import {
   HISTORY,
   LOGGIN_IN,
   REGISTER_USER,
+  GET_USER_BY_ID,
+  CREATE_PROFILE_LOCAL
 } from './login-registerActions/actionTypes';
 
 const initialState = {
   //LOGIN_STATES//
   loggedIn: false,
-  usuario: [],
   successLogin: '',
   actualPath: '',
   logginIn: false,
   //LOGIN_ERRORS//
   loginRegisterErrors: {},
+  //USUARIO_STATES
+  usuario: {},
+  perfilUsuario: [],
   //NOTICIAS STATES//
   noticias: [],
   copiaNoticias: [],
@@ -38,6 +42,7 @@ export default function rootReducer(state = initialState, action) {
       if (action.payload.statusCode !== 203) {
         localStorage.setItem('access_token', action.payload.access_token);
         localStorage.setItem('userLogin', true);
+        localStorage.setItem('userId', action.payload.id);
         return {
           ...state,
           logginIn: false,
@@ -62,6 +67,7 @@ export default function rootReducer(state = initialState, action) {
     case LOGOUT:
       localStorage.removeItem('access_token');
       localStorage.removeItem('userLogin');
+      localStorage.removeItem('userId');
       return {
         ...state,
         logginIn: false,
@@ -69,6 +75,7 @@ export default function rootReducer(state = initialState, action) {
         loggedIn: false,
         actualPath: '',
         successLogin: '',
+        perfilUsuario:[]
       };
     //REGISTER CASES//
     case REGISTER_USER: //REGISTRO CON GOOGLE
@@ -77,14 +84,28 @@ export default function rootReducer(state = initialState, action) {
         action.payload.access_token.access_token
       );
       localStorage.setItem('userLogin', true);
+      localStorage.setItem('userId', action.payload.id);
+
       return {
         ...state,
+        usuario: action.payload.access_token,
         successLogin: action.payload.message,
         logginIn: false,
         loggedIn: true,
         loginRegisterErrors: {},
       };
-    
+      //GET USUARIOS CASES
+      case GET_USER_BY_ID:
+        return{
+          ...state,
+          perfilUsuario: action.payload
+        }
+        //CREAR Y/O ACTUALIZAR PERFIL CASES
+        case CREATE_PROFILE_LOCAL:
+          return {
+            ...state,
+            perfilUsuario: action.payload
+          }
     default:
       return { ...state };
   }
