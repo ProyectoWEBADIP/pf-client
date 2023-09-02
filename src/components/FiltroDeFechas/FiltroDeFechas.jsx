@@ -1,27 +1,39 @@
 /* eslint-disable no-unused-vars */
-import { Box } from "@mui/material";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { useState } from "react";
-import Button from "@mui/material/Button";
-import dayjs from "dayjs";
+import { Box } from '@mui/material';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { useState } from 'react';
+import Button from '@mui/material/Button';
+import dayjs from 'dayjs';
+import { useDispatch } from 'react-redux';
+import { filteredNoticias } from '../../redux/noticiasActions/noticiasActions';
 
 function FiltroDeFechas() {
-  const [valueStart, setValueStart] = useState(null);
-  const [valueEnd, setValueEnd] = useState(null);
+  //!HOOKS
+  const dispatch = useDispatch()
+  //!HOOKS
 
+  const [valueStart, setValueStart] = useState('');
+  const [valueEnd, setValueEnd] = useState('');
+  let startDate;
+  let endDate;
   const handleChangeStart = (newValue) => {
-    setValueStart(newValue);
-    const fechaStringStart = newValue ? dayjs(newValue).format("YYYY-MM-DD") : "";
+    const fechaStringStart = newValue
+      ? dayjs(newValue).format('YYYY-MM-DD')
+      : '';
+    startDate = Date.parse(`${fechaStringStart}T00:00:00.000Z`);
   };
 
   const handleChangeEnd = (newValue) => {
-    setValueEnd(newValue);
-    const fechaStringEnd = newValue ? dayjs(newValue).format("YYYY-MM-DD") : "";
+    const fechaStringEnd = newValue ? dayjs(newValue).format('YYYY-MM-DD') : '';
+    endDate = Date.parse(`${fechaStringEnd}T00:00:00.000Z`);
   };
 
-  const today = dayjs()
+  function handleSearch() {
+    dispatch(filteredNoticias(startDate,endDate))
+  }
+  const today = dayjs();
 
   return (
     <Box>
@@ -32,7 +44,7 @@ function FiltroDeFechas() {
           value={valueStart}
           onChange={handleChangeStart}
           maxDate={today}
-          />
+        />
 
         <DatePicker
           slotProps={{ textField: { variant: 'outlined' } }}
@@ -44,7 +56,7 @@ function FiltroDeFechas() {
       </LocalizationProvider>
 
       <Box mt={1}>
-        <Button variant="contained" >Buscar</Button>
+        <Button onClick={handleSearch} variant="contained">Buscar</Button>
       </Box>
     </Box>
   );

@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-unused-vars */
 import { useSelector } from "react-redux";
 import CardsNoticias from "./components/CardsNoticias/CardsNoticias";
 import { Route, Routes, useLocation } from "react-router-dom";
@@ -11,9 +12,6 @@ import NoticiaDetail from "./components/detailNoticia/NoticiaDetail";
 import CrearNoticia from "./components/CraerNoticia/CrearNoticia";
 import PerfilUsuario from "./components/PerfilUsuario/Perfil"
 
-
-
-
 function App() {
   
   return (
@@ -25,7 +23,7 @@ function App() {
       <Route path={"/login/SignUp"} element={<SingUp/>}/>
       <Route path={"/detalle/:id"} element={<NoticiaDetail/>}/>
       <Route path={"/crearNoticia"} element={<CrearNoticia/>}/>
-      <Route path={"/miPerfil"} element={<PerfilUsuario/>} />
+      <Route path={"/:id/profile"} element={<PerfilUsuario/>} />
       </Routes>
       
       

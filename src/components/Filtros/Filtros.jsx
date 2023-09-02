@@ -45,26 +45,21 @@ export default function Filtros(){
     
     return(
         <Container>
-        
         <Box>
             <Typography>Filtrar categorías</Typography>
         </Box>
-       
-
         <Box mt={3}>
             <TextField variant="standard" fullWidth id="outlined-select-order" select label="Ordenar por" defaultValue="Más reciente">
                 <MenuItem value="latest">Más reciente</MenuItem>
                 <MenuItem value="oldest">Más antiguo</MenuItem>
             </TextField>
         </Box>
-
         <Box mt={3}>
             <Typography>Filtrar por fecha</Typography>
         </Box>
       <Box mt={3}>
         <FiltroDeFechas />
       </Box>
-       
     </Container>
     )
 }
