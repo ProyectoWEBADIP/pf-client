@@ -10,12 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@cloudinary/react": "^1.11.2",
     "@cloudinary/url-gen": "^1.11.2",
-=======
-    "@auth0/auth0-react": "^2.2.1",
->>>>>>> f8613422f555dbb55b5ee91d78f4cd58730f11e2
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.7",

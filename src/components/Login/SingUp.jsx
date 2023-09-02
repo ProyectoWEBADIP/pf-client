@@ -1,16 +1,9 @@
-<<<<<<< HEAD
-=======
-/* eslint-disable no-unused-vars */
->>>>>>> f8613422f555dbb55b5ee91d78f4cd58730f11e2
 import { useDispatch } from "react-redux";
 import Validation from "./validaciones";
 import { useState } from "react";
 import { registerUser } from "../../redux/login-registerActions/loginActions";
-<<<<<<< HEAD
 
 import axios from "axios";
-=======
->>>>>>> f8613422f555dbb55b5ee91d78f4cd58730f11e2
 
 export default function SingUp(){
 
@@ -20,7 +13,8 @@ export default function SingUp(){
     const [error, setError] = useState({})
 
       
-      const dispatch = useDispatch()
+    const dispatch = useDispatch()
+
     const handleChange = (event) => {
         
         setInput({
@@ -33,7 +27,6 @@ export default function SingUp(){
         }) )
     }
     
-<<<<<<< HEAD
 
     const submitImage = async (e) => {
       e.preventDefault()
@@ -51,8 +44,6 @@ export default function SingUp(){
       
 
     }    
-=======
->>>>>>> f8613422f555dbb55b5ee91d78f4cd58730f11e2
     function handleSubmit(){
       dispatch(registerUser(input))
     }
@@ -160,13 +151,8 @@ export default function SingUp(){
             </label>
             <input
               className="w-full px-4 py-2 border rounded"
-<<<<<<< HEAD
               onChange={(e) => { setInput({...input, imagen: e.target.files[0]}) }}
               
-=======
-              onChange={handleChange}
-              value={input.imagen}
->>>>>>> f8613422f555dbb55b5ee91d78f4cd58730f11e2
               type="file"
               name="imagen"
               accept="image/*"
