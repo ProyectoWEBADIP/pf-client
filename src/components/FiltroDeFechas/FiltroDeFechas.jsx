@@ -1,51 +1,51 @@
-import { Box, TextField } from "@mui/material";
+/* eslint-disable no-unused-vars */
+import { Box } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useState } from "react";
-import Button from '@mui/joy/Button';
+import Button from "@mui/material/Button";
 import dayjs from "dayjs";
 
 function FiltroDeFechas() {
-  const [valueStart, setValueStart] = useState({});
-  const [valueEnd, setValueEnd] = useState({});
+  const [valueStart, setValueStart] = useState(null);
+  const [valueEnd, setValueEnd] = useState(null);
 
-  const handleSearchClick = () => {
-    const dateString1 = valueStart ? dayjs(valueStart).format("DD-MM-YYYY") : "";
-    const dateString2 = valueEnd ? dayjs(valueEnd).format("DD-MM-YYYY") : "";
-
-    console.log("Fecha 1:", dateString1);
-    console.log("Fecha 2:", dateString2);
+  const handleChangeStart = (newValue) => {
+    setValueStart(newValue);
+    const fechaStringStart = newValue ? dayjs(newValue).format("YYYY-MM-DD") : "";
   };
+
+  const handleChangeEnd = (newValue) => {
+    setValueEnd(newValue);
+    const fechaStringEnd = newValue ? dayjs(newValue).format("YYYY-MM-DD") : "";
+  };
+
+  const today = dayjs()
 
   return (
     <Box>
-      
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DatePicker
+          slotProps={{ textField: { variant: 'outlined' } }}
           label="Desde..."
           value={valueStart}
-          onChange={(newValue) => setValueStart(newValue)}
-          renderInput={(props) => <TextField {...props} />}
-        />
+          onChange={handleChangeStart}
+          maxDate={today}
+          />
 
         <DatePicker
+          slotProps={{ textField: { variant: 'outlined' } }}
           value={valueEnd}
           label="Hasta..."
-          onChange={(newValue) => setValueEnd(newValue)}
-          renderInput={(props) => <TextField {...props} />}
+          onChange={handleChangeEnd}
+          maxDate={today}
         />
-
       </LocalizationProvider>
 
-      <Button
-        color="primary"
-        disabled={false}
-        onClick={handleSearchClick}
-        size="sm"
-        variant="soft"
-      >Busqueda</Button>
-
+      <Box mt={1}>
+        <Button variant="contained" >Buscar</Button>
+      </Box>
     </Box>
   );
 }
