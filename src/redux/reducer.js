@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { GET_ALL_NOTICIAS } from './actions';
+import { GET_ALL_NOTICIAS } from './noticiasActions/noticiasActionTypes';
 //LOGIN_REGISTER ACTION TYPES//
 import {
   LOCAL_LOGIN,

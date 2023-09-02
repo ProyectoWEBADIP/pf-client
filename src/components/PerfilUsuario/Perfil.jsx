@@ -94,7 +94,6 @@ export default function Perfil() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const urlImage = await submitImgToCloudinary();
 
     dispatch(createLocalProfile(id, profileData));
   }
@@ -157,7 +156,7 @@ export default function Perfil() {
               />
               <div>
               <h2>
-                Bienvenido, {profileData.firstName} {profileData.lastName}
+                Bienvenido, {<br></br>}{profileData.firstName} {profileData.lastName}
               </h2>
             </div>
               {/* {error.imagen && <p>{error.imagen}</p>} */}
@@ -225,28 +224,4 @@ export default function Perfil() {
       )}
     </div>
   );
-}
-
-{
-  /* <div className={style.container}>
-            <div className={style.image}>
-            <img src="https://pbs.twimg.com/profile_images/1454099552106074116/eEn8pMnN_400x400.jpg"/>
-
-            </div>
-
-            <div className={style.title}>
-            <h1 className={style.name}>OLI DALLACHIESA</h1>
-            <h1>Carnet N° 40458644</h1>
-            </div>
-
-            <div className={style.info}>
-                <h2 className={style.category}>Categoría - Mayores Femenino</h2>
-                
-                <div className={style.payment}>
-                    <h3 className={style.lastPayment}>Ultimo pago: </h3>
-                    <h2 className={style.status}>SEPTIEMBRE ✔</h2>
-                </div>
-            </div>
-
-            </div> */
 }

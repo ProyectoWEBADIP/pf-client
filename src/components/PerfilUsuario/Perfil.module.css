@@ -48,7 +48,7 @@ height: auto;
   justify-content: space-around;
   height: auto;
   background-color: #FB731C;
-  
+
  border: solid .3rem black;
   border-radius: 2rem;
 
@@ -56,7 +56,6 @@ height: auto;
 .prevImgCont{
 width: 100%;
   display: flex;
-  
   justify-content: space-around;
 
 }
