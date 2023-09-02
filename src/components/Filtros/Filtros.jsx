@@ -4,6 +4,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Container, MenuItem, Sel
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useState } from "react";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import FiltroDeFechas from '../FiltroDeFechas/FiltroDeFechas'
 
 export default function Filtros(){
     const [checked, setChecked] = useState([false, false, false, false, false]);
@@ -57,6 +58,12 @@ export default function Filtros(){
             </TextField>
         </Box>
 
+        <Box mt={3}>
+            <Typography>Filtrar por fecha</Typography>
+        </Box>
+      <Box mt={3}>
+        <FiltroDeFechas />
+      </Box>
        
     </Container>
     )
