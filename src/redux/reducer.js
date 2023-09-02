@@ -8,6 +8,7 @@ import {
   HISTORY,
   LOGGIN_IN,
   REGISTER_USER,
+  REGISTER_USER_LOCAL,
 } from './login-registerActions/actionTypes';
 
 const initialState = {
@@ -23,6 +24,7 @@ const initialState = {
   noticias: [],
   copiaNoticias: [],
   detalleNoticia: {},
+  loginRegisterLocal: ""
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -84,7 +86,11 @@ export default function rootReducer(state = initialState, action) {
         loggedIn: true,
         loginRegisterErrors: {},
       };
-    
+    case REGISTER_USER_LOCAL: 
+      return {
+        ...state,
+        loginRegisterLocal: action.payload
+      }
     default:
       return { ...state };
   }
