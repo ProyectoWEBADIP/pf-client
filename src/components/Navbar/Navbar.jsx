@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../Searchbar/SearchBar";
@@ -10,6 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { logout } from "../../redux/login-registerActions/loginActions";
 import { useDispatch } from "react-redux";
+
 
 
 const Navbar = () => {
