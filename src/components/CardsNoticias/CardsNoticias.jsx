@@ -49,7 +49,7 @@ const CardsNoticias = () => {
       <div>
         <div>
           <button onClick={handlePrevPage} disabled={currentPage === 0}>
-            previo
+            Anterior
           </button>
         </div>
         <div>
@@ -68,7 +68,7 @@ const CardsNoticias = () => {
           onClick={handleNextPage}
           disabled={currentPage === totalPage - 1}
         >
-          siguiente
+          Siguiente
         </button>
       </div>
     </div>

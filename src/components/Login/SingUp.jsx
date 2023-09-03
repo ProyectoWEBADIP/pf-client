@@ -98,7 +98,7 @@ export default function SignUp() {
         />
       </div>
       <hr />
-      {respuesta?.includes("éxito") ? navigate("/login") : <p>{respuesta}</p>}
+      {respuesta?.includes("éxito") ? navigate("/login") : <h5>{respuesta}</h5>}
       <div>
         <h5>⚠ Debe ser mayor a 8 caracteres</h5>
         <h5>⚠ Debe contener al menos un carácter especial</h5>
