@@ -10,11 +10,10 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getAllNoticias } from '../../redux/noticiasActions/noticiasActions';
 
-export default function Home() {
-  //!HOOKS
-  const dispatch = useDispatch();
 
 export default function Home (){
+  const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getAllNoticias());
   }, [dispatch]);
