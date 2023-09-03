@@ -5,6 +5,7 @@ import Filtros from '../Filtros/Filtros';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getAllNoticias } from '../../redux/noticiasActions/noticiasActions';
+import { getAllCategories } from "../../redux/categoriasActions/categoriasActions";
 
 
 export default function Home (){
@@ -12,6 +13,7 @@ export default function Home (){
 
   useEffect(() => {
     dispatch(getAllNoticias());
+    dispatch(getAllCategories())
   }, [dispatch]);
   
 

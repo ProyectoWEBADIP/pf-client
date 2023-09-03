@@ -18,6 +18,10 @@ import {
   CREATE_PROFILE_LOCAL,
   REGISTER_USER_LOCAL,
 } from './login-registerActions/actionTypes';
+//Categorias types
+import {
+  GET_ALL_CATEGORIES
+} from "../redux/categoriasActions/categoriasActionTypes"
 
 const initialState = {
   isLoading: false,
@@ -34,7 +38,8 @@ const initialState = {
   //NOTICIAS STATES//
   noticias: [],
   detalleNoticia: {},
-  loginRegisterLocal: ""
+  loginRegisterLocal: "",
+  categorias: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -146,6 +151,11 @@ export default function rootReducer(state = initialState, action) {
         return {
           ...state,
           loginRegisterLocal: action.payload
+        }
+        case GET_ALL_CATEGORIES: 
+        return {
+          ...state,
+          categorias: action.payload
         }
     default:
       return { ...state };
