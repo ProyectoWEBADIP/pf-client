@@ -3,7 +3,10 @@ import {
   FILTER_NOTICIAS,
   GET_ALL_NOTICIAS,
   GET_NOTICIA_DETAIL,
-  CLEAN_NOTICIA_DETAIL
+  CLEAN_NOTICIA_DETAIL,
+  GET_NOTICIAS_BY_TITLE,
+  CLEAN_FILTERS_NOTICIAS,
+  NOT_FOUND_NOTICIAS
 } from './noticiasActions/noticiasActionTypes';
 //LOGIN_REGISTER ACTION TYPES//
 import {
@@ -32,7 +35,9 @@ const initialState = {
   perfilUsuario: [],
   //NOTICIAS STATES//
   noticias: [],
+  noticiasBackUp: [],
   detalleNoticia: {},
+  notFoundNoticias:false
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -47,23 +52,46 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         noticias: action.payload,
         isLoading: false,
+        noticiasBackUp:action.payload,
+        notFoundNoticias:false
       };
+      case GET_NOTICIAS_BY_TITLE:
+        return{
+          ...state,
+          noticias: action.payload,
+          notFoundNoticias:false
+          
+        }
     case GET_NOTICIA_DETAIL:
       return {
         ...state,
         detalleNoticia: action.payload,
         isLoading: false,
+        notFoundNoticias:false
       };
     case FILTER_NOTICIAS:
       return {
         noticias: action.payload,
         isLoading: false,
+        notFoundNoticias:false
       };
+      case CLEAN_FILTERS_NOTICIAS:
+        return{
+          ...state,
+          noticias: [...state.noticiasBackUp],
+          notFoundNoticias:false
+
+        }
     case CLEAN_NOTICIA_DETAIL:
       return{
         ...state,
         detalleNoticia:{}
       }
+      case NOT_FOUND_NOTICIAS:
+        return{
+          ...state,
+          notFoundNoticias:true
+        }
     //LOCAL_LOGIN CASES//
     case LOCAL_LOGIN:
       if (action.payload.statusCode !== 203) {

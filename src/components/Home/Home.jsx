@@ -3,13 +3,13 @@ import CardsNoticias from '../CardsNoticias/CardsNoticias';
 import CardPartidoContainer from '../CardPartidoContainer/CardPartidoContainer';
 import Filtros from '../Filtros/Filtros';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getAllNoticias } from '../../redux/noticiasActions/noticiasActions';
-
+import NotFoundComponent from "../notFound/notFound";
 
 export default function Home (){
   const dispatch = useDispatch();
-
+const notFoundNoticias = useSelector(state=>state.notFoundNoticias)
   useEffect(() => {
     dispatch(getAllNoticias());
   }, [dispatch]);
@@ -25,7 +25,7 @@ export default function Home (){
                     <Filtros/>
                 </Grid>
                 <Grid item xs={9} >
-                    <CardsNoticias/>
+                    {notFoundNoticias?<NotFoundComponent/>:<CardsNoticias/>}
                 </Grid>
            </Grid>  
         </div>
