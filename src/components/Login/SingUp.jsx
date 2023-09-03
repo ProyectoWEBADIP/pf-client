@@ -105,6 +105,7 @@ export default function SignUp() {
       </div>
       <hr />
       <button type="submit">Crear cuenta</button>
+      
     </form>
   );
 }
