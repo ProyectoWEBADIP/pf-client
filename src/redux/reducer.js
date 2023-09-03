@@ -14,12 +14,8 @@ import {
   HISTORY,
   LOGGIN_IN,
   REGISTER_USER,
-<<<<<<< HEAD
-  REGISTER_USER_LOCAL,
-=======
   GET_USER_BY_ID,
   CREATE_PROFILE_LOCAL,
->>>>>>> 5095e59679ad767ad64e274b1c0e76adc353584c
 } from './login-registerActions/actionTypes';
 
 const initialState = {
@@ -131,13 +127,6 @@ export default function rootReducer(state = initialState, action) {
         loggedIn: true,
         loginRegisterErrors: {},
       };
-<<<<<<< HEAD
-    case REGISTER_USER_LOCAL: 
-      return {
-        ...state,
-        loginRegisterLocal: action.payload
-      }
-=======
     //GET USUARIOS CASES
     case GET_USER_BY_ID:
       return {
@@ -152,7 +141,6 @@ export default function rootReducer(state = initialState, action) {
         isLoading: false,
         perfilUsuario: action.payload,
       };
->>>>>>> 5095e59679ad767ad64e274b1c0e76adc353584c
     default:
       return { ...state };
   }
