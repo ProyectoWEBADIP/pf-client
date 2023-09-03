@@ -37,7 +37,8 @@ const initialState = {
   noticias: [],
   noticiasBackUp: [],
   detalleNoticia: {},
-  notFoundNoticias:false
+  notFoundNoticias:false,
+  loginRegisterLocal: ""
 };
 
 export default function rootReducer(state = initialState, action) {

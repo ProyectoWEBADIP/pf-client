@@ -1,169 +1,111 @@
 /* eslint-disable no-unused-vars */
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Validation from "./validaciones";
 import { useState } from "react";
 import { registerUser } from "../../redux/login-registerActions/loginActions";
+import { useNavigate } from "react-router-dom";
 
-import axios from "axios";
+export default function SignUp() {
+  const navigate = useNavigate();
+  const [input, setInput] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
 
-export default function SingUp(){
+  const [error, setError] = useState({});
+  const dispatch = useDispatch();
 
+  const handleChange = (event) => {
+    setInput({
+      ...input,
+      [event.target.name]: event.target.value,
+    });
+    setError(
+      Validation({
+        ...input,
+        [event.target.name]: event.target.value,
+      })
+    );
+  };
 
-    const [input, setInput] = useState({nombre: "", apellido: "", DNI: "", email: "", fechaNacimiento: "", imagen: [], contraseña: "", verificacionContraseña:""})
-    
-    const [error, setError] = useState({})
+  const respuesta = useSelector((state) => state.loginRegisterLocal);
 
-      
-      const dispatch = useDispatch()
-    const handleChange = (event) => {
-        
-        setInput({
-            ...input,
-            [event.target.name] : event.target.value 
-        })
-        setError(Validation({
-            ...input,
-            [event.target.name] : event.target.value
-        }) )
+  function handleSubmit(e) {
+    e.preventDefault();
+    const tieneErrors = Object.keys(error);
+    console.log(tieneErrors);
+    if (tieneErrors.length === 0) {
+      dispatch(registerUser(input));
+    } else {
+      alert("Verifique los campos");
     }
+  }
 
-    const submitImage = async (e) => {
-      e.preventDefault()
-      try {
-      const formData = new FormData()
-      formData.append("file", input.imagen)
-      formData.append("upload_preset", "Usuarios")
-      formData.append("cloud_name", "drpdobxfu")
-      
-        const { data } = await axios.post("https://api.cloudinary.com/v1_1/drpdobxfu/image/upload", formData)
-        setInput({...input, imagen: data.secure_url})
-      } catch (error) {
-        console.log(error.message);
-      }
-    }
-    
-    function handleSubmit(){
-      dispatch(registerUser(input))
-    }
-    return (
-        <form className="bg-slate-300 p-4 text-center">
-          <div className="mb-4">
-            <label htmlFor="nombre" className="block mb-1">
-              Nombre:
-            </label>
-            {error.nombre && <p className="text-red-500">{error.nombre}</p>}
-            <input
-              className="w-full px-4 py-2 border rounded"
-              onChange={handleChange}
-              name="nombre"
-              value={input.nombre}
-              type="text"
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="apellido" className="block mb-1">
-              Apellido:
-            </label>
-            {error.apellido && <p className="text-red-500">{error.apellido}</p>}
-            <input
-              className="w-full px-4 py-2 border rounded"
-              onChange={handleChange}
-              name="apellido"
-              value={input.apellido}
-              type="text"
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="DNI" className="block mb-1">
-              DNI:
-            </label>
-            {error.DNI && <p className="text-red-500">{error.DNI}</p>}
-            <input
-              className="w-full px-4 py-2 border rounded"
-              placeholder="Sin puntos ni comas"
-              onChange={handleChange}
-              name="DNI"
-              value={input.DNI}
-              type="number"
-            />
-          </div>
-         
-          <div className="mb-4">
-            <label htmlFor="fechaNacimiento" className="block mb-1">
-              Fecha de nacimiento:
-            </label>
-            {error.fechaNacimiento && <p className="text-red-500">{error.fechaNacimiento}</p>}
-            <input
-              className="w-full px-4 py-2 border rounded"
-              onChange={handleChange}
-              name="fechaNacimiento"
-              value={input.fechaNacimiento}
-              type="date"
-            />
-          </div>
+  return (
+    <form onSubmit={handleSubmit} className="bg-slate-300 p-4 text-center">
+      <h1>Crea tu cuenta aquí</h1>
 
-          <div className="mb-4">
-            <label htmlFor="email" className="block mb-1">
-              Email:
-            </label>
-            {error.email && <p className="text-red-500">{error.email}</p>}
-            <input
-              className="w-full px-4 py-2 border rounded"
-              onChange={handleChange}
-              name="email"
-              value={input.email}
-              type="email"
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="contraseña" className="block mb-1">
-              Contraseña:
-            </label>
-            {error.contraseña && <p className="text-red-500">{error.contraseña}</p>}
-            <input
-              className="w-full px-4 py-2 border rounded"
-              onChange={handleChange}
-              name="contraseña"
-              value={input.contraseña}
-              type="password"
-              placeholder="ingrese una contraseña"
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="contraseña" className="block mb-1">
-              Verificaion de contraseña:
-            </label>
-            {error.verificacionContraseña && <p className="text-red-500">{error.verificacionContraseña}</p>}
-            <input
-              className="w-full px-4 py-2 border rounded"
-              onChange={handleChange}
-              name="verificacionContraseña"
-              value={input.verificacionContraseña}
-              type="password"
-              placeholder="repita su contraseña"
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="imagen" className="block mb-1">
-              Foto de perfil:
-            </label>
-            <input
-              className="w-full px-4 py-2 border rounded"
-              onChange={(e) => { setInput({...input, imagen: e.target.files[0]}) }}
-              
-              type="file"
-              name="imagen"
-              accept="image/*"
-            />
-            <button onClick={submitImage}>upLoad</button>
-          </div>
-          <button
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-            onClick={handleChange}
-          >
-            Registrarse
-          </button>
-        </form>
+      <div>
+        <label htmlFor="username">
+          <h3>Nombre de usuario:</h3>
+        </label>
+
+        {error.username ? <p>{error.username}</p> : null}
+        <input
+          type="text"
+          name="username"
+          placeholder="Elija su nombre de usuario"
+          onChange={handleChange}
+          value={input.username}
+          required
+        />
+
+        <p>✔ puedes usar letras y numeros</p>
+      </div>
+
+      <div className="mb-4">
+        <label htmlFor="email" className="block mb-1">
+          <h3>Correo electrónico:</h3>
+        </label>
+
+        {error.email && <p className="text-red-500">{error.email}</p>}
+        <input
+          className="w-full px-4 py-2 border rounded"
+          onChange={handleChange}
+          name="email"
+          value={input.email}
+          type="email"
+          placeholder="Ingrese su correo electrónico"
+          required
+        />
+      </div>
+
+      <div className="mb-4">
+        <label htmlFor="password" className="block mb-1">
+          <h3>Contraseña:</h3>
+        </label>
+
+        {error.password && <p className="text-red-500">{error.password}</p>}
+        <input
+          className="w-full px-4 py-2 border rounded"
+          onChange={handleChange}
+          name="password"
+          value={input.password}
+          type="password"
+          placeholder="Ingrese su contraseña"
+          required
+        />
+      </div>
+      <hr />
+      {respuesta?.includes("éxito") ? navigate("/login") : <h5>{respuesta}</h5>}
+      <div>
+        <h5>⚠ Debe ser mayor a 8 caracteres</h5>
+        <h5>⚠ Debe contener al menos un carácter especial</h5>
+      </div>
+      <hr />
+      <button type="submit">Crear cuenta</button>
       
-)
+    </form>
+  );
 }
