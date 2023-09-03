@@ -3,12 +3,13 @@ import React from 'react';
 import CardNoticia from '../cardNoticia/CardNoticia';
 import './cardsNoticias.css';
 import { useSelector } from 'react-redux';
+import { Container, display, padding } from "@mui/system";
+import { Grid } from "@mui/material";
 
 const CardsNoticias = () => {
-
   const noticias = useSelector((state) => state.noticias);
   return (
-    <div className="cont">
+    <Container sx={{display:"flex", flexWrap:"wrap"}}>
       {noticias?.map((notice) => (
         <CardNoticia
           key={notice.id}
@@ -20,7 +21,8 @@ const CardsNoticias = () => {
           date={notice.date}
         />
       ))}
-    </div>
+   
+    </Container>
   );
 };
 
