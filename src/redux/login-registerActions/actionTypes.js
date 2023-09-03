@@ -1,4 +1,5 @@
 //LOGIN ACTION TYPES//
+export const IS_LOADING = 'IS_LOADING'
 export const LOCAL_LOGIN = 'LOCAL_LOGIN'
 export const LOCAL_LOGIN_ERROR = 'LOCAL_LOGIN_ERROR'
 export const LOGOUT = 'LOGOUT'

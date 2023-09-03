@@ -13,16 +13,17 @@ export default function Home() {
   useEffect(() => {
     dispatch(getAllNoticias());
   }, [dispatch]);
-  
+
   return (
     <div>
-      <CardPartidoContainer />
       <Typography variant="h2" fontWeight="bold">
         Noticias
       </Typography>
       <br />
       <Filtros />
       <CardsNoticias />
+      <CardPartidoContainer />
+
     </div>
   );
 }

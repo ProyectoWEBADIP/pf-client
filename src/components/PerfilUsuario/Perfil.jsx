@@ -12,6 +12,7 @@ import { useSelect } from '@mui/base';
 import Validation from '../Login/validaciones';
 import axios from 'axios';
 import { lightGreen } from '@mui/material/colors';
+import { setIsLoading } from '../../utils/setIsLoading';
 export default function Perfil() {
   //!HOOKS
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ export default function Perfil() {
   const [error, setError] = useState({});
 
   useEffect(() => {
+dispatch(setIsLoading())
     dispatch(getUserById(id));
   }, [dispatch, id]);
 
@@ -39,11 +41,6 @@ export default function Perfil() {
       setFile(event.target.files[0]);
       const path = URL.createObjectURL(file);
       setImageURL(path);
-
-      // setProfileData({
-      //   ...profileData,
-      //   [event.target.name]:event.target.files[0]
-      // })
     }
     setProfileData({
       ...profileData,
@@ -98,10 +95,11 @@ export default function Perfil() {
     dispatch(createLocalProfile(id, profileData));
   }
   const perfilUsuario = useSelector((state) => state.perfilUsuario);
-
+const isLoading = useSelector(state=>state.isLoading)
   return (
     <div className={style.formcomponentcont}>
-      {!perfilUsuario.active ? (
+      <div>
+{!isLoading?      !perfilUsuario.active ? (
         <div className={style.contProf}>
           <div className={style.formContainerProfile}>
             {
@@ -221,7 +219,16 @@ export default function Perfil() {
             </div>
           </div>
         </div>
+      ):(
+        <div className={style.box}>
+          <div className={style.shadow}></div>
+          <div className={style.gravity}>
+            <div className={style.ball}></div>
+          </div>
+        </div>
       )}
+      </div>
+
     </div>
   );
 }
