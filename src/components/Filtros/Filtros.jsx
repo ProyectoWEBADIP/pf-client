@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { fontStyle } from "@mui/system";
 import FiltroDeFechas from '../FiltroDeFechas/FiltroDeFechas'
+import { useSelector } from "react-redux";
 
 export default function Filtros(){
     const [state, setState] = useState({
@@ -32,7 +33,8 @@ export default function Filtros(){
   };
 
   const { femenino, masculino, infantiles, inferiores, recreativo } = state;
-
+  const categoría = useSelector((state) => state.categorias)
+  console.log("====> categorias ",categoría);
     
     return(
         <Container>
