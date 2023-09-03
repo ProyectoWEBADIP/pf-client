@@ -1,9 +1,13 @@
 import { Check, CheckBox } from "@mui/icons-material";
 import { Accordion, AccordionDetails, AccordionSummary, Container, MenuItem, Select, Typography, FormControl, InputLabel, TextField, Box, FormLabel } from "@mui/material";
+/* eslint-disable no-unused-vars */
+import { CheckBox } from "@mui/icons-material";
+import { Accordion, AccordionDetails, AccordionSummary, Container, MenuItem, Select, Typography, FormControl, InputLabel, TextField, Box } from "@mui/material";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import React, { useState } from "react";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { fontStyle } from "@mui/system";
+import FiltroDeFechas from '../FiltroDeFechas/FiltroDeFechas'
 
 export default function Filtros(){
     const [state, setState] = useState({
@@ -76,8 +80,12 @@ export default function Filtros(){
                 <MenuItem value="oldest">Más antiguo</MenuItem>
             </TextField>
         </Box>
-
-       
+        <Box mt={3}>
+            <Typography>Filtrar por fecha</Typography>
+        </Box>
+      <Box mt={3}>
+        <FiltroDeFechas />
+      </Box>
     </Container>
     )
 }

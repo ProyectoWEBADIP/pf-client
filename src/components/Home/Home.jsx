@@ -2,10 +2,23 @@ import CardsNoticias from "../CardsNoticias/CardsNoticias"
 import CardPartidoContainer from "../CardPartidoContainer/CardPartidoContainer"
 import { Grid, Typography } from "@mui/material"
 import Filtros from "../Filtros/Filtros"
+import CardsNoticias from '../CardsNoticias/CardsNoticias';
+import CardPartidoContainer from '../CardPartidoContainer/CardPartidoContainer';
+import { Typography } from '@mui/material';
+import Filtros from '../Filtros/Filtros';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { getAllNoticias } from '../../redux/noticiasActions/noticiasActions';
 
+export default function Home() {
+  //!HOOKS
+  const dispatch = useDispatch();
 
 export default function Home (){
-
+  useEffect(() => {
+    dispatch(getAllNoticias());
+  }, [dispatch]);
+  
 
     return (
         <div>

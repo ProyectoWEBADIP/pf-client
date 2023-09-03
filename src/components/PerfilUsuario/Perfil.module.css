@@ -1,72 +1,88 @@
-.container {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
 
 .image {
-width: 180px;
-height: 180px;
-border-radius: 50%;
-background-color: #ddd;
-margin: 0 auto 20px;
-display: flex;
-justify-content: center;
-align-items: center;
-font-size: 24px;
-overflow: hidden;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background-color: #ddd;
+  margin: 0 auto 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  overflow: hidden;
 }
 
-.image img{
-max-width: 100%; /* Asegura que la imagen no sea más ancha que su contenedor */
-max-height: 100%; /* Asegura que la imagen no sea más alta que su contenedor */
+.contProf{
+    display: flex;
+    justify-content: space-around;
+    width: 70vw;
+    height: 70vh;
+}
+.formContainerProfile {
+  display: flex;
+  flex-direction: column;
+  width: 30vw;
+  justify-content: space-around;
+  background-color: #FB731C;
+  border: solid .3rem black;
+  border-radius: 2rem;
 
 }
-
-.title {
-margin: 10px 0;
-font-size: 30px;
+.formContainer form{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 
 }
-
-.name{
-font-weight: bold;
+.formContainer form button{
+  background-color: orange;
 }
-
-.info {
-margin: 20px 0;
+.formcomponentcont{
+    width: 100%;
+height: auto;
 }
+.prevContainer{
 
-.category {
-font-size: 18px;
+  width: 30vw;
+  justify-content: space-around;
+  height: auto;
+  background-color: #FB731C;
+
+ border: solid .3rem black;
+  border-radius: 2rem;
+
 }
+.prevImgCont{
+width: 100%;
+  display: flex;
+  justify-content: space-around;
 
-.payment{
-margin: 10px 0;
 }
+.prevContainer img{
+  width: 25%;
+  background-color: #FB731C;
+  border: .2rem solid rgb(0, 0, 0);
+  border-radius: 50%;
 
-.lastPayment {
-font-size: 18px;
 }
-
-.status {
-font-size: 18px;
-color: green;
+.perfilContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 50vw;
+  height: 70vh;
+  background-color: rgba(217, 129, 15, 0.599);
+  border: .5rem solid rgba(0, 0, 0, 0.279);
+  border-radius: 1rem;
 }
-
-.debt {
-margin-top: 10px;
-font-size: 18px;
-color: red;
+.imgCont{
+  display: flex;
+  justify-content: space-around;
 }
-
-
-.logout {
-display: block;
-margin-top: 30px;
-text-decoration: none;
-color: #333;
-font-weight: bold;
+.imgCont img{
+  width: 10rem;
+  background-color: #FB731C;
+  border: .2rem solid rgb(0, 0, 0);
+  border-radius: 100%;
 }
