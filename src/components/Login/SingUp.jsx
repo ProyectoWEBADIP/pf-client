@@ -43,25 +43,28 @@ export default function SingUp(){
     }
     
 
-    const submitImage = async (e) => {
-      e.preventDefault()
-      try {
-      const formData = new FormData()
-      formData.append("file", input.imagen)
-      formData.append("upload_preset", "Usuarios")
-      formData.append("cloud_name", "drpdobxfu")
+    // const submitImage = async (e) => {
+    //   e.preventDefault()
+    //   try {
+    //   const formData = new FormData()
+    //   formData.append("file", input.imagen)
+    //   formData.append("upload_preset", "Usuarios")
+    //   formData.append("cloud_name", "drpdobxfu")
       
-        const { data } = await axios.post("https://api.cloudinary.com/v1_1/drpdobxfu/image/upload", formData)
-        setInput({...input, imagen: data.secure_url})
-      } catch (error) {
-        console.log(error.message);
-      }
+    //     const { data } = await axios.post("https://api.cloudinary.com/v1_1/drpdobxfu/image/upload", formData)
+    //     setInput({...input, imagen: data.secure_url})
+    //   } catch (error) {
+    //     console.log(error.message);
+    //   }
       
 
-    }    
+    // }   
+    
+    
     function handleSubmit(){
       dispatch(registerUser(input))
     }
+
     return (
         <form className="bg-slate-300 p-4 text-center">
           <div className="mb-4">

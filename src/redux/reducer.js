@@ -37,8 +37,8 @@ export default function rootReducer(state = initialState, action) {
       };
       case GET_NOTICIA_DETAIL:
         return {
-...state,
-detalleNoticia: action.payload
+          ...state,
+          detalleNoticia: action.payload
         }
         case FILTER_NOTICIAS:
           return {

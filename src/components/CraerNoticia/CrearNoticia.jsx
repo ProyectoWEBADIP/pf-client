@@ -1,7 +1,9 @@
 import { useState } from "react";
 import validation from "./validaciones";
 import axios from "axios";
-
+import { useDispatch } from "react-redux";
+// import { useEffect } from "react";
+import { postNoticia } from "../../redux/noticiasActions/noticiasActions";
 
 
 
@@ -16,6 +18,7 @@ export default function CrearNoticia ()  {
     const [imageURL, setImageURL] = useState(""); //url
     const [category,setCategory]=useState([]);
   
+  const dispatch=useDispatch();
 
     const handleChange= (event)=>{  
       event.preventDefault();  
@@ -33,7 +36,7 @@ export default function CrearNoticia ()  {
         })          
       )   
        
-      console.log(error,"error")      
+          
       }
     
     const submitImage= async (e)=>{
@@ -48,7 +51,9 @@ export default function CrearNoticia ()  {
 
         const {data}= await axios.post("https://api.cloudinary.com/v1_1/drpdobxfu/image/upload",formData)
         setInput({...input, imagen: data.secure_url})
-
+        
+        alert("Subida con exito!")
+        
       } catch (error) {
         console.log(error);
       }
@@ -102,17 +107,37 @@ export default function CrearNoticia ()  {
 
     }
 
-    // const handleSubmit = ()=>{
-    //   const arr= Object.keys(error)
-    //   if(arr.length===0){
-    //     dispat
-    //   }
-    // }
+    const handleSubmit = (event)=>{
+      const arr= Object.keys(error)
+      event.preventDefault();
+
+      const body={
+        title:input.titulo,
+        resume:input.resumen,
+        // categoria:category,    
+        content:input.descripcion,    
+        image:input.imagen
+
+      }
+      console.log(body);
+      
+      if(arr.length===0){
+        dispatch(postNoticia(body))
+      }
+      setInput({
+        titulo:"",
+        resumen:"",
+        categoria:[],
+        detalle:"",
+        imagen:""
+      })
+      setCategory([])
+    }
     
     
     return (
       <div className="container mx-auto">
-        <form onSubmit={submitImage} className="bg-slate-300 p-4 text-center">
+        <form onSubmit={handleSubmit} className="bg-slate-300 p-4 text-center">
         <br/>
 
           <div className="mb-4">
@@ -178,6 +203,7 @@ export default function CrearNoticia ()  {
               accept="image/*"   
               onChange={handleImageChange}                               
             />  
+            <button onClick={submitImage}>Subir Imagen</button>
             {error.descripcion && <p>{error.imagen}</p>}                      
           </div>          
 
@@ -190,12 +216,11 @@ export default function CrearNoticia ()  {
   
           
 
-          <input 
+          <button
           type="submit" 
           value="Crear Noticia" 
-          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          // onSubmit={handleSubmit}
-          /> 
+          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"          
+          >Crear noticia</button>
           
           
           

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { GET_ALL_NOTICIAS,GET_NOTICIA_DETAIL, FILTER_NOTICIAS } from "./noticiasActionTypes"
+import { GET_ALL_NOTICIAS,GET_NOTICIA_DETAIL, FILTER_NOTICIAS , POST_NOTICIA} from "./noticiasActionTypes"
 import axios from "axios"
 
 export function getAllNoticias() {
@@ -7,6 +7,20 @@ export function getAllNoticias() {
         try {
             const { data } = await axios(`http://localhost:3001/notices`)
             dispatch({type: GET_ALL_NOTICIAS, payload: data})
+        } catch (error) {
+            return alert(error.message)
+        }
+    }
+}
+
+export function postNoticia(body){
+    return async(dispatch)=>{
+        try {
+            const {data} = await axios.post(`http://localhost:3001/notices`,body)
+
+            dispatch({type: POST_NOTICIA, payload:data})
+            console.log(data,"data");
+            console.log(body,"body en action")
         } catch (error) {
             return alert(error.message)
         }
