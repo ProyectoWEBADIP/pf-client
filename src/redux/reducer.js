@@ -16,6 +16,7 @@ import {
   REGISTER_USER,
   GET_USER_BY_ID,
   CREATE_PROFILE_LOCAL,
+  REGISTER_USER_LOCAL,
 } from './login-registerActions/actionTypes';
 
 const initialState = {
@@ -141,6 +142,11 @@ export default function rootReducer(state = initialState, action) {
         isLoading: false,
         perfilUsuario: action.payload,
       };
+      case REGISTER_USER_LOCAL:
+        return {
+          ...state,
+          loginRegisterLocal: action.payload
+        }
     default:
       return { ...state };
   }
