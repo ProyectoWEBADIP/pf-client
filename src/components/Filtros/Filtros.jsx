@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
 import { CheckBox } from "@mui/icons-material";
 import { Accordion, AccordionDetails, AccordionSummary, Container, MenuItem, Select, Typography, FormControl, InputLabel, TextField, Box } from "@mui/material";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useState } from "react";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import FiltroDeFechas from '../FiltroDeFechas/FiltroDeFechas'
 
 export default function Filtros(){
     const [checked, setChecked] = useState([false, false, false, false, false]);
@@ -43,20 +45,21 @@ export default function Filtros(){
     
     return(
         <Container>
-        
         <Box>
             <Typography>Filtrar categorías</Typography>
         </Box>
-       
-
         <Box mt={3}>
             <TextField variant="standard" fullWidth id="outlined-select-order" select label="Ordenar por" defaultValue="Más reciente">
                 <MenuItem value="latest">Más reciente</MenuItem>
                 <MenuItem value="oldest">Más antiguo</MenuItem>
             </TextField>
         </Box>
-
-       
+        <Box mt={3}>
+            <Typography>Filtrar por fecha</Typography>
+        </Box>
+      <Box mt={3}>
+        <FiltroDeFechas />
+      </Box>
     </Container>
     )
 }
