@@ -20,20 +20,14 @@ export default function Home (){
             <CardPartidoContainer/>
             <Typography variant="h2" fontWeight="bold" mt={4}>Noticias</Typography>
             <br/>
-
            <Grid container>
                 <Grid item xs={3}>
                     <Filtros/>
                 </Grid>
-
                 <Grid item xs={9} >
                     <CardsNoticias/>
                 </Grid>
-           </Grid>
-            
-
-            
-            
+           </Grid>  
         </div>
     )
 }
