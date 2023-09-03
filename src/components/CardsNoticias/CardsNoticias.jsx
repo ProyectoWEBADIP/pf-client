@@ -10,7 +10,7 @@ const CardsNoticias = () => {
   const noticias = useSelector((state) => state.noticias);
   return (
     <Container sx={{display:"flex", flexWrap:"wrap"}}>
-      {noticias?.map((e) => (
+      {noticias?.map((notice) => (
         <CardNoticia
           key={notice.id}
           id={notice.id}

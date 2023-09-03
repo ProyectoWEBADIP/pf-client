@@ -1,10 +1,6 @@
-import CardsNoticias from "../CardsNoticias/CardsNoticias"
-import CardPartidoContainer from "../CardPartidoContainer/CardPartidoContainer"
 import { Grid, Typography } from "@mui/material"
-import Filtros from "../Filtros/Filtros"
 import CardsNoticias from '../CardsNoticias/CardsNoticias';
 import CardPartidoContainer from '../CardPartidoContainer/CardPartidoContainer';
-import { Typography } from '@mui/material';
 import Filtros from '../Filtros/Filtros';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';

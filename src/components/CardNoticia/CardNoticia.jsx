@@ -6,15 +6,17 @@ import './cardNoticia.css';
 import { Card, CardActionArea, CardContent, CardMedia, Typography, Button } from '@mui/material';
 
 
-const CardNoticia = ({titulo, id, img}) => {
+const CardNoticia = ({title, id, image, date}) => {
     
   return (
     <>
     <Card sx={{m:2, minWidth:300 , minHeight: 350, maxHeight:350, maxWidth:300 }}>
       <CardActionArea>
-      <CardMedia component="img" image={img} height="200px"/>
+      <CardMedia component="img" image={image} height="200px"/>
       <CardContent>
-          <Typography variant='h6'>{titulo}</Typography>
+          <Typography variant='h6'>{title}</Typography>
+          <Typography variant='body2'>{date.split("T")[0]}</Typography>
+
           <Button href={`/detalle/${id}`}>Ver más</Button>
       </CardContent>
       </CardActionArea>

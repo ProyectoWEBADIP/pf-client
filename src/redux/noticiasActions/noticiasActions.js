@@ -28,7 +28,6 @@ export function filteredNoticias(startDate, endDate) {
         try {
             const { data } = await axios(`http://localhost:3001/notices/byDateRange?startDate=${startDate}&endDate=${endDate}`)
             dispatch({type: FILTER_NOTICIAS, payload: data.data})
-            console.log(data.data)
         } catch (error) {
             return alert(error.message)
         }
