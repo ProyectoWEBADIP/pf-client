@@ -18,14 +18,13 @@ export function postNoticia(body){
         try {
             const {data} = await axios.post(`http://localhost:3001/notices`,body)
 
-            dispatch({type: POST_NOTICIA, payload:data})
-            console.log(data,"data");
-            console.log(body,"body en action")
+            dispatch({type: POST_NOTICIA, payload:data})           
         } catch (error) {
             return alert(error.message)
         }
     }
 }
+
 
 export function getNoticiaDetail(id) {
     return async (dispatch) => {

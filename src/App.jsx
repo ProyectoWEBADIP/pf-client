@@ -12,6 +12,7 @@ import NoticiaDetail from "./components/detailNoticia/NoticiaDetail";
 import CrearNoticia from "./components/CraerNoticia/CrearNoticia";
 import PerfilUsuario from "./components/PerfilUsuario/Perfil"
 
+
 function App() {
   
   return (
@@ -23,7 +24,7 @@ function App() {
       <Route path={"/login/SignUp"} element={<SingUp/>}/>
       <Route path={"/detalle/:id"} element={<NoticiaDetail/>}/>
       <Route path={"/crearNoticia"} element={<CrearNoticia/>}/>
-      <Route path={"/:id/profile"} element={<PerfilUsuario/>} />
+      <Route path={"/:id/profile"} element={<PerfilUsuario/>}/>      
       </Routes>
       
       

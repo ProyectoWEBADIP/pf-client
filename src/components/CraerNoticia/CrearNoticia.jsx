@@ -4,7 +4,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 // import { useEffect } from "react";
 import { postNoticia } from "../../redux/noticiasActions/noticiasActions";
-
+// import { postCategoria } from "../../redux/categoriasActions/categoriasActions";
 
 
 
@@ -14,9 +14,11 @@ export default function CrearNoticia ()  {
   const imgDefault = "https://static.vecteezy.com/ti/vetor-gratis/t2/550980-de-icone-de-usuario-gratis-vetor.jpg";
 
     const [ input, setInput ] = useState({titulo: "", resumen: "", categoria:["Femenino","Masculino","Infantiles","Recreativo","Inferiores"], descripcion: "", imagen: ""});
+
     const [ error, setError ] = useState({});
     const [imageURL, setImageURL] = useState(""); //url
     const [category,setCategory]=useState([]);
+    
   
   const dispatch=useDispatch();
 
@@ -34,8 +36,7 @@ export default function CrearNoticia ()  {
             ...input,
             [event.target.name]: event.target.value
         })          
-      )   
-       
+      )         
           
       }
     
@@ -73,8 +74,7 @@ export default function CrearNoticia ()  {
     }
     
     const handleSelect=(e)=>{
-      const selecCategory= e.target.value    
-          
+      const selecCategory= e.target.value             
         
       if(!category.includes(selecCategory)){
         setCategory([
@@ -114,12 +114,10 @@ export default function CrearNoticia ()  {
       const body={
         title:input.titulo,
         resume:input.resumen,
-        // categoria:category,    
+        categorie:category,    
         content:input.descripcion,    
         image:input.imagen
-
-      }
-      console.log(body);
+      }       
       
       if(arr.length===0){
         dispatch(postNoticia(body))
@@ -134,7 +132,30 @@ export default function CrearNoticia ()  {
       setCategory([])
     }
     
+    const agregarCategoria= (event)=>{
+      event.preventDefault()
+      const nuevaCategoria= input.crear;      
+      const categoriasAct= [...input.categoria, nuevaCategoria]      
+      
+      setInput({
+        ...input,
+        categoria:categoriasAct,
+        crear:""
+      })      
+      alert("Categoria creada con exito!")
     
+    }
+    
+    const handleCatChange =(event)=>{
+      event.preventDefault();  
+      
+      setInput({
+        ...input,
+        [event.target.name] : event.target.value
+        
+      })
+      
+    }
     return (
       <div className="container mx-auto">
         <form onSubmit={handleSubmit} className="bg-slate-300 p-4 text-center">
@@ -158,7 +179,7 @@ export default function CrearNoticia ()  {
           </div>
           <br/>
 
-          <div>                     
+          <div>                                 
             <select value="def" onChange={handleSelect} name="categoria" >
               <option value="def">Seleccione categoria</option>
 
@@ -180,6 +201,12 @@ export default function CrearNoticia ()  {
                 </div>
               )
             }) }
+          </div>
+          <br />
+          <div>
+            <label htmlFor="crear">Crear categoria</label>
+            <input onChange={handleCatChange} type="text" name="crear"/>
+            <button onClick={agregarCategoria}>Crear</button>
           </div>
 
           <br/>
