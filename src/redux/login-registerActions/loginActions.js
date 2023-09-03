@@ -7,7 +7,10 @@ import {
   HISTORY,
   LOGGIN_IN,
   REGISTER_USER,
-  REGISTER_USER_LOCAL
+  REGISTER_USER_LOCAL,
+  CREATE_PROFILE_LOCAL,
+  CREATE_LOCAL_PROFILE_ERRORS,
+  GET_USER_BY_ID
 } from './actionTypes';
 //?LOGIN ACTIONS
 export function localLogin(userCredentials) {
@@ -17,7 +20,6 @@ export function localLogin(userCredentials) {
         `http://localhost:3001/auth/login`,
         userCredentials
       );
-      console.log(userCredentials)
       dispatch({ type: LOCAL_LOGIN, payload: data });
     } catch (error) {
       dispatch({ type: LOCAL_LOGIN, payload: error });
@@ -64,6 +66,35 @@ export function googleRegisterUser(userData) {
       dispatch({ type: REGISTER_USER, payload: data });
     } catch (error) {
       dispatch({ type: LOGIN_REGISTER_ERRORS, payload: error });
+    }
+  };
+}
+//!SUBIR IMAGEN A CLOUDINARY
+
+//?CREAR PERFIL ACTIONS
+export function getUserById(id){
+  return async (dispatch) => {
+    try {
+      const { data } = await axios(
+        `http://localhost:3001/users/${id}`
+      );
+      dispatch({ type: GET_USER_BY_ID, payload: data });
+    } catch (error) {
+      dispatch({ type: CREATE_LOCAL_PROFILE_ERRORS, payload: error });
+    }
+  };
+}
+export function createLocalProfile(id,userData) {
+  return async (dispatch) => {
+    try {
+
+      const { data } = await axios.post(
+        `http://localhost:3001/users/${id}/profile`,
+        userData
+      );
+      dispatch({ type: CREATE_PROFILE_LOCAL, payload: data });
+    } catch (error) {
+      dispatch({ type: CREATE_LOCAL_PROFILE_ERRORS, payload: error });
     }
   };
 }
