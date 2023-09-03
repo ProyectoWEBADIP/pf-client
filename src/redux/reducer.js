@@ -33,6 +33,7 @@ const initialState = {
   //NOTICIAS STATES//
   noticias: [],
   detalleNoticia: {},
+  loginRegisterLocal: ""
 };
 
 export default function rootReducer(state = initialState, action) {
