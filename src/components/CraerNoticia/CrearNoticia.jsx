@@ -7,8 +7,9 @@ import { postNoticia } from "../../redux/noticiasActions/noticiasActions";
 // import { postCategoria } from "../../redux/categoriasActions/categoriasActions";
 import { useSelector } from "react-redux";
 import { getAllCategories, postCategoria } from "../../redux/categoriasActions/categoriasActions";
-
-
+import { Box, Container, maxWidth } from "@mui/system";
+import { TextField, Typography } from "@mui/material";
+import { Button, MenuItem } from "@mui/base";
 
 
 export default function CrearNoticia ()  {
@@ -182,29 +183,15 @@ export default function CrearNoticia ()  {
       
     }
     return (
-      <div className="container mx-auto">
-        <form onSubmit={handleSubmit} className="bg-slate-300 p-4 text-center">
-        <br/>
+      <>
+      <Box component="form" fullWidth onSubmit={handleSubmit} sx={{m:5}}>
+        <TextField label="Título"  type="text" name="titulo" value={input.titulo} required onChange={handleChange} fullWidth helperText="Entre 5 y 40 caracteres" />
+        {error.titulo && <Typography variant="body1">{error.titulo}</Typography>}
+        
+        <TextField label="Resumen"  type="text" name="resumen" value={input.resumen} required onChange={handleChange} fullWidth helperText="Hasta 100 caracteres" />
+        {error.resumen && <Typography variant="body1">{error.resumen}</Typography>}
 
-          <div className="mb-4">
-          <label htmlFor="titulo" className="block mb-1">
-            Titulo 
-          </label>
-          <input  onChange={handleChange} value={input.titulo} className="w-full px-4 py-2 border rounded" type="text" name="titulo"/>
-          {error.titulo && <p>{error.titulo}</p>}          
-          </div>
-
-          <br/>  
-
-          <div className="mb-4"> 
-            <label className="block mb-1" htmlFor="resumen">Resumen de noticia:</label>
-            <input onChange={handleChange}  value={input.resumen} className="w-full px-4 py-2 border rounded" type="text" name="resumen" />
-            {error.resumen && <p>{error.resumen}</p>}
-
-          </div>
-          <br/>
-
-          <div>                                 
+        <div>                                 
             <select value="def" onChange={handleSelect} name="categoria" >
               <option value="def">Seleccione categoria</option>
 
@@ -215,9 +202,10 @@ export default function CrearNoticia ()  {
               })}             
             </select>  
             {error.categoria && <p>{error.categoria}</p>}           
-          </div>
+        </div>
 
-          <div>
+ 
+        <div>
           {category?.map((e)=>{
               return(
                 <div key={e}>
@@ -227,58 +215,37 @@ export default function CrearNoticia ()  {
               )
             }) }
           </div>
+
           <br />
-          <div>
-            <label htmlFor="crear">Crear categoria</label>
-            <input onChange={handleCatChange} type="text" name="crear"/>
-            <button onClick={agregarCategoria}>Crear</button>
+          <div style={{padding: "10px", gap: "10px" }}>
+          <TextField label="Crear categoría" type="text" name="crear" sx={{mr: 3}} />
+          <Button onClick={agregarCategoria}>Crear</Button>
+
           </div>
 
           <br/>
-          <div className="mb-4">
-            <label className="block mb-1" htmlFor="descripcion">
-              Descripcion:
-            </label>
-            <textarea onChange={handleChange} value={input.descripcion} className="w-full px-4 py-2 border rounded" type="text" name="descripcion"/>
-            {error.descripcion ? <p>{error.descripcion}</p> : null}
-          </div>             
-          <br/>
 
-          <div className="mb-4">
-            <label className="block mb-1" htmlFor="imagen">
-              Foto:
-            </label>
+        <TextField label="Descripción"  type="text" name="descripcion" value={input.descripcion} required onChange={handleChange} fullWidth helperText="Hasta 2000 caracteres" />
+        {error.descripcion && <Typography variant="body1">{error.descripcion}</Typography>}
 
-            <input className="w-full px-4 py-2 border rounded" 
-              type="file" 
-              name="imagen" 
-              accept="image/*"   
-              onChange={handleImageChange}                               
-            />  
+        <TextField type="file" name="imagen" accept="image/*" onChange={handleImageChange}/>
+      
+        <div className="mb-4" style={{margin: "10px"}}>
             <button onClick={submitImage}>Subir Imagen</button>
             {error.descripcion && <p>{error.imagen}</p>}                      
           </div>          
 
-          <div>
-          <img src={ imageURL? imageURL : imgDefault} alt="img" />      
+          <Container sx={{maxHeight: 300, maxWidth: 300 }}>
+          <img src={ imageURL? imageURL : imgDefault} alt="img" style={{ width: '100%', height: 'auto', objectFit: "cover"}}/>      
           {error.imagen && <p>{error.imagen}</p>}      
-          </div>
+          </Container>
           
           <br/>
-  
-          
 
-          <button
-          type="submit" 
-          value="Crear Noticia" 
-          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"          
-          >Crear noticia</button>
-          
-          
-          
-  
-        </form>
-      </div>
+        <Button type="submit" variant="outlined" value="Crear Noticia" >Crear noticia</Button>
+      </Box>
+
+      </> 
     )
   }
   

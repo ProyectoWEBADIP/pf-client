@@ -2,6 +2,8 @@ import { useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
+import { useDispatch } from "react-redux";
+import { getNoticiasByTitle } from "../../redux/noticiasActions/noticiasActions";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -44,12 +46,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchBar() {
-  const [post, setPost] = useState("");
-
+const dispatch = useDispatch()
   const handleChange = (event) => {
-    setPost(event.target.value)
-    
+    dispatch(getNoticiasByTitle(event.target.value))
+
   }
+
   return (
     <>
       <Search>
@@ -60,7 +62,6 @@ export default function SearchBar() {
           placeholder="Buscar..."
           inputProps={{ "aria-label": "search" }}
           onChange={handleChange}
-          value={post}
         />
       </Search>
       {/* <input type="search" placeholder="Busqueda..." onChange={handleChange} value={post} /> */}
