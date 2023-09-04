@@ -69,7 +69,7 @@ const Navbar = () => {
 
             
         <Button href="/crearNoticia" color="inherit">Crear Noticia</Button>
-
+        <Button href="/crearCategoria">Crear Categoria</Button>
       
 
       <SearchBar />
