@@ -1,7 +1,13 @@
 /* eslint-disable no-unused-vars */
-import { FILTER_NOTICIAS, GET_ALL_NOTICIAS ,GET_NOTICIA_DETAIL} from './noticiasActions/noticiasActionTypes';
+import {
+  FILTER_NOTICIAS,
+  GET_ALL_NOTICIAS,
+  GET_NOTICIA_DETAIL,
+  CLEAN_NOTICIA_DETAIL
+} from './noticiasActions/noticiasActionTypes';
 //LOGIN_REGISTER ACTION TYPES//
 import {
+  IS_LOADING,
   LOCAL_LOGIN,
   LOCAL_LOGIN_ERROR,
   LOGOUT,
@@ -9,10 +15,16 @@ import {
   LOGGIN_IN,
   REGISTER_USER,
   GET_USER_BY_ID,
-  CREATE_PROFILE_LOCAL
+  CREATE_PROFILE_LOCAL,
+  REGISTER_USER_LOCAL,
 } from './login-registerActions/actionTypes';
+//Categorias types
+import {
+  GET_ALL_CATEGORIES
+} from "../redux/categoriasActions/categoriasActionTypes"
 
 const initialState = {
+  isLoading: false,
   //LOGIN_STATES//
   loggedIn: false,
   successLogin: '',
@@ -26,24 +38,39 @@ const initialState = {
   //NOTICIAS STATES//
   noticias: [],
   detalleNoticia: {},
+  loginRegisterLocal: "",
+  categorias: []
 };
 
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
+    case IS_LOADING:
+      return {
+        ...state,
+        isLoading: true,
+      };
     case GET_ALL_NOTICIAS:
       return {
         ...state,
         noticias: action.payload,
+        isLoading: false,
       };
-      case GET_NOTICIA_DETAIL:
-        return {
-...state,
-detalleNoticia: action.payload
-        }
-        case FILTER_NOTICIAS:
-          return {
-            noticias:action.payload
-          }
+    case GET_NOTICIA_DETAIL:
+      return {
+        ...state,
+        detalleNoticia: action.payload,
+        isLoading: false,
+      };
+    case FILTER_NOTICIAS:
+      return {
+        noticias: action.payload,
+        isLoading: false,
+      };
+    case CLEAN_NOTICIA_DETAIL:
+      return{
+        ...state,
+        detalleNoticia:{}
+      }
     //LOCAL_LOGIN CASES//
     case LOCAL_LOGIN:
       if (action.payload.statusCode !== 203) {
@@ -56,10 +83,12 @@ detalleNoticia: action.payload
           usuario: action.payload,
           loggedIn: true,
           loginRegisterErrors: {},
+          isLoading: false,
         };
       } else {
         return {
           ...state,
+          isLoading: false,
           logginIn: false,
           loginRegisterErrors: action.payload,
         };
@@ -67,6 +96,7 @@ detalleNoticia: action.payload
     case LOGGIN_IN:
       return {
         ...state,
+        isLoading: false,
         logginIn: true,
       };
     case HISTORY:
@@ -77,12 +107,13 @@ detalleNoticia: action.payload
       localStorage.removeItem('userId');
       return {
         ...state,
+        isLoading: false,
         logginIn: false,
         usuario: [],
         loggedIn: false,
         actualPath: '',
         successLogin: '',
-        perfilUsuario:[]
+        perfilUsuario: [],
       };
     //REGISTER CASES//
     case REGISTER_USER: //REGISTRO CON GOOGLE
@@ -95,24 +126,37 @@ detalleNoticia: action.payload
 
       return {
         ...state,
+        isLoading: false,
         usuario: action.payload.access_token,
         successLogin: action.payload.message,
         logginIn: false,
         loggedIn: true,
         loginRegisterErrors: {},
       };
-      //GET USUARIOS CASES
-      case GET_USER_BY_ID:
-        return{
+    //GET USUARIOS CASES
+    case GET_USER_BY_ID:
+      return {
+        ...state,
+        isLoading: false,
+        perfilUsuario: action.payload,
+      };
+    //CREAR Y/O ACTUALIZAR PERFIL CASES
+    case CREATE_PROFILE_LOCAL:
+      return {
+        ...state,
+        isLoading: false,
+        perfilUsuario: action.payload,
+      };
+      case REGISTER_USER_LOCAL:
+        return {
           ...state,
-          perfilUsuario: action.payload
+          loginRegisterLocal: action.payload
         }
-        //CREAR Y/O ACTUALIZAR PERFIL CASES
-        case CREATE_PROFILE_LOCAL:
-          return {
-            ...state,
-            perfilUsuario: action.payload
-          }
+        case GET_ALL_CATEGORIES: 
+        return {
+          ...state,
+          categorias: action.payload
+        }
     default:
       return { ...state };
   }

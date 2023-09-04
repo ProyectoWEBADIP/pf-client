@@ -54,7 +54,7 @@ export default function SearchBar() {
     <>
       <Search>
         <SearchIconWrapper>
-          <SearchIcon />
+          <SearchIcon /> 
         </SearchIconWrapper>
         <StyledInputBase
           placeholder="Buscar..."
