@@ -13,6 +13,7 @@ import Validation from '../Login/validaciones';
 import axios from 'axios';
 import { lightGreen } from '@mui/material/colors';
 import { setIsLoading } from '../../utils/setIsLoading';
+import { Alert } from '@mui/material';
 export default function Perfil() {
   //!HOOKS
   const dispatch = useDispatch();
@@ -67,9 +68,11 @@ dispatch(setIsLoading())
   //     }
   //     return disabled;
   //   }
-  const [cloudinaryResponse, setCloudinaryResponse] = useState();
+  const [cloudinaryResponse, setCloudinaryResponse] = useState(null);
+  const [success, setSuccess]= useState(false)
   async function submitImgToCloudinary() {
-    setCloudinaryResponse('Por favor, espere.');
+    setCloudinaryResponse(true);
+    setSuccess(false)
     try {
       const formData = new FormData();
       formData.append('file', file);
@@ -82,10 +85,12 @@ dispatch(setIsLoading())
       );
 
       setProfileData({ ...profileData, image: data.secure_url });
-      setCloudinaryResponse('Imagen subida con éxito.');
+      setCloudinaryResponse(false);
+      setSuccess(<Alert severity="success">Imagen subida exitosamente.</Alert>)
       return;
     } catch (error) {
-      alert(error.message);
+      setCloudinaryResponse(false);
+setSuccess(<Alert severity="error">Error al subir la imágen.</Alert>)
     }
   }
 
@@ -131,7 +136,7 @@ const isLoading = useSelector(state=>state.isLoading)
                 <button type="button" onClick={submitImgToCloudinary}>
                   Subir imagen
                 </button>
-                <p>{cloudinaryResponse}</p>
+                <p>{cloudinaryResponse?<div className={style.loader}></div>:success}</p>
                 <br />
                 <label htmlFor="dni">DNI:</label>
                 {/* {error.nombre && <p className="text-red-500">{error.nombre}</p>} */}

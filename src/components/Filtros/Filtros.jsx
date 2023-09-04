@@ -1,45 +1,64 @@
 /* eslint-disable no-unused-vars */
 import { Check, CheckBox } from "@mui/icons-material";
-import { Accordion, AccordionDetails, AccordionSummary, Container, MenuItem, Select, Typography, FormControl, InputLabel, TextField, Box, FormLabel } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Container, MenuItem, Select, Typography, FormControl, InputLabel, TextField, Box, FormLabel, FormGroup } from "@mui/material";
+/* eslint-disable no-unused-vars */
 import FormControlLabel from '@mui/material/FormControlLabel';
 import React, { useState } from "react";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { fontStyle } from "@mui/system";
 import FiltroDeFechas from '../FiltroDeFechas/FiltroDeFechas'
+import { useSelector, useDispatch } from "react-redux";
+import { getNoticiasByCategory } from "../../redux/noticiasActions/noticiasActions";
+import { getAllNoticias } from "../../redux/noticiasActions/noticiasActions";
 
 export default function Filtros(){
-    const [state, setState] = useState({
-        femenino: false,
-        masculino: false,
-        infantiles: false,
-        inferiores: false, 
-        recreativo: false,
-    });
 
 
+    // const [state, setState] = useState({
+    //     femenino: false,
+    //     masculino: false,
+    //     infantiles: false,
+    //     inferiores: false, 
+    //     recreativo: false,
+    // });
+    
+
+    const dispatch = useDispatch()
     const handleChange = (event) => {
-        setState({
-          ...state,
-          [event.target.name]: event.target.checked,
-        });
+      console.log(event.target.value);
+      if(event.target.value === "Default"){
+        dispatch(getAllNoticias())
+      }else {
+        dispatch(getNoticiasByCategory(event.target.value))
+      }
       }; 
 
 
-  const [orderBy, setOrderBy] = useState('');
+  // const [orderBy, setOrderBy] = useState('');
 
-  const handleOrderByChange = (event) => {
-    setOrderBy(event.target.value);
-  };
+  // const handleOrderByChange = (event) => {
+  //   setOrderBy(event.target.value);
+  // };
 
-  const { femenino, masculino, infantiles, inferiores, recreativo } = state;
-
+  // const { femenino, masculino, infantiles, inferiores, recreativo } = state;
+  const categoría = useSelector((state) => state.categorias)
+  console.log("====> categorias ",categoría);
     
     return(
         <Container>
         <Box m={2} sx={{ display: 'flex' }}>
             <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
             <FormLabel component="legend">Filtrar por categoría</FormLabel>
-                <FormControlLabel
+            <FormGroup>
+            <select onChange={handleChange}>
+            <option value="Default" >Seleccione categoria</option> 
+            {categoría?.map((el) => {
+              return <option key={el.id}  value={el.id}>{el.name}</option>
+            })}
+
+            </select>  
+            </FormGroup>
+                {/* <FormControlLabel
                 control={
                 <CheckBox checked={femenino} onChange={handleChange} name="femenino" />
                 }
@@ -68,7 +87,7 @@ export default function Filtros(){
                 <CheckBox checked={recreativo} onChange={handleChange} name="recreativo" />
                 }
                 label="Recreativo"
-                />
+                /> */}
             </FormControl>
         </Box>
        
