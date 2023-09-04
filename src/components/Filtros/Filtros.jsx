@@ -34,7 +34,7 @@ export default function Filtros(){
 
   const { femenino, masculino, infantiles, inferiores, recreativo } = state;
   const categoría = useSelector((state) => state.categorias)
-  console.log("====> categorias ",categoría);
+  
     
     return(
         <Container>

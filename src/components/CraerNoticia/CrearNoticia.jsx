@@ -17,9 +17,7 @@ export default function CrearNoticia ()  {
   
   const imgDefault = "https://static.vecteezy.com/ti/vetor-gratis/t2/550980-de-icone-de-usuario-gratis-vetor.jpg";
 
-  let allCategorias= useSelector(state =>state.categorias)
-  
-
+  let allCategorias= useSelector(state =>state.categorias)  
   
 
     const [ input, setInput ] = useState({titulo: "", resumen: "", categoria:["Femenino","Masculino","Infantiles","Recreativo","Inferiores"], descripcion: "", imagen: ""});
@@ -132,15 +130,16 @@ export default function CrearNoticia ()  {
 
       const body={
         title:input.titulo,
-        resume:input.resumen,
-        categorie:category,    
+        resume:input.resumen,           
         content:input.descripcion,    
-        image:input.imagen
+        image:input.imagen,
+        categorie_id:allCategorias[0].id    
       }       
-      
-      if(arr.length===0){
+      console.log(body)
+      if(arr.length===0){        
         dispatch(postNoticia(body))
       }
+      
       setInput({
         titulo:"",
         resumen:"",
