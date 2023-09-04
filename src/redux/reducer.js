@@ -3,7 +3,8 @@ import {
   FILTER_NOTICIAS,
   GET_ALL_NOTICIAS,
   GET_NOTICIA_DETAIL,
-  CLEAN_NOTICIA_DETAIL
+  CLEAN_NOTICIA_DETAIL,
+  GET_NOTICIAS_BY_CATEGORY
 } from './noticiasActions/noticiasActionTypes';
 //LOGIN_REGISTER ACTION TYPES//
 import {
@@ -156,6 +157,11 @@ export default function rootReducer(state = initialState, action) {
         return {
           ...state,
           categorias: action.payload
+        }
+        case GET_NOTICIAS_BY_CATEGORY: 
+        return {
+          ...state,
+         noticias: action.payload 
         }
     default:
       return { ...state };
