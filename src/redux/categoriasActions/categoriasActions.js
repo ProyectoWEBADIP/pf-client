@@ -1,13 +1,12 @@
 import { POST_CATEGORIAS, GET_ALL_CATEGORIES } from "./categoriasActionTypes";
 import axios from "axios";
 
-
-
 export function postCategoria(body){
-    return async(dispatch)=>{
+    return async()=>{
         try {
-            const {data}= await axios.post(`http://localhost:3001/categories`,body)
-            dispatch({type:POST_CATEGORIAS, payload:data})
+            const {data}= await axios.post(`http://localhost:3001/categories`,body)            
+           console.log(data,"data");
+            return data;
         } catch (error) {
             return alert(error.message)
         }
