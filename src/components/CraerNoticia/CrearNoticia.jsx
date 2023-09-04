@@ -53,7 +53,7 @@ export default function CrearNoticia ()  {
             ...input,
             [event.target.name]: event.target.value
         })          
-      )         
+      )        
           
       }
     
@@ -158,6 +158,7 @@ export default function CrearNoticia ()  {
     const agregarCategoria= (event)=>{
       event.preventDefault()
       const name= input.crear;   
+      console.log(name,"name");
        
       const categoriasAct= [...input.categoria, name]      
 
@@ -169,22 +170,10 @@ export default function CrearNoticia ()  {
 
       dispatch(postCategoria({active:true,name}))  
       alert("Categoria creada con exito!")
-      dispatch(getAllCategories())      
-
-       
+      dispatch(getAllCategories())       
     
-    }
-    
-    const handleCatChange =(event)=>{
-      event.preventDefault();  
-      
-      setInput({
-        ...input,
-        [event.target.name] : event.target.value
-        
-      })
-      
-    }
+    }    
+   
     return (
       <>
       <Box component="form" id="formulario"  onSubmit={handleSubmit} sx={{m:5}}>
@@ -220,13 +209,13 @@ export default function CrearNoticia ()  {
           </div>
 
           <br />
-          {/* <div style={{padding: "10px", gap: "10px" }}>
-          <TextField label="Crear categoría" type="text" name="crear" sx={{mr: 3}} />
+          <div style={{padding: "10px", gap: "10px" }}>
+          <TextField onChange={handleChange} label="Crear categoria" type="text" name="crear" sx={{mr: 3}} />
           <Button onClick={agregarCategoria}>Crear</Button>
 
-          </div> */}
+          </div>
 
-          {/* <br/> */}
+          <br/>
 
         <TextField label="Descripción"  type="text" name="descripcion" value={input.descripcion} required onChange={handleChange} fullWidth />
         {error.descripcion && <Typography variant="body1">{error.descripcion}</Typography>}
