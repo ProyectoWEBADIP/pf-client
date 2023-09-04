@@ -169,8 +169,7 @@ export default function CrearNoticia ()  {
 
       dispatch(postCategoria({active:true,name}))  
       alert("Categoria creada con exito!")
-      dispatch(getAllCategories())
-      
+      dispatch(getAllCategories())      
 
        
     
