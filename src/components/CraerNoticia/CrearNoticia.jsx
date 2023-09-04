@@ -2,16 +2,25 @@ import { useState } from "react";
 import validation from "./validaciones";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-// import { useEffect } from "react";
+import { useEffect } from "react";
 import { postNoticia } from "../../redux/noticiasActions/noticiasActions";
 // import { postCategoria } from "../../redux/categoriasActions/categoriasActions";
+import { useSelector } from "react-redux";
+import { getAllCategories, postCategoria } from "../../redux/categoriasActions/categoriasActions";
 
 
 
 
 export default function CrearNoticia ()  {
 
+
+  
   const imgDefault = "https://static.vecteezy.com/ti/vetor-gratis/t2/550980-de-icone-de-usuario-gratis-vetor.jpg";
+
+  let allCategorias= useSelector(state =>state.categorias)
+  
+
+  
 
     const [ input, setInput ] = useState({titulo: "", resumen: "", categoria:["Femenino","Masculino","Infantiles","Recreativo","Inferiores"], descripcion: "", imagen: ""});
 
@@ -19,8 +28,17 @@ export default function CrearNoticia ()  {
     const [imageURL, setImageURL] = useState(""); //url
     const [category,setCategory]=useState([]);
     
-  
+
+     
   const dispatch=useDispatch();
+
+  useEffect(()=>{
+    
+    dispatch(getAllCategories())
+    
+  },[dispatch]
+    
+  )
 
     const handleChange= (event)=>{  
       event.preventDefault();  
@@ -74,7 +92,8 @@ export default function CrearNoticia ()  {
     }
     
     const handleSelect=(e)=>{
-      const selecCategory= e.target.value             
+      const selecCategory= e.target.value   
+              
         
       if(!category.includes(selecCategory)){
         setCategory([
@@ -134,15 +153,22 @@ export default function CrearNoticia ()  {
     
     const agregarCategoria= (event)=>{
       event.preventDefault()
-      const nuevaCategoria= input.crear;      
-      const categoriasAct= [...input.categoria, nuevaCategoria]      
-      
+      const name= input.crear;   
+       
+      const categoriasAct= [...input.categoria, name]      
+
       setInput({
         ...input,
         categoria:categoriasAct,
         crear:""
-      })      
+      })  
+
+      dispatch(postCategoria({active:true,name}))  
       alert("Categoria creada con exito!")
+      dispatch(getAllCategories())
+      
+
+       
     
     }
     
@@ -183,9 +209,9 @@ export default function CrearNoticia ()  {
             <select value="def" onChange={handleSelect} name="categoria" >
               <option value="def">Seleccione categoria</option>
 
-              {input.categoria.map((c,i)=>{
+              {allCategorias?.map((c)=>{
                 return(
-                  <option key={i} value={c}>{c}</option>
+                  <option key={c.id} value={c.name}>{c.name}</option>
                 )
               })}             
             </select>  
