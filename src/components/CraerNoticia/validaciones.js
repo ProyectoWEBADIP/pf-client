@@ -9,7 +9,7 @@ export default function validation(date) {
   
     //----------Longitud resumen-------------------------!
     if(date.resumen?.length<5 || date.resumen?.length>100){
-      error.resumen = "*El resumen debe tener entre 5 y 40 caracteres*"
+      error.resumen = "*El resumen debe tener entre 5 y 100 caracteres*"
     }
   
     //------------Longiutd descripcion-------------------!
