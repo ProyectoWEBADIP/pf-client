@@ -1,9 +1,18 @@
-/* eslint-disable no-unused-vars */
 import { useDispatch, useSelector } from "react-redux";
 import Validation from "./validaciones";
 import { useState } from "react";
 import { registerUser } from "../../redux/login-registerActions/loginActions";
 import { useNavigate } from "react-router-dom";
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  InputAdornment,
+} from "@mui/material";
+import LockIcon from "@mui/icons-material/Lock";
+import PersonIcon from "@mui/icons-material/Person";
+import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -43,69 +52,129 @@ export default function SignUp() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-slate-300 p-4 text-center">
-      <h1>Crea tu cuenta aquí</h1>
+    <Box
+      component="form"
+      onSubmit={handleSubmit}
+      style={{ padding: "40px" }}
+      sx={{ boxShadow: 3 }}
+    >
+      <Typography variant="h4" fontWeight="bold">
+        Crea tu cuenta aquí
+      </Typography>
 
-      <div>
-        <label htmlFor="username">
-          <h3>Nombre de usuario:</h3>
-        </label>
+      <Box sx={{ mt: 2 }}>
+        <Typography variant="h6" fontWeight="bold">
+          Nombre de usuario:
+        </Typography>
 
-        {error.username ? <p>{error.username}</p> : null}
-        <input
+        <TextField
+          label="Nombre de usuario"
           type="text"
           name="username"
+          value={input.username}
           placeholder="Elija su nombre de usuario"
           onChange={handleChange}
-          value={input.username}
           required
+          sx={{ mt: 1 }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <PersonIcon />
+              </InputAdornment>
+            ),
+          }}
         />
 
-        <p>✔ puedes usar letras y numeros</p>
-      </div>
+        <Typography variant="body1" sx={{ mt: 1 }}>
+          ✅ puedes usar letras y numeros
+        </Typography>
 
-      <div className="mb-4">
-        <label htmlFor="email" className="block mb-1">
-          <h3>Correo electrónico:</h3>
-        </label>
+        {error.username ? (
+          <Typography color="red" sx={{ mt: 1 }}>
+            {error.username}
+          </Typography>
+        ) : null}
+      </Box>
 
-        {error.email && <p className="text-red-500">{error.email}</p>}
-        <input
-          className="w-full px-4 py-2 border rounded"
-          onChange={handleChange}
-          name="email"
-          value={input.email}
+      <Box sx={{ mt: 2 }}>
+        <Typography variant="h6" fontWeight="bold">
+          Correo electrónico:
+        </Typography>
+
+        <TextField
+          label="Correo electrónico"
           type="email"
+          name="email"
           placeholder="Ingrese su correo electrónico"
-          required
-        />
-      </div>
-
-      <div className="mb-4">
-        <label htmlFor="password" className="block mb-1">
-          <h3>Contraseña:</h3>
-        </label>
-
-        {error.password && <p className="text-red-500">{error.password}</p>}
-        <input
-          className="w-full px-4 py-2 border rounded"
+          value={input.email}
           onChange={handleChange}
+          required
+          sx={{ mt: 1 }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <AlternateEmailIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
+
+        {error.email && (
+          <Typography color="red" sx={{ mt: 1 }}>
+            {error.email}
+          </Typography>
+        )}
+      </Box>
+
+      <Box sx={{ mt: 2 }}>
+        <Typography variant="h6" fontWeight="bold">
+          Contraseña:
+        </Typography>
+
+        <TextField
+          label="Contraseña"
           name="password"
-          value={input.password}
           type="password"
           placeholder="Ingrese su contraseña"
+          onChange={handleChange}
+          value={input.password}
           required
+          sx={{ mt: 1 }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <LockIcon />
+              </InputAdornment>
+            ),
+          }}
         />
-      </div>
-      <hr />
-      {respuesta?.includes("éxito") ? navigate("/login") : <h5>{respuesta}</h5>}
-      <div>
-        <h5>⚠ Debe ser mayor a 8 caracteres</h5>
-        <h5>⚠ Debe contener al menos un carácter especial</h5>
-      </div>
-      <hr />
-      <button type="submit">Crear cuenta</button>
-      
-    </form>
+
+        <Typography variant="body1" fontWeight="bold" sx={{ mt: 1 }}>
+          ⚠️ Debe ser mayor a 8 caracteres
+        </Typography>
+
+        <Typography variant="body1" fontWeight="bold">
+          ⚠️ Debe contener al menos un carácter especial
+        </Typography>
+
+        {error.password && (
+          <Typography color="red" sx={{ mt: 1 }}>
+            {error.password}
+          </Typography>
+        )}
+
+        {respuesta?.includes("éxito") ? (
+          navigate("/login")
+        ) : (
+          <Typography variant="h6" color="green">
+            {respuesta}
+          </Typography>
+        )}
+      </Box>
+
+      <Button type="submit" variant="outlined" sx={{ mt: 2 }}>
+        Crear cuenta
+      </Button>
+    </Box>
   );
 }

@@ -1,20 +1,31 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getHistory,
   googleRegisterUser,
   loading,
   localLogin,
-} from '../../redux/login-registerActions/loginActions';
-import { GoogleLogin } from '@react-oauth/google';
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import style from './login.module.css';
+} from "../../redux/login-registerActions/loginActions";
+import { GoogleLogin } from "@react-oauth/google";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  InputAdornment,
+} from "@mui/material";
+import LockIcon from "@mui/icons-material/Lock";
+import PersonIcon from "@mui/icons-material/Person";
+import style from "./login.module.css";
+
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
+
 export default function Login() {
   const [error, setError] = useState({});
-  const [users, setUsers] = useState({ email: '', password: '' });
+  const [users, setUsers] = useState({ email: "", password: "" });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,7 +46,7 @@ export default function Login() {
   function handleSuccess(credentials) {
     if (credentials.credential) {
       dispatch(googleRegisterUser(credentials));
-      navigate('/');
+      navigate("/");
     }
   }
 
@@ -47,72 +58,96 @@ export default function Login() {
   }
   return (
     <GoogleOAuthProvider clientId={CLIENT_ID}>
-      <div>
+      <Box style={{ padding: "40px" }} sx={{ boxShadow: 3 }}>
         {!localStorage.userLogin === true ? (
-          <div className="bg-slate-300 p-4 h-screen flex flex-col justify-center items-center">
-            <h1 className="text-3xl font-bold mb-4">Bienvenido</h1>
+          <Box>
+            <Typography variant="h4">Bienvenido</Typography>
             {!logginIn ? (
-              <div>
-                <form onSubmit={login} className="text-center">
-                  <label htmlFor="Usuario" className="block mb-1">
-                    Usuario:
-                  </label>
-                  {error.email ? <p>{error.email}</p> : null}
-                  <input
-                    className="w-full px-4 py-2 border rounded mb-2"
-                    name="email"
-                    onChange={handleChange}
-                    value={users.email}
-                    type="email"
-                    placeholder="Email..."
-                  />
-                  <label htmlFor="Contraseña" className="block mb-1">
-                    Contraseña:
-                  </label>
-                  <input
-                    className="w-full px-4 py-2 border rounded mb-4"
-                    name="password"
-                    onChange={handleChange}
-                    value={users.password}
-                    type="password"
-                    placeholder="password..."
-                  />
-                  <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded mb-2">
+              <Box>
+                <Box component="form" onSubmit={login}>
+                  <Box>
+                    <TextField
+                      label="Usuario:"
+                      name="email"
+                      value={users.email}
+                      type="email"
+                      placeholder="Email..."
+                      onChange={handleChange}
+                      sx={{ mt: 2 }}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <PersonIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                    {error.email ? (
+                      <Typography color="red" sx={{ mt: 1 }}>
+                        {error.email}
+                      </Typography>
+                    ) : null}
+                  </Box>
+
+                  <Box sx={{ mt: 2 }}>
+                    <TextField
+                      label="Contraseña:"
+                      name="password"
+                      onChange={handleChange}
+                      value={users.password}
+                      type="password"
+                      placeholder="Contraseña..."
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <LockIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </Box>
+                  <Button type="submit" variant="outlined" sx={{ mt: 2 }}>
                     Iniciar sesión
-                  </button>
-                </form>
-                <div>
+                  </Button>
+                </Box>
+                <Box>
                   <Link to="/login/SignUp">
-                    <p className="text-gray-600 hover:underline">
-                      ¿No estás registrado? Regístrate aquí
-                    </p>
+                    <Typography
+                      variant="subtitle1"
+                      fontWeight="bold"
+                      sx={{ mt: 1 }}
+                    >
+                      ¿No estás registrado? ➡️Regístrate aquí⬅️
+                    </Typography>
                   </Link>
-                </div>
-              </div>
+                </Box>
+              </Box>
             ) : (
-              <div className={style.box}>
-                <div className={style.shadow}></div>
-                <div className={style.gravity}>
-                  <div className={style.ball}></div>
-                </div>
-              </div>
+              <Box className={style.box}>
+                <Box className={style.shadow}></Box>
+                <Box className={style.gravity}>
+                  <Box className={style.ball}></Box>
+                </Box>
+              </Box>
             )}
-            {loginRegisterErrors ? <p>{loginRegisterErrors.message}</p> : null}
-          </div>
+            {loginRegisterErrors ? (
+              <Typography color="red" sx={{mt:2}}>{loginRegisterErrors.message}</Typography>
+            ) : null}
+          </Box>
         ) : actualPath ? (
           navigate(`${actualPath}`)
         ) : (
-          navigate('/')
+          navigate("/")
         )}
-        <div>
+        <Box>
           <GoogleLogin
             useOneTap
             onError={handleError}
             onSuccess={handleSuccess}
           />
-        </div>
-        <p>{successLogin}</p>
-      </div>
+        </Box>
+        <Typography>{successLogin}</Typography>
+      </Box>
     </GoogleOAuthProvider>
   );
 }
