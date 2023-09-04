@@ -10,7 +10,6 @@ export default function NoticiaDetail() {
   //!HOOKS
   const { id } = useParams();
   const dispatch = useDispatch();
-  let path = useLocation();
   //!HOOKS
 
   useEffect(() => {
