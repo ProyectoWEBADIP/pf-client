@@ -47,12 +47,12 @@ const CardsNoticias = () => {
       </Container>
       <hr />
       <div>
-        <div>
+        
           <button onClick={handlePrevPage} disabled={currentPage === 0}>
             Anterior
           </button>
-        </div>
-        <div>
+        
+        
         {pageNumbers?.map((pageNumber) => (
             <button
               key={pageNumber}
@@ -62,7 +62,7 @@ const CardsNoticias = () => {
               {pageNumber}
             </button>
           ))}
-        </div>
+        
         
         <button
           onClick={handleNextPage}

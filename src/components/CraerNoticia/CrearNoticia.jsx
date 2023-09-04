@@ -220,13 +220,13 @@ export default function CrearNoticia ()  {
           </div>
 
           <br />
-          <div style={{padding: "10px", gap: "10px" }}>
+          {/* <div style={{padding: "10px", gap: "10px" }}>
           <TextField label="Crear categoría" type="text" name="crear" sx={{mr: 3}} />
           <Button onClick={agregarCategoria}>Crear</Button>
 
-          </div>
+          </div> */}
 
-          <br/>
+          {/* <br/> */}
 
         <TextField label="Descripción"  type="text" name="descripcion" value={input.descripcion} required onChange={handleChange} fullWidth />
         {error.descripcion && <Typography variant="body1">{error.descripcion}</Typography>}
