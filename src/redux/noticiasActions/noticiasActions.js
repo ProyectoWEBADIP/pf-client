@@ -41,7 +41,7 @@ export function getNoticiaDetail(id) {
   return async (dispatch) => {
     try {
       const { data } = await axios(`http://localhost:3001/notices/${id}`);
-      dispatch({ type: GET_NOTICIA_DETAIL, payload: data });
+      dispatch({ type: GET_NOTICIA_DETAIL, payload: data[0] });
     } catch (error) {
       return alert(error.message);
     }
