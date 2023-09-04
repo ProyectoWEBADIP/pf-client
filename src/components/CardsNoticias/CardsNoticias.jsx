@@ -11,7 +11,7 @@ const CardsNoticias = () => {
 
   const [currentPage, setCurrentPage] = useState(0);
   const totalPage = Math.ceil(noticias?.length / 2);
-  function getCountriesForPage() {
+  function noticesPerPage() {
     //startIndex es donde arranca el paginado, currentpage es 0, se multiplca por 10 y ese va a ser el indice de donde
     //se va a inciar el slice para parcial el array de paises y el endIndex es la cantidad de paises que va a abarcar el slice
     //en este caso seria slice(0, 9)
@@ -28,7 +28,7 @@ const CardsNoticias = () => {
     setCurrentPage((currentPage) => Math.max(currentPage - 1, 0));
   }
   const pageNumbers = Array.from({ length: totalPage }, (_, i) => i + 1);
-  const noticiasForPage = getCountriesForPage();
+  const noticiasForPage = noticesPerPage();
 
   return (
     <div>
