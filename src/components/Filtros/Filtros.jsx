@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Check, CheckBox } from "@mui/icons-material";
 import { Accordion, AccordionDetails, AccordionSummary, Container, MenuItem, Select, Typography, FormControl, InputLabel, TextField, Box, FormLabel, FormGroup } from "@mui/material";
 /* eslint-disable no-unused-vars */
@@ -41,7 +42,7 @@ export default function Filtros(){
 
   // const { femenino, masculino, infantiles, inferiores, recreativo } = state;
   const categoría = useSelector((state) => state.categorias)
-  console.log("====> categorias ",categoría);
+  
     
     return(
         <Container>
@@ -90,12 +91,12 @@ export default function Filtros(){
             </FormControl>
         </Box>
        
-        <Box mt={3}>
+        {/* <Box mt={3}>
             <TextField variant="standard" fullWidth id="outlined-select-order" select label="Ordenar por" defaultValue="Más reciente">
                 <MenuItem value="latest">Más reciente</MenuItem>
                 <MenuItem value="oldest">Más antiguo</MenuItem>
             </TextField>
-        </Box>
+        </Box> */}
         <Box mt={3}>
             <Typography>Filtrar por fecha</Typography>
         </Box>

@@ -24,10 +24,10 @@ const notFoundNoticias = useSelector(state=>state.notFoundNoticias)
             <Typography variant="h2" fontWeight="bold" mt={4}>Noticias</Typography>
             <br/>
            <Grid container>
-                <Grid item xs={3}>
+                <Grid item xs={2}>
                     <Filtros/>
                 </Grid>
-                <Grid item xs={9} >
+                <Grid item xs={10} >
                     {notFoundNoticias?<NotFoundComponent/>:<CardsNoticias/>}
                 </Grid>
            </Grid>  
