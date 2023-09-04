@@ -56,7 +56,9 @@ export function getNoticiasByTitle(title) {
       const { data } = await axios(
         `http://localhost:3001/notices/byTitlePartial/${title}`
       );
-      return dispatch({ type: GET_NOTICIAS_BY_TITLE, payload: data });
+      console.log(data,"data");
+      console.log(title,"title");
+      return dispatch({ type: GET_NOTICIAS_BY_TITLE, payload: data.data });
     } catch (error) {
       return dispatch({ type: NOT_FOUND_NOTICIAS });
     }

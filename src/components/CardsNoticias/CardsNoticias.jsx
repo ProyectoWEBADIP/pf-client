@@ -10,13 +10,13 @@ const CardsNoticias = () => {
   const noticias = useSelector((state) => state.noticias);
 
   const [currentPage, setCurrentPage] = useState(0);
-  const totalPage = Math.ceil(noticias?.length / 2);
+  const totalPage = Math.ceil(noticias?.length / 3);
   function noticesPerPage() {
     //startIndex es donde arranca el paginado, currentpage es 0, se multiplca por 10 y ese va a ser el indice de donde
     //se va a inciar el slice para parcial el array de paises y el endIndex es la cantidad de paises que va a abarcar el slice
     //en este caso seria slice(0, 9)
-    const startIndex = currentPage * 2;
-    const endIndex = startIndex + 2;
+    const startIndex = currentPage * 3;
+    const endIndex = startIndex + 3;
     return noticias?.slice(startIndex, endIndex);
   }
   //esta funcion controla el currentPage, suma uno a la pagina acutal y limita que no exeda el numero de paginas disponible
@@ -32,7 +32,7 @@ const CardsNoticias = () => {
 
   return (
     <div>
-      <Container sx={{ display: "flex", flexWrap: "wrap" }}>
+      <Container sx={{ display: "flex", flexWrap: "wrap",width:"75vw"}}>
         {noticiasForPage?.map((notice) => (
           <CardNoticia
             key={notice.id}

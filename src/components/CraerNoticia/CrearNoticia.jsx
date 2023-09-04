@@ -18,9 +18,7 @@ export default function CrearNoticia ()  {
   
   const imgDefault = "https://static.vecteezy.com/ti/vetor-gratis/t2/550980-de-icone-de-usuario-gratis-vetor.jpg";
 
-  let allCategorias= useSelector(state =>state.categorias)
-  
-
+  let allCategorias= useSelector(state =>state.categorias)  
   
 
     const [ input, setInput ] = useState({titulo: "", resumen: "", categoria:["Femenino","Masculino","Infantiles","Recreativo","Inferiores"], descripcion: "", imagen: ""});
@@ -130,18 +128,23 @@ export default function CrearNoticia ()  {
     const handleSubmit = (event)=>{
       const arr= Object.keys(error)
       event.preventDefault();
-
+      const form= document.getElementById("formulario")
+      
       const body={
         title:input.titulo,
-        resume:input.resumen,
-        categorie:category,    
+        resume:input.resumen,           
         content:input.descripcion,    
-        image:input.imagen
+        image:input.imagen,
+        categorie_id:allCategorias[0].id    
       }       
-      
-      if(arr.length===0){
+      console.log(body)
+      if(arr.length===0){        
         dispatch(postNoticia(body))
+        form.reset();  
+        setImageURL("")
       }
+
+
       setInput({
         titulo:"",
         resumen:"",
@@ -185,11 +188,11 @@ export default function CrearNoticia ()  {
     }
     return (
       <>
-      <Box component="form" fullWidth onSubmit={handleSubmit} sx={{m:5}}>
-        <TextField label="Título"  type="text" name="titulo" value={input.titulo} required onChange={handleChange} fullWidth helperText="Entre 5 y 40 caracteres" />
+      <Box component="form" id="formulario"  onSubmit={handleSubmit} sx={{m:5}}>
+        <TextField label="Título" helperText=" " type="text" name="titulo" value={input.titulo} required onChange={handleChange} fullWidth />
         {error.titulo && <Typography variant="body1">{error.titulo}</Typography>}
         
-        <TextField label="Resumen"  type="text" name="resumen" value={input.resumen} required onChange={handleChange} fullWidth helperText="Hasta 100 caracteres" />
+        <TextField label="Resumen"  type="text" name="resumen" value={input.resumen} required onChange={handleChange} fullWidth  />
         {error.resumen && <Typography variant="body1">{error.resumen}</Typography>}
 
         <div>                                 
@@ -226,7 +229,7 @@ export default function CrearNoticia ()  {
 
           <br/>
 
-        <TextField label="Descripción"  type="text" name="descripcion" value={input.descripcion} required onChange={handleChange} fullWidth helperText="Hasta 2000 caracteres" />
+        <TextField label="Descripción"  type="text" name="descripcion" value={input.descripcion} required onChange={handleChange} fullWidth />
         {error.descripcion && <Typography variant="body1">{error.descripcion}</Typography>}
 
         <TextField type="file" name="imagen" accept="image/*" onChange={handleImageChange}/>
