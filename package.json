@@ -12,6 +12,8 @@
   "dependencies": {
     "@cloudinary/react": "^1.11.2",
     "@cloudinary/url-gen": "^1.11.2",
+    "@cloudinary/react": "^1.11.2",
+    "@cloudinary/url-gen": "^1.11.2",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.7",
@@ -20,6 +22,7 @@
     "@mui/x-date-pickers": "^6.12.1",
     "@react-oauth/google": "^0.11.1",
     "axios": "^1.5.0",
+    "cloudinary-core": "^2.13.0",
     "dayjs": "^1.11.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

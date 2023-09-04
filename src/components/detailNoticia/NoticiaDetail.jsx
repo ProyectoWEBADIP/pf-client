@@ -21,9 +21,10 @@ export default function NoticiaDetail() {
   }, [dispatch]);
 
   const detalleNoticia = useSelector((state) => state.detalleNoticia);
-  console.log(detalleNoticia)
+  console.log("==> detalle",detalleNoticia)
   return (
     <div>
+      
       <h1>{detalleNoticia?.title}</h1>
       <p>{detalleNoticia?.resume}</p>
       <img src={detalleNoticia?.image} alt={detalleNoticia?.image}/>

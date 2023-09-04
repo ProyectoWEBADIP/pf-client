@@ -17,7 +17,7 @@ const CardsNoticias = () => {
     //en este caso seria slice(0, 9)
     const startIndex = currentPage * 2;
     const endIndex = startIndex + 2;
-    return noticias.slice(startIndex, endIndex);
+    return noticias?.slice(startIndex, endIndex);
   }
   //esta funcion controla el currentPage, suma uno a la pagina acutal y limita que no exeda el numero de paginas disponible
   function handleNextPage() {
@@ -53,7 +53,7 @@ const CardsNoticias = () => {
           </button>
         </div>
         <div>
-        {pageNumbers.map((pageNumber) => (
+        {pageNumbers?.map((pageNumber) => (
             <button
               key={pageNumber}
               onClick={() => setCurrentPage(pageNumber - 1)}

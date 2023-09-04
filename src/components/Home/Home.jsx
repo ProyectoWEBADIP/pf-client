@@ -6,12 +6,15 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllNoticias } from '../../redux/noticiasActions/noticiasActions';
 import NotFoundComponent from "../notFound/notFound";
+import { getAllCategories } from "../../redux/categoriasActions/categoriasActions";
+
 
 export default function Home (){
   const dispatch = useDispatch();
 const notFoundNoticias = useSelector(state=>state.notFoundNoticias)
   useEffect(() => {
     dispatch(getAllNoticias());
+    dispatch(getAllCategories())
   }, [dispatch]);
   
 

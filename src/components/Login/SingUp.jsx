@@ -1,7 +1,8 @@
+import { useDispatch } from "react-redux";
 /* eslint-disable no-unused-vars */
-import { useDispatch, useSelector } from "react-redux";
+import {useSelector } from "react-redux";
 import Validation from "./validaciones";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { registerUser } from "../../redux/login-registerActions/loginActions";
 import { useNavigate } from "react-router-dom";
 
@@ -15,6 +16,7 @@ export default function SignUp() {
 
   const [error, setError] = useState({});
   const dispatch = useDispatch();
+
 
   const handleChange = (event) => {
     setInput({
@@ -30,6 +32,12 @@ export default function SignUp() {
   };
 
   const respuesta = useSelector((state) => state.loginRegisterLocal);
+  console.log("==>res" ,respuesta);
+  useEffect(()=>{
+    if(respuesta?.includes("éxito")){
+      navigate("/login")
+    }
+  },[respuesta, navigate])
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -61,7 +69,7 @@ export default function SignUp() {
           required
         />
 
-        <p>✔ puedes usar letras y numeros</p>
+        <h5>✔ puedes usar letras y numeros</h5>
       </div>
 
       <div className="mb-4">
@@ -98,14 +106,14 @@ export default function SignUp() {
         />
       </div>
       <hr />
-      {respuesta?.includes("éxito") ? navigate("/login") : <h5>{respuesta}</h5>}
+      {respuesta? <h5>{respuesta}</h5> : null}
       <div>
         <h5>⚠ Debe ser mayor a 8 caracteres</h5>
         <h5>⚠ Debe contener al menos un carácter especial</h5>
       </div>
       <hr />
       <button type="submit">Crear cuenta</button>
-      
+
     </form>
   );
 }

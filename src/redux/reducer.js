@@ -6,7 +6,8 @@ import {
   CLEAN_NOTICIA_DETAIL,
   GET_NOTICIAS_BY_TITLE,
   CLEAN_FILTERS_NOTICIAS,
-  NOT_FOUND_NOTICIAS
+  NOT_FOUND_NOTICIAS,
+  GET_NOTICIAS_BY_CATEGORY
 } from './noticiasActions/noticiasActionTypes';
 //LOGIN_REGISTER ACTION TYPES//
 import {
@@ -19,7 +20,12 @@ import {
   REGISTER_USER,
   GET_USER_BY_ID,
   CREATE_PROFILE_LOCAL,
+  REGISTER_USER_LOCAL,
 } from './login-registerActions/actionTypes';
+//Categorias types
+import {
+  GET_ALL_CATEGORIES
+} from "../redux/categoriasActions/categoriasActionTypes"
 
 const initialState = {
   isLoading: false,
@@ -38,7 +44,8 @@ const initialState = {
   noticiasBackUp: [],
   detalleNoticia: {},
   notFoundNoticias:false,
-  loginRegisterLocal: ""
+  loginRegisterLocal: "",
+  categorias: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -169,6 +176,21 @@ export default function rootReducer(state = initialState, action) {
         isLoading: false,
         perfilUsuario: action.payload,
       };
+      case REGISTER_USER_LOCAL:
+        return {
+          ...state,
+          loginRegisterLocal: action.payload
+        }
+        case GET_ALL_CATEGORIES: 
+        return {
+          ...state,
+          categorias: action.payload
+        }
+        case GET_NOTICIAS_BY_CATEGORY: 
+        return {
+          ...state,
+         noticias: action.payload 
+        }
     default:
       return { ...state };
   }
