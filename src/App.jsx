@@ -17,7 +17,7 @@ import React, { useState } from "react";
 
 function App() {
   const [themeMode, setThemeMode] = useState("light");
-  //jola
+  //jola 2 
   const toggleThemeMode = () => {
     setThemeMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
   };
