@@ -26,13 +26,15 @@ export function getAllNoticias() {
 }
 
 export function postNoticia(body) {
+  
   return async (dispatch) => {
     try {
       const { data } = await axios.post(`http://localhost:3001/notices`, body);
-
-      dispatch({ type: POST_NOTICIA, payload: data });
+      
+      
+      dispatch({ type: POST_NOTICIA, payload: data});
     } catch (error) {
-      return alert(error.message);
+     console.log(error);
     }
   };
 }
@@ -56,8 +58,7 @@ export function getNoticiasByTitle(title) {
       const { data } = await axios(
         `http://localhost:3001/notices/byTitlePartial/${title}`
       );
-      console.log(data,"data");
-      console.log(title,"title");
+     
       return dispatch({ type: GET_NOTICIAS_BY_TITLE, payload: data.data });
     } catch (error) {
       return dispatch({ type: NOT_FOUND_NOTICIAS });
