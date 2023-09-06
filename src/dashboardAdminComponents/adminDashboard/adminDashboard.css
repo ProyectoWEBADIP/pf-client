@@ -2,14 +2,7 @@
 
 .App {
   width: 100vw;
-  height: 91.4vh;
-  background: linear-gradient(
-    106.37deg,
-    #ffe1bc 29.63%,
-    #ecb64a 51.55%,
-    #e78931 90.85%
-  );
-  
+  height: 91.4vh;  
   font-family: 'Inter', sans-serif;
   display: flex;
   justify-content: center;

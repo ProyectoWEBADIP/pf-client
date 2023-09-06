@@ -1,9 +1,10 @@
 .RightSide {
   display: flex;
+  margin-top: 2rem;
   flex-direction: column;
   width: 95%;
-  overflow: auto;
-  height: 87%;
+  overflow-y: auto;
+  height: 100%;
 }
 @media screen and (max-width: 1200px) {
   .RightSide {

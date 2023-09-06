@@ -33,7 +33,7 @@ function App() {
   const theme = createTheme(getDesignTokens(themeMode));
 
   return (
-    <div>
+    <div className="AppContainer">
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Navbar themeMode={themeMode} toggleThemeMode={toggleThemeMode} />
