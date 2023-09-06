@@ -26,6 +26,8 @@ import {
 import {
   GET_ALL_CATEGORIES
 } from "../redux/categoriasActions/categoriasActionTypes"
+//USERS TYPES
+import { GET_ALL_USERS } from './usersActions/usersActionTypes';
 
 const initialState = {
   isLoading: false,
@@ -37,6 +39,7 @@ const initialState = {
   //LOGIN_ERRORS//
   loginRegisterErrors: {},
   //USUARIO_STATES
+  allUsers:[],
   usuario: {},
   perfilUsuario: [],
   //NOTICIAS STATES//
@@ -163,6 +166,11 @@ export default function rootReducer(state = initialState, action) {
         loginRegisterErrors: {},
       };
     //GET USUARIOS CASES
+    case GET_ALL_USERS:
+      return {
+        ...state,
+        allUsers:action.payload
+      }
     case GET_USER_BY_ID:
       return {
         ...state,

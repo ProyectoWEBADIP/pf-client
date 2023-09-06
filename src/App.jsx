@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-unused-vars */
+import CssBaseline from "@mui/material/CssBaseline";
+import Box from "@mui/material/Box";
 import { useSelector } from "react-redux";
 import CardsNoticias from "./components/CardsNoticias/CardsNoticias";
 import { Route, Routes, useLocation } from "react-router-dom";
@@ -11,6 +13,8 @@ import SingUp from "../src/components/Login/SingUp"
 import NoticiaDetail from "./components/detailNoticia/NoticiaDetail";
 import CrearNoticia from "./components/CraerNoticia/CrearNoticia";
 import PerfilUsuario from "./components/PerfilUsuario/Perfil"
+
+import AdminDashboard from "./dashboardAdminComponents/adminDashboard/AdminDashboard";
 
 
 function App() {
@@ -25,6 +29,8 @@ function App() {
       <Route path={"/detalle/:id"} element={<NoticiaDetail/>}/>
       <Route path={"/crearNoticia"} element={<CrearNoticia/>}/>
       <Route path={"/:id/profile"} element={<PerfilUsuario/>}/>      
+      <Route path={"/auth/dashboard"} element={<AdminDashboard/>}/>      
+
       </Routes>
       
       
