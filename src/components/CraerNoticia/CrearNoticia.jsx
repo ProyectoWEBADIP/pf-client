@@ -7,27 +7,27 @@ import { postNoticia } from "../../redux/noticiasActions/noticiasActions";
 // import { postCategoria } from "../../redux/categoriasActions/categoriasActions";
 import { useSelector } from "react-redux";
 import { getAllCategories, postCategoria } from "../../redux/categoriasActions/categoriasActions";
-import { Box, Container, maxWidth } from "@mui/system";
+import { Box, Container} from "@mui/system";
 import { TextField, Typography } from "@mui/material";
-import { Button, MenuItem } from "@mui/base";
+import { Button} from "@mui/base";
 
 
 export default function CrearNoticia ()  {
 
 
   
-  const imgDefault = "https://static.vecteezy.com/ti/vetor-gratis/t2/550980-de-icone-de-usuario-gratis-vetor.jpg";
+  const imgDefault = "https://cdn-icons-png.flaticon.com/256/20/20079.png";
 
   let allCategorias= useSelector(state =>state.categorias)  
   
 
-    const [ input, setInput ] = useState({titulo: "", resumen: "", categoria:["Femenino","Masculino","Infantiles","Recreativo","Inferiores"], descripcion: "", imagen: ""});
-
+    const [ input, setInput ] = useState({titulo: "", resumen: "", descripcion: "", imagen:""});
     const [ error, setError ] = useState({});
     const [imageURL, setImageURL] = useState(""); //url
-    const [category,setCategory]=useState([]);
+    const [category,setCategory]=useState([{id:"",name:""}]);
+    const [setCrearCategory]=useState("");
     
-
+  
      
   const dispatch=useDispatch();
 
@@ -41,37 +41,44 @@ export default function CrearNoticia ()  {
 
     const handleChange= (event)=>{  
       event.preventDefault();  
-
+      
       setInput({
         ...input,
         [event.target.name] : event.target.value
         
-      })
+      })     
       
       setError(validation(
         {
             ...input,
             [event.target.name]: event.target.value
         })          
-      )         
+      )   
           
+      }
+
+      const handleCategoryChange=(event)=>{
+        event.preventDefault(); 
+        setInput({
+          ...input,
+          [event.target.name] : event.target.value
+          
+        }) 
       }
     
     const submitImage= async (e)=>{
       e.preventDefault();   
 
-      try {
-        
+      try {        
         const formData = new FormData()
         formData.append("file",input.imagen)
         formData.append("upload_preset", "Noticias")
         formData.append("cloud_name","drpdobxfu")
 
         const {data}= await axios.post("https://api.cloudinary.com/v1_1/drpdobxfu/image/upload",formData)
-        setInput({...input, imagen: data.secure_url})
-        
-        alert("Subida con exito!")
-        
+        setInput({...input, imagen: data.secure_url})        
+        alert("Subida con  exito!")
+        console.log(input.imagen);
       } catch (error) {
         console.log(error);
       }
@@ -79,28 +86,34 @@ export default function CrearNoticia ()  {
 
     const handleImageChange=(event)=>{
       const file = event.target.files[0];          
-      setImageURL(URL.createObjectURL(file)); 
-      
+      setImageURL(URL.createObjectURL(file));    
 
       setInput({
         ...input,
         imagen: file
-      })    
-       
-      
+      })   
+      console.log(input);
     }
     
     const handleSelect=(e)=>{
-      const selecCategory= e.target.value   
-              
-        
-      if(!category.includes(selecCategory)){
-        setCategory([
-          ...category,
-          selecCategory
-        ])
-      }
+      const idCategory= +allCategorias[e.target.value].id;       
+     
+     const nameCategory=allCategorias[e.target.value].name;   
+     const obj= {id:idCategory,name:nameCategory}    
+     const tieneID = category.some(e => e.id === obj.id)
       
+     if(!tieneID){
+      //se llena para renderizarlo abajo
+       setCategory([
+         ...category,
+         {         
+        id: idCategory,
+        name:nameCategory
+        }
+      ])    
+       
+      }        
+     
       setError(validation(
         {
             ...input,
@@ -112,80 +125,77 @@ export default function CrearNoticia ()  {
 
     const deleteCategory= (e)=>{
       const categoryFilter= category.filter((c)=>c !== e)     
-
+      //los que no quiere eliminar
       setCategory([...categoryFilter])
       
       if(categoryFilter.length==0){
         setError({
           ...error,
-          categoria:"**Campo obligatorio"
+          categoria:"*Campo obligatorio*"
         }        
         )
       }
-
+      
     }
 
     const handleSubmit = (event)=>{
-      const arr= Object.keys(error)
+      // const arr= Object.keys(error)
       event.preventDefault();
-      const form= document.getElementById("formulario")
+      const form= document.getElementById("formulario")  
+      const ids =category.map(item => item.id);
+           
       
       const body={
         title:input.titulo,
-        resume:input.resumen,           
+        resume:input.resumen,                  
         content:input.descripcion,    
         image:input.imagen,
-        categorie_id:allCategorias[0].id    
-      }       
-      console.log(body)
-      if(arr.length===0){        
-        dispatch(postNoticia(body))
+        categoryIds:ids,
+        active:true
+      }  
+      
+      console.log(body,"body");
+      console.log(input.imagen);
+      console.log(input.imagen);
+      if(input.imagen){        
+        dispatch(postNoticia(body))                
         form.reset();  
         setImageURL("")
+
+        setInput({
+          titulo:"",
+          resumen:"",       
+          detalle:"",
+          imagen:""
+        })
+        setCategory([])
+        alert("Noticia creada con exito!")
+      } else{
+        alert("Falta cargar la imagen!")
       }
-
-
-      setInput({
-        titulo:"",
-        resumen:"",
-        categoria:[],
-        detalle:"",
-        imagen:""
-      })
-      setCategory([])
+           
     }
     
-    const agregarCategoria= (event)=>{
+    const crearCategoria= (event)=>{
       event.preventDefault()
+      
       const name= input.crear;   
+      
        
-      const categoriasAct= [...input.categoria, name]      
+      setCrearCategory(name)
 
-      setInput({
-        ...input,
-        categoria:categoriasAct,
-        crear:""
-      })  
-
+       setInput({
+         ...input,
+         categoria:name,        
+        })     
+        
       dispatch(postCategoria({active:true,name}))  
       alert("Categoria creada con exito!")
-      dispatch(getAllCategories())
-      
-
-       
+      dispatch(getAllCategories())   
     
-    }
+    }    
+   
     
-    const handleCatChange =(event)=>{
-      event.preventDefault();  
-      
-      setInput({
-        ...input,
-        [event.target.name] : event.target.value
-        
-      })
-      
-    }
     return (
       <>
       <Box component="form" id="formulario"  onSubmit={handleSubmit} sx={{m:5}}>
@@ -197,11 +207,11 @@ export default function CrearNoticia ()  {
 
         <div>                                 
             <select value="def" onChange={handleSelect} name="categoria" >
-              <option value="def">Seleccione categoria</option>
+              <option name="categoria" value="def">Seleccione categoria</option>
 
-              {allCategorias?.map((c)=>{
+              {allCategorias?.map((c,index)=>{
                 return(
-                  <option key={c.id} value={c.name}>{c.name}</option>
+                  <option key={c.id} value={index}>{c.name}</option>
                 )
               })}             
             </select>  
@@ -210,24 +220,24 @@ export default function CrearNoticia ()  {
 
  
         <div>
-          {category?.map((e)=>{
+          {category?.map((e,index)=>{
               return(
-                <div key={e}>
-                  <p>{e}</p>
+                <div key={index}>
+                  <p>{e.name}</p>
                   <button onClick={()=>deleteCategory(e)}>X</button>
                 </div>
               )
-            }) }
+            })}
           </div>
 
           <br />
-          {/* <div style={{padding: "10px", gap: "10px" }}>
-          <TextField label="Crear categoría" type="text" name="crear" sx={{mr: 3}} />
-          <Button onClick={agregarCategoria}>Crear</Button>
+          <div style={{padding: "10px", gap: "10px" }}>
+          <TextField onChange={handleCategoryChange} label="Crear categoria" type="text" name="crear" sx={{mr: 3}} />
+          <Button onClick={crearCategoria}>Crear</Button>
 
-          </div> */}
+          </div>
 
-          {/* <br/> */}
+          <br/>
 
         <TextField label="Descripción"  type="text" name="descripcion" value={input.descripcion} required onChange={handleChange} fullWidth />
         {error.descripcion && <Typography variant="body1">{error.descripcion}</Typography>}
@@ -240,13 +250,13 @@ export default function CrearNoticia ()  {
           </div>          
 
           <Container sx={{maxHeight: 300, maxWidth: 300 }}>
-          <img src={ imageURL? imageURL : imgDefault} alt="img" style={{ width: '100%', height: 'auto', objectFit: "cover"}}/>      
-          {error.imagen && <p>{error.imagen}</p>}      
+          <img src={ imageURL? imageURL : imgDefault} alt="img" style={{ width: '300px', height: 'auto', objectFit: "cover"}}/>      
+              
           </Container>
           
           <br/>
 
-        <Button type="submit" variant="outlined" value="Crear Noticia" >Crear noticia</Button>
+        <Button type="submit" variant="outlined" value="Crear Noticia">Crear noticia</Button>
       </Box>
 
       </> 
