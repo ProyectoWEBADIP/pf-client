@@ -96,20 +96,23 @@ export default function CrearNoticia ()  {
     }
     
     const handleSelect=(e)=>{
-      const idCategory=+allCategorias[e.target.value].id;            
+      const idCategory= +allCategorias[e.target.value].id;       
      
-     const nameCategory=allCategorias[e.target.value].name;
-       
-
-     if(!category.includes(idCategory)){
+     const nameCategory=allCategorias[e.target.value].name;   
+     const obj= {id:idCategory,name:nameCategory}    
+     const tieneID = category.some(e => e.id === obj.id)
+      
+     if(!tieneID){
       //se llena para renderizarlo abajo
-       setCategory([{
+       setCategory([
          ...category,
+         {         
         id: idCategory,
         name:nameCategory
-     }])    
+        }
+      ])    
        
-      }  
+      }        
      
       setError(validation(
         {
@@ -139,13 +142,17 @@ export default function CrearNoticia ()  {
       const arr= Object.keys(error)
       event.preventDefault();
       const form= document.getElementById("formulario")  
+      const ids =category.map(item => item.id);
+      console.log(ids);
+      
       
       const body={
         title:input.titulo,
         resume:input.resumen,                  
         content:input.descripcion,    
         image:input.imagen,
-        categorie_id:+category[0].id
+        categoryIds:ids,
+        active:true
       }  
       
       console.log(body,"body");
@@ -173,7 +180,7 @@ export default function CrearNoticia ()  {
 
        setInput({
          ...input,
-         categoria:crearCategory,        
+         categoria:name,        
         })     
         
       dispatch(postCategoria({active:true,name}))  
@@ -207,14 +214,14 @@ export default function CrearNoticia ()  {
 
  
         <div>
-          {category?.map((e)=>{
+          {category?.map((e,index)=>{
               return(
-                <div key={e}>
+                <div key={index}>
                   <p>{e.name}</p>
                   <button onClick={()=>deleteCategory(e)}>X</button>
                 </div>
               )
-            }) }
+            })}
           </div>
 
           <br />
