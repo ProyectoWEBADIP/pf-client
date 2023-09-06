@@ -25,7 +25,7 @@ export default function CrearNoticia ()  {
     const [ error, setError ] = useState({});
     const [imageURL, setImageURL] = useState(""); //url
     const [category,setCategory]=useState([{id:"",name:""}]);
-    const [setCrearCategory]=useState("");
+    const [crearCategory,setCrearCategory]=useState("");
     
   
      
@@ -155,8 +155,7 @@ export default function CrearNoticia ()  {
       }  
       
       console.log(body,"body");
-      console.log(input.imagen);
-      console.log(input.imagen);
+      
       if(input.imagen){        
         dispatch(postNoticia(body))                
         form.reset();  
