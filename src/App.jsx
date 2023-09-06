@@ -16,10 +16,13 @@ import { getDesignTokens } from "../helpers/theme";
 import React, { useState } from "react";
 
 function App() {
-  const [themeMode, setThemeMode] = useState("light");
-  //jola 2 
+  const storedThemeMode = localStorage.getItem("themeMode") || "light";
+  const [themeMode, setThemeMode] = useState(storedThemeMode);
+
   const toggleThemeMode = () => {
-    setThemeMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+    const prefThemeMode = themeMode === "light" ? "dark" : "light";
+    localStorage.setItem("themeMode", prefThemeMode);
+    setThemeMode(prefThemeMode);
   };
 
   const theme = createTheme(getDesignTokens(themeMode));
