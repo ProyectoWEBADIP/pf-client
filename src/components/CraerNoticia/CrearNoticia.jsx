@@ -16,7 +16,7 @@ export default function CrearNoticia ()  {
 
 
   
-  const imgDefault = "https://static.vecteezy.com/ti/vetor-gratis/t2/550980-de-icone-de-usuario-gratis-vetor.jpg";
+  const imgDefault = "https://cdn-icons-png.flaticon.com/256/20/20079.png";
 
   let allCategorias= useSelector(state =>state.categorias)  
   
@@ -25,7 +25,7 @@ export default function CrearNoticia ()  {
     const [ error, setError ] = useState({});
     const [imageURL, setImageURL] = useState(""); //url
     const [category,setCategory]=useState([{id:"",name:""}]);
-    const [crearCategory,setCrearCategory]=useState("")
+    const [setCrearCategory]=useState("");
     
   
      
@@ -78,7 +78,7 @@ export default function CrearNoticia ()  {
         const {data}= await axios.post("https://api.cloudinary.com/v1_1/drpdobxfu/image/upload",formData)
         setInput({...input, imagen: data.secure_url})        
         alert("Subida con  exito!")
-        
+        console.log(input.imagen);
       } catch (error) {
         console.log(error);
       }
@@ -92,7 +92,7 @@ export default function CrearNoticia ()  {
         ...input,
         imagen: file
       })   
-      
+      console.log(input);
     }
     
     const handleSelect=(e)=>{
@@ -139,12 +139,11 @@ export default function CrearNoticia ()  {
     }
 
     const handleSubmit = (event)=>{
-      const arr= Object.keys(error)
+      // const arr= Object.keys(error)
       event.preventDefault();
       const form= document.getElementById("formulario")  
       const ids =category.map(item => item.id);
-      console.log(ids);
-      
+           
       
       const body={
         title:input.titulo,
@@ -156,18 +155,25 @@ export default function CrearNoticia ()  {
       }  
       
       console.log(body,"body");
-      if(arr.length===0){        
+      console.log(input.imagen);
+      console.log(input.imagen);
+      if(input.imagen){        
         dispatch(postNoticia(body))                
         form.reset();  
         setImageURL("")
-      }      
-      setInput({
-        titulo:"",
-        resumen:"",       
-        detalle:"",
-        imagen:""
-      })
-      setCategory([])
+
+        setInput({
+          titulo:"",
+          resumen:"",       
+          detalle:"",
+          imagen:""
+        })
+        setCategory([])
+        alert("Noticia creada con exito!")
+      } else{
+        alert("Falta cargar la imagen!")
+      }
+           
     }
     
     const crearCategoria= (event)=>{
@@ -244,13 +250,13 @@ export default function CrearNoticia ()  {
           </div>          
 
           <Container sx={{maxHeight: 300, maxWidth: 300 }}>
-          <img src={ imageURL? imageURL : imgDefault} alt="img" style={{ width: '100%', height: 'auto', objectFit: "cover"}}/>      
-          {error.imagen && <p>{error.imagen}</p>}      
+          <img src={ imageURL? imageURL : imgDefault} alt="img" style={{ width: '300px', height: 'auto', objectFit: "cover"}}/>      
+              
           </Container>
           
           <br/>
 
-        <Button type="submit" variant="outlined" value="Crear Noticia" >Crear noticia</Button>
+        <Button type="submit" variant="outlined" value="Crear Noticia">Crear noticia</Button>
       </Box>
 
       </> 

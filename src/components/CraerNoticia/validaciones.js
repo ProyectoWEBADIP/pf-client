@@ -25,8 +25,7 @@ export default function validation(input) {
     }
     if(input.descripcion?.length <=0){
       error.descripcion= "*Este campo es obligatorio*"   
-    }
-    //-----------------Categoria--------------------------
+    }   
     
     
      return error;

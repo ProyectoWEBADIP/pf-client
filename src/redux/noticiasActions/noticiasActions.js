@@ -30,7 +30,7 @@ export function postNoticia(body) {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(`http://localhost:3001/notices`, body);
-      console.log(data,"data");
+      
       
       dispatch({ type: POST_NOTICIA, payload: data});
     } catch (error) {
