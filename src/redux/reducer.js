@@ -24,14 +24,6 @@ import {
 } from "./login-registerActions/actionTypes";
 //Categorias types
 import { GET_ALL_CATEGORIES } from "../redux/categoriasActions/categoriasActionTypes";
-// -------> Roles types <------
-import {
-   GET_ALL_ROLES,
-   GET_ALL_ROLES_BY_ID,
-   PATCH_ROL,
-   DELETE_ROL,
-   POST_ROL,
-} from "./rolesActions/rolesActionsTypes";
 
 const initialState = {
    isLoading: false,
@@ -52,8 +44,6 @@ const initialState = {
    notFoundNoticias: false,
    loginRegisterLocal: "",
    categorias: [],
-   // ------> ROLES STATES <-----//
-   roles: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -197,21 +187,6 @@ export default function rootReducer(state = initialState, action) {
             ...state,
             noticias: action.payload,
          };
-      //------------> Roles <----------------//
-      case GET_ALL_ROLES:
-         return {
-            ...state,
-            roles: action.payload,
-         };
-      case GET_ALL_ROLES_BY_ID:
-         return {};
-      case POST_ROL:
-         return {};
-      case PATCH_ROL:
-         return {};
-      case DELETE_ROL:
-         return {};
-
       default:
          return { ...state };
    }

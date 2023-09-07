@@ -1,0 +1,22 @@
+.MainDash{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+.MainDash>h1>span{
+  color: var(--orange);
+
+}
+@media screen and (max-width:1200px){
+
+  .MainDash{
+    justify-content: flex-start;
+  }
+}
+@media screen and (max-width: 768px) {
+  .MainDash{
+align-items: center;
+}
+  }
