@@ -10,6 +10,8 @@ import { getAllCategories, postCategoria } from "../../redux/categoriasActions/c
 import { Box, Container} from "@mui/system";
 import { TextField, Typography } from "@mui/material";
 import { Button} from "@mui/base";
+import { Grid} from '@mui/material';
+
 
 
 export default function CrearNoticia ()  {
@@ -111,8 +113,8 @@ export default function CrearNoticia ()  {
         name:nameCategory
         }
       ])    
-       
-      }        
+      }
+      console.log(category);        
      
       setError(validation(
         {
@@ -197,11 +199,13 @@ export default function CrearNoticia ()  {
     
     return (
       <>
-      <Box component="form" id="formulario"  onSubmit={handleSubmit} sx={{m:5}}>
+      <Grid  container spacing={40}>
+      <Grid  item xs={12} sm={6} >
+      <Box borderRadius={[5, 5, 5, 5]} alignItems="center" bgcolor="#FBEED8"  paddingX={1} paddingY={2} component="form" id="formulario"  onSubmit={handleSubmit} sx={{m:5,marginLeft:'-100px'}}>
         <TextField label="Título" helperText=" " type="text" name="titulo" value={input.titulo} required onChange={handleChange} fullWidth />
         {error.titulo && <Typography variant="body1">{error.titulo}</Typography>}
         
-        <TextField label="Resumen"  type="text" name="resumen" value={input.resumen} required onChange={handleChange} fullWidth  />
+        <TextField label="Resumen" type="text" name="resumen" value={input.resumen} required onChange={handleChange} fullWidth  />
         {error.resumen && <Typography variant="body1">{error.resumen}</Typography>}
 
         <div>                                 
@@ -240,24 +244,63 @@ export default function CrearNoticia ()  {
 
         <TextField label="Descripción"  type="text" name="descripcion" value={input.descripcion} required onChange={handleChange} fullWidth />
         {error.descripcion && <Typography variant="body1">{error.descripcion}</Typography>}
-
+        <br/>
+        <br/>
         <TextField type="file" name="imagen" accept="image/*" onChange={handleImageChange}/>
       
         <div className="mb-4" style={{margin: "10px"}}>
             <button onClick={submitImage}>Subir Imagen</button>
             {error.descripcion && <p>{error.imagen}</p>}                      
-          </div>          
+        </div>  
+          <br/>        
 
-          <Container sx={{maxHeight: 300, maxWidth: 300 }}>
+          <Container sx={{maxHeight: 500, maxWidth: 300}}>
           <img src={ imageURL? imageURL : imgDefault} alt="img" style={{ width: '300px', height: 'auto', objectFit: "cover"}}/>      
               
           </Container>
           
-          <br/>
+          
 
         <Button type="submit" variant="outlined" value="Crear Noticia">Crear noticia</Button>
-      </Box>
 
+      </Box>
+      </Grid>
+        {/* Previsualizar noticia */}
+        <Grid  item xs={12} sm={6}>
+        <Box borderRadius={[5, 5, 5, 5]} paddingX={3} paddingY={4} bgcolor="#FBEED8" color="primary.contrastText" marginTop={15}>
+          <div>
+          
+          <Typography variant="headline">{input.titulo}</Typography>
+          <br/>
+          
+
+          <Typography variant="body1" >{input.resumen}</Typography>
+          <br/>
+
+          
+
+          <div>
+          <img src={ imageURL? imageURL : imgDefault} alt="img" style={{ width: '300px', height: 'auto', objectFit: "cover"}}/>      
+
+          </div>
+
+          
+          <Typography variant="headline" >{input.descripcion}</Typography>
+
+          <div>
+            {category?.map((e,index)=>{
+              return(
+                <div key={index}>
+                  <p>{e.name}</p>
+                </div>
+              )
+            })}
+          </div>
+
+          </div>
+        </Box>
+        </Grid>
+        </Grid>        
       </> 
     )
   }
