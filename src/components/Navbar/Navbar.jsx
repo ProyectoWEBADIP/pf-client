@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../Searchbar/SearchBar";
 import Notificaciones from "../Notificaciones/Notificaciones";
 import "./navbar.css";
-import { AppBar, Toolbar, Typography, Button, IconButton, Box  } from "@mui/material";
+import { AppBar, Toolbar, Typography, Button, IconButton, Box, makeStyles,  } from "@mui/material";
 import logo from "../../assets/Escudo ADIP sin fondo.png"
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
@@ -13,9 +13,8 @@ import { logout } from "../../redux/login-registerActions/loginActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useSelect } from "@mui/base";
 
-
-
 const Navbar = () => {
+  
   //!HOOKS
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -125,7 +124,7 @@ const Navbar = () => {
       </Toolbar>
     </AppBar>
     
-     <div style={{ marginTop: '80px' }}/>
+     <div style={{margin: "80px"}}/>
     </>
   );
 };
