@@ -81,7 +81,7 @@ export default function SignUp() {
       component="form"
       onSubmit={handleSubmit}
       style={{ padding: "40px" }}
-      sx={({ boxShadow: 3 }, { bgcolor: "white" })}
+      sx={({ boxShadow: 3, }, { bgcolor: "white" })}
     >
       <Typography variant="h4" fontWeight="bold">
         Crea tu cuenta aquí
