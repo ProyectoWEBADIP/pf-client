@@ -14,9 +14,11 @@ import LockIcon from "@mui/icons-material/Lock";
 import PersonIcon from "@mui/icons-material/Person";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import { v4 as uuidv4 } from "uuid";
-import emailjs from "@emailjs/browser";
+import emailjs from "@emailjs/browser"
 
 export default function SignUp() {
+
+  
   const navigate = useNavigate();
   const [input, setInput] = useState({
     username: "",
@@ -25,10 +27,10 @@ export default function SignUp() {
   });
 
   const [error, setError] = useState({});
-  const [verificacionEmail, setVerificacionEmail] = useState(false);
-  const [codigoVerificacion, setCodigoVerificacion] = useState("");
-  const [codigoGeneradoLocalmente, setCodigoGeneradoLocalmente] = useState("");
-
+  const [verificacionEmail, setVerificacionEmail] = useState(false)
+  const [codigoVerificacion, setCodigoVerificacion] = useState("")
+  const [codigoGeneradoLocalmente, setCodigoGeneradoLocalmente] = useState("")
+  const [codigoEnviadoAlUsuario, setCodigoEnviadoAlUsuario] = useState("")
   const dispatch = useDispatch();
 
   const handleChange = (event) => {
@@ -49,39 +51,36 @@ export default function SignUp() {
   function handleSubmit(e) {
     e.preventDefault();
     const tieneErrors = Object.keys(error);
-
+    
     if (tieneErrors.length === 0) {
-      setVerificacionEmail(true);
-      const codigoDeVerificacion = uuidv4().slice(0, 5);
-      setCodigoGeneradoLocalmente(codigoDeVerificacion);
-      emailjs.send(
-        "service_8c6uo6a",
-        "template_p35w6dm",
-        { to_email: input.email, verification_code: codigoDeVerificacion },
-        "LVu_qcdfDk8ci54aS"
-      );
+      setVerificacionEmail(true)
+      const codigoDeVerificacion = uuidv4().slice(0, 5)
+      setCodigoGeneradoLocalmente(codigoDeVerificacion)
+      emailjs.send("service_8c6uo6a","template_p35w6dm",{to_email: input.email,verification_code: codigoDeVerificacion},"LVu_qcdfDk8ci54aS");
     } else {
       alert("Verifique los campos");
     }
   }
   const handlerCodeVerification = (event) => {
-    event.preventDefault();
-    setCodigoVerificacion(event.target.value);
-  };
+    event.preventDefault()
+    setCodigoVerificacion(event.target.value)
+    
+
+  } 
 
   const sendUser = () => {
-    if (codigoGeneradoLocalmente == codigoVerificacion) {
-      dispatch(registerUser(input));
+    if(codigoGeneradoLocalmente == codigoVerificacion){
+      dispatch(registerUser(input))
     } else {
-      alert("verificacion Fallida");
+      alert("verificacion Fallida")
     }
-  };
+  }
   return (
     <Box
       component="form"
       onSubmit={handleSubmit}
       style={{ padding: "40px" }}
-      sx={({ boxShadow: 3 }, { bgcolor: "white" })}
+      sx={{ boxShadow: 3 }}
     >
       <Typography variant="h4" fontWeight="bold">
         Crea tu cuenta aquí
@@ -175,11 +174,11 @@ export default function SignUp() {
         />
 
         <Typography variant="body1" fontWeight="bold" sx={{ mt: 1 }}>
-          ⚠️ Debe ser mayor a 8 caracteres
+          ⚠ Debe ser mayor a 8 caracteres
         </Typography>
 
         <Typography variant="body1" fontWeight="bold">
-          ⚠️ Debe contener al menos un carácter especial
+          ⚠ Debe contener al menos un carácter especial
         </Typography>
 
         {error.password && (
@@ -191,37 +190,20 @@ export default function SignUp() {
         {respuesta?.includes("éxito") ? (
           navigate("/login")
         ) : (
-          <Typography variant="h6" color="red">
+          <Typography variant="h6" color="green">
             {respuesta}
           </Typography>
         )}
       </Box>
 
-      <Button type="submit" variant="outlined" sx={{ mt: 2 }}>
-        Enviar codigo de verificacion
+      <Button  type="submit" variant="outlined" sx={{ mt: 2 }}>
+        Verificar Email
       </Button>
-
-      {verificacionEmail && (
-        <Box sx={{ mt: 2 }}>
-          <Typography variant="h6" fontWeight="bold">
-            Código de verificación:
-          </Typography>
-
-          <TextField
-            placeholder="Verifique su email"
-            onChange={handlerCodeVerification}
-            sx={{ mt: 2 }}
-            required
-            name="codigoVerificacion"
-            value={codigoVerificacion}
-          />
-          <Box>
-            <Button onClick={sendUser} variant="outlined" sx={{ mt: 2 }}>
-              Verificar
-            </Button>
-          </Box>
-        </Box>
-      )}
+    <Box>
+      {verificacionEmail && (<TextField placeholder="Verifique su email" onChange={handlerCodeVerification} sx={{mt: 1}} required name="codigoVerificacion" value={codigoVerificacion}/>)}
+      
+      <Button onClick={sendUser} variant="outlined" sx={{mt: 2}}>Verificar</Button>
+    </Box>
     </Box>
   );
 }
