@@ -6,6 +6,7 @@ import { UilSignOutAlt } from '@iconscout/react-unicons';
 import { SidebarData } from '../../Data/Data';
 import { useDispatch } from 'react-redux';
 import { changeDash } from '../../../redux/dashboardAdminActions/dashboardActions';
+import { Link } from 'react-router-dom';
 const Sidebar = () => {
   const [selected, setSelected] = React.useState(0);
 const dispatch= useDispatch()
@@ -38,7 +39,7 @@ dispatch(changeDash(i))
             );
           })}
            <div>
-        <UilSignOutAlt className='outButton'/>
+        <Link to='/'><UilSignOutAlt className='outButton'/></Link>
       </div>
         </div>
       </div>

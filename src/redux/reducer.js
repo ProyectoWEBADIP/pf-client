@@ -47,6 +47,7 @@ const initialState = {
    //LOGIN_ERRORS//
    loginRegisterErrors: {},
    //USUARIO_STATES
+   allUsers:[],
    usuario: {},
    perfilUsuario: [],
    //NOTICIAS STATES//
@@ -180,6 +181,12 @@ export default function rootReducer(state = initialState, action) {
             loginRegisterErrors: {},
          };
       //GET USUARIOS CASES
+      case GET_ALL_USERS:
+         return {
+            ...state,
+            allUsers: action.payload,
+            isLoading: false,
+         }
       case GET_USER_BY_ID:
          return {
             ...state,

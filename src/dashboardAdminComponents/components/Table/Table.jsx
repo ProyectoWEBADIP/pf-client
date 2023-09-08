@@ -65,7 +65,7 @@ export default function FullFeaturedCrudGrid() {
   const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.allUsers);
 
-  const users = allUsers.map((u) => {
+  const users = allUsers?.map((u) => {
     let edad = null;
     let firstName = null;
     let lastName = null;
@@ -384,6 +384,7 @@ export default function FullFeaturedCrudGrid() {
       },
     },
   ];
+  const noRows = [{id:'123',username: 'No se cargó'}]
   return (
     <Box
       sx={{
@@ -436,7 +437,7 @@ export default function FullFeaturedCrudGrid() {
       )}
       <DataGrid
         sx={{ textAlign: 'justify' }}
-        rows={users}
+        rows={users?users:noRows}
         columns={columns}
         rowHeight={30}
         editMode="row"
