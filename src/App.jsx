@@ -14,6 +14,7 @@ import NoticiaDetail from "./components/detailNoticia/NoticiaDetail";
 import CrearNoticia from "./components/CraerNoticia/CrearNoticia";
 import { CrearRol } from "./components/CrearRole/CrearRol";
 import PerfilUsuario from "./components/PerfilUsuario/Perfil";
+import RecuperarContraseña from "./components/RecuperarContraseña/RecuperarContraseña";
 
 import AdminDashboard from "./dashboardAdminComponents/adminDashboard/AdminDashboard";
 
@@ -47,6 +48,7 @@ function App() {
                <Route path={"/:id/profile"} element={<PerfilUsuario />} />
                <Route path={"/auth/dashboard"} element={<AdminDashboard />} />
                <Route path={"/crearRoles"} element={<CrearRol />} />
+               <Route path={"/login/recuperacion"} element={<RecuperarContraseña />}/>
             </Routes>
          </ThemeProvider>
       </div>
