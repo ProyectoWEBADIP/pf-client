@@ -14,7 +14,6 @@ export function getAllUsers() {
     }
   };
 }
-
 export function getUserById(id){
   return async (dispatch)=>{
     try {
