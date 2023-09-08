@@ -19,13 +19,16 @@ import {
 } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import PersonIcon from "@mui/icons-material/Person";
+import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
+import emailjs from "@emailjs/browser";
 import style from "./login.module.css";
 
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
 
 export default function Login() {
   const [error, setError] = useState({});
-  const [users, setUsers] = useState({ email: "", password: "" });
+  const [users, setUsers] = useState({ email: "", password: ""});
+
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -41,6 +44,7 @@ export default function Login() {
       [event.target.name]: event.target.value,
     });
   };
+
   function handleError() {}
 
   function handleSuccess(credentials) {
@@ -56,11 +60,13 @@ export default function Login() {
     dispatch(localLogin(users));
     dispatch(loading());
   }
+  
+
   return (
     <GoogleOAuthProvider clientId={CLIENT_ID}>
-      <Box 
-      style={{ padding: "40px" }} 
-      sx={{ boxShadow: 3 }, { bgcolor: "white" }}
+      <Box
+        style={{ padding: "40px" }}
+        sx={({ boxShadow: 3 }, { bgcolor: "white" })}
       >
         {!localStorage.userLogin === true ? (
           <Box>
@@ -113,6 +119,13 @@ export default function Login() {
                     Iniciar sesión
                   </Button>
                 </Box>
+
+                <Box>
+                  <Link to={"/login/recuperacion"} sx={{mt:2}}>
+                  ¿Olvidaste tu contraseña?
+                  </Link>
+                </Box>
+                  
                 <Box>
                   <Link to="/login/SignUp">
                     <Typography
@@ -134,7 +147,9 @@ export default function Login() {
               </Box>
             )}
             {loginRegisterErrors ? (
-              <Typography color="red" sx={{mt:2}}>{loginRegisterErrors.message}</Typography>
+              <Typography color="red" sx={{ mt: 2 }}>
+                {loginRegisterErrors.message}
+              </Typography>
             ) : null}
           </Box>
         ) : actualPath ? (
