@@ -79,20 +79,6 @@ const Navbar = ({ themeMode, toggleThemeMode }) => {
 
           <div className="linkContainer">
             
-              {/* { perfilUsuario && perfilUsuario.role !== 'user' &&
-                localStorage.userLogin? (
-                <div className='linkAdminContainer'>
-                  <div>
-                  <Link to="/crearNoticia" color="inherit">
-                  Crear Noticia
-                  </Link>
-                  </div>
-
-                 <div> <Link to="/crearRoles" color="inherit">
-                    Crear Rol
-                  </Link></div>
-                </div>
-              ) : null} */}
             <div className='homeButton'>
               <Link to={'/'}><HomeIcon fontSize='large'/></Link>
             </div>
