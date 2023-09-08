@@ -8,12 +8,13 @@ import {
   createLocalProfile,
   getUserById,
 } from '../../redux/login-registerActions/loginActions';
-import { useSelect } from '@mui/base';
-import Validation from '../Login/validaciones';
 import axios from 'axios';
-import { lightGreen } from '@mui/material/colors';
 import { setIsLoading } from '../../utils/setIsLoading';
-import { Alert } from '@mui/material';
+import { Alert, Button, Grid, TextField, Toolbar, Typography } from '@mui/material';
+import { Box, Container, padding } from '@mui/system';
+import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
+import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
+import './perfil.css'
 export default function Perfil() {
   //!HOOKS
   const dispatch = useDispatch();
@@ -102,127 +103,123 @@ setSuccess(<Alert severity="error">Error al subir la imágen.</Alert>)
   const perfilUsuario = useSelector((state) => state.perfilUsuario);
 const isLoading = useSelector(state=>state.isLoading)
   return (
-    <div className={style.formcomponentcont}>
-      <div>
-{!isLoading?      !perfilUsuario.active ? (
-        <div className={style.contProf}>
-          <div className={style.formContainerProfile}>
-            {
-              //Este contendrá todo para hacer la previsualización
-            }
-            {/* <div className={style.image}>
-              <img src="https://pbs.twimg.com/profile_images/1454099552106074116/eEn8pMnN_400x400.jpg" />
-            </div> */}
-            <h2>
-              Actualiza tu perfil para terminar de registrarte en Club ADIP.
-            </h2>
-            <div className={style.formContainer}>
-              <form onSubmit={handleSubmit}>
-                <label htmlFor="firstName">Nombre:</label>
-                {/* {error.nombre && <p className="text-red-500">{error.nombre}</p>} */}
-                <input onChange={handleChange} name="firstName" type="text" />
-                <br />
-                <label htmlFor="lastName">Apellido:</label>
-                {/* {error.nombre && <p className="text-red-500">{error.nombre}</p>} */}
-                <input onChange={handleChange} name="lastName" type="text" />
-                <br />
-                <label htmlFor="birthDate">Fecha de nacimiento:</label>
-                {/* {error.nombre && <p className="text-red-500">{error.nombre}</p>} */}
-                <input onChange={handleChange} name="birthDate" type="date" />
-                <br />
-                <label htmlFor="image">Imagen:</label>
-                {/* {error.nombre && <p className="text-red-500">{error.nombre}</p>} */}
-                <input onChange={handleChange} name="image" type="file" />
-                <button type="button" onClick={submitImgToCloudinary}>
-                  Subir imagen
-                </button>
-                <p>{cloudinaryResponse?<div className={style.loader}></div>:success}</p>
-                <br />
-                <label htmlFor="dni">DNI:</label>
-                {/* {error.nombre && <p className="text-red-500">{error.nombre}</p>} */}
-                <input onChange={handleChange} name="dni" type="text" />
-                <br />
-                <button>Actualizar mi perfil</button>
+    <div className={style.perfContainerContainer}>
+          {!isLoading?      !perfilUsuario.active ? (
+          <div className={style.contProf}>
+              {
+                //Este contendrá todo para hacer la previsualización
+              }
+              {/* <div className={style.image}>
+                <img src="https://pbs.twimg.com/profile_images/1454099552106074116/eEn8pMnN_400x400.jpg" />
+              </div> */}
+              <Grid container spacing={{md: 2}}>
 
-                {/* <button disabled={disabler()}>Actualizar mi perfil</button> CUANDO ESTÉ LA VALIDACION DE ERRORES, SE USARÁ ESTE BOTÓN QUE SE DESHABILITA SI HAY ERRORES*/}
-              </form>
-            </div>
+                <Grid item xs={12} sm={12} md={6} marginBottom={5}>
+                
+                <form onSubmit={handleSubmit}>
+                  <Box  display="flex" flexDirection={"column"} maxWidth={400} minWidth={300} alignItems="center" justifyContent={"center"} margin="auto" padding={3} borderRadius={5} boxShadow={"5px 5px 10px #ccc"} sx={{":hover":{ boxShadow: "5px 5px 10px #ccc"}, backgroundColor:"whitesmoke", marginX: 3}}>
+                    <Typography variant='body2' fontWeight="bold" >Actualiza tu perfil para terminar de registrarte!</Typography>
+                    <TextField margin="normal" htmlFor="firstName" name='firstName' type='text' label="Nombre" onChange={handleChange}/>
+                    <TextField margin="normal" htmlFor="lastName" name='lastName' type='text' label="Apellido" onChange={handleChange}/>
+                    <TextField margin="normal" htmlFor="birthDate" name="birthDate" type='date' focused label="Fecha de Nacimiento" onChange={handleChange} color='grey' />
+                    <TextField margin="normal" htmlFor="dni" name="dni" type='text' label="DNI" onChange={handleChange}/>        
+                    
+                    <Toolbar>
+                      <TextField margin="normal" htmlFor="image" name="image" type='file' label="Imagen" focused onChange={handleChange} color='grey'></TextField>
+                      <Button variant="contained" size='xs' sx={{ marginLeft:"5px", fontSize: "10px", alignContent:"center"}} type="button" onClick={submitImgToCloudinary} startIcon={<FileUploadOutlinedIcon/>}>Cargar</Button>
+                    </Toolbar>
+                    <p>{cloudinaryResponse?<div className={style.loader}></div>:success}</p>
+
+                    <Button type="submit" sx={{marginTop: 2,}} variant='outlined'>Actualizar perfil</Button>
+                  </Box>
+                 
+                </form>
+                </Grid>
+        
+            {
+              //!ACÁ SE DIVIDE LA VISTA PREVIA
+            }
+
+              <Grid item xs={12} sm={12} md={6}>
+              <Box  display="flex" flexDirection={"column"} maxWidth={400} minWidth={300} alignItems="center" justifyContent={"center"} margin="auto" padding={3} borderRadius={5} boxShadow={"5px 5px 10px #ccc"} sx={{":hover":{ boxShadow: "5px 5px 10px #ccc"}, backgroundColor:"whitesmoke", marginX: 3 }}>
+                
+                  <Container sx={{borderRadius: "50%", borderColor: "black", borderStyle: "solid", borderWidth: "2px", overflow: "hidden", width:"15vw", height:"15vw", marginBottom: 3,}}>
+                  <img
+                    src={profileData.image ? imageURL : imgDefault}
+                    alt="img"
+                    style={{
+                      width: "100%", // Añade esto
+                      height: "100%", // Añade esto
+                      objectFit: "cover"
+                    }}
+
+                  />
+                  </Container>
+
+                  
+                  <Typography variant='h4' fontWeight="lighter">Hola</Typography>
+                  <Typography variant='h4' fontWeight="bold">{profileData.firstName} {profileData.lastName}!</Typography>
+                  
+                  <Container>
+                    <Typography variant='body1'>Email: {perfilUsuario.email}</Typography>
+                    <Typography variant='body1'>Fecha de Nacimiento: {profileData.birthDate}</Typography>
+                    <Typography variant='body1'>DNI: {profileData.dni}</Typography>
+                    <Typography variant='body1' fontWeight="bold">Deuda acumulada: $0</Typography>
+                 
+                  </Container>
+                  
+                  {/* {error.imagen && <p>{error.imagen}</p>} */}
+              </Box>
+              </Grid>
+
+            </Grid>
           </div>
-          {
-            //!ACÁ SE DIVIDE LA VISTA PREVIA
-          }
-          <div className={style.prevContainer}>
-            <div className={style.prevImgCont}>
-              <img
-                src={profileData.image ? imageURL : imgDefault}
-                alt="img"
-              />
-              <div>
-              <h2>
-                Bienvenido, {<br></br>}{profileData.firstName} {profileData.lastName}
-              </h2>
-            </div>
-              {/* {error.imagen && <p>{error.imagen}</p>} */}
-            </div>
-            
-            <div>
-              <p>Email: {perfilUsuario.email}</p>
-            </div>
-            <div>
-              <label>Fecha de nacimiento: </label>
-              <p>{profileData.birthDate}</p>
-            </div>
-            <div>
-              <label>DNI: </label>
-              <p>{profileData.dni}</p>
-            </div>
-            <div>
-              <label>Deuda actual: </label>
-              <p>$ 99999999,28</p> {/*deuda de prueba*/}
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div>
+          
+        ) : (
+        <div >
           {' '}
           {/*  ACÁ SE DIVIDE CUANDO TIENE PERFIL Y CUANDO NO*/}
-          <div className={style.perfilContainer}>
-            <div className={style.imgCont}>
-              <div>
-                <h1>
-                  Bienvenido, {<br></br>}
-                  {perfilUsuario.profile.firstName}{' '}
-                  {perfilUsuario.profile.lastName}
-                </h1>
-              </div>
-              <img
-                src={
-                  perfilUsuario.profile.image
+          
+          <Box className={style.perfilCont} alignItems="center" justifyContent={"center"}  borderRadius={5} boxShadow={"5px 5px 10px #ccc"} sx={{":hover":{ boxShadow: "5px 5px 10px #ccc"}, backgroundColor:"whitesmoke", padding: 5 }}>
+            <Grid container spacing={5} sx={{width: "95%", alignItems: "center"}}>
+              <Grid item xs={8}>
+                <Typography variant='h3' fontWeight="bold">Hola {perfilUsuario.profile.firstName}</Typography>
+                <Typography variant='h3' fontWeight="bold">{perfilUsuario.profile.lastName}!</Typography>
+                <Button variant='outlined' sx={{marginTop:2}}>Generar Carnet digital</Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Container sx={{display:"flex", justifyContent:"center",  borderRadius: "50%", borderColor: "black", borderStyle: "solid", borderWidth: "2px", overflow: "hidden", width:"20vw", height:"20vw", }}>
+                <img
+                src={ perfilUsuario.profile.image
                     ? perfilUsuario.profile.image
-                    : imgDefault
-                }
+                    : imgDefault}
                 alt="img"
-              />
+                style={{
+                  width: "150%", // Añade esto
+                  height: "auto", // Añade esto
+                  objectFit: "cover"
+                }}
+                />
+                </Container>
+              </Grid>
 
-              {error.imagen && <p>{error.imagen}</p>}
-            </div>
-            <div>
-              <p>Email: {perfilUsuario.email}</p>
-            </div>
-            <div>
-              <p>
-                Fecha de nacimiento:{' '}
-                {perfilUsuario.profile.birthDate.split('T')[0]}
-              </p>
-            </div>
-            <div>
-              <p>DNI: {perfilUsuario.profile.dni}</p>
-            </div>
-            <div>
-              <label htmlFor=""></label>
-              <p>Deuda actual: $ 99999999,28</p> {/*deuda de prueba*/}
-            </div>
-          </div>
+            </Grid>
+            
+            <Container sx={{ justifyContent: "center", alignContent: "center"}}>
+              <Typography variant='body1' sx={{ marginTop: "10px" }}>Email: {perfilUsuario.email}</Typography>
+              <Typography variant='body1' sx={{ marginTop: "10px" }}>Fecha de Nacimiento: {' '}{perfilUsuario.profile.birthDate.split('T')[0]}</Typography>
+              <Typography variant='body1' sx={{ marginTop: "10px" }}>DNI: {perfilUsuario.profile.dni}</Typography>
+              <Typography variant='body1' sx={{ marginTop: "10px", marginBottom:"5px" }} fontWeight="bold">Deuda acumulada: $0</Typography>
+              <Button variant='outlined'>Saldar deuda</Button>
+            </Container>
+          </Box>
+      {perfilUsuario.role==='super_admin' && perfilUsuario.profile?    <Link to={'/auth/dashboard'}>
+      <button className="learn-more">
+  <span aria-hidden="true" className="circle">
+  <span className="icon arrow"></span>
+  </span>
+  <span className="button-text">Administrador</span>
+</button></Link>:null}
         </div>
       ):(
         <div className={style.box}>
@@ -232,8 +229,7 @@ const isLoading = useSelector(state=>state.isLoading)
           </div>
         </div>
       )}
-      </div>
 
-    </div>
+  </div>
   );
 }

@@ -1,10 +1,11 @@
-.cont{
+.paginado{
     display: flex;
     justify-content: center;
-    
 }
-.text{
-    font-size: x-large;
-    display: flex;
-    align-items: center;    
+
+.notContainer{
+display: flex;
+justify-content: space-evenly;
+flex-wrap: wrap;
+gap: 10px;
 }

@@ -27,24 +27,37 @@ import {
   
 } from './login-registerActions/actionTypes';
 //Categorias types
+import { GET_ALL_CATEGORIES } from "../redux/categoriasActions/categoriasActionTypes";
+//USERS TYPES
+import { GET_ALL_USERS, GET_USER_BY_EMAIL, UPDATE_PASSWORD } from "./usersActions/usersActionTypes";
+// -------> Roles types <------
 import {
-  GET_ALL_CATEGORIES
-} from "../redux/categoriasActions/categoriasActionTypes"
-
+   GET_ALL_ROLES,
+   GET_ALL_ROLES_BY_ID,
+   PATCH_ROL,
+   DELETE_ROL,
+   POST_ROL,
+} from "./rolesActions/rolesActionsTypes";
+//DASHBOARD TYPES
+import {RENDER_CORRECT_DASH} from './dashboardAdminActions/actionTypes'
 const initialState = {
-  isLoading: false,
-  //LOGIN_STATES//
-  loggedIn: false,
-  successLogin: '',
-  actualPath: '',
-  logginIn: false,
-  //LOGIN_ERRORS//
-  loginRegisterErrors: {},
-  //USUARIO_STATES
-  usuario: {},
-  perfilUsuario: [],
-  //NOTICIAS STATES//
-  noticias: [],
+   isLoading: false,
+   //LOGIN_STATES//
+   loggedIn: false,
+   successLogin: "",
+   actualPath: "",
+   logginIn: false,
+   //LOGIN_ERRORS//
+   loginRegisterErrors: {},
+   //USUARIO_STATES
+   allUsers:[],
+   usuario: {},
+   perfilUsuario: [],
+   verificacionDeUsuario: {},
+   mensajeDeVerificacionDeContraseña: [],
+   //NOTICIAS STATES//
+   noticias: [],
+   noticiasPPage:[],
   noticiasBackUp: [],
   detalleNoticia: {},
   notFoundNoticias:false,
@@ -56,12 +69,18 @@ const initialState = {
 };
 
 export default function rootReducer(state = initialState, action) {
-  switch (action.type) {
-    case IS_LOADING:
-      return {
-        ...state,
-        isLoading: true,
-      };
+   switch (action.type) {
+      case IS_LOADING:
+         return {
+            ...state,
+            isLoading: true,
+         };
+        case NOTICIAS_PER_PAGE:
+        return {
+          ...state,
+          noticiasPPage:action.payload
+
+        }
     case GET_ALL_NOTICIAS:
       let filterNotice = action.payload.filter((el) => el.active === true)
       return {
@@ -72,118 +91,128 @@ export default function rootReducer(state = initialState, action) {
         notFoundNoticias:false
       };
       case GET_NOTICIAS_BY_TITLE:
-        return{
-          ...state,
-          noticias: action.payload,
-          notFoundNoticias:false
-          
-        }
-    case GET_NOTICIA_DETAIL:
-      return {
-        ...state,
-        detalleNoticia: action.payload,
-        isLoading: false,
-        notFoundNoticias:false
-      };
-    case FILTER_NOTICIAS:
-      return {
-        noticias: action.payload,
-        isLoading: false,
-        notFoundNoticias:false
-      };
+         return {
+            ...state,
+            noticias: action.payload,
+            notFoundNoticias: false,
+         };
+      case GET_NOTICIA_DETAIL:
+         return {
+            ...state,
+            detalleNoticia: action.payload,
+            isLoading: false,
+            notFoundNoticias: false,
+         };
+      case FILTER_NOTICIAS:
+         return {
+            noticias: action.payload,
+            isLoading: false,
+            notFoundNoticias: false,
+         };
       case CLEAN_FILTERS_NOTICIAS:
-        return{
-          ...state,
-          noticias: [...state.noticiasBackUp],
-          notFoundNoticias:false
-
-        }
-    case CLEAN_NOTICIA_DETAIL:
-      return{
-        ...state,
-        detalleNoticia:{}
-      }
+         return {
+            ...state,
+            noticias: [...state.noticiasBackUp],
+            notFoundNoticias: false,
+         };
+      case CLEAN_NOTICIA_DETAIL:
+         return {
+            ...state,
+            detalleNoticia: {},
+         };
       case NOT_FOUND_NOTICIAS:
+         return {
+            ...state,
+            notFoundNoticias: true,
+         };
+      //LOCAL_LOGIN CASES//
+      case LOCAL_LOGIN:
+         if (action.payload.statusCode !== 203) {
+            localStorage.setItem("access_token", action.payload.access_token);
+            localStorage.setItem("userLogin", true);
+            localStorage.setItem("userId", action.payload.id);
+            return {
+               ...state,
+               logginIn: false,
+               usuario: action.payload,
+               loggedIn: true,
+               loginRegisterErrors: {},
+               isLoading: false,
+            };
+         } else {
+            return {
+               ...state,
+               isLoading: false,
+               logginIn: false,
+               loginRegisterErrors: action.payload,
+            };
+         }
+      case LOGGIN_IN:
+         return {
+            ...state,
+            isLoading: false,
+            logginIn: true,
+         };
+      case HISTORY:
+         return { ...state, actualPath: action.payload };
+      case LOGOUT:
+         localStorage.removeItem("access_token");
+         localStorage.removeItem("userLogin");
+         localStorage.removeItem("userId");
+         return {
+            ...state,
+            isLoading: false,
+            logginIn: false,
+            usuario: [],
+            loggedIn: false,
+            actualPath: "",
+            successLogin: "",
+            perfilUsuario: [],
+         };
+      //REGISTER CASES//
+      case REGISTER_USER: //REGISTRO CON GOOGLE
+         localStorage.setItem(
+            "access_token",
+            action.payload.access_token.access_token
+         );
+         localStorage.setItem("userLogin", true);
+         localStorage.setItem("userId", action.payload.id);
+
+         return {
+            ...state,
+            isLoading: false,
+            usuario: action.payload.access_token,
+            successLogin: action.payload.message,
+            logginIn: false,
+            loggedIn: true,
+            loginRegisterErrors: {},
+         };
+      //GET USUARIOS CASES
+      case GET_ALL_USERS:
+         return {
+            ...state,
+            allUsers: action.payload,
+            isLoading: false,
+         }
+      case GET_USER_BY_ID:
+         return {
+            ...state,
+            isLoading: false,
+            perfilUsuario: action.payload,
+         };
+        //DASHBOARD ADMIN STATES
+      case RENDER_CORRECT_DASH:
         return{
           ...state,
-          notFoundNoticias:true
+          actualDash:action.payload
         }
-    //LOCAL_LOGIN CASES//
-    case LOCAL_LOGIN:
-      if (action.payload.statusCode !== 203) {
-        localStorage.setItem('access_token', action.payload.access_token);
-        localStorage.setItem('userLogin', true);
-        localStorage.setItem('userId', action.payload.id);
-        return {
-          ...state,
-          logginIn: false,
-          usuario: action.payload,
-          loggedIn: true,
-          loginRegisterErrors: {},
-          isLoading: false,
-        };
-      } else {
-        return {
-          ...state,
-          isLoading: false,
-          logginIn: false,
-          loginRegisterErrors: action.payload,
-        };
-      }
-    case LOGGIN_IN:
-      return {
-        ...state,
-        isLoading: false,
-        logginIn: true,
-      };
-    case HISTORY:
-      return { ...state, actualPath: action.payload };
-    case LOGOUT:
-      localStorage.removeItem('access_token');
-      localStorage.removeItem('userLogin');
-      localStorage.removeItem('userId');
-      return {
-        ...state,
-        isLoading: false,
-        logginIn: false,
-        usuario: [],
-        loggedIn: false,
-        actualPath: '',
-        successLogin: '',
-        perfilUsuario: [],
-      };
-    //REGISTER CASES//
-    case REGISTER_USER: //REGISTRO CON GOOGLE
-      localStorage.setItem(
-        'access_token',
-        action.payload.access_token.access_token
-      );
-      localStorage.setItem('userLogin', true);
-      localStorage.setItem('userId', action.payload.id);
-
-      return {
-        ...state,
-        isLoading: false,
-        usuario: action.payload.access_token,
-        successLogin: action.payload.message,
-        logginIn: false,
-        loggedIn: true,
-        loginRegisterErrors: {},
-      };
-    //GET USUARIOS CASES
-    case GET_USER_BY_ID:
-      return {
-        ...state,
-        isLoading: false,
-        perfilUsuario: action.payload,
-      };
     //CREAR Y/O ACTUALIZAR PERFIL CASES
-    case CREATE_PROFILE_LOCAL:
-      return {
-        ...state,
-        isLoading: false,
-        perfilUsuario: action.payload,
-      };
+      case CREATE_PROFILE_LOCAL:
+         return {
+            ...state,
+            isLoading: false,
+            perfilUsuario: action.payload,
+         };
       case REGISTER_USER_LOCAL:
         return {
           ...state,

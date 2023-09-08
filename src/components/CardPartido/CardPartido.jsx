@@ -1,12 +1,12 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import style from "./cardPartido.module.css"
 import logo from "../../assets/Escudo ADIP sin fondo.png"
 import { Box, Button, Paper, Toolbar, Typography } from "@mui/material"
-
-
 export default function CardPartido({titulo, categoria, competencia, escudoLocal, escudoVisitante, resultado, fecha, ubicacion}){
 return (
     <Paper elevation={3}>
-     <Box padding={2}>
+     <Box padding={1}>
         <Typography variant="h5" fontWeight="bold">{titulo}</Typography>
         <Typography variant="body1" fontWeight="light">{categoria}</Typography>
         <Typography variant="body2" fontWeight="bold">{competencia}</Typography>

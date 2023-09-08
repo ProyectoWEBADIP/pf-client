@@ -1,30 +1,42 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import SearchBar from "../Searchbar/SearchBar";
-import Notificaciones from "../Notificaciones/Notificaciones";
-import "./navbar.css";
-import { AppBar, Toolbar, Typography, Button, IconButton, Box  } from "@mui/material";
-import logo from "../../assets/Escudo ADIP sin fondo.png"
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import SearchBar from '../Searchbar/SearchBar';
+import Notificaciones from '../Notificaciones/Notificaciones';
+import './navbar.css';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  IconButton,
+  Box,
+} from '@mui/material';
+import logo from '../../assets/Escudo ADIP sin fondo.png';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import { logout } from "../../redux/login-registerActions/loginActions";
-import { useDispatch, useSelector } from "react-redux";
-import { useSelect } from "@mui/base";
-
-
-
-const Navbar = () => {
+import { logout } from '../../redux/login-registerActions/loginActions';
+import { useDispatch, useSelector } from 'react-redux';
+import { useSelect } from '@mui/base';
+import { SwichtThemes } from '../ModeThemes/SwichtThemes';
+import HomeIcon from '@mui/icons-material/Home';
+// eslint-disable-next-line react/prop-types
+const Navbar = ({ themeMode, toggleThemeMode }) => {
   //!HOOKS
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const id = localStorage.userId
-  const [auth, setAuth] = React.useState(true)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const id = localStorage.userId;
+  const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const access_token = localStorage.access_token
+  const [aux, setAux] = React.useState(true);
 
+  const access_token = localStorage.access_token;
 
+  const perfilUsuario = useSelector((state) => state.perfilUsuario);
+  useEffect(()=>{
+   perfilUsuario.length?setAux(true):setAux(false);
+  })
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -40,13 +52,13 @@ const Navbar = () => {
 
   return (
     <>
-    <AppBar position="fixed" >
-      <Toolbar>
-        <div className="contImg">
-          <img src={logo} alt="logo"/>
-        </div>
-    
-        <Typography
+      <AppBar position="fixed">
+        <Toolbar>
+          <div className="contImg">
+            <img src={logo} alt="logo" />
+          </div>
+
+          <Typography
             variant="h6"
             noWrap
             component="a"
@@ -59,27 +71,30 @@ const Navbar = () => {
               letterSpacing: '.1rem',
               color: 'inherit',
               textDecoration: 'none',
-              flexGrow: 1
+              flexGrow: 1,
             }}
           >
-          A.D.I.P.
-        </Typography>
-    
-        <Button href="/" color="inherit">HOME</Button>
+            A.D.I.P.
+          </Typography>
 
+          <div className="linkContainer">
             
-        <Button href="/crearNoticia" color="inherit">Crear Noticia</Button>
-        
-      
+            <div className='homeButton'>
+              <Link to={'/'}><HomeIcon fontSize='large'/></Link>
+            </div>
+          </div>
 
-      <SearchBar />
-      {/* <Box sx={{ flexGrow: 1 }} />
-       */}
-      <Notificaciones />
-      
-      
-      {auth && (
-      <div>
+          <SearchBar />
+          {/* <Box sx={{ flexGrow: 1 }} />
+           */}
+          <SwichtThemes
+            themeMode={themeMode}
+            toggleThemeMode={toggleThemeMode}
+          />
+          <Notificaciones />
+
+          {auth && (
+            <div>
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -106,26 +121,29 @@ const Navbar = () => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                
-                { access_token ? (
+                {access_token ? (
                   <div>
-                  <MenuItem onClick={handleClose}><Link to={`/${id}/profile`}>
-                  <Button >Mi Perfil</Button>
-                  </Link></MenuItem>
-                  <MenuItem><Button onClick={() => logOut()}>Cerrar sesión</Button></MenuItem>
+                    <MenuItem onClick={handleClose}>
+                      <Link to={`/${id}/profile`}>
+                        <Button>Mi Perfil</Button>
+                      </Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Button onClick={() => logOut()}>Cerrar sesión</Button>
+                    </MenuItem>
                   </div>
                 ) : (
-                  <MenuItem onClick={handleClose}><Button href="/login" >Iniciar sesión</Button></MenuItem>  
+                  <MenuItem onClick={handleClose}>
+                    <Button href="/login">Iniciar sesión</Button>
+                  </MenuItem>
                 )}
-                                
               </Menu>
             </div>
-      )}
-      
-      </Toolbar>
-    </AppBar>
-    
-     <div style={{ marginTop: '80px' }}/>
+          )}
+        </Toolbar>
+      </AppBar>
+
+      <div style={{ marginTop: '80px' }} />
     </>
   );
 };
