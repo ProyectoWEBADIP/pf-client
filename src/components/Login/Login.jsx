@@ -58,7 +58,10 @@ export default function Login() {
   }
   return (
     <GoogleOAuthProvider clientId={CLIENT_ID}>
-      <Box style={{ padding: "40px" }} sx={{ boxShadow: 3 }}>
+      <Box 
+      style={{ padding: "40px" }} 
+      sx={{ boxShadow: 3 }, { bgcolor: "white" }}
+      >
         {!localStorage.userLogin === true ? (
           <Box>
             <Typography variant="h4">Bienvenido</Typography>
