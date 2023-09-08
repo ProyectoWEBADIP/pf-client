@@ -8,6 +8,7 @@ import {
   CLEAN_FILTERS_NOTICIAS,
   NOT_FOUND_NOTICIAS,
   GET_NOTICIAS_BY_CATEGORY,
+  NOTICIAS_PER_PAGE
 } from "./noticiasActions/noticiasActionTypes";
 //LOGIN_REGISTER ACTION TYPES//
 import {
@@ -28,7 +29,8 @@ import {
 } from "../redux/categoriasActions/categoriasActionTypes"
 //USERS TYPES
 import { GET_ALL_USERS } from './usersActions/usersActionTypes';
-
+//DASHBOARD TYPES
+import {RENDER_CORRECT_DASH} from './dashboardAdminActions/actionTypes'
 const initialState = {
   isLoading: false,
   //LOGIN_STATES//
@@ -44,11 +46,14 @@ const initialState = {
   perfilUsuario: [],
   //NOTICIAS STATES//
   noticias: [],
+  noticiasPPage:[],
   noticiasBackUp: [],
   detalleNoticia: {},
   notFoundNoticias: false,
   loginRegisterLocal: "",
   categorias: [],
+  //ADMIN DASHBOARDS STATES
+  actualDash:0,
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -58,6 +63,12 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         isLoading: true,
       };
+      case NOTICIAS_PER_PAGE:
+        return {
+          ...state,
+          noticiasPPage:action.payload
+
+        }
     case GET_ALL_NOTICIAS:
       return {
         ...state,
@@ -175,6 +186,12 @@ export default function rootReducer(state = initialState, action) {
         isLoading: false,
         perfilUsuario: action.payload,
       };
+      //DASHBOARD ADMIN STATES
+      case RENDER_CORRECT_DASH:
+        return{
+          ...state,
+          actualDash:action.payload
+        }
     //CREAR Y/O ACTUALIZAR PERFIL CASES
     case CREATE_PROFILE_LOCAL:
       return {

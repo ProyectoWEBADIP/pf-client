@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Typography } from '@mui/material';
+import { CircularProgress, LinearProgress, Skeleton, Typography } from '@mui/material';
 import CardsNoticias from '../CardsNoticias/CardsNoticias';
 import CardPartidoContainer from '../CardPartidoContainer/CardPartidoContainer';
 import Filtros from '../Filtros/Filtros';
@@ -10,9 +10,12 @@ import NotFoundComponent from '../notFound/notFound';
 import { getAllCategories } from '../../redux/categoriasActions/categoriasActions';
 import './home.css';
 import NestedList from '../Filtros/Filtros';
+import Paginado from '../Paginado/Paginado';
+
 export default function Home() {
   const dispatch = useDispatch();
-  const notFoundNoticias = useSelector((state) => state.notFoundNoticias);
+  const noticias = useSelector((state) => state.noticias);
+  
   useEffect(() => {
     dispatch(getAllCategories());
     dispatch(getAllNoticias());
@@ -25,10 +28,14 @@ export default function Home() {
         <Filtros />
       </div>
       <div className="Noticias">
-        <Typography variant="h2" fontWeight="bold" mt={4}>
+       <h1 id='NoticiasText'>
           Noticias
-        </Typography>
-        {notFoundNoticias ? <NotFoundComponent /> : <CardsNoticias />}
+       </h1>
+        
+        {!noticias.length ? 
+<div>
+<CircularProgress disableShrink />;
+</div>: <CardsNoticias />}
       </div>
       <div className="Partidos">
         <CardPartidoContainer />

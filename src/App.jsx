@@ -29,14 +29,14 @@ function App() {
     localStorage.setItem("themeMode", prefThemeMode);
     setThemeMode(prefThemeMode);
   };
-
+const location = useLocation()
   const theme = createTheme(getDesignTokens(themeMode));
 
   return (
     <div className="AppContainer">
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Navbar themeMode={themeMode} toggleThemeMode={toggleThemeMode} />
+       {location.pathname !=='/auth/dashboard'? <Navbar themeMode={themeMode} toggleThemeMode={toggleThemeMode} />:null}
         <Routes>
           <Route path={"/"} element={<Home />} />
           <Route path={"/login"} element={<Login />} />

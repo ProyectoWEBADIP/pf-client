@@ -4,14 +4,15 @@ import './adminDashboard.css';
 import Sidebar from '../components/sideBar/sideBar';
 import MainDash from '../components/MainDash/MainDash';
 import RigthSide from '../components/RightSide/RigthSide';
+import { useSelector } from 'react-redux';
 
 const AdminDashboard = () => {
   return (
     <div className="App">
       <div className="AppGlass">
         <Sidebar />
-        <MainDash/>
-        <RigthSide/>
+        <MainDash />
+        <RigthSide />
       </div>
     </div>
   );

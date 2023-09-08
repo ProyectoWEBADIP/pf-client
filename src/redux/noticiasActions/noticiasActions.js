@@ -6,6 +6,7 @@ import {
   POST_NOTICIA,
   CLEAN_NOTICIA_DETAIL,
   GET_NOTICIAS_BY_CATEGORY,
+  NOTICIAS_PER_PAGE,
 } from './noticiasActionTypes';
 import axios from 'axios';
 import {
@@ -24,7 +25,11 @@ console.log(error)
     }
   };
 }
-
+export function paginado(noticias){
+  return async (dispatch)=>{
+    dispatch({type: NOTICIAS_PER_PAGE, payload: noticias})
+  }
+}
 export function postNoticia(body) {
   
   return async (dispatch) => {

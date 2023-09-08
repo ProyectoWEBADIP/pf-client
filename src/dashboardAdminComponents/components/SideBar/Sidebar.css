@@ -1,11 +1,22 @@
 .Sidebar {
   display: flex;
-  flex-direction: column;
   position: relative;
-  padding-top: 4rem;
   transition: all 300ms ease;
+  height: 100%;
+  justify-content: space-evenly;
+
 }
+.logoAndMenu {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 60%;
+}
+
 .logo {
+  top: 3.2rem;
+  position: absolute;
   display: flex;
   height: 5rem;
   font-weight: bold;
@@ -24,10 +35,11 @@
 }
 /* menu*/
 .menu {
-  margin-top: 4rem;
   display: flex;
+  justify-content: space-around;
   flex-direction: column;
   gap: 2rem;
+  height: 70%;
 }
 .menuItem {
   display: flex;
@@ -54,23 +66,27 @@
   background: var(--orange);
   margin-right: calc(1rem-8px);
 }
-.menu .menuItem:last-child {
+.outButton {
   position: absolute;
-  bottom: 2.3rem;
-  width: 100%;
+  bottom: 3rem;
 }
 
 @media screen and (max-width: 1200px) {
   .menuItem > span {
     display: none;
   }
-  .logo {
+  .Sidebar{
+    height: 50%;
+  }
+
+  .logo>span{
     display: none;
   }
+
 }
 
 @media screen and (max-width: 768px) {
-.Sidebar{
-  display: none;
-}
+  .Sidebar {
+    display: none;
+  }
 }

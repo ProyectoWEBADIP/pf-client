@@ -1,7 +1,16 @@
+@font-face {
+  font-family: "Renegade";
+  src: url("../../../fonts/Renegade Pursuit.otf");
+}
+
+#NoticiasText{
+  font-family: "Renegade";
+text-decoration: double;
+}
 .homeContainer {
   display: grid;
-  grid-template-columns: 15rem auto 20rem;
-  height: 90vh;
+  grid-template-columns: 18% 60% 20%;
+  height: 89vh;
   width: 100vw;
   gap: 10px;
 }
@@ -22,7 +31,7 @@
   overflow: auto;
 }
 .Partidos {
-  overflow: hidden;
+  overflow: auto;
 }
 .Noticias::-webkit-scrollbar {
   border-radius: 1rem;
@@ -37,4 +46,46 @@
 }
 .Noticias::-webkit-scrollbar-thumb:active {
   background-color: #f85f00;
+}
+
+.Partidos::-webkit-scrollbar {
+  border-radius: 1rem;
+  background: orange;
+}
+.Partidos::-webkit-scrollbar-thumb {
+  background-color: #f9721c;
+  border-radius: 1rem;
+}
+.Partidos::-webkit-scrollbar-thumb:hover {
+  background-color: #f85f00;
+}
+.Partidos::-webkit-scrollbar-thumb:active {
+  background-color: #f85f00;
+}
+@media  screen and (max-width:1024px) {
+  .homeContainer{
+    grid-template-columns: 18% 55% 25%;
+  }
+  .Sidebar{
+    text-align: center;
+  }
+.Sidebar>h2{
+  display: none;
+}
+
+  .Sidebar{
+    display: none;
+  }
+}
+@media  screen and (max-width:720px) {
+  .homeContainer{
+  grid-template-columns: 1fr;
+  }
+  .Partidos{
+    border-top: .5rem solid rgba(0, 0, 0, 0.416);
+
+  }
+  .Sidebar{
+    display: none;
+  }
 }
