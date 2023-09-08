@@ -6,6 +6,9 @@ import {
   POST_NOTICIA,
   CLEAN_NOTICIA_DETAIL,
   GET_NOTICIAS_BY_CATEGORY,
+  DELETE_NOTICE,
+  GET_NOTICE_BY_ID,
+  UPDATE_NOTICE
 } from './noticiasActionTypes';
 import axios from 'axios';
 import {
@@ -35,7 +38,7 @@ export function postNoticia(body) {
       return alert(error.message);
     }
   };
-}
+} 
 
 export function getNoticiaDetail(id) {
   return async (dispatch) => {
@@ -93,10 +96,45 @@ export const getNoticiasByCategory = (id) => {
       const { data } = await axios(
         `http://localhost:3001/notices/byCategory/${id}`
       );
-      console.log('dataaaa===Z', data);
+      
       dispatch({ type: GET_NOTICIAS_BY_CATEGORY, payload: data });
     } catch (error) {
       console.log(error.message);
     }
   };
 };
+export const deleteNotice = (id, body) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.patch(`http://localhost:3001/notices/${id}`, body)
+      
+      dispatch({type: DELETE_NOTICE, payload: data})
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+}
+export const getNoticeById = (id) =>{
+  return async (dispatch) => {
+    try {
+      const { data } = await axios(`http://localhost:3001/notices/${id}`)
+      
+      
+      dispatch({type: GET_NOTICE_BY_ID, payload: data[0]})
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+}
+export const updateNoticia = (id, body) => {
+  console.log("body",body);
+    return async (dispatch) => {
+      try {
+       const { data } = await axios.patch(`http://localhost:3001/notices/${id}`, body) 
+       console.log("data update", data);
+       dispatch({type: UPDATE_NOTICE, payload: data[0]})
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+}

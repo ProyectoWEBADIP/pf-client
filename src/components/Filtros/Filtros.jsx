@@ -41,7 +41,8 @@ export default function Filtros(){
   // };
 
   // const { femenino, masculino, infantiles, inferiores, recreativo } = state;
-  const categoría = useSelector((state) => state.categorias)
+  const categoria = useSelector((state) => state.categorias)
+  // console.log(categoria);
   
     
     return(
@@ -52,7 +53,7 @@ export default function Filtros(){
             <FormGroup>
             <select onChange={handleChange}>
             <option value="Default" >Seleccione categoria</option> 
-            {categoría?.map((el) => {
+            {categoria?.map((el) => {
               return <option key={el.id}  value={el.id}>{el.name}</option>
             })}
 

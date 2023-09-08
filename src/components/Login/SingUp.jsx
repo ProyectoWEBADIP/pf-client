@@ -57,6 +57,7 @@ export default function SignUp() {
       onSubmit={handleSubmit}
       style={{ padding: "40px" }}
       sx={{ boxShadow: 3 }}
+      
     >
       <Typography variant="h4" fontWeight="bold">
         Crea tu cuenta aquí

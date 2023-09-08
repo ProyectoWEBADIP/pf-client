@@ -7,7 +7,10 @@ import {
   GET_NOTICIAS_BY_TITLE,
   CLEAN_FILTERS_NOTICIAS,
   NOT_FOUND_NOTICIAS,
-  GET_NOTICIAS_BY_CATEGORY
+  GET_NOTICIAS_BY_CATEGORY,
+  DELETE_NOTICE,
+  GET_NOTICE_BY_ID,
+  UPDATE_NOTICE
 } from './noticiasActions/noticiasActionTypes';
 //LOGIN_REGISTER ACTION TYPES//
 import {
@@ -21,6 +24,7 @@ import {
   GET_USER_BY_ID,
   CREATE_PROFILE_LOCAL,
   REGISTER_USER_LOCAL,
+  
 } from './login-registerActions/actionTypes';
 //Categorias types
 import {
@@ -45,7 +49,10 @@ const initialState = {
   detalleNoticia: {},
   notFoundNoticias:false,
   loginRegisterLocal: "",
-  categorias: []
+  categorias: [],
+  deleteNotice: {},
+  updateNotice: {},
+  noticeById: {},
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -56,11 +63,12 @@ export default function rootReducer(state = initialState, action) {
         isLoading: true,
       };
     case GET_ALL_NOTICIAS:
+      let filterNotice = action.payload.filter((el) => el.active === true)
       return {
         ...state,
-        noticias: action.payload,
+        noticias: filterNotice,
         isLoading: false,
-        noticiasBackUp:action.payload,
+        noticiasBackUp:filterNotice,
         notFoundNoticias:false
       };
       case GET_NOTICIAS_BY_TITLE:
@@ -186,11 +194,27 @@ export default function rootReducer(state = initialState, action) {
           ...state,
           categorias: action.payload
         }
-        case GET_NOTICIAS_BY_CATEGORY: 
+        case GET_NOTICIAS_BY_CATEGORY:
+          let filterNoticeForCategorie = action.payload.filter((el) => el.active === true) 
         return {
           ...state,
-         noticias: action.payload 
+         noticias: filterNoticeForCategorie 
         }
+        case DELETE_NOTICE: 
+        return {
+          ...state,
+          deleteNotice: action.payload
+        }
+        case GET_NOTICE_BY_ID:
+          return {
+            ...state,
+            noticeById: action.payload
+          }
+        case UPDATE_NOTICE: 
+        return {
+          ...state,
+          updateNotice: action.payload
+        }  
     default:
       return { ...state };
   }

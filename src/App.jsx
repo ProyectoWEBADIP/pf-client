@@ -11,6 +11,7 @@ import SingUp from "../src/components/Login/SingUp"
 import NoticiaDetail from "./components/detailNoticia/NoticiaDetail";
 import CrearNoticia from "./components/CraerNoticia/CrearNoticia";
 import PerfilUsuario from "./components/PerfilUsuario/Perfil"
+import UpdateNoticia from "./components/UpdateNoticia/UpdateNoticia";
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
       <Route path={"/detalle/:id"} element={<NoticiaDetail/>}/>
       <Route path={"/crearNoticia"} element={<CrearNoticia/>}/>
       <Route path={"/:id/profile"} element={<PerfilUsuario/>}/>      
+      <Route path={`/editarNoticia/:id`} element={<UpdateNoticia/>}/>
       </Routes>
       
       
