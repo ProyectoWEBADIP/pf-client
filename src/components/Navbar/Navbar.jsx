@@ -79,7 +79,7 @@ const Navbar = ({ themeMode, toggleThemeMode }) => {
 
           <div className="linkContainer">
             
-              { perfilUsuario && perfilUsuario.role !== 'user' &&
+              {/* { perfilUsuario && perfilUsuario.role !== 'user' &&
                 localStorage.userLogin? (
                 <div className='linkAdminContainer'>
                   <div>
@@ -92,7 +92,7 @@ const Navbar = ({ themeMode, toggleThemeMode }) => {
                     Crear Rol
                   </Link></div>
                 </div>
-              ) : null}
+              ) : null} */}
             <div className='homeButton'>
               <Link to={'/'}><HomeIcon fontSize='large'/></Link>
             </div>
