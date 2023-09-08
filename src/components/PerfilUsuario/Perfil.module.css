@@ -1,4 +1,10 @@
-
+.perfContainerContainer{
+  display: flex;
+justify-content: center;
+align-items: center;
+  width: 100vw;
+  height: 89vh;
+}
 .box {
   margin: 0 auto;
   width: 40px;
@@ -28,6 +34,12 @@
   background-image: url('https://cdn2.iconfinder.com/data/icons/activity-5/50/26BD-soccer-ball-128.png');
   background-size: cover;
   animation: roll .7s linear infinite;
+}
+
+.img img{
+   width: 100%; /* Asegura que la imagen ocupe todo el espacio del div */
+    height: 100%; /* Asegura que la imagen ocupe todo el espacio del div */
+    object-fit: cover;
 }
 
 @keyframes roll {
@@ -80,6 +92,7 @@
     left: unset;
   }
 }
+
 .image {
   width: 180px;
   height: 180px;
@@ -95,9 +108,16 @@
 
 .contProf{
     display: flex;
-    justify-content: space-around;
-    width: 70vw;
-    height: 70vh;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+}
+.perfilCont{
+  display: flex;
+  flex-direction: column;
+ width: 70vw;
+  height: auto;
+  background-color: red;
 }
 .formContainerProfile {
   display: flex;
@@ -130,23 +150,18 @@ height: auto;
   height: auto;
   background-color: #FB731C;
 
+
  border: solid .3rem black;
   border-radius: 2rem;
 
 }
 .prevImgCont{
-width: 100%;
+  width: 100%;
   display: flex;
   justify-content: space-around;
 
 }
-.prevContainer img{
-  width: 25%;
-  background-color: #FB731C;
-  border: .2rem solid rgb(0, 0, 0);
-  border-radius: 50%;
 
-}
 .perfilContainer{
   display: flex;
   flex-direction: column;

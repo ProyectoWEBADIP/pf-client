@@ -17,7 +17,7 @@ const CardNoticia = ({title, id, image, date}) => {
           <Typography variant='h6'>{title}</Typography>
           <Typography variant='body2'>{date?.split("T")[0]}</Typography>
 
-          <Button href={`/detalle/${id}`}>Ver más</Button>
+          <Link to={`/detalle/${id}`}>Ver más</Link>
       </CardContent>
       </CardActionArea>
     </Card>

@@ -169,8 +169,12 @@ export default function FullFeaturedCrudGrid() {
   };
   const [showStatus, setShowStatus] = React.useState(false);
   const [userStatus, setUserStatus] = React.useState({});
+  const [isLoading, setIsLoading] = React.useState(false);
+
   const getUserStatus = async (id) => {
+    setIsLoading(true);
     const userFound = await dispatch(getUserById(id));
+    setIsLoading(false);
     setUserStatus(userFound);
     setShowStatus(true);
   };
@@ -384,7 +388,7 @@ export default function FullFeaturedCrudGrid() {
       },
     },
   ];
-  const noRows = [{id:'123',username: 'No se cargó'}]
+  const noRows = [{ id: '123', email: 'No se cargaron los usuarios' }];
   return (
     <Box
       sx={{
@@ -398,7 +402,7 @@ export default function FullFeaturedCrudGrid() {
         },
       }}
     >
-      {!showStatus ? null : (
+      {!showStatus ? null : !isLoading ? (
         <div className="overlay">
           <div className="statusCont">
             <div className="statusTextCont">
@@ -406,11 +410,13 @@ export default function FullFeaturedCrudGrid() {
                 {' '}
                 <Close
                   className="closeButton"
-                  onClick={() => setShowStatus(false)}
+                  onClick={() => {
+                    setShowStatus(false);
+                  }}
                 />
               </div>
               <span className="mainSpan">
-                Estado actual del usuario:{' '}
+                Estado del usuario:{' '}
                 <span className="userName"> {userStatus.username}</span>
               </span>
 
@@ -434,10 +440,12 @@ export default function FullFeaturedCrudGrid() {
             </div>
           </div>
         </div>
+      ) : (
+        <div className="divprueba"></div>
       )}
       <DataGrid
         sx={{ textAlign: 'justify' }}
-        rows={users?users:noRows}
+        rows={users ? users : noRows}
         columns={columns}
         rowHeight={30}
         editMode="row"
@@ -447,9 +455,6 @@ export default function FullFeaturedCrudGrid() {
         processRowUpdate={processRowUpdate}
         slots={{
           toolbar: GridToolbar,
-        }}
-        slotProps={{
-          toolbar: { setRows },
         }}
       />
     </Box>

@@ -9,12 +9,11 @@ import { changeDash } from '../../../redux/dashboardAdminActions/dashboardAction
 import { Link } from 'react-router-dom';
 const Sidebar = () => {
   const [selected, setSelected] = React.useState(0);
-const dispatch= useDispatch()
-function selectedAndRender(i){
-  setSelected(i)
-dispatch(changeDash(i))
-
-}
+  const dispatch = useDispatch();
+  function selectedAndRender(i) {
+    setSelected(i);
+    dispatch(changeDash(i));
+  }
   return (
     <div className="Sidebar">
       <div className="logoAndMenu">
@@ -38,12 +37,13 @@ dispatch(changeDash(i))
               </div>
             );
           })}
-           <div>
-        <Link to='/'><UilSignOutAlt className='outButton'/></Link>
-      </div>
+          <div>
+            <Link to="/">
+              <UilSignOutAlt className="outButton" />
+            </Link>
+          </div>
         </div>
       </div>
-     
     </div>
   );
 };

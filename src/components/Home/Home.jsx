@@ -11,35 +11,51 @@ import { getAllCategories } from '../../redux/categoriasActions/categoriasAction
 import './home.css';
 import NestedList from '../Filtros/Filtros';
 import Paginado from '../Paginado/Paginado';
+import { getUserById } from '../../redux/login-registerActions/loginActions';
 
 export default function Home() {
   const dispatch = useDispatch();
   const noticias = useSelector((state) => state.noticias);
-  
+  const perfilUsuario = useSelector(state=>state.perfilUsuario)
   useEffect(() => {
     dispatch(getAllCategories());
+    if(!perfilUsuario.length && localStorage.userId){
+    dispatch(getUserById(localStorage.userId))
+    }
     dispatch(getAllNoticias());
   }, [dispatch]);
 
   return (
     <div className="homeContainer">
-      <div className="Sidebar">
-        <h2>Filtrar noticias</h2>
-        <Filtros />
-      </div>
-      <div className="Noticias">
-       <h1 id='NoticiasText'>
-          Noticias
-       </h1>
-        
-        {!noticias.length ? 
-<div>
-<CircularProgress disableShrink />;
-</div>: <CardsNoticias />}
-      </div>
-      <div className="Partidos">
-        <CardPartidoContainer />
-      </div>
+      {noticias.length?(
+        <>
+        <div className="Sidebar">
+          <h2>Filtrar noticias</h2>
+          <Filtros />
+        </div>
+        <div className="Noticias">
+         <h1 id='NoticiasText'>
+            Noticias
+         </h1>
+          
+          {!noticias.length ? 
+  <div>
+  <CircularProgress disableShrink />;
+  </div>: <CardsNoticias />}
+        </div>
+        <div className="Partidos">
+          <CardPartidoContainer />
+        </div></>
+      ):< div className='loadingCont'>
+      <div className="🤚">
+	<div className="👉"></div>
+	<div className="👉"></div>
+	<div className="👉"></div>
+	<div className="👉"></div>
+	<div className="🌴"></div>		
+	<div className="👍"></div>
+</div>
+      </div>}
     </div>
   );
 }

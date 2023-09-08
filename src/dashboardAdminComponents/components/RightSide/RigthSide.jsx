@@ -1,11 +1,19 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from 'react'
 import './RigthSide.css'
 import Updates from '../Updates/Updates'
 import Comentarios from '../Comentarios/Comentarios'
-const RigthSide = () => {
+import { SwichtThemes } from '../../../components/ModeThemes/SwichtThemes'
+const RigthSide = ({ themeMode, toggleThemeMode }) => {
   return (
 <div className="RightSide">
+<div className='switchTheme' >
+<SwichtThemes 
+                themeMode={themeMode}
+                  toggleThemeMode={toggleThemeMode}
+               />
+</div>
   <div>
     <h3>Actualizaciones</h3>
     <Updates/>

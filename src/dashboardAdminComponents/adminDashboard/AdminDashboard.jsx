@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import './adminDashboard.css';
@@ -6,9 +7,10 @@ import MainDash from '../components/MainDash/MainDash';
 import RigthSide from '../components/RightSide/RigthSide';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsers } from '../../redux/usersActions/usersActions';
+import { SwichtThemes } from '../../components/ModeThemes/SwichtThemes';
 
-const AdminDashboard = () => {
-  const dispatch = useDispatch()
+const AdminDashboard = ({ themeMode, toggleThemeMode }) => {
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllUsers());
   });
@@ -17,7 +19,7 @@ const AdminDashboard = () => {
       <div className="AppGlass">
         <Sidebar />
         <MainDash />
-        <RigthSide />
+        <RigthSide themeMode={themeMode} toggleThemeMode={toggleThemeMode} />
       </div>
     </div>
   );

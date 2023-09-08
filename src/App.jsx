@@ -45,7 +45,7 @@ const location = useLocation()
                <Route path={"/detalle/:id"} element={<NoticiaDetail />} />
                <Route path={"/crearNoticia"} element={<CrearNoticia />} />
                <Route path={"/:id/profile"} element={<PerfilUsuario />} />
-               <Route path={"/auth/dashboard"} element={<AdminDashboard />} />
+               <Route path={"/auth/dashboard"} element={<AdminDashboard themeMode={themeMode} toggleThemeMode={toggleThemeMode} />} />
                <Route path={"/crearRoles"} element={<CrearRol />} />
             </Routes>
          </ThemeProvider>
