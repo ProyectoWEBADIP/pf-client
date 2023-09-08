@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Box } from '@mui/material';
+import { Box, Divider } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import dayjs from 'dayjs';
 import { useDispatch } from 'react-redux';
 import { filteredNoticias } from '../../redux/noticiasActions/noticiasActions';
-
+import './filtroFecha.css'
 function FiltroDeFechas() {
   //!HOOKS
   const dispatch = useDispatch()
@@ -36,7 +36,7 @@ function FiltroDeFechas() {
   const today = dayjs();
 
   return (
-    <Box>
+    <Box className='filterCont'>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DatePicker
           slotProps={{ textField: { variant: 'outlined' } }}
@@ -45,7 +45,6 @@ function FiltroDeFechas() {
           onChange={handleChangeStart}
           maxDate={today}
         />
-
         <DatePicker
           slotProps={{ textField: { variant: 'outlined' } }}
           value={valueEnd}
@@ -55,7 +54,7 @@ function FiltroDeFechas() {
         />
       </LocalizationProvider>
 
-      <Box mt={1}>
+      <Box >
         <Button onClick={handleSearch} variant="contained">Buscar</Button>
       </Box>
     </Box>

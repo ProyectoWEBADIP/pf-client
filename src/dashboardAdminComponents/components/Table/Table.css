@@ -1,0 +1,36 @@
+.MuiDataGrid-columnHeaders > * {
+  font-weight: bold !important;
+  font-size: 1rem;
+}
+
+.MuiDataGrid-root {
+  width: 100%;
+  height: 50%;
+  background: rgb(226, 175, 98);
+}
+
+@media screen and (max-width: 1500px) {
+  .MuiDataGrid-root {
+    height: 30rem;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .MuiDataGrid-root {
+    width: 155%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .MuiDataGrid-root {
+    display: flex;
+    justify-content: center;
+    background-color: rgba(240, 248, 255, 0.408);
+  }
+
+  .MuiDataGrid-root {
+    margin: 1rem;
+    position: relative;
+    flex-direction: column;
+    width: 44.5rem;
+  }
+}
