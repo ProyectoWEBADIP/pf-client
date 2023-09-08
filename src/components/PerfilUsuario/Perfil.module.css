@@ -1,4 +1,10 @@
-
+.perfContainerContainer{
+  display: flex;
+justify-content: center;
+align-items: center;
+  width: 100vw;
+  height: 89vh;
+}
 .box {
   margin: 0 auto;
   width: 40px;
@@ -86,6 +92,7 @@
     left: unset;
   }
 }
+
 .image {
   width: 180px;
   height: 180px;
@@ -101,9 +108,16 @@
 
 .contProf{
     display: flex;
-    justify-content: space-around;
-    width: 100;
+    justify-content: center;
+    width: 100%;
     height: auto;
+}
+.perfilCont{
+  display: flex;
+  flex-direction: column;
+ width: 70vw;
+  height: auto;
+  background-color: red;
 }
 .formContainerProfile {
   display: flex;

@@ -31,14 +31,14 @@ function App() {
       localStorage.setItem("themeMode", prefThemeMode);
       setThemeMode(prefThemeMode);
    };
-
+const location = useLocation()
    const theme = createTheme(getDesignTokens(themeMode));
 
    return (
       <div className="AppContainer">
          <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Navbar themeMode={themeMode} toggleThemeMode={toggleThemeMode} />
+           {location.pathname !=='/auth/dashboard'? <Navbar themeMode={themeMode} toggleThemeMode={toggleThemeMode} />:null}
             <Routes>
                <Route path={"/"} element={<Home />} />
                <Route path={"/login"} element={<Login />} />
@@ -46,7 +46,7 @@ function App() {
                <Route path={"/detalle/:id"} element={<NoticiaDetail />} />
                <Route path={"/crearNoticia"} element={<CrearNoticia />} />
                <Route path={"/:id/profile"} element={<PerfilUsuario />} />
-               <Route path={"/auth/dashboard"} element={<AdminDashboard />} />
+               <Route path={"/auth/dashboard"} element={<AdminDashboard themeMode={themeMode} toggleThemeMode={toggleThemeMode} />} />
                <Route path={"/crearRoles"} element={<CrearRol />} />
                <Route path={"/login/recuperacion"} element={<RecuperarContraseña />}/>
             </Routes>

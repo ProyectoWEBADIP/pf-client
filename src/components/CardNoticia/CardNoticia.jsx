@@ -10,14 +10,14 @@ const CardNoticia = ({title, id, image, date}) => {
     
   return (
     <>
-    <Card sx={{m:2, minWidth:300 , minHeight: 350, maxHeight:350, maxWidth:300 }}>
+    <Card className="noticesCards" sx={{minWidth:250 , minHeight: 300, maxHeight:350, maxWidth:250 }}>
       <CardActionArea>
-      <CardMedia component="img" image={image} height="200px"/>
+      <CardMedia className="imageCard" component="img" image={image} height="200px"/>
       <CardContent>
           <Typography variant='h6'>{title}</Typography>
-          <Typography variant='body2'>{date.split("T")[0]}</Typography>
+          <Typography variant='body2'>{date?.split("T")[0]}</Typography>
 
-          <Button href={`/detalle/${id}`}>Ver más</Button>
+          <Link to={`/detalle/${id}`}>Ver más</Link>
       </CardContent>
       </CardActionArea>
     </Card>

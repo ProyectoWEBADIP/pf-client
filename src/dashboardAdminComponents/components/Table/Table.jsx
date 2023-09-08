@@ -3,6 +3,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import EditIcon from '@mui/icons-material/Edit';
+import InfoIcon from '@mui/icons-material/Info';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
 import {
@@ -16,9 +17,11 @@ import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getAllUsers,
+  getUserById,
   updateUserFromAdmin,
 } from '../../../redux/usersActions/usersActions';
 import './Table.css';
+import { Close } from '@mui/icons-material';
 function calcularEdad(birthday) {
   if (birthday) {
     const birthday_arr = birthday.split('/');
@@ -31,7 +34,7 @@ function calcularEdad(birthday) {
     const ageDate = new Date(ageDifMs);
     return Math.abs(ageDate.getUTCFullYear() - 1970);
   }
-  return 'Sin perfil';
+  return '*';
 }
 
 //!FUNCION QUE AGREGA USUARIOS DESDE LA TABLA, INHABILITADA POR AHORA
@@ -62,13 +65,14 @@ export default function FullFeaturedCrudGrid() {
   const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.allUsers);
 
-  const users = allUsers.map((u) => {
+  const users = allUsers?.map((u) => {
     let edad = null;
     let firstName = null;
     let lastName = null;
     let dni = null;
     let profile_id = null;
     let image = null;
+
     let fechaRegistro = (
       u.createdAt.split('T')[0] +
       '-' +
@@ -86,15 +90,16 @@ export default function FullFeaturedCrudGrid() {
       id: u.id,
       username: u.username,
       nombre: firstName !== null ? firstName : u.username,
-      apellido: u.active ? lastName : 'Sin perfil',
+      apellido: u.active ? lastName : '*',
       edad: calcularEdad(edad),
-      dni: u.active ? dni : 'Sin perfil',
+      dni: u.active ? dni : '*',
       email: u.email,
       activo: u.active ? 'Si' : 'No',
-      image: u.active ? image : 'Sin perfil',
+      image: u.active ? image : '*',
       role: u.role,
-      profile_id: u.active ? profile_id : 'Sin perfil',
+      profile_id: u.active ? profile_id : '*',
       fechaRegistro,
+      razonBan: u.razonBan ? u.razonBan : '*',
     };
   });
   const [rows, setRows] = React.useState(users);
@@ -132,33 +137,25 @@ export default function FullFeaturedCrudGrid() {
       'Esta accion información importante del usuario, ¿estás seguro?'
     );
     if (confirm) {
-      if (newRow.role && newRow.activo) {
+      // .role && newRow.activo
+      const userFound = await dispatch(getUserById(newRow.id));
+
+      if (newRow) {
         const action = {
           userFields: {
-            role: newRow.role,
-            active: newRow.activo === 'Si' ? true : false,
-          },
-        };
-        const response = await dispatch(updateUserFromAdmin(newRow.id, action));
-        alert(response);
-      } else if (newRow.role && !newRow.activo) {
-        const action = {
-          userFields: {
-            role: newRow.role,
-            active: newRow.activo === 'Si' ? true : false,
-          },
-        };
-        const response = await dispatch(updateUserFromAdmin(newRow.id, action));
-        alert(response);
-      } else {
-        const action = {
-          userFields: {
-            active: newRow.activo === 'Si' ? true : false,
+            role: newRow.role ? newRow.role : userFound.role,
+            active: newRow.activo
+              ? newRow.activo === 'Si'
+                ? true
+                : false
+              : userFound.active,
+            razonBan: newRow.razonBan,
           },
         };
         const response = await dispatch(updateUserFromAdmin(newRow.id, action));
         alert(response);
       }
+
       dispatch(getAllUsers());
     } else {
       alert('Acción cancelada.');
@@ -169,6 +166,17 @@ export default function FullFeaturedCrudGrid() {
 
   const handleRowModesModelChange = (newRowModesModel) => {
     setRowModesModel(newRowModesModel);
+  };
+  const [showStatus, setShowStatus] = React.useState(false);
+  const [userStatus, setUserStatus] = React.useState({});
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const getUserStatus = async (id) => {
+    setIsLoading(true);
+    const userFound = await dispatch(getUserById(id));
+    setIsLoading(false);
+    setUserStatus(userFound);
+    setShowStatus(true);
   };
   const customColumnsActivo = (params) =>
     params.value === 'No' ? (
@@ -247,42 +255,73 @@ export default function FullFeaturedCrudGrid() {
       </div>
     );
   const columns = [
-    { field: 'id', headerName: 'ID', width: 90 },
-    { field: 'username', headerName: 'Usuario', width: 130 },
-    { field: 'nombre', headerName: 'Nombre', width: 130 },
+    { field: 'id', headerName: 'ID', width: 90, align: 'center' },
+    {
+      field: 'username',
+      headerAlign: 'center',
+      headerName: 'Usuario',
+      width: 130,
+    },
+    {
+      field: 'nombre',
+      headerAlign: 'center',
+      headerName: 'Nombre',
+      width: 130,
+    },
 
-    { field: 'apellido', headerName: 'Apellido', width: 130 },
+    {
+      field: 'apellido',
+      headerAlign: 'center',
+      headerName: 'Apellido',
+      width: 140,
+    },
     {
       field: 'edad',
       headerName: 'Edad(años)',
-      width: 90,
+      width: 170,
+      headerAlign: 'center',
+    },
+    {
+      field: 'email',
+      headerAlign: 'center',
+      headerName: 'Email',
+      width: 230,
+    },
+    {
+      field: 'role',
+      headerAlign: 'center',
+      headerName: 'Rol',
+      editable: true,
+      width: 120,
+      type: 'singleSelect',
+      valueOptions: ['user', 'admin', 'super_admin'],
+      renderCell: customColumnsRol,
     },
     {
       field: 'dni',
       headerName: 'DNI',
       type: 'number',
       width: 100,
+      headerAlign: 'center',
     },
-    {
-      field: 'email',
-      headerName: 'Email',
-      width: 230,
-    },
+
     {
       field: 'activo',
+      headerAlign: 'center',
       headerName: 'Activo',
       editable: true,
+      width: 120,
+
       type: 'singleSelect',
       valueOptions: ['Si', 'No'],
       renderCell: customColumnsActivo,
     },
     {
-      field: 'role',
-      headerName: 'Rol',
+      field: 'razonBan',
+      headerAlign: 'center',
+      headerName: 'Razón de ban',
       editable: true,
-      width: 120,
-      type: 'singleSelect',
-      valueOptions: ['user', 'admin', 'super_admin'],
+      width: 180,
       renderCell: customColumnsRol,
     },
     {
@@ -303,6 +342,7 @@ export default function FullFeaturedCrudGrid() {
     {
       field: 'actions',
       type: 'actions',
+      headerAlign: 'center',
       headerName: 'Acciones',
       width: 100,
       cellClassName: 'actions',
@@ -328,7 +368,6 @@ export default function FullFeaturedCrudGrid() {
             />,
           ];
         }
-
         return [
           <GridActionsCellItem
             icon={<EditIcon />}
@@ -337,20 +376,23 @@ export default function FullFeaturedCrudGrid() {
             onClick={handleEditClick(id)}
             color="inherit"
           />,
-          // <GridActionsCellItem
-          //   icon={<DeleteIcon />}
-          //   label="Delete"
-          //   onClick={handleDeleteClick(id)}
-          //   color="inherit"
-          // />,
+          <GridActionsCellItem
+            icon={<InfoIcon />}
+            label="Info"
+            color="inherit"
+            onClick={() => {
+              getUserStatus(id);
+            }}
+          />,
         ];
       },
     },
   ];
+  const noRows = [{ id: '123', email: 'No se cargaron los usuarios' }];
   return (
     <Box
       sx={{
-        height: 500,
+        height: 420,
         width: '100%',
         '& .actions': {
           color: 'text.secondary',
@@ -360,19 +402,59 @@ export default function FullFeaturedCrudGrid() {
         },
       }}
     >
+      {!showStatus ? null : !isLoading ? (
+        <div className="overlay">
+          <div className="statusCont">
+            <div className="statusTextCont">
+              <div className="buttCont">
+                {' '}
+                <Close
+                  className="closeButton"
+                  onClick={() => {
+                    setShowStatus(false);
+                  }}
+                />
+              </div>
+              <span className="mainSpan">
+                Estado del usuario:{' '}
+                <span className="userName"> {userStatus.username}</span>
+              </span>
+
+              <span className="mainSpan">
+                Estado actual:{' '}
+                <span className={userStatus.active ? 'activo' : 'inactivo'}>
+                  {userStatus.active ? 'Activo' : 'Inactivo'}
+                </span>
+              </span>
+              <span className="mainSpan">
+                Rol: <span className="userName"> {userStatus.role}</span>
+              </span>
+              <span className="mainSpan">
+                Razón de baneo:{' '}
+                <span className="reason">
+                  {userStatus.razonBan
+                    ? userStatus.razonBan
+                    : 'El usuario no tiene infracciones.'}
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="divprueba"></div>
+      )}
       <DataGrid
-        rows={users}
+        sx={{ textAlign: 'justify' }}
+        rows={users ? users : noRows}
         columns={columns}
         rowHeight={30}
+        editMode="row"
         rowModesModel={rowModesModel}
         onRowModesModelChange={handleRowModesModelChange}
         onRowEditStop={handleRowEditStop}
         processRowUpdate={processRowUpdate}
         slots={{
           toolbar: GridToolbar,
-        }}
-        slotProps={{
-          toolbar: { setRows, setRowModesModel },
         }}
       />
     </Box>

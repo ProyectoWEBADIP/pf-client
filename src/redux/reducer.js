@@ -8,6 +8,7 @@ import {
    CLEAN_FILTERS_NOTICIAS,
    NOT_FOUND_NOTICIAS,
    GET_NOTICIAS_BY_CATEGORY,
+  NOTICIAS_PER_PAGE
 } from "./noticiasActions/noticiasActionTypes";
 //LOGIN_REGISTER ACTION TYPES//
 import {
@@ -34,7 +35,8 @@ import {
    DELETE_ROL,
    POST_ROL,
 } from "./rolesActions/rolesActionsTypes";
-
+//DASHBOARD TYPES
+import {RENDER_CORRECT_DASH} from './dashboardAdminActions/actionTypes'
 const initialState = {
    isLoading: false,
    //LOGIN_STATES//
@@ -45,17 +47,21 @@ const initialState = {
    //LOGIN_ERRORS//
    loginRegisterErrors: {},
    //USUARIO_STATES
+   allUsers:[],
    usuario: {},
    perfilUsuario: [],
    verificacionDeUsuario: {},
    mensajeDeVerificacionDeContraseña: [],
    //NOTICIAS STATES//
    noticias: [],
-   noticiasBackUp: [],
+   noticiasPPage:[],
+  noticiasBackUp: [],
    detalleNoticia: {},
    notFoundNoticias: false,
    loginRegisterLocal: "",
    categorias: [],
+  //ADMIN DASHBOARDS STATES
+  actualDash:0,
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -65,7 +71,13 @@ export default function rootReducer(state = initialState, action) {
             ...state,
             isLoading: true,
          };
-      case GET_ALL_NOTICIAS:
+        case NOTICIAS_PER_PAGE:
+        return {
+          ...state,
+          noticiasPPage:action.payload
+
+        }
+    case GET_ALL_NOTICIAS:
          return {
             ...state,
             noticias: action.payload,
@@ -171,13 +183,25 @@ export default function rootReducer(state = initialState, action) {
             loginRegisterErrors: {},
          };
       //GET USUARIOS CASES
+      case GET_ALL_USERS:
+         return {
+            ...state,
+            allUsers: action.payload,
+            isLoading: false,
+         }
       case GET_USER_BY_ID:
          return {
             ...state,
             isLoading: false,
             perfilUsuario: action.payload,
          };
-      //CREAR Y/O ACTUALIZAR PERFIL CASES
+        //DASHBOARD ADMIN STATES
+      case RENDER_CORRECT_DASH:
+        return{
+          ...state,
+          actualDash:action.payload
+        }
+    //CREAR Y/O ACTUALIZAR PERFIL CASES
       case CREATE_PROFILE_LOCAL:
          return {
             ...state,

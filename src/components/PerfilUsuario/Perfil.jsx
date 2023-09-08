@@ -14,7 +14,7 @@ import { Alert, Button, Grid, TextField, Toolbar, Typography } from '@mui/materi
 import { Box, Container, padding } from '@mui/system';
 import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
-
+import './perfil.css'
 export default function Perfil() {
   //!HOOKS
   const dispatch = useDispatch();
@@ -103,7 +103,7 @@ setSuccess(<Alert severity="error">Error al subir la imágen.</Alert>)
   const perfilUsuario = useSelector((state) => state.perfilUsuario);
 const isLoading = useSelector(state=>state.isLoading)
   return (
-    <Container>
+    <div className={style.perfContainerContainer}>
           {!isLoading?      !perfilUsuario.active ? (
           <div className={style.contProf}>
               {
@@ -176,11 +176,11 @@ const isLoading = useSelector(state=>state.isLoading)
           </div>
           
         ) : (
-        <div>
+        <div >
           {' '}
           {/*  ACÁ SE DIVIDE CUANDO TIENE PERFIL Y CUANDO NO*/}
           
-          <Box  alignItems="center" justifyContent={"center"}  borderRadius={5} boxShadow={"5px 5px 10px #ccc"} sx={{":hover":{ boxShadow: "5px 5px 10px #ccc"}, backgroundColor:"whitesmoke", padding: 5 }}>
+          <Box className={style.perfilCont} alignItems="center" justifyContent={"center"}  borderRadius={5} boxShadow={"5px 5px 10px #ccc"} sx={{":hover":{ boxShadow: "5px 5px 10px #ccc"}, backgroundColor:"whitesmoke", padding: 5 }}>
             <Grid container spacing={5} sx={{width: "95%", alignItems: "center"}}>
               <Grid item xs={8}>
                 <Typography variant='h3' fontWeight="bold">Hola {perfilUsuario.profile.firstName}</Typography>
@@ -212,9 +212,14 @@ const isLoading = useSelector(state=>state.isLoading)
               <Typography variant='body1' sx={{ marginTop: "10px", marginBottom:"5px" }} fontWeight="bold">Deuda acumulada: $0</Typography>
               <Button variant='outlined'>Saldar deuda</Button>
             </Container>
-            
-            {/* {error.imagen && <p>{error.imagen}</p>} */}
           </Box>
+      {perfilUsuario.role==='super_admin' && perfilUsuario.profile?    <Link to={'/auth/dashboard'}>
+      <button className="learn-more">
+  <span aria-hidden="true" className="circle">
+  <span className="icon arrow"></span>
+  </span>
+  <span className="button-text">Administrador</span>
+</button></Link>:null}
         </div>
       ):(
         <div className={style.box}>
@@ -225,6 +230,6 @@ const isLoading = useSelector(state=>state.isLoading)
         </div>
       )}
 
-  </Container>
+  </div>
   );
 }
