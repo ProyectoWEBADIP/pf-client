@@ -30,6 +30,12 @@
   animation: roll .7s linear infinite;
 }
 
+.img img{
+   width: 100%; /* Asegura que la imagen ocupe todo el espacio del div */
+    height: 100%; /* Asegura que la imagen ocupe todo el espacio del div */
+    object-fit: cover;
+}
+
 @keyframes roll {
   0% {}
   100% { transform: rotate(360deg) }
@@ -96,8 +102,8 @@
 .contProf{
     display: flex;
     justify-content: space-around;
-    width: 70vw;
-    height: 70vh;
+    width: 100;
+    height: auto;
 }
 .formContainerProfile {
   display: flex;
@@ -130,23 +136,18 @@ height: auto;
   height: auto;
   background-color: #FB731C;
 
+
  border: solid .3rem black;
   border-radius: 2rem;
 
 }
 .prevImgCont{
-width: 100%;
+  width: 100%;
   display: flex;
   justify-content: space-around;
 
 }
-.prevContainer img{
-  width: 25%;
-  background-color: #FB731C;
-  border: .2rem solid rgb(0, 0, 0);
-  border-radius: 50%;
 
-}
 .perfilContainer{
   display: flex;
   flex-direction: column;
