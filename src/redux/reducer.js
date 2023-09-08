@@ -26,7 +26,7 @@ import {
 //Categorias types
 import { GET_ALL_CATEGORIES } from "../redux/categoriasActions/categoriasActionTypes";
 //USERS TYPES
-import { GET_ALL_USERS } from "./usersActions/usersActionTypes";
+import { GET_ALL_USERS, GET_USER_BY_EMAIL, UPDATE_PASSWORD } from "./usersActions/usersActionTypes";
 // -------> Roles types <------
 import {
    GET_ALL_ROLES,
@@ -50,6 +50,8 @@ const initialState = {
    allUsers:[],
    usuario: {},
    perfilUsuario: [],
+   verificacionDeUsuario: {},
+   mensajeDeVerificacionDeContraseña: [],
    //NOTICIAS STATES//
    noticias: [],
    noticiasPPage:[],
@@ -220,6 +222,16 @@ export default function rootReducer(state = initialState, action) {
          return {
             ...state,
             noticias: action.payload,
+         };
+      case GET_USER_BY_EMAIL:
+         return{
+            ...state,
+            verificacionDeUsuario: action.payload
+         };
+      case UPDATE_PASSWORD:
+         return{
+            ...state,
+            mensajeDeVerificacionDeContraseña: action.payload
          };
       //------------> Roles <----------------//
       case GET_ALL_ROLES:
