@@ -11,9 +11,6 @@ import { useNavigate } from 'react-router-dom';
 
 const CardNoticia = ({title, id, image, date}) => {
 
-
-
- 
   const dispatch = useDispatch()
   
   const handleDeleteNotice = () => {
