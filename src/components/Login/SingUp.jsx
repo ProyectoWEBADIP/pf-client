@@ -9,6 +9,7 @@ import {
   Button,
   Typography,
   InputAdornment,
+  Container,
 } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import PersonIcon from "@mui/icons-material/Person";
@@ -57,7 +58,8 @@ export default function SignUp() {
       emailjs.send(
         "service_8c6uo6a",
         "template_p35w6dm",
-        { to_email: input.email, verification_code: codigoDeVerificacion },
+        { to_email: input.email, 
+          verification_code: codigoDeVerificacion },
         "LVu_qcdfDk8ci54aS"
       );
     } else {
@@ -77,11 +79,24 @@ export default function SignUp() {
     }
   };
   return (
+    <Container >
     <Box
       component="form"
       onSubmit={handleSubmit}
-      style={{ padding: "40px" }}
-      sx={({ boxShadow: 3, }, { bgcolor: "white" })}
+      sx={{
+        boxShadow: 3,
+        bgcolor: (theme) =>
+          theme.palette.mode === "dark" ? "#101010" : "#fff",
+        color: (theme) =>
+          theme.palette.mode === "dark" ? "grey.300" : "grey.800",
+        p: 1,
+        m: 1,
+        borderRadius: 2,
+        textAlign: "center",
+        fontSize: "0.875rem",
+        fontWeight: "700",
+        padding: "40px",
+      }}
     >
       <Typography variant="h4" fontWeight="bold">
         Crea tu cuenta aquí
@@ -223,5 +238,6 @@ export default function SignUp() {
         </Box>
       )}
     </Box>
+    </Container>
   );
 }

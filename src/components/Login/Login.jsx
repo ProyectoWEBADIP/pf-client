@@ -16,19 +16,18 @@ import {
   Button,
   Typography,
   InputAdornment,
+  Container,
 } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import PersonIcon from "@mui/icons-material/Person";
-import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
-import emailjs from "@emailjs/browser";
+
 import style from "./login.module.css";
 
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
 
 export default function Login() {
   const [error, setError] = useState({});
-  const [users, setUsers] = useState({ email: "", password: ""});
-
+  const [users, setUsers] = useState({ email: "", password: "" });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -60,112 +59,127 @@ export default function Login() {
     dispatch(localLogin(users));
     dispatch(loading());
   }
-  
 
   return (
-    <GoogleOAuthProvider clientId={CLIENT_ID}>
-      <Box
-        style={{ padding: "40px" }}
-        sx={({ boxShadow: 3 }, { bgcolor: "white" })}
-      >
-        {!localStorage.userLogin === true ? (
-          <Box>
-            <Typography variant="h4">Bienvenido</Typography>
-            {!logginIn ? (
-              <Box>
-                <Box component="form" onSubmit={login}>
+    <Container
+      sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+    >
+      <GoogleOAuthProvider clientId={CLIENT_ID}>
+        <Box
+          sx={{
+            boxShadow: 3,
+            bgcolor: (theme) =>
+              theme.palette.mode === "dark" ? "#101010" : "#fff",
+            color: (theme) =>
+              theme.palette.mode === "dark" ? "grey.300" : "grey.800",
+            p: 1,
+            m: 1,
+            borderRadius: 2,
+            textAlign: "center",
+            fontSize: "0.875rem",
+            fontWeight: "700",
+            padding: "40px",
+          }}
+        >
+          {!localStorage.userLogin === true ? (
+            <Box>
+              <Typography variant="h4">Bienvenido</Typography>
+              {!logginIn ? (
+                <Box>
+                  <Box component="form" onSubmit={login}>
+                    <Box>
+                      <TextField
+                        label="Usuario:"
+                        name="email"
+                        value={users.email}
+                        type="email"
+                        placeholder="Email..."
+                        onChange={handleChange}
+                        sx={{ mt: 2 }}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <PersonIcon />
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                      {error.email ? (
+                        <Typography color="red" sx={{ mt: 1 }}>
+                          {error.email}
+                        </Typography>
+                      ) : null}
+                    </Box>
+
+                    <Box sx={{ mt: 2 }}>
+                      <TextField
+                        label="Contraseña:"
+                        name="password"
+                        onChange={handleChange}
+                        value={users.password}
+                        type="password"
+                        placeholder="Contraseña..."
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <LockIcon />
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                    </Box>
+                    <Button type="submit" variant="outlined" sx={{ mt: 2 }}>
+                      Iniciar sesión
+                    </Button>
+                  </Box>
+
+                  <Box sx={{ mt: 1 }}>
+                    <Link to={"/login/recuperacion"} sx={{ mt: 2 }}>
+                      ¿Olvidaste tu contraseña?
+                    </Link>
+                  </Box>
+
                   <Box>
-                    <TextField
-                      label="Usuario:"
-                      name="email"
-                      value={users.email}
-                      type="email"
-                      placeholder="Email..."
-                      onChange={handleChange}
-                      sx={{ mt: 2 }}
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <PersonIcon />
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-                    {error.email ? (
-                      <Typography color="red" sx={{ mt: 1 }}>
-                        {error.email}
+                    <Link to="/login/SignUp">
+                      <Typography
+                        variant="subtitle1"
+                        fontWeight="bold"
+                        sx={{ mt: 1 }}
+                      >
+                        ¿No estás registrado? ➡️Regístrate aquí⬅️
                       </Typography>
-                    ) : null}
+                    </Link>
                   </Box>
-
-                  <Box sx={{ mt: 2 }}>
-                    <TextField
-                      label="Contraseña:"
-                      name="password"
-                      onChange={handleChange}
-                      value={users.password}
-                      type="password"
-                      placeholder="Contraseña..."
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <LockIcon />
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
+                </Box>
+              ) : (
+                <Box className={style.box}>
+                  <Box className={style.shadow}></Box>
+                  <Box className={style.gravity}>
+                    <Box className={style.ball}></Box>
                   </Box>
-                  <Button type="submit" variant="outlined" sx={{ mt: 2 }}>
-                    Iniciar sesión
-                  </Button>
                 </Box>
-
-                <Box>
-                  <Link to={"/login/recuperacion"} sx={{mt:2}}>
-                  ¿Olvidaste tu contraseña?
-                  </Link>
-                </Box>
-                  
-                <Box>
-                  <Link to="/login/SignUp">
-                    <Typography
-                      variant="subtitle1"
-                      fontWeight="bold"
-                      sx={{ mt: 1 }}
-                    >
-                      ¿No estás registrado? ➡️Regístrate aquí⬅️
-                    </Typography>
-                  </Link>
-                </Box>
-              </Box>
-            ) : (
-              <Box className={style.box}>
-                <Box className={style.shadow}></Box>
-                <Box className={style.gravity}>
-                  <Box className={style.ball}></Box>
-                </Box>
-              </Box>
-            )}
-            {loginRegisterErrors ? (
-              <Typography color="red" sx={{ mt: 2 }}>
-                {loginRegisterErrors.message}
-              </Typography>
-            ) : null}
+              )}
+              {loginRegisterErrors ? (
+                <Typography color="red" sx={{ mt: 2 }}>
+                  {loginRegisterErrors.message}
+                </Typography>
+              ) : null}
+            </Box>
+          ) : actualPath ? (
+            navigate(`${actualPath}`)
+          ) : (
+            navigate("/")
+          )}
+          <Box>
+            <GoogleLogin
+              useOneTap
+              onError={handleError}
+              onSuccess={handleSuccess}
+            />
           </Box>
-        ) : actualPath ? (
-          navigate(`${actualPath}`)
-        ) : (
-          navigate("/")
-        )}
-        <Box>
-          <GoogleLogin
-            useOneTap
-            onError={handleError}
-            onSuccess={handleSuccess}
-          />
+          <Typography>{successLogin}</Typography>
         </Box>
-        <Typography>{successLogin}</Typography>
-      </Box>
-    </GoogleOAuthProvider>
+      </GoogleOAuthProvider>
+    </Container>
   );
 }

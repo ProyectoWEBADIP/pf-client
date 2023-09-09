@@ -26,7 +26,8 @@ export default function RecuperarContraseña() {
   const [emailRecuperacion, setEmailRecuperacion] = useState("");
   const [forgotPassword, setForgotPassword] = useState(false);
   const [codigoVerificacion, setCodigoVerificacion] = useState("");
-  const [codigoVerificacionGenerado, setCodigoVerificacionGenerado] = useState("");
+  const [codigoVerificacionGenerado, setCodigoVerificacionGenerado] =
+    useState("");
   const [password, setPassword] = useState({ value1: "", value2: "" });
   const [newPassword, setNewPassword] = useState(false);
 
@@ -49,8 +50,9 @@ export default function RecuperarContraseña() {
       dispatch(getUserByEmail(emailRecuperacion));
 
       const codigoRecuperacion = uuidv4().slice(0, 5);
-        
-        setCodigoVerificacionGenerado(codigoRecuperacion);
+      console.log(codigoRecuperacion);
+
+      setCodigoVerificacionGenerado(codigoRecuperacion);
 
       emailjs.send(
         "service_8c6uo6a",
@@ -68,72 +70,111 @@ export default function RecuperarContraseña() {
   };
 
   const verificationCode = () => {
-    if (user?.email === emailRecuperacion && codigoVerificacion === codigoVerificacionGenerado) {
-        
-        setNewPassword(true)
-      } else {
-        alert("Datos incorrectos")
-      }
+    if (
+      user?.email === emailRecuperacion &&
+      codigoVerificacion === codigoVerificacionGenerado
+    ) {
+      setNewPassword(true);
+    } else {
+      alert("Datos incorrectos");
     }
+  };
 
   const handleSubmitUser = () => {
-    if(password.value1 === password.value2){
-      dispatch(updateUser(user.id, {password: password.value1}))
-      alert("Contraseña actualizada")
-      navigate("/login")
+    if (password.value1 === password.value2) {
+      dispatch(updateUser(user.id, { password: password.value1 }));
+      alert("Contraseña actualizada");
+      navigate("/login");
     } else {
-      alert("Las constraseñas no coinciden")
+      alert("Las constraseñas no coinciden");
     }
-  }
+  };
 
   return (
     <Box
       component="form"
-      style={{ padding: "40px" }}
-      sx={({ boxShadow: 3 }, { bgcolor: "white" })}
+      sx={{
+        boxShadow: 3,
+        bgcolor: (theme) =>
+          theme.palette.mode === "dark" ? "#101010" : "#fff",
+        color: (theme) =>
+          theme.palette.mode === "dark" ? "grey.300" : "grey.800",
+        p: 1,
+        m: 1,
+        borderRadius: 2,
+        textAlign: "center",
+        fontSize: "0.875rem",
+        fontWeight: "700",
+        padding: "40px",
+      }}
     >
+      <Typography variant="h4" fontWeight="bold">
+        Recuperación de contraseña
+      </Typography>
+
       <Box>
         <TextField
           label="ingrese su email"
           name="emailRecuperacion"
           value={emailRecuperacion}
           onChange={handleChange}
+          sx={{ mt: 2 }}
         />
       </Box>
       <Button onClick={handlerSendEmail} variant="outlined" sx={{ mt: 2 }}>
-        recuperar contraseña
+        Enviar código de verificación
       </Button>
       {forgotPassword && (
-        <div>
-          <p>Se envio un correo con un codigo de verificacion a su email</p>
-          <br />
+        <Box>
+          <Typography variant="body1" wrap="wrap" sx={{ mt: 2 }}>
+            ✅ Correo enviado con éxito
+          </Typography>
           <TextField
             type="text"
             label="Ingresé el codigo"
             value={codigoVerificacion}
             onChange={handleChangeVerificationCode}
+            sx={{ mt: 2 }}
           />
-          <Button onClick={verificationCode}>Verificar</Button>
-        </div>
+          <Box>
+            <Button
+              variant="outlined"
+              onClick={verificationCode}
+              sx={{ mt: 2 }}
+            >
+              Verificar
+            </Button>
+          </Box>
+        </Box>
       )}
       {newPassword && (
-        <div>
-          <TextField
-            type="text"
-            label="Ingrese nueva contraseña"
-            name="value1"
-            value={password.value1}
-            onChange={e => setPassword({...password, value1:e.target.value})}
-          />
-          <TextField
-            type="text"
-            label="Ingrese nueva contraseña"
-            name="value2"
-            value={password.value2}
-            onChange={e => setPassword({...password, value2:e.target.value})}
-          />
-          <Button onClick={handleSubmitUser}>Cambiar contraseña</Button>
-        </div>
+        <Box>
+          <Box>
+            <TextField
+              type="text"
+              label="Ingrese nueva contraseña"
+              name="value1"
+              value={password.value1}
+              onChange={(e) =>
+                setPassword({ ...password, value1: e.target.value })
+              }
+            />
+          </Box>
+          <Box>
+            <TextField
+              type="text"
+              label="Ingrese nueva contraseña"
+              name="value2"
+              value={password.value2}
+              onChange={(e) =>
+                setPassword({ ...password, value2: e.target.value })
+              }
+            />
+          </Box>
+          <Button onClick={handleSubmitUser} variant="outlined" sx={{ mt: 2 }}>
+            Cambiar contraseña
+          </Button>
+        </Box>
       )}
     </Box>
   );
