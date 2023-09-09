@@ -10,7 +10,8 @@ import {
   GET_NOTICIAS_BY_CATEGORY,
   DELETE_NOTICE,
   GET_NOTICE_BY_ID,
-  UPDATE_NOTICE
+  UPDATE_NOTICE,
+  NOTICIAS_PER_PAGE
 } from './noticiasActions/noticiasActionTypes';
 //LOGIN_REGISTER ACTION TYPES//
 import {
@@ -243,7 +244,8 @@ export default function rootReducer(state = initialState, action) {
         return {
           ...state,
           updateNotice: action.payload
-        }  
+        }
+   
     default:
       return { ...state };
   }

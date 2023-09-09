@@ -1,25 +1,26 @@
 /* eslint-disable no-unused-vars */
 import {
    GET_ALL_NOTICIAS,
-   GET_NOTICIA_DETAIL,
+   
    FILTER_NOTICIAS,
    POST_NOTICIA,
    CLEAN_NOTICIA_DETAIL,
-   GET_NOTICIAS_BY_CATEGORY,
+   
   NOTICIAS_PER_PAGE,
 } from "./noticiasActionTypes";
 import axios from "axios";
-  GET_ALL_NOTICIAS,
+import {
+  
   GET_NOTICIA_DETAIL,
-  FILTER_NOTICIAS,
-  POST_NOTICIA,
-  CLEAN_NOTICIA_DETAIL,
+  
+  
+
   GET_NOTICIAS_BY_CATEGORY,
   DELETE_NOTICE,
   GET_NOTICE_BY_ID,
   UPDATE_NOTICE
 } from './noticiasActionTypes';
-import axios from 'axios';
+
 import {
    GET_NOTICIAS_BY_TITLE,
    CLEAN_FILTERS_NOTICIAS,
@@ -121,7 +122,7 @@ export const getNoticiasByCategory = (id) => {
 export const deleteNotice = (id, body) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.patch(`http://localhost:3001/notices/${id}`, body)
+      const { data } = await axios.patch(`http://localhost:3001/notices/inact/${id}`, body)
       
       dispatch({type: DELETE_NOTICE, payload: data})
     } catch (error) {

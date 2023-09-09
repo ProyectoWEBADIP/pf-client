@@ -21,23 +21,25 @@ import {
 import axios from "axios";
 import SelectInput from "@mui/material/Select/SelectInput";
 import { getAllCategories } from "../../redux/categoriasActions/categoriasActions";
-import ClearIcon from '@mui/icons-material/Clear';
+import ClearIcon from "@mui/icons-material/Clear";
+import { useNavigate } from "react-router-dom";
 
 export default function UpdateNoticia() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [input, setInput] = useState({});
   const [newImage, setNewImage] = useState({});
+
   const data = useSelector((state) => state.noticeById);
   const globalCategories = useSelector((state) => state.categorias);
-  const response = useSelector((state) => state.updateNoticia)
-  console.log("GoblalCategories", globalCategories);
-  console.log(updateNoticia, "?????");
+  const response = useSelector((state) => state.updateNoticia);
+ 
 
   useEffect(() => {
     dispatch(getNoticeById(id));
-    dispatch(getAllCategories())
+    dispatch(getAllCategories());
   }, [dispatch, id]);
 
   useEffect(() => {
@@ -46,12 +48,12 @@ export default function UpdateNoticia() {
       resume: data.resume || "",
       content: data.content || "",
       image: data.image || "",
-      categories: data.categories?.map((el) => el.id) || [],
+      categories: data.categories || [],
     });
   }, [data]);
 
   const [error, setError] = useState({});
-  console.log(newImage);
+  // console.log(newImage);
   const handleChange = (event) => {
     event.preventDefault();
     setInput({
@@ -93,14 +95,49 @@ export default function UpdateNoticia() {
   const handlerSubmit = (e) => {
     e.preventDefault();
     const tieneErrors = Object.keys(error);
-
+    
+    // console.log("======>",typeof arrayInput.join("")); 
+ 
+ 
     if (tieneErrors.length === 0) {
-      console.log("inputs antes del dispatch", input);
-      dispatch(updateNoticia(id, input));
+      let body = {
+        title: input.title,
+        resume: input.resume,
+        content: input.content,
+        image: input.image,
+        categoryIds: input.categories.map((el) => el.id),
+      };
+      let noticia = {
+        title: data.title,
+        resume: data.resume,
+        content: data.content,
+        image: data.image,
+        categoryIds: data.categories.map((el) => el.id)
+      }
+    let arrayNoticia = [];
+      for (let key in noticia) {
+         arrayNoticia.push(key); 
+         arrayNoticia.push(noticia[key]); 
+      }
+    let arrayBody = [];
+    for (let key in body) {
+       arrayBody.push(key); 
+       arrayBody.push(body[key]); 
+    }
+     
+      
+      console.log((arrayBody.join(" ") === arrayNoticia.join(" ")))
+      console.log("input", arrayNoticia.join(""), "body", arrayBody.join(""));
+      if(arrayBody.join(" ") !== arrayNoticia.join(" ")) {
+        dispatch(updateNoticia(id, body));
+        navigate("/");
+      } else {
+        alert("No se encontraron cambios")
+      }
     } else {
       alert("Verifique los campos");
     }
-  };
+}
 
   const handlerDeleteCategories = (id) => {
     setInput({
@@ -112,47 +149,34 @@ export default function UpdateNoticia() {
     const addCategorie = globalCategories.filter(
       (el) => el.id == e.target.value
     );
-    console.log( "addCategorie ==> ",addCategorie);
-    const idCategorie = addCategorie
-    console.log("categoria a agregar???>", addCategorie);
+    // console.log("addCategorie ==> ", addCategorie);
+    const idCategorie = addCategorie;
+    // console.log("categoria a agregar???>", addCategorie);
 
     setInput({
       ...input,
 
-      categories: [...input.categories, addCategorie[0].id],
+      categories: [...input.categories, addCategorie[0]],
     });
   };
 
-  console.log("inputs ===>", input);
-  console.log("errors ==>", error);
-  console.log("categories ==>", input.categories);
+  // console.log("inputs ===>", input);
+  // console.log("errors ==>", error);
+  // console.log("categories ==>", input.categories);
   return (
     <Container>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
+      <Grid container justifyContent="center" spacing={2}>
+        <Grid item xs={12} boxShadow={{ boxShadow: 3 }} sm={6}>
           <Box
-            display="flex"
-            flexDirection={"column"}
-            maxWidth={400}
-            minWidth={300}
-            alignItems="center"
-            justifyContent={"center"}
-            margin="auto"
-            padding={10}
-            borderRadius={5}
-            boxShadow={"5px 5px 10px #ccc"}
             sx={{
-              ":hover": { boxShadow: "5px 5px 10px #ccc" },
-              backgroundColor: "whitesmoke",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center", // Centrar horizontalmente
+              textAlign: "center", // Centrar texto horizontalmente
             }}
           >
-            <Typography variant="h6" fontWeight="bold">
-              Editor de noticias
-            </Typography>
+            <Typography>Editor de noticias</Typography>
             <Box>
-              {/* <Typography variant="body1" fontWeight="bold">
-                Titulo:
-              </Typography> */}
               {error.title ? (
                 <Typography color="error">{error.title}</Typography>
               ) : null}
@@ -167,13 +191,9 @@ export default function UpdateNoticia() {
                 focused
               />
             </Box>
-            {/* <Typography variant="body1" fontWeight="bold">
-              Resumen:
-            </Typography> */}
             {error.resume ? (
               <Typography color="error">{error.resume}</Typography>
             ) : null}
-            <br />
             <TextField
               name="resume"
               value={input?.resume}
@@ -182,11 +202,7 @@ export default function UpdateNoticia() {
               fullWidth
               label="Resumen"
               focused
-              
             />
-            {/* <Typography variant="body1" fontWeight="bold">
-              Contenido:
-            </Typography> */}
             {error.content ? (
               <Typography color="error">{error.content}</Typography>
             ) : null}
@@ -203,29 +219,31 @@ export default function UpdateNoticia() {
               required
               label="Contenido"
               focused
-              
-
             />
-            <br/>
+
             <Typography variant="body1" fontWeight="bold">
               Categorias:
             </Typography>
             {error.categories ? (
               <Typography color="error">{error.categories}</Typography>
             ) : null}
-            
+
             <div>
               {input.categories?.map((el) => (
                 <Button
                   variant="outlined"
                   size="xs"
-                  sx={{ fontSize: "10px", alignContent: "center", margin: "5px" }}
+                  sx={{
+                    fontSize: "10px",
+                    alignContent: "center",
+                    margin: "5px",
+                  }}
                   type="button"
                   onClick={() => handlerDeleteCategories(el.id)}
-                  >
+                >
                   Eliminar categoria {el.name}
                 </Button>
-                  ))}
+              ))}
             </div>
 
             <br />
@@ -233,7 +251,7 @@ export default function UpdateNoticia() {
               <Typography variant="body1" fontWeight="bold">
                 Agregar una nueva categoria:
               </Typography>
-              <NativeSelect sx={{margin: "20px"}} onChange={handleAddCategorie}>
+              <NativeSelect onChange={handleAddCategorie}>
                 {globalCategories?.map((el) => (
                   <option key={el.id} value={el.id}>
                     {el.name}
@@ -242,7 +260,7 @@ export default function UpdateNoticia() {
               </NativeSelect>
             </Box>
             <Box>
-            <Typography variant="body1" fontWeight="bold">
+              <Typography variant="body1" fontWeight="bold">
                 Editar imagen:
               </Typography>
               {input.image !== "" ? (
@@ -258,40 +276,35 @@ export default function UpdateNoticia() {
                   required
                   onChange={(event) => setNewImage(event.target.files[0])}
                 />
-                )}
-                <br />
+              )}
+              <br />
             </Box>
             {input.image !== "" ? (
-              <Button variant="contained" onClick={() => setInput({ ...input, image: "" })}>
-               <ClearIcon ></ClearIcon>
+              <Button
+                variant="contained"
+                onClick={() => setInput({ ...input, image: "" })}
+              >
+                <ClearIcon></ClearIcon>
               </Button>
             ) : (
               <Button onClick={() => handlerSubmitImage()}>Subir imagen</Button>
             )}
           </Box>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item boxShadow={{ boxShadow: 3 }} xs={12} sm={6}>
           <Box
-            display="flex"
-            flexDirection={"column"}
-            maxWidth={400}
-            minWidth={300}
-            alignItems="center"
-            justifyContent={"center"}
-            margin="auto"
-            padding={10}
-            borderRadius={5}
-            boxShadow={"5px 5px 10px #ccc"}
             sx={{
-              ":hover": { boxShadow: "5px 5px 10px #ccc" },
-              backgroundColor: "whitesmoke",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center", // Centrar horizontalmente
+              textAlign: "center", // Centrar texto horizontalmente
             }}
           >
             <Typography variant="body2" fontWeight="bold">
               Así quedaría la noticia
             </Typography>
-            <hr />
-            <div>
+
+            <Box>
               <Typography variant="h6" component="h1">
                 {input.title}
               </Typography>
@@ -313,15 +326,14 @@ export default function UpdateNoticia() {
               <Typography variant="body2" component="p">
                 {input.date}
               </Typography>
-            </div>
+            </Box>
           </Box>
         </Grid>
       </Grid>
-      <br />
-      <Box>
-        <button onClick={(e) => handlerSubmit(e)}>Enviar Edición</button>
+
+      <Box sx={{ mt: 5, display: "flex", justifyContent: "center" }}>
+        <button onClick={handlerSubmit}>Enviar Edición</button>
       </Box>
-      {/* </Box> */}
     </Container>
   );
 }

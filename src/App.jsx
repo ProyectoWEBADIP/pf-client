@@ -1,4 +1,4 @@
-
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-unused-vars */
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -15,7 +15,7 @@ import CrearNoticia from "./components/CraerNoticia/CrearNoticia";
 import { CrearRol } from "./components/CrearRole/CrearRol";
 import PerfilUsuario from "./components/PerfilUsuario/Perfil";
 import RecuperarContraseña from "./components/RecuperarContraseña/RecuperarContraseña";
-
+import UpdateNoticia from "./components/UpdateNoticia/UpdateNoticia";
 import AdminDashboard from "./dashboardAdminComponents/adminDashboard/AdminDashboard";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -49,6 +49,7 @@ const location = useLocation()
                <Route path={"/auth/dashboard"} element={<AdminDashboard themeMode={themeMode} toggleThemeMode={toggleThemeMode} />} />
                <Route path={"/crearRoles"} element={<CrearRol />} />
                <Route path={"/login/recuperacion"} element={<RecuperarContraseña />}/>
+               <Route path={"/editarNoticia/:id"} element={<UpdateNoticia/>}/>
             </Routes>
          </ThemeProvider>
       </div>
