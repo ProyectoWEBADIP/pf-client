@@ -60,6 +60,7 @@ const initialState = {
    noticias: [],
    noticiasPPage:[],
   noticiasBackUp: [],
+  actualDash:0,
   detalleNoticia: {},
   notFoundNoticias:false,
   loginRegisterLocal: "",
@@ -230,6 +231,17 @@ export default function rootReducer(state = initialState, action) {
           ...state,
          noticias: filterNoticeForCategorie 
         }
+        case GET_USER_BY_EMAIL:
+         return{
+            ...state,
+            verificacionDeUsuario: action.payload
+         }
+         case UPDATE_PASSWORD:
+         return{
+            ...state,
+            mensajeDeVerificacionDeContraseña: action.payload
+         };
+         
         case DELETE_NOTICE: 
         return {
           ...state,
@@ -245,6 +257,18 @@ export default function rootReducer(state = initialState, action) {
           ...state,
           updateNotice: action.payload
         }
+        case GET_ALL_ROLES:
+         return {
+            roles: action.payload,
+         };
+      case GET_ALL_ROLES_BY_ID:
+         return { ...state };
+      case POST_ROL:
+         return { ...state };
+      case PATCH_ROL:
+         return { ...state };
+      case DELETE_ROL:
+         return { ...state };   
    
     default:
       return { ...state };
