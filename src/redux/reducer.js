@@ -40,7 +40,8 @@ import {
    DELETE_ROL,
    POST_ROL,
 } from "./rolesActions/rolesActionsTypes";
-//DASHBOARD TYPES
+//---->SPONSOR---------
+import { GET_ALL_SPONSOR } from "./sponsorActions/sponsorActionsTypes";//DASHBOARD TYPES
 import {RENDER_CORRECT_DASH} from './dashboardAdminActions/actionTypes'
 const initialState = {
    isLoading: false,
@@ -57,6 +58,7 @@ const initialState = {
    perfilUsuario: [],
    verificacionDeUsuario: {},
    mensajeDeVerificacionDeContraseña: [],
+   allUsers:[],
    //NOTICIAS STATES//
    noticias: [],
    noticiasPPage:[],
@@ -69,6 +71,10 @@ const initialState = {
   deleteNotice: {},
   updateNotice: {},
   noticeById: {},
+   //SPONSOR STATES
+   sponsor:[],
+   sponsorBackUp:[],
+
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -128,7 +134,15 @@ export default function rootReducer(state = initialState, action) {
             ...state,
             notFoundNoticias: true,
          };
-      //LOCAL_LOGIN CASES//
+         //SPONSOR//
+      case GET_ALL_SPONSOR:
+         return{
+            ...state,
+            sponsor:action.payload,
+            sponsorBackUp:action.payload
+         }    
+     
+         //LOCAL_LOGIN CASES//
       case LOCAL_LOGIN:
          if (action.payload.statusCode !== 203) {
             localStorage.setItem("access_token", action.payload.access_token);
@@ -197,6 +211,11 @@ export default function rootReducer(state = initialState, action) {
             allUsers: action.payload,
             isLoading: false,
          }
+      case GET_ALL_USERS:
+      return {
+        ...state,
+        allUsers:action.payload
+      }
       case GET_USER_BY_ID:
          return {
             ...state,

@@ -222,9 +222,8 @@ export default function UpdateNoticia() {
             ) : null}
 
             <div>
-              {input.categories?.map((el,i) => (
-                <Button
-                key={i}
+              {input.categories?.map((el) => (
+                <Button key={el.id}
                   variant="outlined"
                   size="xs"
                   sx={{
