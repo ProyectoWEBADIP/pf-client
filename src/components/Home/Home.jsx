@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Typography } from '@mui/material';
+import { CircularProgress, LinearProgress, Skeleton, Typography } from '@mui/material';
 import CardsNoticias from '../CardsNoticias/CardsNoticias';
 import CardPartidoContainer from '../CardPartidoContainer/CardPartidoContainer';
 import Filtros from '../Filtros/Filtros';
@@ -14,32 +14,55 @@ import { getAllSponsor } from '../../redux/sponsorActions/sponsorActions';
 
 
 
+import Paginado from '../Paginado/Paginado';
+import { getUserById } from '../../redux/login-registerActions/loginActions';
+
 export default function Home() {
   const dispatch = useDispatch();
-  const notFoundNoticias = useSelector((state) => state.notFoundNoticias);
+  const noticias = useSelector((state) => state.noticias);
+  const perfilUsuario = useSelector(state=>state.perfilUsuario)
   useEffect(() => {
     dispatch(getAllCategories());
+    if(!perfilUsuario.length && localStorage.userId){
+    dispatch(getUserById(localStorage.userId))
+    }
     dispatch(getAllNoticias());
     dispatch(getAllSponsor());
   }, [dispatch]);
 
   return (
     <div className="homeContainer">
-      <div className="Sidebar">
-        <h2>Filtrar noticias</h2>
-        <Filtros />
-      </div>
-      <div className="Noticias">
-      
-        <Typography variant="h2" fontWeight="bold" mt={4}>
-          Noticias
-        </Typography>
-        {notFoundNoticias ? <NotFoundComponent /> : <CardsNoticias />}
+      {noticias.length?(
+        <>
+        <div className="Sidebar">
+          <h2>Filtrar noticias</h2>
+          <Filtros />
+        </div>
+        <div className="Noticias">
        
+        <h1 id='NoticiasText'>
+            Noticias
+         </h1>
+          
+          {!noticias.length ? 
+  <div>
+  <CircularProgress disableShrink />;
+  </div>: <CardsNoticias />}
+         
       </div>
-      <div className="Partidos">
-        <CardPartidoContainer />
-      </div>
+        <div className="Partidos">
+          <CardPartidoContainer />
+        </div></>
+      ):< div className='loadingCont'>
+      <div className="🤚">
+	<div className="👉"></div>
+	<div className="👉"></div>
+	<div className="👉"></div>
+	<div className="👉"></div>
+	<div className="🌴"></div>		
+	<div className="👍"></div>
+</div>
+      </div>}
     </div>
   );
 }

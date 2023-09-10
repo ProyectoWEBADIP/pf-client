@@ -15,8 +15,6 @@ import { Grid} from '@mui/material';
 
 
 export default function CrearNoticia ()  {
-
-
   
   const imgDefault = "https://cdn-icons-png.flaticon.com/256/20/20079.png";
 

@@ -13,16 +13,13 @@ const CrearSponsor = () => {
     const [imagen,setImagen]=useState("");    
     const dispatch= useDispatch();
     const [error,setError]=useState({});
-    const [cloudinary,setCloudinary]=useState(false)
-   
+    const [cloudinary,setCloudinary]=useState(false)   
 
     useEffect(()=>{
         dispatch(getAllSponsor())
         
     },[dispatch]    
-    )
-
-   
+    )   
 
     const handleSubmit=(event)=>{
         event.preventDefault();        
@@ -78,7 +75,7 @@ const CrearSponsor = () => {
 
     const handleCloudySubmit= async(event)=>{
         event.preventDefault();   
-        console.log(input.img);
+        
         try {        
             const formData = new FormData()
             formData.append("file",input.img)

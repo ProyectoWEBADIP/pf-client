@@ -15,7 +15,8 @@ import CrearNoticia from "./components/CraerNoticia/CrearNoticia";
 import { CrearRol } from "./components/CrearRole/CrearRol";
 import PerfilUsuario from "./components/PerfilUsuario/Perfil";
 import CrearSponsor from "./components/CrearSponsor/CrearSponsor";
-import Sponsor1 from "./components/Sponsor/sponsor1/Sponsor1";
+import Sponsor1 from "./components/Sponsor/sponsor1/Sponsor1";import RecuperarContraseña from "./components/RecuperarContraseña/RecuperarContraseña";
+import UpdateNoticia from "./components/UpdateNoticia/UpdateNoticia";
 import AdminDashboard from "./dashboardAdminComponents/adminDashboard/AdminDashboard";
 import CardSponsor from "./components/CardSponsor/CardSponsor";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -31,14 +32,14 @@ function App() {
       localStorage.setItem("themeMode", prefThemeMode);
       setThemeMode(prefThemeMode);
    };
-
+const location = useLocation()
    const theme = createTheme(getDesignTokens(themeMode));
 
    return (
       <div className="AppContainer">
          <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Navbar themeMode={themeMode} toggleThemeMode={toggleThemeMode} />
+           {location.pathname !=='/auth/dashboard'? <Navbar themeMode={themeMode} toggleThemeMode={toggleThemeMode} />:null}
             <Routes>
                <Route path={"/"} element={<Home />} />
                <Route path={"/login"} element={<Login />} />
@@ -46,8 +47,10 @@ function App() {
                <Route path={"/detalle/:id"} element={<NoticiaDetail />} />
                <Route path={"/crearNoticia"} element={<CrearNoticia />} />
                <Route path={"/:id/profile"} element={<PerfilUsuario />} />
-               <Route path={"/auth/dashboard"} element={<AdminDashboard />} />
+               <Route path={"/auth/dashboard"} element={<AdminDashboard themeMode={themeMode} toggleThemeMode={toggleThemeMode} />} />
                <Route path={"/crearRoles"} element={<CrearRol />} />
+               <Route path={"/login/recuperacion"} element={<RecuperarContraseña />}/>
+               <Route path={"/editarNoticia/:id"} element={<UpdateNoticia/>}/>
                <Route path={"/crearSponsor"} element={<CrearSponsor/>}/>
                <Route path={"/sponsor1"} element={<Sponsor1/>}/>
                <Route path={"/cardSponsor"} element={<CardSponsor/>}/>
