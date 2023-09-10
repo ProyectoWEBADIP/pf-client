@@ -1,28 +1,32 @@
 /* eslint-disable no-unused-vars */
 import {
-   FILTER_NOTICIAS,
-   GET_ALL_NOTICIAS,
-   GET_NOTICIA_DETAIL,
-   CLEAN_NOTICIA_DETAIL,
-   GET_NOTICIAS_BY_TITLE,
-   CLEAN_FILTERS_NOTICIAS,
-   NOT_FOUND_NOTICIAS,
-   GET_NOTICIAS_BY_CATEGORY,
+  FILTER_NOTICIAS,
+  GET_ALL_NOTICIAS,
+  GET_NOTICIA_DETAIL,
+  CLEAN_NOTICIA_DETAIL,
+  GET_NOTICIAS_BY_TITLE,
+  CLEAN_FILTERS_NOTICIAS,
+  NOT_FOUND_NOTICIAS,
+  GET_NOTICIAS_BY_CATEGORY,
+  DELETE_NOTICE,
+  GET_NOTICE_BY_ID,
+  UPDATE_NOTICE,
   NOTICIAS_PER_PAGE
-} from "./noticiasActions/noticiasActionTypes";
+} from './noticiasActions/noticiasActionTypes';
 //LOGIN_REGISTER ACTION TYPES//
 import {
-   IS_LOADING,
-   LOCAL_LOGIN,
-   LOCAL_LOGIN_ERROR,
-   LOGOUT,
-   HISTORY,
-   LOGGIN_IN,
-   REGISTER_USER,
-   GET_USER_BY_ID,
-   CREATE_PROFILE_LOCAL,
-   REGISTER_USER_LOCAL,
-} from "./login-registerActions/actionTypes";
+  IS_LOADING,
+  LOCAL_LOGIN,
+  LOCAL_LOGIN_ERROR,
+  LOGOUT,
+  HISTORY,
+  LOGGIN_IN,
+  REGISTER_USER,
+  GET_USER_BY_ID,
+  CREATE_PROFILE_LOCAL,
+  REGISTER_USER_LOCAL,
+  
+} from './login-registerActions/actionTypes';
 //Categorias types
 import { GET_ALL_CATEGORIES } from "../redux/categoriasActions/categoriasActionTypes";
 //USERS TYPES
@@ -56,12 +60,14 @@ const initialState = {
    noticias: [],
    noticiasPPage:[],
   noticiasBackUp: [],
-   detalleNoticia: {},
-   notFoundNoticias: false,
-   loginRegisterLocal: "",
-   categorias: [],
-  //ADMIN DASHBOARDS STATES
   actualDash:0,
+  detalleNoticia: {},
+  notFoundNoticias:false,
+  loginRegisterLocal: "",
+  categorias: [],
+  deleteNotice: {},
+  updateNotice: {},
+  noticeById: {},
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -78,13 +84,14 @@ export default function rootReducer(state = initialState, action) {
 
         }
     case GET_ALL_NOTICIAS:
-         return {
-            ...state,
-            noticias: action.payload,
-            isLoading: false,
-            noticiasBackUp: action.payload,
-            notFoundNoticias: false,
-         };
+      let filterNotice = action.payload.filter((el) => el.active === true)
+      return {
+        ...state,
+        noticias: filterNotice,
+        isLoading: false,
+        noticiasBackUp:filterNotice,
+        notFoundNoticias:false
+      };
       case GET_NOTICIAS_BY_TITLE:
          return {
             ...state,
@@ -209,34 +216,49 @@ export default function rootReducer(state = initialState, action) {
             perfilUsuario: action.payload,
          };
       case REGISTER_USER_LOCAL:
-         return {
-            ...state,
-            loginRegisterLocal: action.payload,
-         };
-      case GET_ALL_CATEGORIES:
-         return {
-            ...state,
-            categorias: action.payload,
-         };
-      case GET_NOTICIAS_BY_CATEGORY:
-         return {
-            ...state,
-            noticias: action.payload,
-         };
-      case GET_USER_BY_EMAIL:
+        return {
+          ...state,
+          loginRegisterLocal: action.payload
+        }
+        case GET_ALL_CATEGORIES: 
+        return {
+          ...state,
+          categorias: action.payload
+        }
+        case GET_NOTICIAS_BY_CATEGORY:
+          let filterNoticeForCategorie = action.payload.filter((el) => el.active === true) 
+        return {
+          ...state,
+         noticias: filterNoticeForCategorie 
+        }
+        case GET_USER_BY_EMAIL:
          return{
             ...state,
             verificacionDeUsuario: action.payload
-         };
-      case UPDATE_PASSWORD:
+         }
+         case UPDATE_PASSWORD:
          return{
             ...state,
             mensajeDeVerificacionDeContraseña: action.payload
          };
-      //------------> Roles <----------------//
-      case GET_ALL_ROLES:
-         return {
+         
+        case DELETE_NOTICE: 
+        return {
+          ...state,
+          deleteNotice: action.payload
+        }
+        case GET_NOTICE_BY_ID:
+          return {
             ...state,
+            noticeById: action.payload
+          }
+        case UPDATE_NOTICE: 
+        return {
+          ...state,
+          updateNotice: action.payload
+        }
+        case GET_ALL_ROLES:
+         return {
             roles: action.payload,
          };
       case GET_ALL_ROLES_BY_ID:
@@ -246,9 +268,9 @@ export default function rootReducer(state = initialState, action) {
       case PATCH_ROL:
          return { ...state };
       case DELETE_ROL:
-         return { ...state };
-
-      default:
-         return { ...state };
-   }
+         return { ...state };   
+   
+    default:
+      return { ...state };
+  }
 }
