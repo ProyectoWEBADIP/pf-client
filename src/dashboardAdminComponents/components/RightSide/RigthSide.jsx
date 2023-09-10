@@ -5,25 +5,20 @@ import './RigthSide.css'
 import Updates from '../Updates/Updates'
 import Comentarios from '../Comentarios/Comentarios'
 import { SwichtThemes } from '../../../components/ModeThemes/SwichtThemes'
-const RigthSide = ({ themeMode, toggleThemeMode }) => {
+const RigthSide = () => {
   return (
 <div className="RightSide">
-<div className='switchTheme' >
-<SwichtThemes 
-                themeMode={themeMode}
-                  toggleThemeMode={toggleThemeMode}
-               />
-</div>
+
   <div>
     <h3>Actualizaciones</h3>
     <Updates/>
   </div>
-  <div>
+  {/* <div>
     <h3>
       Comentarios recientes
     </h3>
     <Comentarios/>
-  </div>
+  </div> */}
 </div>
     )
 }

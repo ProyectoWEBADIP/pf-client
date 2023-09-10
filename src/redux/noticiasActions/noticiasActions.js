@@ -67,6 +67,16 @@ export function getNoticiaDetail(id) {
       }
    };
 }
+export function getNoticiaDetailAdmin(id) {
+   return async (dispatch) => {
+      try {
+         const { data } = await axios(`http://localhost:3001/notices/${id}`);
+         return data;
+      } catch (error) {
+         return alert(error.message);
+      }
+   };
+}
 export function getNoticiasByTitle(title) {
    return async (dispatch) => {
       try {
@@ -112,7 +122,6 @@ export const getNoticiasByCategory = (id) => {
          const { data } = await axios(
             `http://localhost:3001/notices/byCategory/${id}`
          );
-         console.log("dataaaa===Z", data);
          dispatch({ type: GET_NOTICIAS_BY_CATEGORY, payload: data });
       } catch (error) {
          console.log(error.message);
@@ -143,11 +152,11 @@ export const getNoticeById = (id) =>{
   }
 }
 export const updateNoticia = (id, body) => {
-  
+  console.log("body",body);
     return async (dispatch) => {
       try {
        const { data } = await axios.patch(`http://localhost:3001/notices/${id}`, body) 
-       
+       console.log("data update", data);
        dispatch({type: UPDATE_NOTICE, payload: data[0]})
       } catch (error) {
         console.log(error.message);

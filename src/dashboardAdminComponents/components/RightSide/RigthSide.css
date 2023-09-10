@@ -20,7 +20,7 @@ align-items: center;
   border-radius: 1rem;
 }
 .RightSide::-webkit-scrollbar-thumb:hover {
-  background-color: #f85f00;
+  background-color: #f85f00;      
 }
 .RightSide::-webkit-scrollbar-thumb:active {
   background-color: #f85f00;
