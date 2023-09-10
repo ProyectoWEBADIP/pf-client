@@ -1,5 +1,4 @@
 .Updates{
-  width: 100%;
   background: rgb(226, 175, 98);
 border-radius: .7rem;
 padding: 1rem;
@@ -7,8 +6,8 @@ gap: 1rem;
 display: flex;
 flex-direction: column;
 font-size: 13px;
-overflow-y: scroll;
-height: 60%;
+overflow-y: auto;
+height: 57%;
 }
 
 .update{

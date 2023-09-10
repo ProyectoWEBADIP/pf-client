@@ -24,14 +24,13 @@ const AdminDashboard = ({ themeMode, toggleThemeMode }) => {
   });
   return (
     <div className="App">
-      
       <div className="AppGlass">
-      <div className='switchTheme' >
-<SwichtThemes 
-                themeMode={themeMode}
-                  toggleThemeMode={toggleThemeMode}
-               />
-</div>
+        <div className="switchTheme">
+          <SwichtThemes
+            themeMode={themeMode}
+            toggleThemeMode={toggleThemeMode}
+          />
+        </div>
         <Sidebar />
         <MainDash />
         {actualDash === 0 ? (

@@ -21,7 +21,6 @@ export default function NoticiaDetail() {
   }, [dispatch]);
 
   const detalleNoticia = useSelector((state) => state.detalleNoticia);
-  console.log("==> detalle",detalleNoticia)
   return (
     <div>
       

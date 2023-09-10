@@ -20,7 +20,6 @@ export const CrearRol = () => {
       "El campo 'Descripción' es obligatorio."
    );
 
-   console.log("rolData", rolData);
 
    const handleInputChange = (e) => {
       const { name, value } = e.target;

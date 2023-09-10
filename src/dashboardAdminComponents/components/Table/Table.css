@@ -5,7 +5,6 @@
 
 .MuiDataGrid-root {
   width: 137%;
-  height: 50%;
   text-align: center;
 }
 .AppGlass {
@@ -206,12 +205,13 @@
 }
 /*! LOADER*/
 
-@media screen and (max-width: 1080px) {
+
+
+@media screen and (max-width: 1700px) {
   .overlay {
     height: 105vw;
   }
 }
-
 @media screen and (max-width: 768px) {
   .MuiDataGrid-root {
     display: flex;
