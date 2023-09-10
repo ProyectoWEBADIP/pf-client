@@ -83,6 +83,8 @@ const Navbar = ({ themeMode, toggleThemeMode }) => {
                   Crear Rol
                </Button>
 
+               <Button href="/crearSponsor" color="inherit">Crear sponsor</Button>
+
                <SwichtThemes
                   themeMode={themeMode}
                   toggleThemeMode={toggleThemeMode}

@@ -9,6 +9,7 @@ const MainDash = () => {
 const dispatch = useDispatch()
 
   useEffect(()=>{
+    
     dispatch(getAllUsers())
   })
   return (

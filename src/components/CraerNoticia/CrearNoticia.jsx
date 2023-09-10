@@ -28,6 +28,7 @@ export default function CrearNoticia ()  {
     const [imageURL, setImageURL] = useState(""); //url
     const [category,setCategory]=useState([{id:"",name:""}]);
     const [crearCategory,setCrearCategory]=useState("");
+    const [cloudinary,setCloudinary]=useState(false);
     
   
      
@@ -69,7 +70,7 @@ export default function CrearNoticia ()  {
       }
     
     const submitImage= async (e)=>{
-      e.preventDefault();   
+      e.preventDefault();       
 
       try {        
         const formData = new FormData()
@@ -78,7 +79,9 @@ export default function CrearNoticia ()  {
         formData.append("cloud_name","drpdobxfu")
 
         const {data}= await axios.post("https://api.cloudinary.com/v1_1/drpdobxfu/image/upload",formData)
-        setInput({...input, imagen: data.secure_url})        
+        setInput({...input, imagen: data.secure_url})   
+        setCloudinary(true)  
+
         alert("Subida con  exito!")
         console.log(input.imagen);
       } catch (error) {
@@ -87,14 +90,15 @@ export default function CrearNoticia ()  {
     }
 
     const handleImageChange=(event)=>{
-      const file = event.target.files[0];          
+      const file = event.target.files[0];   
+            
       setImageURL(URL.createObjectURL(file));    
 
       setInput({
         ...input,
         imagen: file
       })   
-      console.log(input);
+     
     }
     
     const handleSelect=(e)=>{
@@ -114,7 +118,7 @@ export default function CrearNoticia ()  {
         }
       ])    
       }
-      console.log(category);        
+           
      
       setError(validation(
         {
@@ -154,11 +158,9 @@ export default function CrearNoticia ()  {
         image:input.imagen,
         categoryIds:ids,
         active:true
-      }  
+      }      
       
-      console.log(body,"body");
-      
-      if(input.imagen){        
+      if(cloudinary===true){        
         dispatch(postNoticia(body))                
         form.reset();  
         setImageURL("")
@@ -172,7 +174,7 @@ export default function CrearNoticia ()  {
         setCategory([])
         alert("Noticia creada con exito!")
       } else{
-        alert("Falta cargar la imagen!")
+        alert("No olvides subir tu imagen a la nube!")
       }
            
     }
@@ -198,10 +200,11 @@ export default function CrearNoticia ()  {
    
     
     return (
-      <>
-      <Grid  container spacing={40}>
-      <Grid  item xs={12} sm={6} >
-      <Box borderRadius={[5, 5, 5, 5]} alignItems="center" bgcolor="#FBEED8"  paddingX={1} paddingY={2} component="form" id="formulario"  onSubmit={handleSubmit} sx={{m:5,marginLeft:'-100px'}}>
+      
+      // <Container  bgcolor="green"  sx={{justifyContent:"center",display:"flex",flexDirection:"column",alignItems:"center"}}> 
+      <Grid   fullWidth container spacing={2} sx={{justifyContent:"center",display:"flex"}}>
+      <Grid item xs={12} sm={6} >
+      <Box  borderRadius={[5, 5, 5, 5]}  bgcolor="#FBEED8"   alignItems="center"  component="form" id="formulario"  onSubmit={handleSubmit} >
         <TextField label="Título" helperText=" " type="text" name="titulo" value={input.titulo} required onChange={handleChange} fullWidth />
         {error.titulo && <Typography variant="body1">{error.titulo}</Typography>}
         
@@ -266,8 +269,8 @@ export default function CrearNoticia ()  {
       </Box>
       </Grid>
         {/* Previsualizar noticia */}
-        <Grid  item xs={12} sm={6}>
-        <Box borderRadius={[5, 5, 5, 5]} paddingX={3} paddingY={4} bgcolor="#FBEED8" color="primary.contrastText" marginTop={15}>
+        <Grid  item xs={12} sm={6} alignItems="center">
+        <Box borderRadius={[5, 5, 5, 5]}  bgcolor="#FBEED8"  >
           <div>
           
           <Typography variant="headline">{input.titulo}</Typography>
@@ -300,8 +303,10 @@ export default function CrearNoticia ()  {
           </div>
         </Box>
         </Grid>
-        </Grid>        
-      </> 
+        </Grid>   
+      //  </Container>
+           
+     
     )
   }
   

@@ -34,7 +34,8 @@ import {
    DELETE_ROL,
    POST_ROL,
 } from "./rolesActions/rolesActionsTypes";
-
+//---->SPONSOR---------
+import { GET_ALL_SPONSOR } from "./sponsorActions/sponsorActionsTypes";
 const initialState = {
    isLoading: false,
    //LOGIN_STATES//
@@ -47,6 +48,7 @@ const initialState = {
    //USUARIO_STATES
    usuario: {},
    perfilUsuario: [],
+   allUsers:[],
    //NOTICIAS STATES//
    noticias: [],
    noticiasBackUp: [],
@@ -54,6 +56,10 @@ const initialState = {
    notFoundNoticias: false,
    loginRegisterLocal: "",
    categorias: [],
+   //SPONSOR STATES
+   sponsor:[],
+   sponsorBackUp:[],
+
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -106,7 +112,15 @@ export default function rootReducer(state = initialState, action) {
             ...state,
             notFoundNoticias: true,
          };
-      //LOCAL_LOGIN CASES//
+         //SPONSOR//
+      case GET_ALL_SPONSOR:
+         return{
+            ...state,
+            sponsor:action.payload,
+            sponsorBackUp:action.payload
+         }    
+     
+         //LOCAL_LOGIN CASES//
       case LOCAL_LOGIN:
          if (action.payload.statusCode !== 203) {
             localStorage.setItem("access_token", action.payload.access_token);
@@ -169,6 +183,11 @@ export default function rootReducer(state = initialState, action) {
             loginRegisterErrors: {},
          };
       //GET USUARIOS CASES
+      case GET_ALL_USERS:
+      return {
+        ...state,
+        allUsers:action.payload
+      }
       case GET_USER_BY_ID:
          return {
             ...state,

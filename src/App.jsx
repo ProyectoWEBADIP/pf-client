@@ -14,13 +14,14 @@ import NoticiaDetail from "./components/detailNoticia/NoticiaDetail";
 import CrearNoticia from "./components/CraerNoticia/CrearNoticia";
 import { CrearRol } from "./components/CrearRole/CrearRol";
 import PerfilUsuario from "./components/PerfilUsuario/Perfil";
-
+import CrearSponsor from "./components/CrearSponsor/CrearSponsor";
+import Sponsor1 from "./components/Sponsor/sponsor1/Sponsor1";
 import AdminDashboard from "./dashboardAdminComponents/adminDashboard/AdminDashboard";
-
+import CardSponsor from "./components/CardSponsor/CardSponsor";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { getDesignTokens } from "../helpers/theme";
 import React, { useState } from "react";
-
+import UpDateSponsor from "./components/upDateSponsor/upDateSponsor"
 function App() {
    const storedThemeMode = localStorage.getItem("themeMode") || "light";
    const [themeMode, setThemeMode] = useState(storedThemeMode);
@@ -47,6 +48,10 @@ function App() {
                <Route path={"/:id/profile"} element={<PerfilUsuario />} />
                <Route path={"/auth/dashboard"} element={<AdminDashboard />} />
                <Route path={"/crearRoles"} element={<CrearRol />} />
+               <Route path={"/crearSponsor"} element={<CrearSponsor/>}/>
+               <Route path={"/sponsor1"} element={<Sponsor1/>}/>
+               <Route path={"/cardSponsor"} element={<CardSponsor/>}/>
+               <Route path={"/editarSponsor"} element={<UpDateSponsor/>}/>
             </Routes>
          </ThemeProvider>
       </div>

@@ -1,0 +1,2 @@
+export const POST_SPONSOR="POST_SPONSOR";
+export const GET_ALL_SPONSOR="GET_ALL_SPONSOR";
