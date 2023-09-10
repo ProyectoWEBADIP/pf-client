@@ -10,6 +10,10 @@ import NotFoundComponent from '../notFound/notFound';
 import { getAllCategories } from '../../redux/categoriasActions/categoriasActions';
 import './home.css';
 import NestedList from '../Filtros/Filtros';
+import { getAllSponsor } from '../../redux/sponsorActions/sponsorActions';
+
+
+
 import Paginado from '../Paginado/Paginado';
 import { getUserById } from '../../redux/login-registerActions/loginActions';
 
@@ -23,6 +27,7 @@ export default function Home() {
     dispatch(getUserById(localStorage.userId))
     }
     dispatch(getAllNoticias());
+    dispatch(getAllSponsor());
   }, [dispatch]);
 
   return (
@@ -34,7 +39,8 @@ export default function Home() {
           <Filtros />
         </div>
         <div className="Noticias">
-         <h1 id='NoticiasText'>
+       
+        <h1 id='NoticiasText'>
             Noticias
          </h1>
           
@@ -42,7 +48,8 @@ export default function Home() {
   <div>
   <CircularProgress disableShrink />;
   </div>: <CardsNoticias />}
-        </div>
+         
+      </div>
         <div className="Partidos">
           <CardPartidoContainer />
         </div></>

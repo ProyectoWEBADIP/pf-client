@@ -87,6 +87,8 @@ const Navbar = ({ themeMode, toggleThemeMode }) => {
           <SearchBar />
           {/* <Box sx={{ flexGrow: 1 }} />
            */}
+               <Button href="/crearSponsor" color="inherit">Crear sponsor</Button>
+
           <SwichtThemes
             themeMode={themeMode}
             toggleThemeMode={toggleThemeMode}
