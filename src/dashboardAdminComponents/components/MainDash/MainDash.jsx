@@ -10,6 +10,7 @@ const MainDash = () => {
   const actualDash = useSelector((state) => state.actualDash);
   const dispatch = useDispatch();
   useEffect(() => {
+    
     dispatch(getAllUsers());
   });
   return (

@@ -230,7 +230,7 @@ export default function UpdateNoticia() {
 
             <div>
               {input.categories?.map((el) => (
-                <Button
+                <Button key={el.id}
                   variant="outlined"
                   size="xs"
                   sx={{

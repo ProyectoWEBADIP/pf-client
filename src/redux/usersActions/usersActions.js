@@ -8,6 +8,7 @@ export function getAllUsers() {
   return async (dispatch) => {
     try {
       const { data } = await axios(`http://localhost:3001/users`);
+      
       dispatch({ type: GET_ALL_USERS, payload: data });
     } catch (error) {
       return alert(error.message);

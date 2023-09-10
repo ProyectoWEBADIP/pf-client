@@ -143,11 +143,11 @@ export const getNoticeById = (id) =>{
   }
 }
 export const updateNoticia = (id, body) => {
-  console.log("body",body);
+  
     return async (dispatch) => {
       try {
        const { data } = await axios.patch(`http://localhost:3001/notices/${id}`, body) 
-       console.log("data update", data);
+       
        dispatch({type: UPDATE_NOTICE, payload: data[0]})
       } catch (error) {
         console.log(error.message);

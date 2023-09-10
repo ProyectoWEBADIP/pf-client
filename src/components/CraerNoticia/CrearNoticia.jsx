@@ -10,6 +10,8 @@ import { getAllCategories, postCategoria } from "../../redux/categoriasActions/c
 import { Box, Container} from "@mui/system";
 import { TextField, Typography } from "@mui/material";
 import { Button} from "@mui/base";
+import { Grid} from '@mui/material';
+
 
 
 export default function CrearNoticia ()  {
@@ -24,6 +26,7 @@ export default function CrearNoticia ()  {
     const [imageURL, setImageURL] = useState(""); //url
     const [category,setCategory]=useState([{id:"",name:""}]);
     const [crearCategory,setCrearCategory]=useState("");
+    const [cloudinary,setCloudinary]=useState(false);
     
   
      
@@ -65,7 +68,7 @@ export default function CrearNoticia ()  {
       }
     
     const submitImage= async (e)=>{
-      e.preventDefault();   
+      e.preventDefault();       
 
       try {        
         const formData = new FormData()
@@ -74,7 +77,9 @@ export default function CrearNoticia ()  {
         formData.append("cloud_name","drpdobxfu")
 
         const {data}= await axios.post("https://api.cloudinary.com/v1_1/drpdobxfu/image/upload",formData)
-        setInput({...input, imagen: data.secure_url})        
+        setInput({...input, imagen: data.secure_url})   
+        setCloudinary(true)  
+
         alert("Subida con  exito!")
         console.log(input.imagen);
       } catch (error) {
@@ -83,14 +88,15 @@ export default function CrearNoticia ()  {
     }
 
     const handleImageChange=(event)=>{
-      const file = event.target.files[0];          
+      const file = event.target.files[0];   
+            
       setImageURL(URL.createObjectURL(file));    
 
       setInput({
         ...input,
         imagen: file
       })   
-      console.log(input);
+     
     }
     
     const handleSelect=(e)=>{
@@ -109,8 +115,8 @@ export default function CrearNoticia ()  {
         name:nameCategory
         }
       ])    
-       
-      }        
+      }
+           
      
       setError(validation(
         {
@@ -150,11 +156,9 @@ export default function CrearNoticia ()  {
         image:input.imagen,
         categoryIds:ids,
         active:true
-      }  
+      }      
       
-      console.log(body,"body");
-      
-      if(input.imagen){        
+      if(cloudinary===true){        
         dispatch(postNoticia(body))                
         form.reset();  
         setImageURL("")
@@ -168,7 +172,7 @@ export default function CrearNoticia ()  {
         setCategory([])
         alert("Noticia creada con exito!")
       } else{
-        alert("Falta cargar la imagen!")
+        alert("No olvides subir tu imagen a la nube!")
       }
            
     }
@@ -194,12 +198,15 @@ export default function CrearNoticia ()  {
    
     
     return (
-      <>
-      <Box component="form" id="formulario"  onSubmit={handleSubmit} sx={{m:5}}>
+      
+      // <Container  bgcolor="green"  sx={{justifyContent:"center",display:"flex",flexDirection:"column",alignItems:"center"}}> 
+      <Grid   fullWidth container spacing={2} sx={{justifyContent:"center",display:"flex"}}>
+      <Grid item xs={12} sm={6} >
+      <Box  borderRadius={[5, 5, 5, 5]}  bgcolor="#FBEED8"   alignItems="center"  component="form" id="formulario"  onSubmit={handleSubmit} >
         <TextField label="Título" helperText=" " type="text" name="titulo" value={input.titulo} required onChange={handleChange} fullWidth />
         {error.titulo && <Typography variant="body1">{error.titulo}</Typography>}
         
-        <TextField label="Resumen"  type="text" name="resumen" value={input.resumen} required onChange={handleChange} fullWidth  />
+        <TextField label="Resumen" type="text" name="resumen" value={input.resumen} required onChange={handleChange} fullWidth  />
         {error.resumen && <Typography variant="body1">{error.resumen}</Typography>}
 
         <div>                                 
@@ -238,25 +245,66 @@ export default function CrearNoticia ()  {
 
         <TextField label="Descripción"  type="text" name="descripcion" value={input.descripcion} required onChange={handleChange} fullWidth />
         {error.descripcion && <Typography variant="body1">{error.descripcion}</Typography>}
-
+        <br/>
+        <br/>
         <TextField type="file" name="imagen" accept="image/*" onChange={handleImageChange}/>
       
         <div className="mb-4" style={{margin: "10px"}}>
             <button onClick={submitImage}>Subir Imagen</button>
             {error.descripcion && <p>{error.imagen}</p>}                      
-          </div>          
+        </div>  
+          <br/>        
 
-          <Container sx={{maxHeight: 300, maxWidth: 300 }}>
+          <Container sx={{maxHeight: 500, maxWidth: 300}}>
           <img src={ imageURL? imageURL : imgDefault} alt="img" style={{ width: '300px', height: 'auto', objectFit: "cover"}}/>      
               
           </Container>
           
-          <br/>
+          
 
         <Button type="submit" variant="outlined" value="Crear Noticia">Crear noticia</Button>
-      </Box>
 
-      </> 
+      </Box>
+      </Grid>
+        {/* Previsualizar noticia */}
+        <Grid  item xs={12} sm={6} alignItems="center">
+        <Box borderRadius={[5, 5, 5, 5]}  bgcolor="#FBEED8"  >
+          <div>
+          
+          <Typography variant="headline">{input.titulo}</Typography>
+          <br/>
+          
+
+          <Typography variant="body1" >{input.resumen}</Typography>
+          <br/>
+
+          
+
+          <div>
+          <img src={ imageURL? imageURL : imgDefault} alt="img" style={{ width: '300px', height: 'auto', objectFit: "cover"}}/>      
+
+          </div>
+
+          
+          <Typography variant="headline" >{input.descripcion}</Typography>
+
+          <div>
+            {category?.map((e,index)=>{
+              return(
+                <div key={index}>
+                  <p>{e.name}</p>
+                </div>
+              )
+            })}
+          </div>
+
+          </div>
+        </Box>
+        </Grid>
+        </Grid>   
+      //  </Container>
+           
+     
     )
   }
   
