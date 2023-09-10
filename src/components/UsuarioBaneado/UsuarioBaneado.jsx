@@ -21,16 +21,6 @@ export default function UsuarioBaneado() {
   return (
     <Box>
       <Box>
-      <TextField
-      label="Ingrese su correo"
-      type='email'
-      placeholder='Ingrese su correo'
-      value={emailUser}
-      onChange={event => setEmailUser(event.target.value)}
-      />
-      </Box>
-
-      <Box>
       <Button variant='outlined' sx={{ mt: 2}} onClick={HandleClick}>Enviar correo</Button>
       </Box>
     </Box>

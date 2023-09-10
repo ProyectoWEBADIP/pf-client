@@ -149,7 +149,7 @@ export default function RecuperarContraseña() {
       )}
       {newPassword && (
         <Box>
-          <Box>
+          <Box sx={{mt: 2}}>
             <TextField
               type="text"
               label="Ingrese nueva contraseña"
@@ -160,7 +160,7 @@ export default function RecuperarContraseña() {
               }
             />
           </Box>
-          <Box>
+          <Box sx={{mt: 2}}>
             <TextField
               type="text"
               label="Ingrese nueva contraseña"

@@ -55,11 +55,18 @@ export default function SignUp() {
       setVerificacionEmail(true);
       const codigoDeVerificacion = uuidv4().slice(0, 5);
       setCodigoGeneradoLocalmente(codigoDeVerificacion);
+
       emailjs.send(
         "service_8c6uo6a",
         "template_p35w6dm",
-        { to_email: input.email, 
-          verification_code: codigoDeVerificacion },
+        { 
+          asunto: "",
+          to_email: input.email, 
+          contexto: "",
+          mensaje: "" ,
+          verification_code: codigoDeVerificacion,
+          footer: ""
+        },
         "LVu_qcdfDk8ci54aS"
       );
     } else {
