@@ -14,9 +14,11 @@ import { Alert, Button, Grid, TextField, Toolbar, Typography } from '@mui/materi
 import { Box, Container, padding } from '@mui/system';
 import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 import './perfil.css'
 export default function Perfil() {
   //!HOOKS
+  const [preferenceId, setPreferenceId] = useState(null)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const id = localStorage.userId; //AGARRO ID DEL USER DEL LOCALSTORAGE
@@ -29,7 +31,29 @@ export default function Perfil() {
   });
   const [file, setFile] = useState(null);
   const [error, setError] = useState({});
+  initMercadoPago(`TEST-c2bc2a6c-e7ac-4a00-bd64-68b499cde86d`)
+  const createPreference = async () => {
+    try {
+      const response = await axios.post(`http://localhost:3001/create_preference`, {
+        description: "Cuota mensual Club deportivo A.D.I.P",
+        price: 100,
+        quanntity: 1
+      })
+      const { id } = response.data
+      return id
 
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+  
+  const handleBuy = async () => {
+    const id = createPreference()
+    if(id){
+      setPreferenceId(id)
+    }
+  }
+  
   useEffect(() => {
 dispatch(setIsLoading())
     dispatch(getUserById(id));
@@ -101,7 +125,10 @@ setSuccess(<Alert severity="error">Error al subir la imágen.</Alert>)
     dispatch(createLocalProfile(id, profileData));
   }
   const perfilUsuario = useSelector((state) => state.perfilUsuario);
+  console.log("perfil ususario", perfilUsuario);
 const isLoading = useSelector(state=>state.isLoading)
+console.log("isLoading", isLoading);
+console.log("preferenceId",preferenceId);
   return (
     <div className={style.perfContainerContainer}>
           {!isLoading?      !perfilUsuario.active ? (
@@ -210,7 +237,8 @@ const isLoading = useSelector(state=>state.isLoading)
               <Typography variant='body1' sx={{ marginTop: "10px" }}>Fecha de Nacimiento: {' '}{perfilUsuario.profile.birthDate.split('T')[0]}</Typography>
               <Typography variant='body1' sx={{ marginTop: "10px" }}>DNI: {perfilUsuario.profile.dni}</Typography>
               <Typography variant='body1' sx={{ marginTop: "10px", marginBottom:"5px" }} fontWeight="bold">Deuda acumulada: $0</Typography>
-              <Button variant='outlined'>Saldar deuda</Button>
+              <Button onClick={handleBuy} variant='outlined'>Saldar deuda</Button>
+              {preferenceId && <Wallet initialization={{ preferenceId }} />}
             </Container>
           </Box>
       {perfilUsuario.role==='super_admin' && perfilUsuario.profile?    <Link to={'/auth/dashboard'}>
