@@ -4,13 +4,10 @@
   flex-direction: column;
 align-items: center;
   width: 95%;
-  height: 96%;
-  overflow: hidden;
+  height: 40%;
+
 }
-.switchTheme{
-  position: absolute;
-  right: 1rem;
-}
+
 .RightSide::-webkit-scrollbar {
   border-radius: 1rem;
   background: orange;

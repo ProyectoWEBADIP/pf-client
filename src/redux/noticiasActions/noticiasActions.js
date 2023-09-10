@@ -55,6 +55,16 @@ export function getNoticiaDetail(id) {
       }
    };
 }
+export function getNoticiaDetailAdmin(id) {
+   return async (dispatch) => {
+      try {
+         const { data } = await axios(`http://localhost:3001/notices/${id}`);
+         return data;
+      } catch (error) {
+         return alert(error.message);
+      }
+   };
+}
 export function getNoticiasByTitle(title) {
    return async (dispatch) => {
       try {
