@@ -22,7 +22,12 @@ import CardSponsor from "./components/CardSponsor/CardSponsor";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { getDesignTokens } from "../helpers/theme";
 import React, { useState } from "react";
-import UpDateSponsor from "./components/upDateSponsor/upDateSponsor"
+import UpDateSponsor from "./components/upDateSponsor/upDateSponsor";
+import Sponsor2 from "./components/Sponsor/sponsor2/Sponsor2";
+import Sponsor3 from "./components/Sponsor/sponsor3/Sponsor3";
+import Sponsor4 from "./components/Sponsor/sponsor4/Sponsor4";
+
+
 function App() {
    const storedThemeMode = localStorage.getItem("themeMode") || "light";
    const [themeMode, setThemeMode] = useState(storedThemeMode);
@@ -55,6 +60,10 @@ const location = useLocation()
                <Route path={"/sponsor1"} element={<Sponsor1/>}/>
                <Route path={"/cardSponsor"} element={<CardSponsor/>}/>
                <Route path={"/editarSponsor"} element={<UpDateSponsor/>}/>
+               <Route path={"/sponsor2"} element={<Sponsor2/>}/>
+               <Route path={"/sponsor3"} element={<Sponsor3/>}/>
+               <Route path={"/sponsor4"} element={<Sponsor4/>}/>
+
             </Routes>
          </ThemeProvider>
       </div>

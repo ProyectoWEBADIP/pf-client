@@ -1,6 +1,7 @@
 import { useSelector,useDispatch } from 'react-redux';
 import { getAllSponsor } from '../../../redux/sponsorActions/sponsorActions';
 import { useEffect } from 'react';
+import './sponsor1.css';
 
 const Sponsor1 = () => {
     const dispatch=useDispatch();
@@ -13,11 +14,21 @@ const Sponsor1 = () => {
         dispatch(getAllSponsor())
     },[dispatch])
     
-    const categoria1 = sponsor.filter(objeto => objeto.location === 1);
-    console.log(categoria1);
+    const location1 = sponsor.filter(objeto => objeto.location === 1);
+    console.log(location1,"loc1");
    
   return (
-    <div>Sponsor1</div>
+    <div className='box'>
+     
+        
+        {location1?.map((el)=>{
+          return(
+          
+            <img className='img' key={el.id} src={el.image} alt="imagen" />
+         
+          )
+        })}     
+    </div>
   )
 }
 

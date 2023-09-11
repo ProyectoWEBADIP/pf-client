@@ -5,8 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 import { getHistory } from '../../redux/login-registerActions/loginActions';
 import { cleanNoticiaDetail, getNoticiaDetail } from '../../redux/noticiasActions/noticiasActions';
-import { Box, Container, Typography } from '@mui/material';
-
+import Sponsor3 from '../Sponsor/sponsor3/Sponsor3';
+import { getAllSponsor } from '../../redux/sponsorActions/sponsorActions';
+import Sponsor4 from '../Sponsor/sponsor4/Sponsor4';
+import './noticiaDetail.css';
 export default function NoticiaDetail() {
   //!HOOKS
   const { id } = useParams();
@@ -15,6 +17,7 @@ export default function NoticiaDetail() {
 
   useEffect(() => {
     dispatch(getNoticiaDetail(id));
+    dispatch(getAllSponsor())
     return()=>{
       dispatch(cleanNoticiaDetail())
     }
@@ -22,26 +25,22 @@ export default function NoticiaDetail() {
   }, [dispatch]);
 
   const detalleNoticia = useSelector((state) => state.detalleNoticia);
+ 
   return (
-
-    <Container sx={{
-    justifyContent: "center", 
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    // width: 'fit-content',
-    fullwidth: true,
-    }}>
-
-      <Typography variant='h2' fontWeight={"bold"}>{detalleNoticia?.title}</Typography>
-      <Typography variant='h5' m={3}>{detalleNoticia?.resume}</Typography>
-      
-      <Box sx={{width: '100%',}}><img src={detalleNoticia?.image} alt={detalleNoticia?.image} style={{ maxWidth: '100%', maxHeight: '100%' }}/></Box>
-      
-
-      <Typography variant='body1' m={3}>{detalleNoticia?.content}</Typography>
-      <p>{detalleNoticia?.date}</p>
-    
-    </Container>
+    <div className='contiene'>
+      <div className='izq'>
+      <Sponsor4/>
+      </div>
+      <div className='noticia'>
+        <h1>{detalleNoticia?.title}</h1>
+        <p>{detalleNoticia?.resume}</p>
+        <img src={detalleNoticia?.image} alt={detalleNoticia?.image}/>
+        <p>{detalleNoticia?.content}</p>
+        <p>{detalleNoticia?.date}</p>
+      </div>
+      <div className='der'>
+      <Sponsor3/>
+      </div>
+    </div>
   );
 }

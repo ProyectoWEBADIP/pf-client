@@ -11,9 +11,8 @@ import { getAllCategories } from '../../redux/categoriasActions/categoriasAction
 import './home.css';
 import NestedList from '../Filtros/Filtros';
 import { getAllSponsor } from '../../redux/sponsorActions/sponsorActions';
-
-
-
+import Sponsor1 from '../Sponsor/sponsor1/Sponsor1';
+import Sponsor2 from '../Sponsor/sponsor2/Sponsor2';
 import Paginado from '../Paginado/Paginado';
 import { getUserById } from '../../redux/login-registerActions/loginActions';
 
@@ -27,31 +26,38 @@ export default function Home() {
     dispatch(getUserById(localStorage.userId))
     }
     dispatch(getAllNoticias());
-    dispatch(getAllSponsor());
+    dispatch(getAllSponsor());    
   }, [dispatch]);
 
   return (
     <div className="homeContainer">
       {noticias.length?(
         <>
-        <div className="Sidebar">
+        <div className="SidebarHome">
           <h2>Filtrar noticias</h2>
           <Filtros />
+          <Sponsor1/>
         </div>
+        
         <div className="Noticias">
        
         <h1 id='NoticiasText'>
             Noticias
+            
          </h1>
           
           {!noticias.length ? 
   <div>
   <CircularProgress disableShrink />;
-  </div>: <CardsNoticias />}
+  </div>: <CardsNoticias /> }
+  
          
       </div>
         <div className="Partidos">
           <CardPartidoContainer />
+          <div className='sponsor'>
+          <Sponsor2/>
+          </div>
         </div></>
       ):< div className='loadingCont'>
       <div className="🤚">
@@ -63,6 +69,7 @@ export default function Home() {
 	<div className="👍"></div>
 </div>
       </div>}
+      
     </div>
   );
 }
