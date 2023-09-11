@@ -94,10 +94,8 @@ export default function UpdateNoticia() {
 
   const handlerSubmit = (e) => {
     e.preventDefault();
-    const tieneErrors = Object.keys(error);
-    
+    const tieneErrors = Object.keys(error);    
     // console.log("======>",typeof arrayInput.join("")); 
- 
  
     if (tieneErrors.length === 0) {
       let body = {
@@ -123,11 +121,9 @@ export default function UpdateNoticia() {
     for (let key in body) {
        arrayBody.push(key); 
        arrayBody.push(body[key]); 
-    }
-     
+    }     
       
-      console.log((arrayBody.join(" ") === arrayNoticia.join(" ")))
-      console.log("input", arrayNoticia.join(""), "body", arrayBody.join(""));
+     
       if(arrayBody.join(" ") !== arrayNoticia.join(" ")) {
         dispatch(updateNoticia(id, body));
         navigate("/");

@@ -1,0 +1,13 @@
+.contiene{
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  
+}
+.noticia{
+    flex: 2;
+}
+.izq, .der {
+    flex: 1; /* Hace que ocupen un tercio del espacio disponible cada uno */
+  }

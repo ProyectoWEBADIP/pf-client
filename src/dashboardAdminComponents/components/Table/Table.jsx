@@ -65,7 +65,7 @@ export default function FullFeaturedCrudGrid() {
   const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.allUsers);
 
-  const users = allUsers.map((u) => {
+  const users = allUsers?.map((u) => {
     let edad = null;
     let firstName = null;
     let lastName = null;
