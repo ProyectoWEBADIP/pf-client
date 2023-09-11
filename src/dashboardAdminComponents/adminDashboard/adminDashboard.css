@@ -10,6 +10,13 @@
   color: black;
   position: relative;
 }
+.switchTheme{
+  position: absolute;
+  right: 2rem;
+  z-index: 2;
+  top: 1rem;
+
+}
 .AppGlass {
   display: grid;
   height: 98%;

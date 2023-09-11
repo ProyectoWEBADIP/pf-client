@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -53,7 +54,6 @@ export default function UpdateNoticia() {
   }, [data]);
 
   const [error, setError] = useState({});
-  // console.log(newImage);
   const handleChange = (event) => {
     event.preventDefault();
     setInput({
@@ -94,8 +94,9 @@ export default function UpdateNoticia() {
 
   const handlerSubmit = (e) => {
     e.preventDefault();
-    const tieneErrors = Object.keys(error);    
-    // console.log("======>",typeof arrayInput.join("")); 
+    const tieneErrors = Object.keys(error);
+    
+ 
  
     if (tieneErrors.length === 0) {
       let body = {
@@ -121,9 +122,9 @@ export default function UpdateNoticia() {
     for (let key in body) {
        arrayBody.push(key); 
        arrayBody.push(body[key]); 
-    }     
-      
+    }
      
+      
       if(arrayBody.join(" ") !== arrayNoticia.join(" ")) {
         dispatch(updateNoticia(id, body));
         navigate("/");
@@ -145,9 +146,7 @@ export default function UpdateNoticia() {
     const addCategorie = globalCategories.filter(
       (el) => el.id == e.target.value
     );
-    // console.log("addCategorie ==> ", addCategorie);
     const idCategorie = addCategorie;
-    // console.log("categoria a agregar???>", addCategorie);
 
     setInput({
       ...input,
@@ -156,9 +155,7 @@ export default function UpdateNoticia() {
     });
   };
 
-  // console.log("inputs ===>", input);
-  // console.log("errors ==>", error);
-  // console.log("categories ==>", input.categories);
+
   return (
     <Container>
       <Grid container justifyContent="center" spacing={2}>
@@ -268,7 +265,6 @@ export default function UpdateNoticia() {
               ) : (
                 <input
                   type="File"
-                  margin="5px"
                   required
                   onChange={(event) => setNewImage(event.target.files[0])}
                 />

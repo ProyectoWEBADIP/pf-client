@@ -105,3 +105,9 @@
 .learn-more:active .button-text {
   color: rgba(255, 255, 255, 0.459);
 }
+.alerts{
+  position: absolute;
+  bottom: 2rem;
+  left: 5rem;
+  z-index: 3;
+}
