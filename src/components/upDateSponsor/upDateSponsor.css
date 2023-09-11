@@ -1,0 +1,70 @@
+.selec{    
+    text-align: center;
+    border: 4px solid orange ;
+    padding: 1rem;
+    margin-left: 1rem;
+    border-radius: 1rem;
+    
+    
+}
+.select{
+    padding: 8px;
+    background-color: wheat;
+    border: 3px;
+    border-radius:  1rem;
+    font-size: medium;    
+}
+.contenedor{    
+    display: flex;
+    padding: 6rem;
+    text-align: center;
+    justify-content: space-between;
+}
+.carta{
+    border: 4px solid orange;
+    padding: 12rem;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    text-align: center; 
+    font-size: medium;    
+    margin-left: 6rem;    
+    border-radius: 1rem;    
+    position: relative;
+}
+.campo1{
+    display: flex;
+    margin-left: 2px;
+    background-color:wheat;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    padding: 4px;
+    border: 3px;
+    border-radius:  1rem;
+}
+.campo2{
+    background-color:wheat;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 4px;
+    border: 3px;
+    border-radius:  1rem;
+    
+}
+.boton{
+    margin-right: 4rem;  
+   
+}
+.divboton{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);    
+}
+.img{
+    font-size: xx-small;
+}

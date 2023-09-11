@@ -14,9 +14,12 @@ import { Alert, Button, Grid, TextField, Toolbar, Typography } from '@mui/materi
 import { Box, Container, padding } from '@mui/system';
 import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
-
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
+import './perfil.css'
+import AlertError from '../../assets/AlertError/AlertError';
 export default function Perfil() {
   //!HOOKS
+  const [preferenceId, setPreferenceId] = useState(null)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const id = localStorage.userId; //AGARRO ID DEL USER DEL LOCALSTORAGE
@@ -28,8 +31,33 @@ export default function Perfil() {
     image: '',
   });
   const [file, setFile] = useState(null);
-  const [error, setError] = useState({});
 
+  initMercadoPago(`TEST-c2bc2a6c-e7ac-4a00-bd64-68b499cde86d`)
+  const createPreference = async () => {
+    try {
+      const {data} = await axios.post(`http://localhost:3001/payment/createPreference`, {
+        description: "Cuota mensual Club deportivo A.D.I.P",
+        price: 100,
+        quantity: 1
+      })
+      return data.body.id
+    } catch (error) {
+      setErrorAlert(error.message)
+      setShowError(true)
+      setTimeout(() => {
+      setShowError(false)
+        
+      }, 5000);
+    }
+  }
+  
+  const handleBuy = async () => {
+    const id =  await createPreference()
+    if(id){
+      setPreferenceId(id)
+    }
+  }
+  
   useEffect(() => {
 dispatch(setIsLoading())
     dispatch(getUserById(id));
@@ -102,8 +130,14 @@ setSuccess(<Alert severity="error">Error al subir la imágen.</Alert>)
   }
   const perfilUsuario = useSelector((state) => state.perfilUsuario);
 const isLoading = useSelector(state=>state.isLoading)
+
+const [errorAlert, setErrorAlert] = useState("");
+const [showError, setShowError] = useState(false)
   return (
-    <Container>
+    <div className={style.perfContainerContainer}>
+      {showError?<div className='alerts'>
+      <AlertError error={errorAlert}/>
+      </div>:null}
           {!isLoading?      !perfilUsuario.active ? (
           <div className={style.contProf}>
               {
@@ -176,11 +210,11 @@ const isLoading = useSelector(state=>state.isLoading)
           </div>
           
         ) : (
-        <div>
+        <div >
           {' '}
           {/*  ACÁ SE DIVIDE CUANDO TIENE PERFIL Y CUANDO NO*/}
           
-          <Box  alignItems="center" justifyContent={"center"}  borderRadius={5} boxShadow={"5px 5px 10px #ccc"} sx={{":hover":{ boxShadow: "5px 5px 10px #ccc"}, backgroundColor:"whitesmoke", padding: 5 }}>
+          <Box className={style.perfilCont} alignItems="center" justifyContent={"center"}  borderRadius={5} boxShadow={"5px 5px 10px #ccc"} sx={{":hover":{ boxShadow: "5px 5px 10px #ccc"}, backgroundColor:"whitesmoke", padding: 5 }}>
             <Grid container spacing={5} sx={{width: "95%", alignItems: "center"}}>
               <Grid item xs={8}>
                 <Typography variant='h3' fontWeight="bold">Hola {perfilUsuario.profile.firstName}</Typography>
@@ -210,11 +244,17 @@ const isLoading = useSelector(state=>state.isLoading)
               <Typography variant='body1' sx={{ marginTop: "10px" }}>Fecha de Nacimiento: {' '}{perfilUsuario.profile.birthDate.split('T')[0]}</Typography>
               <Typography variant='body1' sx={{ marginTop: "10px" }}>DNI: {perfilUsuario.profile.dni}</Typography>
               <Typography variant='body1' sx={{ marginTop: "10px", marginBottom:"5px" }} fontWeight="bold">Deuda acumulada: $0</Typography>
-              <Button variant='outlined'>Saldar deuda</Button>
+              <Button onClick={handleBuy} variant='outlined'>Saldar deuda</Button>
+              {preferenceId && <Wallet initialization={{ preferenceId }} />}
             </Container>
-            
-            {/* {error.imagen && <p>{error.imagen}</p>} */}
           </Box>
+      {perfilUsuario.role==='super_admin' && perfilUsuario.profile?    <Link to={'/auth/dashboard'}>
+      <button className="learn-more">
+  <span aria-hidden="true" className="circle">
+  <span className="icon arrow"></span>
+  </span>
+  <span className="button-text">Administrador</span>
+</button></Link>:null}
         </div>
       ):(
         <div className={style.box}>
@@ -225,6 +265,6 @@ const isLoading = useSelector(state=>state.isLoading)
         </div>
       )}
 
-  </Container>
+  </div>
   );
 }

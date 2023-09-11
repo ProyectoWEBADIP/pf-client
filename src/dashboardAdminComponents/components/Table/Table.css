@@ -4,22 +4,214 @@
 }
 
 .MuiDataGrid-root {
+  width: 137%;
+  text-align: center;
+}
+.AppGlass {
+  position: relative;
+  z-index: 1;
+}
+
+.overlay {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 50%;
-  background: rgb(226, 175, 98);
+  height: 100%;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.49);
+}
+.statusTextCont {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  margin-top: 35px;
+  border-top: 0.1rem black solid;
+}
+.fotoModanCont {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.activo {
+  color: green;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.inactivo {
+  color: red;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
-@media screen and (max-width: 1500px) {
-  .MuiDataGrid-root {
-    height: 30rem;
-  }
+.userName {
+  color: rgb(0, 0, 0);
+  font-size: 1rem;
 }
-@media screen and (max-width: 1200px) {
-  .MuiDataGrid-root {
-    width: 155%;
-  }
+.mainSpan {
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  font-style: italic;
+  font-size: 1.2rem;
+}
+.infoSpan {
+  color: rgba(0, 0, 0, 0.608);
+  font-weight: 100;
+  font-size: 1.3rem;
 }
 
+.fotoModanCont > img {
+  width: 10rem;
+  border-radius: 50%;
+  height: 10rem;
+}
+.statusCont {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 70% 30%;
+  position: absolute;
+  border: 0.2rem solid rgba(0, 0, 0, 0);
+  border-radius: 0.5rem;
+  width: 70%;
+  height: auto;
+  color: rgb(0, 0, 0);
+  background: rgba(255, 255, 255, 0.905);
+  z-index: 2;
+}
+.title {
+  position: absolute;
+  top: 10px;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.closeButton {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.closeButton:hover {
+  border-radius: 1rem;
+  transition: 500ms ease all;
+  cursor: pointer;
+  background-color: rgba(238, 4, 4, 0.346);
+}
+.loaderCont {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  z-index: 2;
+}
+/*! LOADER*/
+.lds-spinner {
+  color: official;
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-spinner div {
+  transform-origin: 40px 40px;
+  animation: lds-spinner 1.2s linear infinite;
+}
+
+.lds-spinner div:after {
+  content: ' ';
+  display: block;
+  position: absolute;
+  top: 3px;
+  left: 37px;
+  width: 6px;
+  height: 18px;
+  border-radius: 20%;
+  background: #fff;
+}
+
+.lds-spinner div:nth-child(1) {
+  transform: rotate(0deg);
+  animation-delay: -1.1s;
+}
+
+.lds-spinner div:nth-child(2) {
+  transform: rotate(30deg);
+  animation-delay: -1s;
+}
+
+.lds-spinner div:nth-child(3) {
+  transform: rotate(60deg);
+  animation-delay: -0.9s;
+}
+
+.lds-spinner div:nth-child(4) {
+  transform: rotate(90deg);
+  animation-delay: -0.8s;
+}
+
+.lds-spinner div:nth-child(5) {
+  transform: rotate(120deg);
+  animation-delay: -0.7s;
+}
+
+.lds-spinner div:nth-child(6) {
+  transform: rotate(150deg);
+  animation-delay: -0.6s;
+}
+
+.lds-spinner div:nth-child(7) {
+  transform: rotate(180deg);
+  animation-delay: -0.5s;
+}
+
+.lds-spinner div:nth-child(8) {
+  transform: rotate(210deg);
+  animation-delay: -0.4s;
+}
+
+.lds-spinner div:nth-child(9) {
+  transform: rotate(240deg);
+  animation-delay: -0.3s;
+}
+
+.lds-spinner div:nth-child(10) {
+  transform: rotate(270deg);
+  animation-delay: -0.2s;
+}
+
+.lds-spinner div:nth-child(11) {
+  transform: rotate(300deg);
+  animation-delay: -0.1s;
+}
+
+.lds-spinner div:nth-child(12) {
+  transform: rotate(330deg);
+  animation-delay: 0s;
+}
+
+@keyframes lds-spinner {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+/*! LOADER*/
+
+
+
+@media screen and (max-width: 1700px) {
+  .overlay {
+    height: 105vw;
+  }
+}
 @media screen and (max-width: 768px) {
   .MuiDataGrid-root {
     display: flex;
@@ -29,8 +221,7 @@
 
   .MuiDataGrid-root {
     margin: 1rem;
-    position: relative;
-    flex-direction: column;
+    justify-content: center;
     width: 44.5rem;
   }
 }

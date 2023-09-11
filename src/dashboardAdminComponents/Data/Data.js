@@ -14,15 +14,15 @@ import {
 export const SidebarData = [
   {
     icon: UilEstate,
-    heading: "Dashboard"
+    heading: "Panel principal"
   },
   {
     icon: UilClipboardAlt,
-    heading: "Dashboard"
+    heading: "Noticias"
   },
   {
     icon: UilUsersAlt,
-    heading: "Dashboard"
+    heading: "Usuarios"
   },
   {
     icon: UilPackage,

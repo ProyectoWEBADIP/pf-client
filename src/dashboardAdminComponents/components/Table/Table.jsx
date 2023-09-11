@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import EditIcon from '@mui/icons-material/Edit';
+import InfoIcon from '@mui/icons-material/Info';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
 import {
@@ -16,9 +18,16 @@ import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getAllUsers,
+  getUserById,
   updateUserFromAdmin,
 } from '../../../redux/usersActions/usersActions';
 import './Table.css';
+import { Close } from '@mui/icons-material';
+import defaultPhoto from '../../../assets/Escudo ADIP sin fondo.png';
+import { format } from 'date-fns';
+import AlertError from '../../../assets/AlertError/AlertError';
+import SucessAlert from '../../../assets/AlertSuccess/AlertSuccess';
+
 function calcularEdad(birthday) {
   if (birthday) {
     const birthday_arr = birthday.split('/');
@@ -31,7 +40,7 @@ function calcularEdad(birthday) {
     const ageDate = new Date(ageDifMs);
     return Math.abs(ageDate.getUTCFullYear() - 1970);
   }
-  return 'Sin perfil';
+  return '*';
 }
 
 //!FUNCION QUE AGREGA USUARIOS DESDE LA TABLA, INHABILITADA POR AHORA
@@ -61,14 +70,15 @@ function calcularEdad(birthday) {
 export default function FullFeaturedCrudGrid() {
   const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.allUsers);
-
-  const users = allUsers.map((u) => {
+  const perfilUsuario = useSelector((state) => state.perfilUsuario);
+  const users = allUsers?.map((u) => {
     let edad = null;
     let firstName = null;
     let lastName = null;
     let dni = null;
     let profile_id = null;
     let image = null;
+
     let fechaRegistro = (
       u.createdAt.split('T')[0] +
       '-' +
@@ -85,16 +95,17 @@ export default function FullFeaturedCrudGrid() {
     return {
       id: u.id,
       username: u.username,
-      nombre: firstName !== null ? firstName : u.username,
-      apellido: u.active ? lastName : 'Sin perfil',
+      nombre: firstName !== null ? firstName + ' ' + lastName : u.username,
+      apellido: u.active ? lastName : '*',
       edad: calcularEdad(edad),
-      dni: u.active ? dni : 'Sin perfil',
+      dni: u.active ? dni : '*',
       email: u.email,
       activo: u.active ? 'Si' : 'No',
-      image: u.active ? image : 'Sin perfil',
+      image: u.active ? image : '*',
       role: u.role,
-      profile_id: u.active ? profile_id : 'Sin perfil',
+      profile_id: u.active ? profile_id : '*',
       fechaRegistro,
+      razonBan: u.razonBan ? u.razonBan : '*',
     };
   });
   const [rows, setRows] = React.useState(users);
@@ -125,50 +136,63 @@ export default function FullFeaturedCrudGrid() {
       setRows(rows.filter((row) => row.id !== id));
     }
   };
+  const [errorAlert, setErrorAlert] = React.useState('');
+  const [showError, setShowError] = React.useState(false);
+  const [successAlert, setSuccessAlert] = React.useState('');
+  const [showSuccess, setShowSuccess] = React.useState(false);
 
   const processRowUpdate = async (newRow) => {
     const updatedRow = { ...newRow, isNew: false };
     const confirm = window.confirm(
-      'Esta accion información importante del usuario, ¿estás seguro?'
+      'Esta accion modificará información importante del usuario, ¿estás seguro?'
     );
     if (confirm) {
-      if (newRow.role && newRow.activo) {
+      const userFound = await dispatch(getUserById(newRow.id));
+      if (newRow) {
+        const date = format(new Date(), 'dd-MM-yyyy HH:mm:ss');
+
         const action = {
           userFields: {
-            role: newRow.role,
-            active: newRow.activo === 'Si' ? true : false,
+            role: newRow.role ? newRow.role : userFound.role,
+            active: newRow.activo
+              ? newRow.activo === 'Si'
+                ? true
+                : false
+              : userFound.active,
+            razonBan: `${newRow.razonBan}. Infracción aplicada por: ${perfilUsuario.email} el día ${date}`,
           },
         };
         const response = await dispatch(updateUserFromAdmin(newRow.id, action));
-        alert(response);
-      } else if (newRow.role && !newRow.activo) {
-        const action = {
-          userFields: {
-            role: newRow.role,
-            active: newRow.activo === 'Si' ? true : false,
-          },
-        };
-        const response = await dispatch(updateUserFromAdmin(newRow.id, action));
-        alert(response);
-      } else {
-        const action = {
-          userFields: {
-            active: newRow.activo === 'Si' ? true : false,
-          },
-        };
-        const response = await dispatch(updateUserFromAdmin(newRow.id, action));
-        alert(response);
+        setSuccessAlert(response);
+        setShowSuccess(true);
+        setTimeout(() => {
+          setShowSuccess(false);
+        }, 5000);
       }
+
       dispatch(getAllUsers());
     } else {
-      alert('Acción cancelada.');
+      setErrorAlert('Error al actualizar los datos del usuario.');
+      setShowError(true);
+      setTimeout(() => {
+        setShowError(false);
+      }, 5000);
     }
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
     return updatedRow;
   };
-
   const handleRowModesModelChange = (newRowModesModel) => {
     setRowModesModel(newRowModesModel);
+  };
+  const [showStatus, setShowStatus] = React.useState(false);
+  const [userStatus, setUserStatus] = React.useState({});
+  const [isLoading, setIsLoading] = React.useState(false);
+  const getUserStatus = async (id) => {
+    setIsLoading(true);
+    const userFound = await dispatch(getUserById(id));
+    setIsLoading(false);
+    setUserStatus(userFound);
+    setShowStatus(true);
   };
   const customColumnsActivo = (params) =>
     params.value === 'No' ? (
@@ -247,37 +271,41 @@ export default function FullFeaturedCrudGrid() {
       </div>
     );
   const columns = [
-    { field: 'id', headerName: 'ID', width: 90 },
-    { field: 'username', headerName: 'Usuario', width: 130 },
-    { field: 'nombre', headerName: 'Nombre', width: 130 },
+    // { field: 'id', headerName: 'ID', width: 90, align: 'center', hide:true },
+    {
+      field: 'username',
+      headerAlign: 'center',
+      headerName: 'Usuario',
+      width: 130,
+    },
+    {
+      field: 'nombre',
+      headerAlign: 'center',
+      headerName: 'Nombre completo',
+      width: 210,
+    },
 
-    { field: 'apellido', headerName: 'Apellido', width: 130 },
+    // {
+    //   field: 'apellido',
+    //   headerAlign: 'center',
+    //   headerName: 'Apellido',
+    //   width: 140,
+    // },
     {
       field: 'edad',
-      headerName: 'Edad(años)',
-      width: 90,
+      headerName: 'Edad',
+      width: 120,
+      headerAlign: 'center',
     },
-    {
-      field: 'dni',
-      headerName: 'DNI',
-      type: 'number',
-      width: 100,
-    },
-    {
-      field: 'email',
-      headerName: 'Email',
-      width: 230,
-    },
-    {
-      field: 'activo',
-      headerName: 'Activo',
-      editable: true,
-      type: 'singleSelect',
-      valueOptions: ['Si', 'No'],
-      renderCell: customColumnsActivo,
-    },
+    // {
+    //   field: 'email',
+    //   headerAlign: 'center',
+    //   headerName: 'Email',
+    //   width: 230,
+    // },
     {
       field: 'role',
+      headerAlign: 'center',
       headerName: 'Rol',
       editable: true,
       width: 120,
@@ -285,24 +313,52 @@ export default function FullFeaturedCrudGrid() {
       valueOptions: ['user', 'admin', 'super_admin'],
       renderCell: customColumnsRol,
     },
+    // {
+    //   field: 'dni',
+    //   headerName: 'DNI',
+    //   type: 'number',
+    //   width: 100,
+    //   headerAlign: 'center',
+    // },
+
     {
-      field: 'image',
-      headerName: 'Imagen',
+      field: 'activo',
+      headerAlign: 'center',
+      headerName: 'Activo',
+      editable: true,
       width: 120,
+
+      type: 'singleSelect',
+      valueOptions: ['Si', 'No'],
+      renderCell: customColumnsActivo,
     },
     {
-      field: 'profile_id',
-      headerName: 'Id del perfil',
-      width: 110,
+      field: 'razonBan',
+      headerAlign: 'center',
+      headerName: 'Razón de ban',
+      editable: true,
+      width: 180,
+      renderCell: customColumnsRol,
     },
-    {
-      field: 'fechaRegistro',
-      headerName: 'Fecha de Registro',
-      width: 160,
-    },
+    // {
+    //   field: 'image',
+    //   headerName: 'Imagen',
+    //   width: 120,
+    // },
+    // {
+    //   field: 'profile_id',
+    //   headerName: 'Id del perfil',
+    //   width: 110,
+    // },
+    // {
+    //   field: 'fechaRegistro',
+    //   headerName: 'Fecha de Registro',
+    //   width: 160,
+    // },
     {
       field: 'actions',
       type: 'actions',
+      headerAlign: 'center',
       headerName: 'Acciones',
       width: 100,
       cellClassName: 'actions',
@@ -328,7 +384,6 @@ export default function FullFeaturedCrudGrid() {
             />,
           ];
         }
-
         return [
           <GridActionsCellItem
             icon={<EditIcon />}
@@ -337,21 +392,24 @@ export default function FullFeaturedCrudGrid() {
             onClick={handleEditClick(id)}
             color="inherit"
           />,
-          // <GridActionsCellItem
-          //   icon={<DeleteIcon />}
-          //   label="Delete"
-          //   onClick={handleDeleteClick(id)}
-          //   color="inherit"
-          // />,
+          <GridActionsCellItem
+            icon={<InfoIcon />}
+            label="Info"
+            color="inherit"
+            onClick={() => {
+              getUserStatus(id);
+            }}
+          />,
         ];
       },
     },
   ];
+  const noRows = [{ id: '123', email: 'No se cargaron los usuarios' }];
   return (
-    <Box
+    <Box 
+    className='boxTable'
       sx={{
-        height: 500,
-        width: '100%',
+        height: 550,
         '& .actions': {
           color: 'text.secondary',
         },
@@ -360,19 +418,146 @@ export default function FullFeaturedCrudGrid() {
         },
       }}
     >
+      {showError ? (
+        <div className="alerts">
+          <AlertError error={errorAlert} />
+        </div>
+      ) : null}
+      {showSuccess ? (
+        <div className="alerts">
+          <SucessAlert success={successAlert} />
+        </div>
+      ) : null}
+      {isLoading ? (
+        <div className="overlay">
+          <div className="loaderCont">
+            <div className="lds-spinner">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+      ) : null}
+      {!showStatus ? null : (
+        <div className="overlay">
+          <div className="statusCont">
+            <div className="statusTextCont">
+              <div className="buttCont">
+                {' '}
+                <Close
+                  className="closeButton"
+                  onClick={() => {
+                    setShowStatus(false);
+                  }}
+                />
+              </div>
+              <div>
+                <span className="title">ESTADO DE USUARIO </span>
+              </div>
+              <span className="mainSpan">
+                Nombre completo:{' '}
+                <span className="infoSpan">
+                  {userStatus.profile
+                    ? userStatus.profile.firstName +
+                      ' ' +
+                      userStatus.profile.lastName
+                    : userStatus.username}
+                </span>
+              </span>
+
+              <span className="mainSpan">
+                Correo electrónico:{' '}
+                <span className="infoSpan">{userStatus.email}</span>
+              </span>
+
+              <span className="mainSpan">
+                Fecha de registro:{' '}
+                <span className="infoSpan">
+                  {userStatus.createdAt.split('T')[0] +
+                    ' a las ' +
+                    userStatus.createdAt.split('T')[1].split('.')[0]}{' '}
+                  hs
+                </span>
+              </span>
+              <span className="mainSpan">
+                DNI:{' '}
+                <span className="infoSpan">
+                  {userStatus.profile
+                    ? userStatus.profile.dni
+                    : 'DNI no registrado.'}
+                </span>
+              </span>
+
+              <span className="mainSpan">
+                Edad:{' '}
+                <span className="infoSpan">
+                  {userStatus.profile
+                    ? `${calcularEdad(
+                        dayjs(userStatus.profile.birthDate).format('DD/MM/YYYY')
+                      )} años.`
+                    : 'Edad no registrada.'}{' '}
+                </span>
+              </span>
+
+              <span className="mainSpan">
+                Categorías:{' '}
+                <span className="infoSpan">
+                  Acá irán las categorias donde participa.
+                </span>
+              </span>
+
+              <span className="mainSpan">
+                Información de infracciones:{' '}
+                <span className="infoSpan">
+                  {userStatus.razonBan
+                    ? userStatus.razonBan
+                    : 'El usuario no tiene infracciones.'}
+                </span>
+              </span>
+            </div>
+            <div className="fotoModanCont">
+              <img
+                src={
+                  userStatus.profile ? userStatus.profile?.image : defaultPhoto
+                }
+                alt=""
+              />
+              <span className="mainSpan">
+                Estado actual:{' '}
+                <span className={userStatus.active ? 'activo' : 'inactivo'}>
+                  {userStatus.active ? 'Activo' : 'Inactivo'}
+                </span>
+              </span>
+              <span className="mainSpan">
+                Rol: <span className="infoSpan"> {userStatus.role}</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
       <DataGrid
-        rows={users}
+        sx={{ textAlign: 'justify' }}
+        rows={users ? users : noRows}
         columns={columns}
         rowHeight={30}
+        editMode="row"
         rowModesModel={rowModesModel}
         onRowModesModelChange={handleRowModesModelChange}
         onRowEditStop={handleRowEditStop}
         processRowUpdate={processRowUpdate}
+        checkboxSelection={true}
         slots={{
           toolbar: GridToolbar,
-        }}
-        slotProps={{
-          toolbar: { setRows, setRowModesModel },
         }}
       />
     </Box>
