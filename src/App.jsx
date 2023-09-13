@@ -9,7 +9,7 @@ import "./App.css";
 import Home from "./components/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
 import Login from "../src/components/Login/Login";
-import SingUp from "../src/components/Login/SingUp";
+import SignUp from "./components/SingUp/SingUp";
 import NoticiaDetail from "./components/detailNoticia/NoticiaDetail";
 import CrearNoticia from "./components/CraerNoticia/CrearNoticia";
 import { CrearRol } from "./components/CrearRole/CrearRol";
@@ -23,6 +23,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { getDesignTokens } from "../helpers/theme";
 import React, { useState } from "react";
 import UpDateSponsor from "./components/upDateSponsor/upDateSponsor"
+import UpdateProfile from "./views/updateProfile/UpdateProfile";
 function App() {
    const storedThemeMode = localStorage.getItem("themeMode") || "light";
    const [themeMode, setThemeMode] = useState(storedThemeMode);
@@ -43,7 +44,7 @@ const location = useLocation()
             <Routes>
                <Route path={"/"} element={<Home />} />
                <Route path={"/login"} element={<Login />} />
-               <Route path={"/login/SignUp"} element={<SingUp />} />
+               <Route path={"/login/SignUp"} element={<SignUp />} />
                <Route path={"/detalle/:id"} element={<NoticiaDetail />} />
                <Route path={"/crearNoticia"} element={<CrearNoticia />} />
                <Route path={"/:id/profile"} element={<PerfilUsuario />} />
@@ -55,6 +56,7 @@ const location = useLocation()
                <Route path={"/sponsor1"} element={<Sponsor1/>}/>
                <Route path={"/cardSponsor"} element={<CardSponsor/>}/>
                <Route path={"/editarSponsor"} element={<UpDateSponsor/>}/>
+               <Route path={"/editarPerfil/:id"} element={<UpdateProfile/>}/>
             </Routes>
          </ThemeProvider>
       </div>

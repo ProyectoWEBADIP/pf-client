@@ -1,4 +1,16 @@
-
+.loginContainer{
+  display: flex;
+  width: 100vw;
+  height: 90vh;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.loaderLoginContainer{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
 .box {
   margin: 0 auto;
   width: 40px;

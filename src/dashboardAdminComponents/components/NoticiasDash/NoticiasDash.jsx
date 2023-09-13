@@ -17,11 +17,14 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import NoticiaDetail from '../../../components/detailNoticia/NoticiaDetail';
 import {
+  deleteNotice,
+  getAllNoticias,
   getNoticiaDetail,
   getNoticiaDetailAdmin,
 } from '../../../redux/noticiasActions/noticiasActions';
 import './noticiasDash.css';
-import { Close } from '@mui/icons-material';
+import { Clear, Close, Delete, RemoveCircle } from '@mui/icons-material';
+import { Navigate, useNavigate } from 'react-router-dom';
 export default function FullFeaturedCrudGrid() {
   const noticias = useSelector((state) => state.noticias);
   const dispatch = useDispatch();
@@ -167,21 +170,40 @@ export default function FullFeaturedCrudGrid() {
             icon={<EditIcon />}
             label="Edit"
             className="textPrimary"
-            onClick={handleEditClick(id)}
+            onClick={()=>handleUpdateNotice(id)}
             color="inherit"
           />,
           <GridActionsCellItem
-            icon={<InfoIcon />}
+            icon={<Delete />}
             label="Info"
             color="inherit"
             onClick={() => {
-              showNoticeDetail(id);
+              handleDeleteNotice(id);
             }}
           />,
+          <GridActionsCellItem
+          icon={<InfoIcon />}
+          label="Info"
+          color="inherit"
+          onClick={() => {
+            showNoticeDetail(id);
+          }}
+        />,
         ];
       },
     },
   ];
+  const navigate = useNavigate()
+  const handleUpdateNotice = (id) =>{
+    
+    navigate(`/editarNoticia/${id}`)
+  }
+  const handleDeleteNotice = (id) => {
+    const body = {active: false}
+    dispatch(deleteNotice(id, body))
+    alert("Eliminando noticia...")
+    dispatch(getAllNoticias())  
+  } 
   return (
     <Box
       sx={{

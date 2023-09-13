@@ -43,6 +43,7 @@ import {
 //---->SPONSOR---------
 import { GET_ALL_SPONSOR } from "./sponsorActions/sponsorActionsTypes";//DASHBOARD TYPES
 import {RENDER_CORRECT_DASH} from './dashboardAdminActions/actionTypes'
+import { SHOW_UPDATE_PROFILE } from './profileActions/actionTypes';
 const initialState = {
    isLoading: false,
    //LOGIN_STATES//
@@ -58,7 +59,7 @@ const initialState = {
    perfilUsuario: [],
    verificacionDeUsuario: {},
    mensajeDeVerificacionDeContraseña: [],
-   allUsers:[],
+   showEditProfile:false,
    //NOTICIAS STATES//
    noticias: [],
    noticiasPPage:[],
@@ -90,6 +91,11 @@ export default function rootReducer(state = initialState, action) {
           noticiasPPage:action.payload
 
         }
+        case SHOW_UPDATE_PROFILE:
+         return {
+            ...state,
+            showEditProfile:action.payload
+         }
     case GET_ALL_NOTICIAS:
       let filterNotice = action.payload.filter((el) => el.active === true)
       return {
@@ -108,8 +114,8 @@ export default function rootReducer(state = initialState, action) {
       case GET_NOTICIA_DETAIL:
          return {
             ...state,
-            detalleNoticia: action.payload,
             isLoading: false,
+            detalleNoticia: action.payload,
             notFoundNoticias: false,
          };
       case FILTER_NOTICIAS:
@@ -211,11 +217,7 @@ export default function rootReducer(state = initialState, action) {
             allUsers: action.payload,
             isLoading: false,
          }
-      case GET_ALL_USERS:
-      return {
-        ...state,
-        allUsers:action.payload
-      }
+
       case GET_USER_BY_ID:
          return {
             ...state,

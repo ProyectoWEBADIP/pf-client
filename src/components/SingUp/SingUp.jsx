@@ -1,5 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
-import Validation from "./validaciones";
+import { useDispatch,  } from "react-redux";
+import Validation from "../Login/validaciones";
 import { useState } from "react";
 import { registerUser } from "../../redux/login-registerActions/loginActions";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +15,8 @@ import PersonIcon from "@mui/icons-material/Person";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import { v4 as uuidv4 } from "uuid";
 import emailjs from "@emailjs/browser";
-
+import './singup.css'
+import logo from '../../assets/Escudo ADIP sin fondo.png'
 export default function SignUp() {
   const navigate = useNavigate();
   const [input, setInput] = useState({
@@ -36,6 +37,7 @@ export default function SignUp() {
       ...input,
       [event.target.name]: event.target.value,
     });
+
     setError(
       Validation({
         ...input,
@@ -43,8 +45,6 @@ export default function SignUp() {
       })
     );
   };
-
-  const respuesta = useSelector((state) => state.loginRegisterLocal);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -54,37 +54,71 @@ export default function SignUp() {
       setVerificacionEmail(true);
       const codigoDeVerificacion = uuidv4().slice(0, 5);
       setCodigoGeneradoLocalmente(codigoDeVerificacion);
+      console.log("codigo verificacion", codigoVerificacion);
       emailjs.send(
         "service_8c6uo6a",
         "template_p35w6dm",
-        { to_email: input.email, verification_code: codigoDeVerificacion },
+        { 
+          asunto: "Verificación de Correo Electrónico - Código de Confirmación",
+          to_email: input.email, 
+          contexto: " Código de Confirmación de A.D.I.P ",
+          mensaje: "Para verificar la existencia de tu correo electrónico en A.D.I.P, te proporcionamos un código de confirmación:" ,
+          verification_code: codigoDeVerificacion,
+          footer: "Por favor, utiliza este código en nuestra página de inicio de sesión para confirmar que tu correo electrónico está registrado en nuestra plataforma. Si no solicitaste esta acción o tienes alguna pregunta, por favor, contáctanos a través de Correo de Soporte proyectoadipweb@gmail.com"
+        },
         "LVu_qcdfDk8ci54aS"
       );
+      console.log("salí");
     } else {
       alert("Verifique los campos");
     }
   }
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+  //   const tieneErrors = Object.keys(error);
+
+  //   if (tieneErrors.length === 0) {
+  //     setVerificacionEmail(true);
+  //     const codigoDeVerificacion = uuidv4().slice(0, 5);
+  //     setCodigoGeneradoLocalmente(codigoDeVerificacion);
+  //     emailjs.send(
+  //       "service_8c6uo6a",
+  //       "template_p35w6dm",
+  //       { to_email: input.email, verification_code: codigoDeVerificacion },
+  //       "LVu_qcdfDk8ci54aS"
+  //     );
+  //   } else {
+  //     alert("Verifique los campos");
+  //   }
+  // }
   const handlerCodeVerification = (event) => {
     event.preventDefault();
     setCodigoVerificacion(event.target.value);
   };
 
-  const sendUser = () => {
-    if (codigoGeneradoLocalmente == codigoVerificacion) {
-      dispatch(registerUser(input));
-    } else {
-      alert("verificacion Fallida");
+  const sendUser = async() => {
+    if (codigoGeneradoLocalmente.trim() == codigoVerificacion.trim()) {
+    const response = await dispatch(registerUser(input));
+if(response.registered){
+  navigate('/login')
+  alert('Registrado con éxito.')
+} else{
+  alert(response)
+}
     }
   };
   return (
-    <Box
+    <div className="signUpContainer">
+      <Box
+      className="formSignUpCont"
       component="form"
       onSubmit={handleSubmit}
       style={{ padding: "40px" }}
       sx={({ boxShadow: 3, }, { bgcolor: "white" })}
     >
+      <img src={logo}/>
       <Typography variant="h4" fontWeight="bold">
-        Crea tu cuenta aquí
+        ¡Sé parte de la familia Naranja!
       </Typography>
 
       <Box sx={{ mt: 2 }}>
@@ -110,9 +144,9 @@ export default function SignUp() {
           }}
         />
 
-        <Typography variant="body1" sx={{ mt: 1 }}>
-          ✅ puedes usar letras y numeros
-        </Typography>
+        {/* <Typography variant="body1" sx={{ mt: 1 }}>
+          ✅ Puedes usar letras y numeros
+        </Typography> */}
 
         {error.username ? (
           <Typography color="red" sx={{ mt: 1 }}>
@@ -151,7 +185,7 @@ export default function SignUp() {
         )}
       </Box>
 
-      <Box sx={{ mt: 2 }}>
+      <Box>
         <Typography variant="h6" fontWeight="bold">
           Contraseña:
         </Typography>
@@ -187,16 +221,7 @@ export default function SignUp() {
             {error.password}
           </Typography>
         )}
-
-        {respuesta?.includes("éxito") ? (
-          navigate("/login")
-        ) : (
-          <Typography variant="h6" color="red">
-            {respuesta}
-          </Typography>
-        )}
       </Box>
-
       <Button type="submit" variant="outlined" sx={{ mt: 2 }}>
         Enviar codigo de verificacion
       </Button>
@@ -223,5 +248,6 @@ export default function SignUp() {
         </Box>
       )}
     </Box>
+    </div>
   );
 }

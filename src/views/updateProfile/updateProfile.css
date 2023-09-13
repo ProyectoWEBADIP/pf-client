@@ -1,0 +1,144 @@
+.editProfileModal {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background-color: rgb(34, 34, 34);
+  border: 0.1rem solid rgb(155, 155, 155);
+  border-radius: 0.5rem;
+}
+.formControlModal {
+  display: flex;
+  height: 80%;
+}
+.overlayUpdateModal {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.413);
+}
+
+.titleModal {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: rgb(200, 200, 200);
+  border-bottom: 0.1rem solid rgb(155, 155, 155);
+  align-items: center;
+}
+.cancelIconContainer {
+  position: absolute;
+  top: 10%;
+  right: 0;
+}
+.cancelIconContainer:hover {
+  cursor: pointer;
+  color: rgb(167, 167, 167);
+  transition: 200ms ease all;
+}
+.imgModal {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  width: 100%;
+  height: 25%;
+  align-items: center;
+}
+.imgModalContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 70%;
+}
+.imgModalContainer > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0.1rem solid rgb(87, 99, 78);
+  border-radius: 50%;
+}
+.imgModalContainer > div > img {
+  width: 12rem;
+}
+.namesModal {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  justify-content: center;
+  gap: 1rem;
+}
+#outlined-basic {
+  color: rgb(167, 167, 167);
+  background-color: rgba(34, 34, 34, 0.591);
+}
+
+.maildniContainer {
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 70% 30%;
+}
+.maildniContainer > div:first-child {
+  width: 97%;
+}
+.maildniContainer > div:last-child {
+  width: 100%;
+}
+.phonebirthdategenderContainer {
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 49% 28% 23%;
+  width: 100%;
+}
+.radioContainer {
+  display: flex;
+  color: rgb(200, 200, 200);
+  justify-content: center;
+}
+.birthModal {
+  width: 95%;
+  color: rgb(200, 200, 200);
+}
+.saveInfoModal {
+  position: absolute;
+  color: rgb(200, 200, 200);
+  display: flex;
+  width: 30%;
+  border-radius: 0.5rem;
+  padding: 0.1rem;
+  justify-content: center;
+  align-items: center;
+  border: 0.1rem solid white;
+  background-color: rgb(87, 99, 78);
+  bottom: 1rem;
+}
+.saveInfoModal:hover {
+  cursor: pointer;
+  transition: 200ms ease all;
+  background-color: rgb(82, 103, 66);
+}
+@media screen and (max-width: 1500px) {
+  .formControlModal{
+    height: 80%;
+  }
+   .imgModalContainer > div > img {
+    width: 9rem;
+  }
+}
+@media screen and (max-width: 1980px){
+  .imgModalContainer > div > img {
+    width: 9rem;
+  }
+  .formControlModal{
+    height: 70%;
+  }
+}

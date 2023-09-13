@@ -34,7 +34,7 @@ export default function Home() {
     <div className="homeContainer">
       {noticias.length?(
         <>
-        <div className="Sidebar">
+        <div className="SidebarHome">
           <h2>Filtrar noticias</h2>
           <Filtros />
         </div>

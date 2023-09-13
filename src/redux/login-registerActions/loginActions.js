@@ -21,6 +21,7 @@ export function localLogin(userCredentials) {
         userCredentials
       );
       dispatch({ type: LOCAL_LOGIN, payload: data });
+      return data;
     } catch (error) {
       dispatch({ type: LOCAL_LOGIN, payload: error });
     }
@@ -50,6 +51,7 @@ export function registerUser(userData) {
         userData
       );
       dispatch({ type: REGISTER_USER_LOCAL, payload: data });
+      return data;
     } catch (error) {
       dispatch({ type: LOGIN_REGISTER_ERRORS, payload: error });
     }

@@ -57,7 +57,6 @@ const Navbar = ({ themeMode, toggleThemeMode }) => {
           <div className="contImg">
             <img src={logo} alt="logo" />
           </div>
-
           <Typography
             variant="h6"
             noWrap
@@ -76,7 +75,6 @@ const Navbar = ({ themeMode, toggleThemeMode }) => {
           >
             A.D.I.P.
           </Typography>
-
           <div className="linkContainer">
             
             <div className='homeButton'>
@@ -87,7 +85,7 @@ const Navbar = ({ themeMode, toggleThemeMode }) => {
           <SearchBar />
           {/* <Box sx={{ flexGrow: 1 }} />
            */}
-               <Button href="/crearSponsor" color="inherit">Crear sponsor</Button>
+               {/* <Button href="/crearSponsor" color="inherit">Crear sponsor</Button> */}
 
           <SwichtThemes
             themeMode={themeMode}
@@ -145,7 +143,6 @@ const Navbar = ({ themeMode, toggleThemeMode }) => {
         </Toolbar>
       </AppBar>
 
-      <div style={{ marginTop: '80px' }} />
     </>
   );
 };
