@@ -1,49 +1,16 @@
-.contNav{
-    background-color: orange;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-}
-a{
-  text-decoration: none;
-  color: black;
-}
-a:hover{
-color:black
-}
-.homeButton{
-  color:black;
-}
-.homeButton:hover{
-  color: black;
-}
-a:visited{
-  color:black
-}
-.linkContainer{
+.conteinOrder {
   display: flex;
-  width: 21%;
-  gap: 10px;
+  width: 30%;
+  justify-content: space-evenly;
+}
+.conteinMenu{
+
+}
+
+.conteinNavBar {
+  width: 100%;
+  align-items: end;
   justify-content: flex-end;
-  flex-direction: row;
-  align-items: center;
-}
-.linkAdminContainer{
-
-  width: 66%;
+  background-color: blue;
   display: flex;
-  justify-content: space-around;
-}
-.contImg{
-    width: 60px;
-    height: 60px;
-    padding: 10px;
-
-}
-
-.contImg img {
-  width: 100%; /* La imagen ocupará el ancho completo del div */
-  height: 100%; /* La imagen ocupará la altura completa del div */
-  object-fit: cover; /* Ajusta la imagen manteniendo la relación de aspecto y cubriendo el área disponible */
 }
