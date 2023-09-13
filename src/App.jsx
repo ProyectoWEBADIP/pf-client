@@ -18,7 +18,6 @@ import CrearSponsor from "./components/CrearSponsor/CrearSponsor";
 import Sponsor1 from "./components/Sponsor/sponsor1/Sponsor1";import RecuperarContraseña from "./components/RecuperarContraseña/RecuperarContraseña";
 import UpdateNoticia from "./components/UpdateNoticia/UpdateNoticia";
 import AdminDashboard from "./dashboardAdminComponents/adminDashboard/AdminDashboard";
-import CardSponsor from "./components/CardSponsor/CardSponsor";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { getDesignTokens } from "../helpers/theme";
 import React, { useState } from "react";
@@ -57,8 +56,7 @@ const location = useLocation()
                <Route path={"/login/recuperacion"} element={<RecuperarContraseña />}/>
                <Route path={"/editarNoticia/:id"} element={<UpdateNoticia/>}/>
                <Route path={"/crearSponsor"} element={<CrearSponsor/>}/>
-               <Route path={"/sponsor1"} element={<Sponsor1/>}/>
-               <Route path={"/cardSponsor"} element={<CardSponsor/>}/>
+               <Route path={"/sponsor1"} element={<Sponsor1/>}/>               
                <Route path={"/editarSponsor"} element={<UpDateSponsor/>}/>
                <Route path={"/sponsor2"} element={<Sponsor2/>}/>
                <Route path={"/sponsor3"} element={<Sponsor3/>}/>

@@ -36,6 +36,7 @@ export default function UpdateNoticia() {
   const data = useSelector((state) => state.noticeById);
   const globalCategories = useSelector((state) => state.categorias);
   const response = useSelector((state) => state.updateNoticia);
+  console.log(globalCategories);
  
 
   useEffect(() => {

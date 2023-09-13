@@ -7,22 +7,23 @@ import './sponsor3.css';
 const Sponsor3 = () => {
     const dispatch=useDispatch();
     const sponsor = useSelector((state)=>state.sponsor);
-    console.log(sponsor);
+    
 
-    const location3 = sponsor.filter(objeto => objeto.location === 3);
-    console.log(location3);
+    const location3 = sponsor.filter(objeto => objeto.location>=11 && objeto.location<=15);
+    const inOrder= location3.sort((a,b)=>a.location-b.location)
+   
 
     useEffect(()=>{
         dispatch(getAllSponsor())
     },[dispatch])
   return (
-    <div className='box'>
+    <div className='caja'>
      
         
-    {location3?.map((el)=>{
+    {inOrder?.map((el)=>{
       return(
       
-        <img className='img' key={el.id} src={el.image} alt="imagen" />
+        <img className='iimg' key={el.id} src={el.image} alt="imagen" />
      
       )
     })}

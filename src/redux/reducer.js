@@ -74,7 +74,7 @@ const initialState = {
    sponsor:[],
    sponsorBackUp:[],
    updateSponsor:{},
-   sponsorById:{}
+    
 
 };
 
@@ -137,10 +137,12 @@ export default function rootReducer(state = initialState, action) {
          };
          //SPONSOR//
       case GET_ALL_SPONSOR:
+         let ids=action.payload.map((el)=>el.id)       
          return{
             ...state,
             sponsor:action.payload,
-            sponsorBackUp:action.payload
+            sponsorBackUp:action.payload,
+            sponsorById:ids
          }
       
       case UPDATE_SPONSOR:
@@ -149,11 +151,7 @@ export default function rootReducer(state = initialState, action) {
             updateSponsor:action.payload
          }
 
-      case GET_SPONSOR_BY_ID:
-         return{
-            ...state,
-            sponsorById:action.payload
-         }
+      
      
          //LOCAL_LOGIN CASES//
       case LOCAL_LOGIN:

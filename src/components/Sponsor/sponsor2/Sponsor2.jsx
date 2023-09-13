@@ -9,8 +9,8 @@ const Sponsor2 = () => {
     const sponsor=useSelector((state)=>state.sponsor)
     
 
-    const location2= sponsor.filter(el=> el.location===2)
-   
+    const location2= sponsor.filter(el=> el.location>=6 && el.location<=10)
+    const inOrder=location2.sort((a,b)=>a.location-b.location)
 
     useEffect(()=>{
         dispatch(getAllSponsor())
@@ -18,7 +18,7 @@ const Sponsor2 = () => {
   return (
     <div className="contt">
         
-        {location2?.map((el)=>{
+        {inOrder?.map((el)=>{
             return(
                 <img className='imgg' key={el.id} src={el.image} alt="img" />
             )

@@ -29,7 +29,7 @@ export default function NoticiaDetail() {
   return (
     <div className='contiene'>
       <div className='izq'>
-      <Sponsor4/>
+      <Sponsor3/>
       </div>
       <div className='noticia'>
         <h1>{detalleNoticia?.title}</h1>
@@ -39,7 +39,7 @@ export default function NoticiaDetail() {
         <p>{detalleNoticia?.date}</p>
       </div>
       <div className='der'>
-      <Sponsor3/>
+      <Sponsor4/>
       </div>
     </div>
   );
