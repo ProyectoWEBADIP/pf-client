@@ -1,15 +1,14 @@
 /* eslint-disable no-unused-vars */
-import { Typography } from '@mui/material';
-import CardsNoticias from '../CardsNoticias/CardsNoticias';
-import CardPartidoContainer from '../CardPartidoContainer/CardPartidoContainer';
-import Filtros from '../Filtros/Filtros';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllNoticias } from '../../redux/noticiasActions/noticiasActions';
-import NotFoundComponent from '../notFound/notFound';
-import { getAllCategories } from '../../redux/categoriasActions/categoriasActions';
-import './home.css';
-import NestedList from '../Filtros/Filtros';
+import { Typography } from "@mui/material";
+import CardsNoticias from "../CardsNoticias/CardsNoticias";
+import CardPartidoContainer from "../CardPartidoContainer/CardPartidoContainer";
+import Filtros from "../Filtros/Filtros";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllNoticias } from "../../redux/noticiasActions/noticiasActions";
+import NotFoundComponent from "../notFound/notFound";
+import { getAllCategories } from "../../redux/categoriasActions/categoriasActions";
+import "./home.css";
 export default function Home() {
   const dispatch = useDispatch();
   const notFoundNoticias = useSelector((state) => state.notFoundNoticias);
@@ -28,7 +27,8 @@ export default function Home() {
         <Typography variant="h2" fontWeight="bold" mt={4}>
           Noticias
         </Typography>
-        {notFoundNoticias ? <NotFoundComponent /> : <CardsNoticias />}
+        <CardsNoticias />
+        {/* {notFoundNoticias ? <CardsNoticias /> : <NotFoundComponent />} */}
       </div>
       <div className="Partidos">
         <CardPartidoContainer />

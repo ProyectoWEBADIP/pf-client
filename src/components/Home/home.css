@@ -11,7 +11,7 @@
   align-items: center;
   justify-content: space-around;
 }
-.Sidebar>h2{
+.Sidebar > h2 {
   font-weight: bold;
   font-size: 2rem;
 }
@@ -19,11 +19,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: auto;
 }
-.Partidos {
-  overflow: hidden;
-}
+
 .Noticias::-webkit-scrollbar {
   border-radius: 1rem;
   background: orange;

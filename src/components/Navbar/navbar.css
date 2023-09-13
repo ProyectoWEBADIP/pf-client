@@ -1,20 +1,16 @@
-.contNav{
-    background-color: orange;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+.conteinOrder {
+  display: flex;
+  width: 30%;
+  justify-content: space-evenly;
 }
-
-.contImg{
-    width: 60px;
-    height: 60px;
-    padding: 10px;
+.conteinMenu{
 
 }
 
-.contImg img {
-  width: 100%; /* La imagen ocupará el ancho completo del div */
-  height: 100%; /* La imagen ocupará la altura completa del div */
-  object-fit: cover; /* Ajusta la imagen manteniendo la relación de aspecto y cubriendo el área disponible */
+.conteinNavBar {
+  width: 100%;
+  align-items: end;
+  justify-content: flex-end;
+  background-color: blue;
+  display: flex;
 }
