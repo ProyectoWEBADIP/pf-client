@@ -1,36 +1,38 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import EditIcon from '@mui/icons-material/Edit';
-import InfoIcon from '@mui/icons-material/Info';
-import SaveIcon from '@mui/icons-material/Save';
-import CancelIcon from '@mui/icons-material/Close';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import EditIcon from "@mui/icons-material/Edit";
+import InfoIcon from "@mui/icons-material/Info";
+import SaveIcon from "@mui/icons-material/Save";
+import CancelIcon from "@mui/icons-material/Close";
 import {
   GridRowModes,
   DataGrid,
   GridActionsCellItem,
   GridRowEditStopReasons,
   GridToolbar,
-} from '@mui/x-data-grid';
-import dayjs from 'dayjs';
-import { useDispatch, useSelector } from 'react-redux';
+} from "@mui/x-data-grid";
+import dayjs from "dayjs";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getAllUsers,
   getUserById,
   updateUserFromAdmin,
-} from '../../../redux/usersActions/usersActions';
-import './Table.css';
-import { Close } from '@mui/icons-material';
-import defaultPhoto from '../../../assets/Escudo ADIP sin fondo.png';
-import { format } from 'date-fns';
-import AlertError from '../../../assets/AlertError/AlertError';
-import SucessAlert from '../../../assets/AlertSuccess/AlertSuccess';
+} from "../../../redux/usersActions/usersActions";
+import "./Table.css";
+import { Close } from "@mui/icons-material";
+import defaultPhoto from "../../../assets/Escudo ADIP sin fondo.png";
+import { format } from "date-fns";
+import AlertError from "../../../assets/AlertError/AlertError";
+import SucessAlert from "../../../assets/AlertSuccess/AlertSuccess";
+import emailjs from "@emailjs/browser";
+import ForwardToInboxIcon from "@mui/icons-material/ForwardToInbox";
 
 function calcularEdad(birthday) {
   if (birthday) {
-    const birthday_arr = birthday.split('/');
+    const birthday_arr = birthday.split("/");
     const birthday_date = new Date(
       birthday_arr[2],
       birthday_arr[1] - 1,
@@ -40,7 +42,7 @@ function calcularEdad(birthday) {
     const ageDate = new Date(ageDifMs);
     return Math.abs(ageDate.getUTCFullYear() - 1970);
   }
-  return '*';
+  return "*";
 }
 
 //!FUNCION QUE AGREGA USUARIOS DESDE LA TABLA, INHABILITADA POR AHORA
@@ -71,6 +73,7 @@ export default function FullFeaturedCrudGrid() {
   const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.allUsers);
   const perfilUsuario = useSelector((state) => state.perfilUsuario);
+console.log("perfilUsuario", perfilUsuario);
   const users = allUsers?.map((u) => {
     let edad = null;
     let firstName = null;
@@ -80,12 +83,12 @@ export default function FullFeaturedCrudGrid() {
     let image = null;
 
     let fechaRegistro = (
-      u.createdAt.split('T')[0] +
-      '-' +
-      u.createdAt.split('T')[1]
-    ).split('.')[0];
+      u.createdAt.split("T")[0] +
+      "-" +
+      u.createdAt.split("T")[1]
+    ).split(".")[0];
     if (u.profile) {
-      edad = dayjs(u.profile.birthDate).format('DD/MM/YYYY');
+      edad = dayjs(u.profile.birthDate).format("DD/MM/YYYY");
       firstName = u.profile.firstName;
       lastName = u.profile.lastName;
       dni = u.profile.dni;
@@ -95,17 +98,17 @@ export default function FullFeaturedCrudGrid() {
     return {
       id: u.id,
       username: u.username,
-      nombre: firstName !== null ? firstName + ' ' + lastName : u.username,
-      apellido: u.active ? lastName : '*',
+      nombre: firstName !== null ? firstName + " " + lastName : u.username,
+      apellido: u.active ? lastName : "*",
       edad: calcularEdad(edad),
-      dni: u.active ? dni : '*',
+      dni: u.active ? dni : "*",
       email: u.email,
-      activo: u.active ? 'Si' : 'No',
-      image: u.active ? image : '*',
+      activo: u.active ? "Si" : "No",
+      image: u.active ? image : "*",
       role: u.role,
-      profile_id: u.active ? profile_id : '*',
+      profile_id: u.active ? profile_id : "*",
       fechaRegistro,
-      razonBan: u.razonBan ? u.razonBan : '*',
+      razonBan: u.razonBan ? u.razonBan : "*",
     };
   });
   const [rows, setRows] = React.useState(users);
@@ -130,38 +133,53 @@ export default function FullFeaturedCrudGrid() {
       ...rowModesModel,
       [id]: { mode: GridRowModes.View, ignoreModifications: true },
     });
+    
 
     const editedRow = rows.find((row) => row.id === id);
     if (editedRow?.isNew) {
       setRows(rows.filter((row) => row.id !== id));
     }
   };
-  const [errorAlert, setErrorAlert] = React.useState('');
+  const [errorAlert, setErrorAlert] = React.useState("");
   const [showError, setShowError] = React.useState(false);
-  const [successAlert, setSuccessAlert] = React.useState('');
+  const [successAlert, setSuccessAlert] = React.useState("");
   const [showSuccess, setShowSuccess] = React.useState(false);
+
+  //*Aca cree un estado local para tomar el valor de email y la razon del baneo y una bandera para que
+  //* se envie el correo de baneo cuando se guarden los cambios 
+  const [datos, setDatos] = React.useState({email: "", razonBan: ""})
+  const [bandera, setBandera] = React.useState(false)
+  //*
 
   const processRowUpdate = async (newRow) => {
     const updatedRow = { ...newRow, isNew: false };
     const confirm = window.confirm(
-      'Esta accion modificará información importante del usuario, ¿estás seguro?'
+      "Esta accion modificará información importante del usuario, ¿estás seguro?"
     );
+
     if (confirm) {
       const userFound = await dispatch(getUserById(newRow.id));
       if (newRow) {
-        const date = format(new Date(), 'dd-MM-yyyy HH:mm:ss');
+        const date = format(new Date(), "dd-MM-yyyy HH:mm:ss");
+        
 
         const action = {
           userFields: {
             role: newRow.role ? newRow.role : userFound.role,
             active: newRow.activo
-              ? newRow.activo === 'Si'
+              ? newRow.activo === "Si"
                 ? true
                 : false
               : userFound.active,
             razonBan: `${newRow.razonBan}. Infracción aplicada por: ${perfilUsuario.email} el día ${date}`,
+
           },
         };
+        //*Aca tomo los valores del email del baneado y la razon
+        setDatos({email: newRow.email, razonBan: newRow.razonBan})
+        setBandera(true)
+        //*
+
         const response = await dispatch(updateUserFromAdmin(newRow.id, action));
         setSuccessAlert(response);
         setShowSuccess(true);
@@ -172,7 +190,7 @@ export default function FullFeaturedCrudGrid() {
 
       dispatch(getAllUsers());
     } else {
-      setErrorAlert('Error al actualizar los datos del usuario.');
+      setErrorAlert("Error al actualizar los datos del usuario.");
       setShowError(true);
       setTimeout(() => {
         setShowError(false);
@@ -181,6 +199,27 @@ export default function FullFeaturedCrudGrid() {
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
     return updatedRow;
   };
+
+  //* Aca pongo la logica para enviar el correo al usuario baneado
+  if(bandera){
+     emailjs.send(
+      "service_ckm9srh",
+      "template_z7oue8n",
+      {
+        asunto: "Aviso de suspensión de cuenta",
+        to_email: datos.email,
+        contexto: "Aviso de Suspensión de Cuenta",
+        mensaje: `Esta es la razón de la infracción: ${datos.razonBan}`,
+        footer:
+          "Este correo es generado automáticamente. Por favor, no respondas a este mensaje. Para cualquier consulta, contáctanos a través de nuestro sitio web o plataforma.",
+      },
+      "Vfm3hxnSN68eRyMYf"
+    );
+    setBandera(false)
+  }
+  //*
+
+
   const handleRowModesModelChange = (newRowModesModel) => {
     setRowModesModel(newRowModesModel);
   };
@@ -195,16 +234,16 @@ export default function FullFeaturedCrudGrid() {
     setShowStatus(true);
   };
   const customColumnsActivo = (params) =>
-    params.value === 'No' ? (
+    params.value === "No" ? (
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontWeight: 'bold',
-          color: 'black',
-          width: '100%',
-          height: '100%',
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontWeight: "bold",
+          color: "black",
+          width: "100%",
+          height: "100%",
         }}
       >
         ❌{params.value}
@@ -212,45 +251,45 @@ export default function FullFeaturedCrudGrid() {
     ) : (
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontWeight: 'bold',
-          color: 'black',
-          width: '100%',
-          height: '100%',
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontWeight: "bold",
+          color: "black",
+          width: "100%",
+          height: "100%",
         }}
       >
         ✅{params.value}
       </div>
     );
   const customColumnsRol = (params) =>
-    params.value === 'admin' ? (
+    params.value === "admin" ? (
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontWeight: 'bold',
-          color: 'black',
-          backgroundColor: '#FFCA71',
-          width: '100%',
-          height: '100%',
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontWeight: "bold",
+          color: "black",
+          backgroundColor: "#FFCA71",
+          width: "100%",
+          height: "100%",
         }}
       >
         {params.value}
       </div>
-    ) : params.value === 'super_admin' ? (
+    ) : params.value === "super_admin" ? (
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontWeight: 'bold',
-          color: 'black',
-          backgroundColor: '#FE919D',
-          width: '100%',
-          height: '100%',
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontWeight: "bold",
+          color: "black",
+          backgroundColor: "#FE919D",
+          width: "100%",
+          height: "100%",
         }}
       >
         {params.value}
@@ -258,13 +297,13 @@ export default function FullFeaturedCrudGrid() {
     ) : (
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontWeight: 'bold',
-          color: 'black',
-          width: '100%',
-          height: '100%',
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontWeight: "bold",
+          color: "black",
+          width: "100%",
+          height: "100%",
         }}
       >
         {params.value}
@@ -273,15 +312,15 @@ export default function FullFeaturedCrudGrid() {
   const columns = [
     // { field: 'id', headerName: 'ID', width: 90, align: 'center', hide:true },
     {
-      field: 'username',
-      headerAlign: 'center',
-      headerName: 'Usuario',
+      field: "username",
+      headerAlign: "center",
+      headerName: "Usuario",
       width: 130,
     },
     {
-      field: 'nombre',
-      headerAlign: 'center',
-      headerName: 'Nombre completo',
+      field: "nombre",
+      headerAlign: "center",
+      headerName: "Nombre completo",
       width: 210,
     },
 
@@ -292,10 +331,10 @@ export default function FullFeaturedCrudGrid() {
     //   width: 140,
     // },
     {
-      field: 'edad',
-      headerName: 'Edad',
+      field: "edad",
+      headerName: "Edad",
       width: 120,
-      headerAlign: 'center',
+      headerAlign: "center",
     },
     // {
     //   field: 'email',
@@ -304,13 +343,13 @@ export default function FullFeaturedCrudGrid() {
     //   width: 230,
     // },
     {
-      field: 'role',
-      headerAlign: 'center',
-      headerName: 'Rol',
+      field: "role",
+      headerAlign: "center",
+      headerName: "Rol",
       editable: true,
       width: 120,
-      type: 'singleSelect',
-      valueOptions: ['user', 'admin', 'super_admin'],
+      type: "singleSelect",
+      valueOptions: ["user", "admin", "super_admin"],
       renderCell: customColumnsRol,
     },
     // {
@@ -322,20 +361,20 @@ export default function FullFeaturedCrudGrid() {
     // },
 
     {
-      field: 'activo',
-      headerAlign: 'center',
-      headerName: 'Activo',
+      field: "activo",
+      headerAlign: "center",
+      headerName: "Activo",
       editable: true,
       width: 120,
 
-      type: 'singleSelect',
-      valueOptions: ['Si', 'No'],
+      type: "singleSelect",
+      valueOptions: ["Si", "No"],
       renderCell: customColumnsActivo,
     },
     {
-      field: 'razonBan',
-      headerAlign: 'center',
-      headerName: 'Razón de ban',
+      field: "razonBan",
+      headerAlign: "center",
+      headerName: "Razón de ban",
       editable: true,
       width: 180,
       renderCell: customColumnsRol,
@@ -356,12 +395,12 @@ export default function FullFeaturedCrudGrid() {
     //   width: 160,
     // },
     {
-      field: 'actions',
-      type: 'actions',
-      headerAlign: 'center',
-      headerName: 'Acciones',
+      field: "actions",
+      type: "actions",
+      headerAlign: "center",
+      headerName: "Acciones",
       width: 100,
-      cellClassName: 'actions',
+      cellClassName: "actions",
       getActions: ({ id }) => {
         const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
 
@@ -371,7 +410,7 @@ export default function FullFeaturedCrudGrid() {
               icon={<SaveIcon />}
               label="Save"
               sx={{
-                color: 'primary.main',
+                color: "primary.main",
               }}
               onClick={handleSaveClick(id)}
             />,
@@ -404,17 +443,18 @@ export default function FullFeaturedCrudGrid() {
       },
     },
   ];
-  const noRows = [{ id: '123', email: 'No se cargaron los usuarios' }];
+  const noRows = [{ id: "123", email: "No se cargaron los usuarios" }];
+
   return (
-    <Box 
-    className='boxTable'
+    <Box
+      className="boxTable"
       sx={{
         height: 550,
-        '& .actions': {
-          color: 'text.secondary',
+        "& .actions": {
+          color: "text.secondary",
         },
-        '& .textPrimary': {
-          color: 'text.primary',
+        "& .textPrimary": {
+          color: "text.primary",
         },
       }}
     >
@@ -453,7 +493,7 @@ export default function FullFeaturedCrudGrid() {
           <div className="statusCont">
             <div className="statusTextCont">
               <div className="buttCont">
-                {' '}
+                {" "}
                 <Close
                   className="closeButton"
                   onClick={() => {
@@ -465,63 +505,63 @@ export default function FullFeaturedCrudGrid() {
                 <span className="title">ESTADO DE USUARIO </span>
               </div>
               <span className="mainSpan">
-                Nombre completo:{' '}
+                Nombre completo:{" "}
                 <span className="infoSpan">
                   {userStatus.profile
                     ? userStatus.profile.firstName +
-                      ' ' +
+                      " " +
                       userStatus.profile.lastName
                     : userStatus.username}
                 </span>
               </span>
 
               <span className="mainSpan">
-                Correo electrónico:{' '}
+                Correo electrónico:{" "}
                 <span className="infoSpan">{userStatus.email}</span>
               </span>
 
               <span className="mainSpan">
-                Fecha de registro:{' '}
+                Fecha de registro:{" "}
                 <span className="infoSpan">
-                  {userStatus.createdAt.split('T')[0] +
-                    ' a las ' +
-                    userStatus.createdAt.split('T')[1].split('.')[0]}{' '}
+                  {userStatus.createdAt.split("T")[0] +
+                    " a las " +
+                    userStatus.createdAt.split("T")[1].split(".")[0]}{" "}
                   hs
                 </span>
               </span>
               <span className="mainSpan">
-                DNI:{' '}
+                DNI:{" "}
                 <span className="infoSpan">
                   {userStatus.profile
                     ? userStatus.profile.dni
-                    : 'DNI no registrado.'}
+                    : "DNI no registrado."}
                 </span>
               </span>
 
               <span className="mainSpan">
-                Edad:{' '}
+                Edad:{" "}
                 <span className="infoSpan">
                   {userStatus.profile
                     ? `${calcularEdad(
-                        dayjs(userStatus.profile.birthDate).format('DD/MM/YYYY')
+                        dayjs(userStatus.profile.birthDate).format("DD/MM/YYYY")
                       )} años.`
-                    : 'Edad no registrada.'}{' '}
+                    : "Edad no registrada."}{" "}
                 </span>
               </span>
 
               <span className="mainSpan">
-                Categorías:{' '}
+                Categorías:{" "}
                 <span className="infoSpan">
                   Acá irán las categorias donde participa.
                 </span>
               </span>
 
               <span className="mainSpan">
-                Información de infracciones:{' '}
+                Información de infracciones:{" "}
                 <span className="infoSpan">
                   {userStatus.razonBan
                     ? userStatus.razonBan
-                    : 'El usuario no tiene infracciones.'}
+                    : "El usuario no tiene infracciones."}
                 </span>
               </span>
             </div>
@@ -533,9 +573,9 @@ export default function FullFeaturedCrudGrid() {
                 alt=""
               />
               <span className="mainSpan">
-                Estado actual:{' '}
-                <span className={userStatus.active ? 'activo' : 'inactivo'}>
-                  {userStatus.active ? 'Activo' : 'Inactivo'}
+                Estado actual:{" "}
+                <span className={userStatus.active ? "activo" : "inactivo"}>
+                  {userStatus.active ? "Activo" : "Inactivo"}
                 </span>
               </span>
               <span className="mainSpan">
@@ -546,7 +586,7 @@ export default function FullFeaturedCrudGrid() {
         </div>
       )}
       <DataGrid
-        sx={{ textAlign: 'justify' }}
+        sx={{ textAlign: "justify" }}
         rows={users ? users : noRows}
         columns={columns}
         rowHeight={30}

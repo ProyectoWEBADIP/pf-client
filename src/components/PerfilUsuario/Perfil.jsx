@@ -12,7 +12,6 @@ import axios from 'axios';
 import { setIsLoading } from '../../utils/setIsLoading';
 import { Alert, Button, Grid, TextField, Toolbar, Typography } from '@mui/material';
 import { Box, Container, padding } from '@mui/system';
-import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 import './perfil.css'

@@ -8,14 +8,11 @@ const Sponsor1 = () => {
     
     const sponsor = useSelector((state)=>state.sponsor);
     
-    console.log(sponsor,"estado");
-    
     useEffect(()=>{
         dispatch(getAllSponsor())
     },[dispatch])
     
     const location1 = sponsor.filter(objeto => objeto.location === 1);
-    console.log(location1,"loc1");
    
   return (
     <div className='box'>

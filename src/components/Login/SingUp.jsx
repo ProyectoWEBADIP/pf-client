@@ -57,8 +57,8 @@ export default function SignUp() {
       setCodigoGeneradoLocalmente(codigoDeVerificacion);
 
       emailjs.send(
-        "service_8c6uo6a",
-        "template_p35w6dm",
+        "service_ckm9srh",
+        "template_z7oue8n",
         { 
           asunto: "",
           to_email: input.email, 
@@ -67,7 +67,7 @@ export default function SignUp() {
           verification_code: codigoDeVerificacion,
           footer: ""
         },
-        "LVu_qcdfDk8ci54aS"
+        "Vfm3hxnSN68eRyMYf"
       );
     } else {
       alert("Verifique los campos");

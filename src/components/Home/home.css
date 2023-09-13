@@ -184,7 +184,7 @@ text-decoration: double;
   justify-content: center; 
   height: 70%;
 }
-.Sidebar>h2{
+.Sidebar > h2 {
   font-weight: bold;
   font-size: 2rem;
 }

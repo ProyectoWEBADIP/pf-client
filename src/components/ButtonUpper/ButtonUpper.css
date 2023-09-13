@@ -1,0 +1,22 @@
+.button-up {
+  width: 60px;
+  height: 60px;
+  background-color: rgba(0, 0, 255, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(255, 112, 2);
+  border-radius: 50%;
+  font-size: 20px;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  border: 4px solid transparent;
+  transition: all 300ms ease;
+  border-color: rgba(255, 112, 2, 0.479);
+}
+
+.button-up:hover {
+  transform: scale(1.1);
+  border-color: rgba(0, 0, 0, 0, 1);
+}
