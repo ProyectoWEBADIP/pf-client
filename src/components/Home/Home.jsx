@@ -11,10 +11,15 @@ import { getAllCategories } from "../../redux/categoriasActions/categoriasAction
 import "./home.css";
 export default function Home() {
   const dispatch = useDispatch();
-  const notFoundNoticias = useSelector((state) => state.notFoundNoticias);
+  const noticias = useSelector((state) => state.noticias);
+  const perfilUsuario = useSelector(state=>state.perfilUsuario)
   useEffect(() => {
     dispatch(getAllCategories());
+    if(!perfilUsuario.length && localStorage.userId){
+    dispatch(getUserById(localStorage.userId))
+    }
     dispatch(getAllNoticias());
+    dispatch(getAllSponsor());    
   }, [dispatch]);
 
   return (
@@ -30,9 +35,23 @@ export default function Home() {
         <CardsNoticias />
         {/* {notFoundNoticias ? <CardsNoticias /> : <NotFoundComponent />} */}
       </div>
-      <div className="Partidos">
-        <CardPartidoContainer />
-      </div>
+        <div className="Partidos">
+          <CardPartidoContainer />
+          <div className='sponsor'>
+          <Sponsor2/>
+          </div>
+        </div></>
+      ):< div className='loadingCont'>
+      <div className="🤚">
+	<div className="👉"></div>
+	<div className="👉"></div>
+	<div className="👉"></div>
+	<div className="👉"></div>
+	<div className="🌴"></div>		
+	<div className="👍"></div>
+</div>
+      </div>}
+      
     </div>
   );
 }

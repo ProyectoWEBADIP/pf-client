@@ -1,0 +1,14 @@
+
+.cardContent{
+  position: absolute;
+  top: 70%;
+  left:90%;
+  transform: translate(-100%);
+  color: white;
+  width: 90%;
+}
+.imageCard:hover {
+  transform: scale(1.1);
+  transition: 1s;
+
+}

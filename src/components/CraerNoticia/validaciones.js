@@ -27,8 +27,26 @@ export default function validation(input) {
       error.descripcion= "*Este campo es obligatorio*"   
     }   
     
-    
      return error;
   }
   
+  /*
   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  */
