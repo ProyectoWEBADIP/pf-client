@@ -6,20 +6,22 @@ import Filtros from "../Filtros/Filtros";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllNoticias } from "../../redux/noticiasActions/noticiasActions";
-import NotFoundComponent from "../notFound/notFound";
 import { getAllCategories } from "../../redux/categoriasActions/categoriasActions";
 import "./home.css";
+import Sponsor2 from "../Sponsor/sponsor2/Sponsor2";
+import { getAllSponsor } from "../../redux/sponsorActions/sponsorActions";
+import { getUserById } from "../../redux/login-registerActions/loginActions";
 export default function Home() {
   const dispatch = useDispatch();
   const noticias = useSelector((state) => state.noticias);
-  const perfilUsuario = useSelector(state=>state.perfilUsuario)
+  const perfilUsuario = useSelector((state) => state.perfilUsuario);
   useEffect(() => {
     dispatch(getAllCategories());
-    if(!perfilUsuario.length && localStorage.userId){
-    dispatch(getUserById(localStorage.userId))
+    if (!perfilUsuario.length && localStorage.userId) {
+      dispatch(getUserById(localStorage.userId));
     }
     dispatch(getAllNoticias());
-    dispatch(getAllSponsor());    
+    dispatch(getAllSponsor());
   }, [dispatch]);
 
   return (
@@ -33,25 +35,13 @@ export default function Home() {
           Noticias
         </Typography>
         <CardsNoticias />
-        {/* {notFoundNoticias ? <CardsNoticias /> : <NotFoundComponent />} */}
       </div>
-        <div className="Partidos">
-          <CardPartidoContainer />
-          <div className='sponsor'>
-          <Sponsor2/>
-          </div>
-        </div></>
-      ):< div className='loadingCont'>
-      <div className="🤚">
-	<div className="👉"></div>
-	<div className="👉"></div>
-	<div className="👉"></div>
-	<div className="👉"></div>
-	<div className="🌴"></div>		
-	<div className="👍"></div>
-</div>
-      </div>}
-      
+      <div className="Partidos">
+        <CardPartidoContainer />
+        <div className="sponsor">
+          <Sponsor2 />
+        </div>
+      </div>
     </div>
   );
 }
