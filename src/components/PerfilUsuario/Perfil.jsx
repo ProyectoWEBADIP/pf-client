@@ -28,7 +28,6 @@ import FemaleIcon from '@mui/icons-material/Female';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import BadgeIcon from '@mui/icons-material/Badge';
 import { Box, Container, padding } from '@mui/system';
-import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 import './perfil.css';

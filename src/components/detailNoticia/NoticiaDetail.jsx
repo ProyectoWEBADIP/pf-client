@@ -4,13 +4,11 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 import { getHistory } from '../../redux/login-registerActions/loginActions';
-import {
-  cleanNoticiaDetail,
-  getNoticiaDetail,
-} from '../../redux/noticiasActions/noticiasActions';
-import { Box, Container, Typography } from '@mui/material';
-import './detailNoticia.css';
-import { setIsLoading } from '../../utils/setIsLoading';
+import { cleanNoticiaDetail, getNoticiaDetail } from '../../redux/noticiasActions/noticiasActions';
+import Sponsor3 from '../Sponsor/sponsor3/Sponsor3';
+import { getAllSponsor } from '../../redux/sponsorActions/sponsorActions';
+import Sponsor4 from '../Sponsor/sponsor4/Sponsor4';
+import './noticiaDetail.css';
 export default function NoticiaDetail() {
   //!HOOKS
   const { id } = useParams();
@@ -20,41 +18,30 @@ export default function NoticiaDetail() {
   useEffect(() => {
 dispatch(setIsLoading())
     dispatch(getNoticiaDetail(id));
-    return () => {
-      dispatch(cleanNoticiaDetail());
-    };
+    dispatch(getAllSponsor())
+    return()=>{
+      dispatch(cleanNoticiaDetail())
+    }
+
   }, [dispatch]);
 const isLoading = useSelector(state=>state.isLoading)
   const detalleNoticia = useSelector((state) => state.detalleNoticia);
-  let date = detalleNoticia.date?.split('T')[0] + " a las "+detalleNoticia.date?.split('T')[1].split('.')[0];
+ 
   return (
-    <div >
-      {!isLoading?<div className="NoticiaDetailContainer">
-        <div className="sponsorContainer">{/* SPONSOR */}</div>
-      <div className="noticiaContainer">
-        <div className="imgCont">
-          <img src={detalleNoticia.image} alt="" />
-          <div className="fechaPublicacion"><span className='dateSpan'>{date}</span></div>
-          </div>
-          <div className="NoticiaTitle"><span>{detalleNoticia?.title}</span><br />
-          <span className='resumeSpan'>{detalleNoticia.resume
-          }</span>
-        </div>
-        <div className="contentNoticia">
-          <span>{detalleNoticia.content}</span>
-        </div>
+    <div className='contiene'>
+      <div className='izq'>
+      <Sponsor4/>
       </div>
-      <div className="sponsorContainer">
-      </div>{/* SPONSOR */}</div>:(<div className="loaderLoginContainer">
-              <Box className="box">
-                <Box className="shadow"></Box>
-                <Box className="gravity">
-                  <Box className="ball"></Box>
-                </Box>
-              </Box>
-            </div>
-              
-            )}
+      <div className='noticia'>
+        <h1>{detalleNoticia?.title}</h1>
+        <p>{detalleNoticia?.resume}</p>
+        <img src={detalleNoticia?.image} alt={detalleNoticia?.image}/>
+        <p>{detalleNoticia?.content}</p>
+        <p>{detalleNoticia?.date}</p>
+      </div>
+      <div className='der'>
+      <Sponsor3/>
+      </div>
     </div>
   );
 }
