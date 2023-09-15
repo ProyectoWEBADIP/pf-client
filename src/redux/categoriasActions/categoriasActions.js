@@ -4,13 +4,10 @@ import axios from "axios";
 export function postCategoria(body) {
    return async () => {
       try {
-         console.log(body);
-         console.log("entre");
          const { data } = await axios.post(
             `http://localhost:3001/categories`,
             body
          );
-         console.log(data, "data");
          return data;
       } catch (error) {
          return alert(error.message);

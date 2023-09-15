@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 /* eslint-disable no-unused-vars */
 import {
   FILTER_NOTICIAS,
@@ -39,7 +40,8 @@ import {
    DELETE_ROL,
    POST_ROL,
 } from "./rolesActions/rolesActionsTypes";
-//DASHBOARD TYPES
+//---->SPONSOR---------
+import { GET_ALL_SPONSOR,GET_SPONSOR_BY_ID,UPDATE_SPONSOR } from "./sponsorActions/sponsorActionsTypes";//DASHBOARD TYPES
 import {RENDER_CORRECT_DASH} from './dashboardAdminActions/actionTypes'
 import { GET_ALL_MATCH } from './partidosActions/partidosActions';
 const initialState = {
@@ -56,7 +58,7 @@ const initialState = {
    usuario: {},
    perfilUsuario: [],
    verificacionDeUsuario: {},
-   mensajeDeVerificacionDeContraseña: [],
+   mensajeDeVerificacionDeContraseña: [],  
    //NOTICIAS STATES//
    noticias: [],
    noticiasPPage:[],
@@ -69,6 +71,12 @@ const initialState = {
   deleteNotice: {},
   updateNotice: {},
   noticeById: {},
+   //SPONSOR STATES
+   sponsor:[],
+   sponsorBackUp:[],
+   updateSponsor:{},
+   sponsorById:{}
+
   partidos: []
 };
 
@@ -129,7 +137,27 @@ export default function rootReducer(state = initialState, action) {
             ...state,
             notFoundNoticias: true,
          };
-      //LOCAL_LOGIN CASES//
+         //SPONSOR//
+      case GET_ALL_SPONSOR:
+         return{
+            ...state,
+            sponsor:action.payload,
+            sponsorBackUp:action.payload
+         }
+      
+      case UPDATE_SPONSOR:
+         return{
+            ...state,
+            updateSponsor:action.payload
+         }
+
+      case GET_SPONSOR_BY_ID:
+         return{
+            ...state,
+            sponsorById:action.payload
+         }
+     
+         //LOCAL_LOGIN CASES//
       case LOCAL_LOGIN:
          if (action.payload.statusCode !== 203) {
             localStorage.setItem("access_token", action.payload.access_token);
@@ -198,6 +226,7 @@ export default function rootReducer(state = initialState, action) {
             allUsers: action.payload,
             isLoading: false,
          }
+     
       case GET_USER_BY_ID:
          return {
             ...state,

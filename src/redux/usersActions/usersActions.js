@@ -8,11 +8,22 @@ export function getAllUsers() {
   return async (dispatch) => {
     try {
       const { data } = await axios(`http://localhost:3001/users`);
+      
       dispatch({ type: GET_ALL_USERS, payload: data });
     } catch (error) {
       return alert(error.message);
     }
   };
+}
+export function getUserLoggedById(id){
+  return async (dispatch)=>{
+    try {
+      const { data } = await axios(`http://localhost:3001/users/${id}`);
+      dispatch({ type: GET_USER_BY_ID, payload: data });
+    } catch (error) {
+      return alert(error.message);
+    }
+  }
 }
 export function getUserById(id){
   return async (dispatch)=>{

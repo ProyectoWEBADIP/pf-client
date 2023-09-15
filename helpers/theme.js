@@ -4,34 +4,43 @@ export const getDesignTokens = (mode) => ({
     ...(mode === "light"
       ? {
           primary: {
-            main: "#FB731C",
-            contrastText: "#000000",
+            main: "#fc6504",
           },
           secondary: {
-            main: "#F0C26E",
+            main: "#ec4e04",
           },
-          background: {
-            paper: "rgba(255,255,255,0.73)",
-            default: "#E4E3DF",
+          warning: {
+            main: "#f30202",
           },
-          text: {
-            primary: "#272323",
+          info: {
+            main: "#0288d1",
           },
+          success: {
+            main: "#268c2c",
+          },
+
+          divider: "rgba(0,0,0,0.12)",
         }
       : {
           primary: {
-            main: "#1C1C1C",
+            main: "#fc6504",
           },
           secondary: {
-            main: "#2b1f1f",
+            main: "#ec4e04",
           },
-          background: {
-            paper: "rgba(206,103,18,0.81)",
-            default: "#1C1C1C",
+          warning: {
+            main: "#f30202",
           },
-          text: {
-            primary: "#272323",
+          info: {
+            main: "#0288d1",
           },
+          success: {
+            main: "#268c2c",
+          },
+          divider: "rgba(0,0,0,0.12)",
         }),
+  },
+  typography: {
+    fontFamily: "Roboto",
   },
 });

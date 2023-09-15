@@ -12,10 +12,10 @@ import axios from 'axios';
 import { setIsLoading } from '../../utils/setIsLoading';
 import { Alert, Button, Grid, TextField, Toolbar, Typography } from '@mui/material';
 import { Box, Container, padding } from '@mui/system';
-import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 import './perfil.css'
+import AlertError from '../../assets/AlertError/AlertError';
 export default function Perfil() {
   //!HOOKS
   const [preferenceId, setPreferenceId] = useState(null)
@@ -30,22 +30,24 @@ export default function Perfil() {
     image: '',
   });
   const [file, setFile] = useState(null);
-  const [error, setError] = useState({});
+
   initMercadoPago(`TEST-c2bc2a6c-e7ac-4a00-bd64-68b499cde86d`)
   const createPreference = async () => {
     console.log("entre");
     try {
-      const response = await axios.post(`http://localhost:3001/payment/create_preference`, {
+      const {data} = await axios.post(`http://localhost:3001/payment/createPreference`, {
         description: "Cuota mensual Club deportivo A.D.I.P",
         price: 100,
         quantity: 1
       })
-      const { id } = response.data
-      console.log("id mercado",id);
-      return id
-
+      return data.body.id
     } catch (error) {
-      console.log(error);
+      setErrorAlert(error.message)
+      setShowError(true)
+      setTimeout(() => {
+      setShowError(false)
+        
+      }, 5000);
     }
   }
   
@@ -127,12 +129,15 @@ setSuccess(<Alert severity="error">Error al subir la imágen.</Alert>)
     dispatch(createLocalProfile(id, profileData));
   }
   const perfilUsuario = useSelector((state) => state.perfilUsuario);
-  console.log("perfil ususario", perfilUsuario);
 const isLoading = useSelector(state=>state.isLoading)
-console.log("isLoading", isLoading);
-console.log("preferenceId",preferenceId);
+
+const [errorAlert, setErrorAlert] = useState("");
+const [showError, setShowError] = useState(false)
   return (
     <div className={style.perfContainerContainer}>
+      {showError?<div className='alerts'>
+      <AlertError error={errorAlert}/>
+      </div>:null}
           {!isLoading?      !perfilUsuario.active ? (
           <div className={style.contProf}>
               {
