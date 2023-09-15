@@ -204,7 +204,7 @@ console.log("perfilUsuario", perfilUsuario);
   if(bandera){
      emailjs.send(
       "service_ckm9srh",
-      "template_z7oue8n",
+      "template_c8wlhci",
       {
         asunto: "Aviso de suspensión de cuenta",
         to_email: datos.email,
