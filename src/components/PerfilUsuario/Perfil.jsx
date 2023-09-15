@@ -33,22 +33,24 @@ export default function Perfil() {
   const [error, setError] = useState({});
   initMercadoPago(`TEST-c2bc2a6c-e7ac-4a00-bd64-68b499cde86d`)
   const createPreference = async () => {
+    console.log("entre");
     try {
-      const response = await axios.post(`http://localhost:3001/create_preference`, {
+      const response = await axios.post(`http://localhost:3001/payment/create_preference`, {
         description: "Cuota mensual Club deportivo A.D.I.P",
         price: 100,
-        quanntity: 1
+        quantity: 1
       })
       const { id } = response.data
+      console.log("id mercado",id);
       return id
 
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
     }
   }
   
   const handleBuy = async () => {
-    const id = createPreference()
+    const id = await createPreference()
     if(id){
       setPreferenceId(id)
     }

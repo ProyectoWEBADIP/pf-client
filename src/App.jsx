@@ -21,6 +21,7 @@ import AdminDashboard from "./dashboardAdminComponents/adminDashboard/AdminDashb
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { getDesignTokens } from "../helpers/theme";
 import React, { useState } from "react";
+import EditarPartidos from "./components/EditarPartidos/EditarPartidos";
 
 function App() {
    const storedThemeMode = localStorage.getItem("themeMode") || "light";
@@ -50,6 +51,7 @@ const location = useLocation()
                <Route path={"/crearRoles"} element={<CrearRol />} />
                <Route path={"/login/recuperacion"} element={<RecuperarContraseña />}/>
                <Route path={"/editarNoticia/:id"} element={<UpdateNoticia/>}/>
+               <Route path={"/editarPartidos"} element={<EditarPartidos/>}/>
             </Routes>
          </ThemeProvider>
       </div>

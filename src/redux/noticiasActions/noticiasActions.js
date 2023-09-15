@@ -154,3 +154,6 @@ export const updateNoticia = (id, body) => {
       }
     }
 }
+export const updatePartidos = (data) => {
+   return dispatch({type})
+}

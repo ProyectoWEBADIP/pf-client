@@ -12,6 +12,7 @@ import './home.css';
 import NestedList from '../Filtros/Filtros';
 import Paginado from '../Paginado/Paginado';
 import { getUserById } from '../../redux/login-registerActions/loginActions';
+import { getAllMatch } from '../../redux/partidosActions/partidosActions';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ export default function Home() {
     dispatch(getAllCategories());
     if(!perfilUsuario.length && localStorage.userId){
     dispatch(getUserById(localStorage.userId))
+    dispatch(getAllMatch())
     }
     dispatch(getAllNoticias());
   }, [dispatch]);
