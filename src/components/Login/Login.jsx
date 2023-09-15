@@ -49,22 +49,30 @@ export default function Login() {
 
   function handleSuccess(credentials) {
     if (credentials.credential) {
+    
       dispatch(googleRegisterUser(credentials));
       navigate("/");
+    
     }
-  }
 
+  }
+  
   //LOGIN LOCAL CON PASS Y EMAIL
-  function login(event) {
+  async function login (event) {
     event.preventDefault();
-    dispatch(localLogin(users));
     dispatch(loading());
+    await dispatch(localLogin(users));
+    if(localStorage.userId){
+      navigate("/");
+      
+    } alert("Necesita loguarse")
+    console.log("users",users);
   }
 
   return (
-    <Container fixed>
+    
       <GoogleOAuthProvider clientId={CLIENT_ID}>
-        <Stack display={"flex"} justifyContent={"center"} alignItems={"center"}>
+        <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
           <Box
             sx={{
               boxShadow: 3,
@@ -180,8 +188,20 @@ export default function Login() {
             </Box>
             <Typography>{successLogin}</Typography>
           </Box>
-        </Stack>
-      </GoogleOAuthProvider>
-    </Container>
+        ) : actualPath ? (
+          null
+        ) : (
+        null
+        )
+        <Box>
+          <GoogleLogin
+            useOneTap
+            onError={handleError}
+            onSuccess={handleSuccess}
+          />
+        </Box>
+        <Typography>{successLogin}</Typography>
+      </Box>
+    </GoogleOAuthProvider>
   );
 }

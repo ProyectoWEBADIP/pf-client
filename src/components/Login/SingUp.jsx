@@ -18,20 +18,21 @@ import { v4 as uuidv4 } from "uuid";
 import emailjs from "@emailjs/browser";
 
 export default function SignUp() {
+
   const navigate = useNavigate();
   const [input, setInput] = useState({
     username: "",
     email: "",
     password: "",
   });
-
+  
   const [error, setError] = useState({});
   const [verificacionEmail, setVerificacionEmail] = useState(false);
   const [codigoVerificacion, setCodigoVerificacion] = useState("");
   const [codigoGeneradoLocalmente, setCodigoGeneradoLocalmente] = useState("");
 
   const dispatch = useDispatch();
-
+// esta funcion está manejando el cambio de los inputs
   const handleChange = (event) => {
     setInput({
       ...input,
@@ -46,7 +47,8 @@ export default function SignUp() {
   };
 
   const respuesta = useSelector((state) => state.loginRegisterLocal);
-
+  console.log("respuesta singup",respuesta);
+  
   function handleSubmit(e) {
     e.preventDefault();
     const tieneErrors = Object.keys(error);
@@ -55,20 +57,21 @@ export default function SignUp() {
       setVerificacionEmail(true);
       const codigoDeVerificacion = uuidv4().slice(0, 5);
       setCodigoGeneradoLocalmente(codigoDeVerificacion);
-
+      console.log("codigo verificacion", codigoVerificacion);
       emailjs.send(
-        "service_ckm9srh",
-        "template_z7oue8n",
+        "service_8c6uo6a",
+        "template_p35w6dm",
         { 
-          asunto: "",
+          asunto: "Verificación de Correo Electrónico - Código de Confirmación",
           to_email: input.email, 
-          contexto: "",
-          mensaje: "" ,
+          contexto: " Código de Confirmación de A.D.I.P ",
+          mensaje: "Para verificar la existencia de tu correo electrónico en A.D.I.P, te proporcionamos un código de confirmación:" ,
           verification_code: codigoDeVerificacion,
-          footer: ""
+          footer: "Por favor, utiliza este código en nuestra página de inicio de sesión para confirmar que tu correo electrónico está registrado en nuestra plataforma. Si no solicitaste esta acción o tienes alguna pregunta, por favor, contáctanos a través de Correo de Soporte proyectoadipweb@gmail.com"
         },
-        "Vfm3hxnSN68eRyMYf"
+        "LVu_qcdfDk8ci54aS"
       );
+      console.log("salí");
     } else {
       alert("Verifique los campos");
     }
@@ -85,6 +88,7 @@ export default function SignUp() {
       alert("verificacion Fallida");
     }
   };
+
   return (
     <Container >
     <Box
