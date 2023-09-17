@@ -1,33 +1,34 @@
 /* eslint-disable no-unused-vars */
-import CssBaseline from '@mui/material/CssBaseline';
-import { Route, Routes, useLocation } from 'react-router-dom';
-import Home from './components/Home/Home';
-import Navbar from './components/Navbar/Navbar';
-import Login from '../src/components/Login/Login';
-import SignUp from './components/SingUp/SingUp';
-import NoticiaDetail from './components/detailNoticia/NoticiaDetail';
-import CrearNoticia from './components/CraerNoticia/CrearNoticia';
-import PerfilUsuario from './components/PerfilUsuario/Perfil';
-import AdminDashboard from './dashboardAdminComponents/adminDashboard/AdminDashboard';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { getDesignTokens } from '../helpers/theme';
-import React, { useState } from 'react';
-import { Banner } from './components/Navbar/Banner/Banner';
-import { Footer } from './components/Footer/Footer';
-import { ButtonUpper } from './components/ButtonUpper/ButtonUpper';
-import { CrearRol } from './components/CrearRole/CrearRol';
-import CrearSponsor from './components/CrearSponsor/CrearSponsor';
-import Sponsor1 from './components/Sponsor/sponsor1/Sponsor1';
-import RecuperarContraseña from './components/RecuperarContraseña/RecuperarContraseña';
-import UpdateNoticia from './components/UpdateNoticia/UpdateNoticia';
-import CardSponsor from './components/CardSponsor/CardSponsor';
-import UpDateSponsor from './components/upDateSponsor/upDateSponsor';
-import Sponsor2 from './components/Sponsor/sponsor2/Sponsor2';
-import Sponsor3 from './components/Sponsor/sponsor3/Sponsor3';
-import Sponsor4 from './components/Sponsor/sponsor4/Sponsor4';
-import './app.css';
-import ProtectedRoutes from './components/ProtectedRoutes/ProtectedRoutes';
-import ProtectedSuperAdminRoutes from './components/ProtectedRoutes/ProtectedSuperAdminRoutes';
+import CssBaseline from "@mui/material/CssBaseline";
+import { Route, Routes, useLocation } from "react-router-dom";
+import Home from "./components/Home/Home";
+import Navbar from "./components/Navbar/Navbar";
+import Login from "../src/components/Login/Login";
+import SingUp from "../src/components/Login/SingUp";
+import NoticiaDetail from "./components/detailNoticia/NoticiaDetail";
+import CrearNoticia from "./components/CraerNoticia/CrearNoticia";
+import PerfilUsuario from "./components/PerfilUsuario/Perfil";
+import AdminDashboard from "./dashboardAdminComponents/adminDashboard/AdminDashboard";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { getDesignTokens } from "../helpers/theme";
+import React, { useState } from "react";
+import EditarPartidos from "./components/EditarPartidos/EditarPartidos";
+import { Banner } from "./components/Navbar/Banner/Banner";
+import { Footer } from "./components/Footer/Footer";
+import { ButtonUpper } from "./components/ButtonUpper/ButtonUpper";
+import { CrearRol } from "./components/CrearRole/CrearRol";
+import CrearSponsor from "./components/CrearSponsor/CrearSponsor";
+import Sponsor1 from "./components/Sponsor/sponsor1/Sponsor1";
+import RecuperarContraseña from "./components/RecuperarContraseña/RecuperarContraseña";
+import UpdateNoticia from "./components/UpdateNoticia/UpdateNoticia";
+import CardSponsor from "./components/CardSponsor/CardSponsor";
+import UpDateSponsor from "./components/upDateSponsor/upDateSponsor";
+import Sponsor2 from "./components/Sponsor/sponsor2/Sponsor2";
+import Sponsor3 from "./components/Sponsor/sponsor3/Sponsor3";
+import Sponsor4 from "./components/Sponsor/sponsor4/Sponsor4";
+import ClubHistoria from "./components/ClubHistoria/ClubHistoria";
+import ClubComision from "./components/ClubComision/ClubComision";
+
 function App() {
   const storedThemeMode = localStorage.getItem('themeMode') || 'light';
   const [themeMode, setThemeMode] = useState(storedThemeMode);
@@ -63,6 +64,9 @@ function App() {
             <Route path={'/crearSponsor'} element={<CrearSponsor />} />
           </Route>
           
+          <Route path={"/club/historia"} element={<ClubHistoria />} />
+          <Route path={"/club/comision"} element={<ClubComision />} />
+
           <Route
               path={'/auth/dashboard'}
               element={
@@ -86,6 +90,7 @@ function App() {
           <Route path={'/sponsor2'} element={<Sponsor2 />} />
           <Route path={'/sponsor3'} element={<Sponsor3 />} />
           <Route path={'/sponsor4'} element={<Sponsor4 />} />
+          <Route path={"/editarPartidos"} element={<EditarPartidos/>}/>
         </Routes>
         <ButtonUpper />
         {location.pathname === '/auth/dashboard' || location.pathname === '/:id/profile' ? (

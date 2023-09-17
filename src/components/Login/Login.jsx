@@ -54,7 +54,9 @@ export default function Login() {
       dispatch(googleRegisterUser(credentials));
       dispatch(localLogin())
       navigate("/");
+    
     }
+
   }
   //LOGIN LOCAL CON PASS Y EMAIL
   async function login(event) {
@@ -166,8 +168,18 @@ export default function Login() {
               </Typography>
             ) : null}
           </Box>
-   
-     
+        ) : actualPath ? (
+          null
+        ) : (
+        null
+        )}
+        <Box>
+          <GoogleLogin
+            useOneTap
+            onError={handleError}
+            onSuccess={handleSuccess}
+          />
+        </Box>
         <Typography>{successLogin}</Typography>
       </Box>
     </GoogleOAuthProvider>

@@ -13,7 +13,7 @@ import { getAllSponsor } from "../../redux/sponsorActions/sponsorActions";
 import { getUserById } from "../../redux/login-registerActions/loginActions";
 import SwiperNotices from "../SwiperNotices/SwiperNotices";
 import LastNotice from "../CardNoticiaGrande/LastNotice";
-
+import getAllMatch from '../../redux/partidosActions/partidosActions'
 export default function Home() {
   const dispatch = useDispatch();
   const noticias = useSelector((state) => state.noticias);
@@ -21,8 +21,11 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(getAllCategories());
-    if (!perfilUsuario.length && localStorage.userId) {
-      dispatch(getUserById(localStorage.userId));}
+
+    if(!perfilUsuario.length && localStorage.userId){
+    dispatch(getUserById(localStorage.userId))
+    dispatch(getAllMatch())
+    }
     dispatch(getAllNoticias());
     dispatch(getAllSponsor());
   }, [dispatch]);

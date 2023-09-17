@@ -1,4 +1,4 @@
-import { useDispatch,  } from "react-redux";
+import { useDispatch, useSelector,  } from "react-redux";
 import Validation from "../Login/validaciones";
 import { useState } from "react";
 import { registerUser } from "../../redux/login-registerActions/loginActions";
@@ -18,20 +18,21 @@ import emailjs from "@emailjs/browser";
 import './singup.css'
 import logo from '../../assets/Escudo ADIP sin fondo.png'
 export default function SignUp() {
+
   const navigate = useNavigate();
   const [input, setInput] = useState({
     username: "",
     email: "",
     password: "",
   });
-
+  
   const [error, setError] = useState({});
   const [verificacionEmail, setVerificacionEmail] = useState(false);
   const [codigoVerificacion, setCodigoVerificacion] = useState("");
   const [codigoGeneradoLocalmente, setCodigoGeneradoLocalmente] = useState("");
 
   const dispatch = useDispatch();
-
+// esta funcion está manejando el cambio de los inputs
   const handleChange = (event) => {
     setInput({
       ...input,
@@ -46,6 +47,9 @@ export default function SignUp() {
     );
   };
 
+  const respuesta = useSelector((state) => state.loginRegisterLocal);
+  console.log("respuesta singup",respuesta);
+  
   function handleSubmit(e) {
     e.preventDefault();
     const tieneErrors = Object.keys(error);
@@ -107,6 +111,7 @@ if(response.registered){
 }
     }
   };
+
   return (
     <div className="signUpContainer">
       <Box
@@ -114,7 +119,7 @@ if(response.registered){
       component="form"
       onSubmit={handleSubmit}
       style={{ padding: "40px" }}
-      sx={({ boxShadow: 3, }, { bgcolor: "white" })}
+      sx={({ boxShadow: 3 }, { bgcolor: "white" })}
     >
       <img src={logo}/>
       <Typography variant="h4" fontWeight="bold">

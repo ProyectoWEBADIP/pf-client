@@ -1,24 +1,29 @@
 import { Box } from "@mui/material";
 import naranjaTeam from "./img/naranjaTeam.jpg";
 import logo from './img/Escudo ADIP sin fondo.png'
+import banderin from "./img/banderin2.jpg"
 import "./banner.css";
 import { Facebook, Instagram, Twitter } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+
 export const Banner = () => {
   return (
     <div className="bannerConteiner">
       <Box
         sx={{
-          backgroundImage: `url(${naranjaTeam})`,
+          backgroundImage:  location.pathname === "/club/historia" || location.pathname === "/club/comision"? `url(${banderin})` :  `url(${naranjaTeam})`,
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           backgroundSize: "cover",
           width: "100%",
           height: 390,
+          // width: "100vw",
+          // height: 420,
           justifyContent: "center",
         }}
       >
         <div className="logoBannerConteiner">
+        
           <img
             src={logo}
             alt=""
