@@ -15,6 +15,7 @@ const UpDateSponsor = () => {
     const [newImg,setNewImg]=useState({});
     const [sure,setSure]=useState(false)   
     const [location,setLocation]=useState("");  
+    const[hayCambios,setHayCambios]=useState(false);
     const imgHome="https://res.cloudinary.com/drpdobxfu/image/upload/v1694726718/sponsor/Captura_de_pantalla_2023-09-14_181923_kct7tp.png";
     const imgDetalle="https://res.cloudinary.com/drpdobxfu/image/upload/v1694726718/sponsor/Captura_de_pantalla_2023-09-14_181954_t0gc1z.png";
     const userId=localStorage.userId;
@@ -27,20 +28,16 @@ const UpDateSponsor = () => {
     },[dispatch])       
     
    
-    // let positionName=0;
+   
     const handleSelect=(event)=>{
-      // id del sponsor elegido para editar         
-      //busca el sponsor que quier editar y lo carga en el estado
-
+      //evetValue--> posicion del mapeo
       const obj= sponsor[+event.target.value]  
-      console.log(obj.location, "Obj location", event.target.value, "value en el handleSelec", );
+      
 
-    //  positionName=event.target.name
-    //  console.log(positionName,"positinoName");
-     
       if(event.target.value==-1){
         setState({title:"",image:"",location:""})
       } else{
+        //si selecciono sponsor para editar enter=true
         setEnter(true)   
         setState(
           {
@@ -55,13 +52,13 @@ const UpDateSponsor = () => {
     }    
 
     const handleChange=(event)=>{
-      
+      setHayCambios(true)
       if(enter){
         setState({
           ...state,
           [event.target.name]:event.target.value
-        })
-        console.log(state,"state");
+        })       
+        setLocation(state.location)        
       }else{
         alert("seleccione sponsor a editar")
       }
@@ -69,13 +66,14 @@ const UpDateSponsor = () => {
     }
 
     const handleLocation=(event)=>{
-      
+      //value=ubication dnd quiero mostrarlo
+      setHayCambios(true)
       setLocation(+event.target.value)
       
      //el que quiere cambiar lo busca por location
       const aModificar= sponsor.filter((el)=>el.location==event.target.value)      
       setSponsorPisado(aModificar[0])      
-      console.log(aModificar);
+      
       if(!aModificar[0]){
         setState({
                 ...state,
@@ -96,7 +94,8 @@ const UpDateSponsor = () => {
       alert(`Haz quitado a ${sponsorPisado.title}, para volver a mostrarlo debes darle una ubicacion`)      
     
       //este es el psonsor que se mostrara
-      setState({...state,location:sponsorPisado.location})     
+      setState({...state, location:sponsorPisado.location})    
+      
       setSure(false)
       
     }
@@ -130,8 +129,7 @@ const UpDateSponsor = () => {
             formData
           );
           setState({ ...state, image: data.secure_url });
-  
-          alert("Subida con exito!");
+          alert("Subida con exito!");         
         } catch (error) {
           console.log(error);
         }
@@ -140,8 +138,10 @@ const UpDateSponsor = () => {
 
     const deleteImg=()=>{
 
+      setHayCambios(true)
+      setState({...state,image:""})      
+      setLocation(state.location)
       
-      setState({...state,image:""})
       
     }
 
@@ -154,16 +154,18 @@ const UpDateSponsor = () => {
         active:true,
         location:+location,
         user_id:userId
-      }
-      console.log(body.location);
+      }     
       
-      if(enter){
+      //si selecciono un sponsor y realizo cambios
+      if(enter && hayCambios){
         dispatch(updateSponsor(body.id,body))
         alert("¡Sponsor editado con exito!")
         dispatch(getAllSponsor());
-        }else{
-          alert("seleccione sponsor a editar")
-      }
+        }else if(!enter){
+          alert("Seleccione un sponsor")
+        }else if(enter && !hayCambios){
+          alert("No se registaron cambios")
+        }
 
     }   
 

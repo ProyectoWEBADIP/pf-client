@@ -12,10 +12,13 @@ import Sponsor2 from "../Sponsor/sponsor2/Sponsor2";
 import Sponsor1 from "../Sponsor/sponsor1/Sponsor1";
 import { getAllSponsor } from "../../redux/sponsorActions/sponsorActions";
 import { getUserById } from "../../redux/login-registerActions/loginActions";
+import { getAllMatch } from "../../redux/partidosActions/partidosActions";
+
 export default function Home() {
   const dispatch = useDispatch();
   const noticias = useSelector((state) => state.noticias);
   const perfilUsuario = useSelector((state) => state.perfilUsuario);
+
   useEffect(() => {
     dispatch(getAllCategories());
     if(!perfilUsuario.length && localStorage.userId){
@@ -38,7 +41,7 @@ export default function Home() {
         </Typography>
         <Sponsor1/>
         <CardsNoticias />
-          <Sponsor2 />
+        <Sponsor2 />
       </div>
       <div className="Partidos">
         <CardPartidoContainer />
