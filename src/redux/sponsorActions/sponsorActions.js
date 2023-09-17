@@ -16,9 +16,8 @@ export function postSponsor(body){
 }
 export function getAllSponsor(){
     return async(dispatch)=>{
-        try {
-            const {data}= await axios(`http://localhost:3001/sponsors`)
-          
+        try {            
+            const {data}= await axios(`http://localhost:3001/sponsors`)            
             dispatch({type:GET_ALL_SPONSOR ,payload:data})
         } catch (error) {
             throw new Error({error:error.message})

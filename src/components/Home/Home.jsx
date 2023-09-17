@@ -9,6 +9,7 @@ import { getAllNoticias } from "../../redux/noticiasActions/noticiasActions";
 import { getAllCategories } from "../../redux/categoriasActions/categoriasActions";
 import "./home.css";
 import Sponsor2 from "../Sponsor/sponsor2/Sponsor2";
+import Sponsor1 from "../Sponsor/sponsor1/Sponsor1";
 import { getAllSponsor } from "../../redux/sponsorActions/sponsorActions";
 import { getUserById } from "../../redux/login-registerActions/loginActions";
 export default function Home() {
@@ -34,12 +35,13 @@ export default function Home() {
         <Typography variant="h2" fontWeight="bold" mt={4}>
           Noticias
         </Typography>
+        <Sponsor1/>
         <CardsNoticias />
+          <Sponsor2 />
       </div>
       <div className="Partidos">
         <CardPartidoContainer />
         <div className="sponsor">
-          <Sponsor2 />
         </div>
       </div>
     </div>

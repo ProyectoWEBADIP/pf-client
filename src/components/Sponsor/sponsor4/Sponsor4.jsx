@@ -1,12 +1,13 @@
 import { useSelector,useDispatch } from 'react-redux';
 import { getAllSponsor } from '../../../redux/sponsorActions/sponsorActions';
 import { useEffect } from 'react';
+import './sponsor4.css';
 
 const Sponsor4 = () => {
 
     const dispatch=useDispatch();
     const sponsor = useSelector((state)=>state.sponsor);
-    console.log(sponsor);
+    
     
 
     useEffect(()=>{
@@ -17,13 +18,13 @@ const Sponsor4 = () => {
     const inOrder=location4.sort((a,b)=>a.location - b.location)
 
   return (
-    <div className='box'>
+    <div className='caja'>
     
        
    {inOrder?.map((el)=>{
      return(
      
-       <img className='img' key={el.id} src={el.image} alt="imagen" />
+       <img className='foto' key={el.id} src={el.image} alt="imagen" />
     
      )
    })}

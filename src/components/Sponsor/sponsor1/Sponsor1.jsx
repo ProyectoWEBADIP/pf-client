@@ -16,6 +16,7 @@ const Sponsor1 = () => {
     
     const locationHome = sponsor.filter(objeto => objeto.location >= 1 && objeto.location <=5);
     const inOrder= locationHome.sort((a, b) => a.location - b.location); 
+    console.log(inOrder);
     
    
   return (

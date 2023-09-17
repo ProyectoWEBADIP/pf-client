@@ -1,15 +1,20 @@
 .box{
     width: 100%;   
     display: flex;    
-    text-align: center;    
+   justify-content: center;
+   align-items: center;   
     border-top: 1px solid #f2f2f2;
-    padding: 75px 0 5px;
-    flex-direction: column;
+    padding: 75px;
+    flex-wrap: wrap;
+  
+  
 }
 
 .img{
-    max-width: 40%;
-    height: auto;
-    opacity: 0.5;
+    max-width: 20%;
+    max-height: 100px;   
+    opacity: 0.5;  
+    margin: 10px;
+    
 }
 

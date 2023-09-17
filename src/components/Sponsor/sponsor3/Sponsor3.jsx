@@ -23,7 +23,7 @@ const Sponsor3 = () => {
     {inOrder?.map((el)=>{
       return(
       
-        <img className='iimg' key={el.id} src={el.image} alt="imagen" />
+        <img className='immg' key={el.id} src={el.image} alt="imagen" />
      
       )
     })}

@@ -14,7 +14,7 @@ const CrearSponsor = () => {
     const dispatch= useDispatch();
     const [error,setError]=useState({});
     const [cloudinary,setCloudinary]=useState(false)   
-   
+    const userId= localStorage.userId;   
     
     useEffect(()=>{
         dispatch(getAllSponsor())
@@ -29,7 +29,8 @@ const CrearSponsor = () => {
             title:input.nombre,
             image:input.img,
             active:input.active,
-            location: 0
+            location: 0,
+            user_id:userId
         }        
             console.log(body);
 
@@ -100,36 +101,37 @@ const CrearSponsor = () => {
      
 
   return (
-    <div className="form">
-      <form id="formulario" onSubmit={handleSubmit}  >
-            <h2 className="h2">Aqui crearas tu sponsor</h2>
+    <div className="contenedor_form">
+        <div className="cont_form_sponsor">
+            <form className="et_form_sponsor" id="formulario" onSubmit={handleSubmit}  >
+                <h2 className="h2_form_ponsor">Aqui crearas tu sponsor</h2>
 
-        <div className="name">
-            <h3>1° paso</h3>
-            <label htmlFor="">Coloca el nombre del sponsor:</label>
-            <input onChange={handleChange} type="text" name="nombre" value={input.nombre}/>
-            {error.nombre && <p>{error.nombre}</p>}
-        </div>          
+                <div className="name_sponsor_form">
+                    <h4>1° paso</h4>
+                    <label htmlFor="">Coloca el nombre del sponsor</label>
+                    <input className="input_name_sponsor" onChange={handleChange} type="text" name="nombre" value={input.nombre}/>
+                    {error.nombre && <p>{error.nombre}</p>}
+                </div>          
 
-        <div className="immg">
-            <h3>2° paso</h3>
-            <label className="label" htmlFor="">Selecciona la imagen</label>
-            
-            <input onChange={handleImgChange} type="file" name="imagen" accept="image/*"/>
-        </div>
-       
-        <div className="bot">
-            <h3>3° paso</h3>
-            <label htmlFor="">Sube la imagen a la nube</label>                 
-            <button onClick={handleCloudySubmit}>Subir</button>
-        </div>
+                <div className="Tipofile_sponsor_form">
+                    <h4>2° paso</h4>
+                    <label  htmlFor="">Selecciona la imagen</label>                    
+                    <input className="img_sponsor" onChange={handleImgChange} type="file" name="imagen" accept="image/*"/>
+                </div>
+        
+                <div className="subirImagen_sponsor_form">
+                    <h4>3° paso</h4>
+                    <label htmlFor="">Sube la imagen a la nube</label>                 
+                    <button className='buton_subirImg_sponsor' onClick={handleCloudySubmit}>Subir</button>
+                </div>
 
-        <div>
-            {imagen && <img className ="imagen"src={imagen} alt="img"/>}
-        </div>            
-            <br />            
-            <button className="crear" type="submit">Crear sponsor</button>
-      </form>      
+                <div className="renderiza_img_sponsor">
+                    {imagen && <img className ="imagen"src={imagen} alt="img"/>}
+                </div>            
+                <br />            
+                <button className="buton_crear_sponsor" type="submit">Crear sponsor</button>
+            </form>
+        </div>      
         
     </div>
   )

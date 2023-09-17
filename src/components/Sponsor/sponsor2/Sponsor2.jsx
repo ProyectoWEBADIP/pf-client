@@ -11,7 +11,7 @@ const Sponsor2 = () => {
 
     const location2= sponsor.filter(el=> el.location>=6 && el.location<=10)
     const inOrder=location2.sort((a,b)=>a.location-b.location)
-
+    console.log(inOrder);
     useEffect(()=>{
         dispatch(getAllSponsor())
     },[dispatch])

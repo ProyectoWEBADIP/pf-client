@@ -4,21 +4,20 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { postNoticia } from '../../redux/noticiasActions/noticiasActions';
-// import { postCategoria } from "../../redux/categoriasActions/categoriasActions";
 import { useSelector } from "react-redux";
 import { getAllCategories, postCategoria } from "../../redux/categoriasActions/categoriasActions";
-import { Box, Container} from "@mui/system";
 import { TextField, Typography } from "@mui/material";
 import { Button} from "@mui/base";
-import { Grid} from '@mui/material';
 import AlertError from '../../assets/AlertError/AlertError';
 import SucessAlert from '../../assets/AlertSuccess/AlertSuccess';
+import './crearNoticia.css';
+
+
 
 export default function CrearNoticia() {
   const imgDefault = 'https://cdn-icons-png.flaticon.com/256/20/20079.png';
-
   let allCategorias = useSelector((state) => state.categorias);
-
+  
   const [input, setInput] = useState({
     titulo: '',
     resumen: '',
@@ -27,24 +26,28 @@ export default function CrearNoticia() {
   });
   const [error, setError] = useState({});
   const [imageURL, setImageURL] = useState(''); //url
-  const [category, setCategory] = useState([{ id: '', name: '' }]);
+  const [category, setCategory] = useState([]); 
   const [crearCategory, setCrearCategory] = useState('');
-    const [cloudinary,setCloudinary]=useState(false);
-
   const dispatch = useDispatch();
+  const [canCreateNotice, setCanCreateNotice] = useState(false);
+  const userId= localStorage.userId
+ 
+
 
   useEffect(() => {
     dispatch(getAllCategories());
   }, [dispatch]);
 
   const handleChange = (event) => {
+    console.log("====>",input.descripcion);
     event.preventDefault();
 
     setInput({
       ...input,
       [event.target.name]: event.target.value,
     });
-
+    
+    
     setError(
       validation({
         ...input,
@@ -60,10 +63,9 @@ export default function CrearNoticia() {
       [event.target.name]: event.target.value,
     });
   };
-  const [canCreateNotice, setCanCreateNotice] = useState(false);
   const submitImage = async (e) => {
     e.preventDefault();    
-
+      
     try {
       const formData = new FormData();
       formData.append('file', input.imagen);
@@ -75,14 +77,13 @@ export default function CrearNoticia() {
         formData
       );
       setInput({ ...input, imagen: data.secure_url });
-
-      
+      console.log(input.imagen);
       setSuccessAlert('Imágen subida exitosamente.');
       setShowSuccess(true);
       setTimeout(() => {
         setShowSuccess(false);
       }, 5000);
-      setCanCreateNotice(false);
+      
       setCanCreateNotice(true);
     } catch (error) {
       setErrorAlert(error.message);
@@ -92,28 +93,29 @@ export default function CrearNoticia() {
       }, 5000);
       setCanCreateNotice(false);
     }
+  }
 
-    const handleImageChange=(event)=>{
-      const file = event.target.files[0];   
-            
-      setImageURL(URL.createObjectURL(file));    
+  function handleImageChange(event){
+    const file = event.target.files[0];   
+          
+    setImageURL(URL.createObjectURL(file));    
 
-      setInput({
-        ...input,
-        imagen: file
-      })   
-     
-    }
-    
+    setInput({
+      ...input,
+      imagen: file
+    })   
+   
+  }
     const handleSelect=(e)=>{
-      const idCategory= +allCategorias[e.target.value].id;       
-     
+     const idCategory= +allCategorias[e.target.value].id;     
      const nameCategory=allCategorias[e.target.value].name;   
      const obj= {id:idCategory,name:nameCategory}    
      const tieneID = category.some(e => e.id === obj.id)
       
-     if(!tieneID){
-      //se llena para renderizarlo abajo
+     if(category.length>4){
+       alert("Maximo 4 categorias")
+     } else if(!tieneID){
+      //se carga para renderizarlo abajo
        setCategory([
          ...category,
          {         
@@ -121,12 +123,11 @@ export default function CrearNoticia() {
         name:nameCategory
         }
       ])    
-      }
-           
-     
+      }  
+      console.log(category,"ver aqui");
       setError(validation(
         {
-            ...input,
+            ...input, 
             [e.target.name]: e.target.value
         })          
       )  
@@ -134,9 +135,11 @@ export default function CrearNoticia() {
     }    
 
     const deleteCategory= (e)=>{
-      const categoryFilter= category.filter((c)=>c !== e)     
+      console.log(e);
+      const categoryFilter= category.filter((c)=>c !== e)      
       //los que no quiere eliminar
-      setCategory([...categoryFilter])
+   
+      setCategory([...categoryFilter])  
       
       if(categoryFilter.length==0){
         setError({
@@ -145,16 +148,16 @@ export default function CrearNoticia() {
         }        
         )
       }
-      
+     
     }
-  };
+  
 
   const handleSubmit = (event) => {
-    // const arr= Object.keys(error)
+   
     event.preventDefault();
     const form = document.getElementById('formulario');
     const ids = category.map((item) => item.id);
-
+  console.log(ids, category, "ids categoryes en el handleSubmit");
     const body = {
       title: input.titulo,
       resume: input.resumen,
@@ -162,10 +165,13 @@ export default function CrearNoticia() {
       image: input.imagen,
       categoryIds: ids,
       active: true,
+      user_id:userId
     };
+    console.log(body,"body");   
+    
     if (canCreateNotice) {
       try {
-        dispatch(postNoticia(body));
+        dispatch(postNoticia(body));       
         form.reset();
         setImageURL('');
 
@@ -199,23 +205,22 @@ export default function CrearNoticia() {
 
   const crearCategoria = (event) => {
     event.preventDefault();
-
-    const name = input.crear;
-
-    setCrearCategory(name);
+    const name = input.crear;   
+    setCrearCategory(name); 
+    dispatch(postCategoria({ active: true, name }));  
 
     setInput({
       ...input,
-      categoria: name,
+      crear: "",
     });
-
-    dispatch(postCategoria({ active: true, name }));
-    setSuccessAlert('Categoria creada con exito!');
-    setShowSuccess(true);
-    setTimeout(() => {
-      setShowSuccess(false);
-    }, 5000);
-
+ 
+    alert("Categoria creada con exito!")
+    // setSuccessAlert('Categoria creada con exito!');
+    // setShowSuccess(true);
+    // setTimeout(() => {
+    //   setShowSuccess(false);
+    // }, 5000);
+    
     dispatch(getAllCategories());
   };
   const [errorAlert, setErrorAlert] = useState('');
@@ -224,154 +229,144 @@ export default function CrearNoticia() {
   const [successAlert, setSuccessAlert] = useState('');
 
   return (
-    <>
-      <Box
-        component="form"
-        id="formulario"
-        onSubmit={handleSubmit}
-        sx={{ m: 5 }}
-      >
-        {showError ? (
-          <div className="alerts">
-            <AlertError error={errorAlert} />
-          </div>
-        ) : null}
-        {showSuccess ? (
-          <div className="alerts">
-            <SucessAlert success={successAlert} />
-          </div>
-        ) : null}
-        <TextField
-          label="Título"
-          helperText=" "
-          type="text"
-          name="titulo"
-          value={input.titulo}
-          required
-          onChange={handleChange}
-          fullWidth
-        />
-        {error.titulo && (
-          <Typography variant="body1">{error.titulo}</Typography>
-        )}
+    <div className='cont_general_noticia'>
+      <div className='cont_form_div'>
+          <form id="formulario" onSubmit={handleSubmit}>
 
-        <TextField
-          label="Resumen"
-          type="text"
-          name="resumen"
-          value={input.resumen}
-          required
-          onChange={handleChange}
-          fullWidth
-        />
-        {error.resumen && (
-          <Typography variant="body1">{error.resumen}</Typography>
-        )}
-
-        <div>
-          <select value="def" onChange={handleSelect} name="categoria">
-            <option name="categoria" value="def">
-              Seleccione categoria
-            </option>
-
-            {allCategorias?.map((c, index) => {
-              return (
-                <option key={c.id} value={index}>
-                  {c.name}
-                </option>
-              );
-            })}
-          </select>
-          {error.categoria && <p>{error.categoria}</p>}
-        </div>
-
-        <div>
-          {category?.map((e, index) => {
-            return (
-              <div key={index}>
-                <p>{e.name}</p>
-                <button onClick={() => deleteCategory(e)}>X</button>
+            {showError ? (
+              <div className="alerts">
+                <AlertError error={errorAlert} />
               </div>
-            );
-          })}
-        </div>
+            ) : null}
+            {showSuccess ? (
+              <div className="alerts">
+                <SucessAlert success={successAlert} />
+              </div>
+            ) : null}
+            <TextField
+              label="Título"
+              helperText=" "
+              type="text"
+              name="titulo"
+              value={input.titulo}
+              required
+              onChange={handleChange}
+              fullWidth
+              sx={{color:'red'}}                
+            />
+            {error.titulo && (
+              <Typography variant="body1">{error.titulo}</Typography>
+            )}
 
-        <br />
-        <div style={{ padding: '10px', gap: '10px' }}>
-          <TextField
-            onChange={handleCategoryChange}
-            label="Crear categoria"
-            type="text"
-            name="crear"
-            sx={{ mr: 3 }}
-          />
-          <Button onClick={crearCategoria}>Crear</Button>
-        </div>
+            <TextField
+              label="Resumen"
+              type="text"
+              name="resumen"
+              value={input.resumen}
+              required
+              onChange={handleChange}
+              fullWidth
+            />
+            {error.resumen && (
+              <Typography variant="body1">{error.resumen}</Typography>
+            )}
 
-        <br />
+            <div>
+              <select  className='select_category' value="def" onChange={handleSelect} name="categoria">
+                <option name="categoria" value="def">
+                  Seleccione categoria
+                </option>
 
-        <TextField label="Descripción"  type="text" name="descripcion" value={input.descripcion} required onChange={handleChange} fullWidth />
-        {error.descripcion && <Typography variant="body1">{error.descripcion}</Typography>}
-        <br/>
-        <br/>
-        <TextField type="file" name="imagen" accept="image/*" onChange={handleImageChange}/>
+                {allCategorias?.map((c, index) => {
+                  return (
+                    <option key={c.id} value={index}>
+                      {c.name}
+                    </option>
+                  );
+                })}
+              </select>
+              {error.categoria && <p>{error.categoria}</p>}
+            </div>
+
+            <div className='map_category'>
+              {category?.map((e, index) => {
+                return (
+                  <div  key={index} onClick={()=>deleteCategory(e)}>
+                  {e.name? <Button className='category_selec_notices'>{e.name}</Button>:null}
+                  </div>
+                )
+              })}
+            </div>
+
+            <br />
+            <div className='cont_crearCate_form'>
+              <TextField
+                onChange={handleCategoryChange}
+                label="Crear categoria"
+                type="text"
+                name="crear"
+                sx={{ mr: 3 }}
+              />
+              <Button className='button_crear_cate' onClick={crearCategoria}>Crear</Button>
+            </div>
+
+            <br />
+
+            <TextField label="Descripción"  type="text" name="descripcion" value={input.descripcion} required onChange={handleChange} />
+            {error.descripcion && <Typography variant="body1">{error.descripcion}</Typography>}
+            <br/>
+            <br/>
+
+            <div className='cont_selecImg_div'>
+            <TextField type="file" name="imagen" accept="image/*" onChange={handleImageChange}/>
+            <button className='button_subirImg_notices' onClick={submitImage}>Subir Imagen</button>
+            </div>        
+            
+                          
+              <img className='renderiza_img_notices' src={ imageURL? imageURL : imgDefault} alt="img" style={{ width: '300px', height: 'auto', objectFit: "cover"}}/>            
+
+            <div className='div_submit_notice'>
+            <Button className='button_submit_notices' type="submit" variant="outlined" value="Crear Noticia">Crear noticia</Button>
+            </div>
+          </form>
+      </div>
+
+  
+        {/*------------------------- Previsualizar noticia ------------------------------------------------------------*/}
+          <div className='cont_previsu_div'>       
+            
+            <Typography variant="headline">{input.titulo}</Typography>
+            <br/>         
+
+            <div className='visualiza_resumen_notice'>
+              <Typography variant="body1" >{input.resumen}</Typography>
+            </div>
+            <br/>          
+
+            <div>
+            <img src={ imageURL? imageURL : imgDefault} alt="img" style={{ width: '300px', height: 'auto', objectFit: "cover"}}/>
+            </div>   
+
+          
+              <div className='descripcion_previsualiza'>
+                <Typography variant="headline" >{input.descripcion}</Typography>
+              </div>
+          
+
+            <div className='category_previsualiza'>
+              {category?.map((e,index)=>{
+                return(
+                  <div  key={index}>
+                    {e.name? <p className='category_name_previsualiza'>#{e.name}</p>:null}
+                  </div>
+                )
+              })}
+            </div>      
+        
+          </div>
       
-        <div className="mb-4" style={{margin: "10px"}}>
-            <button onClick={submitImage}>Subir Imagen</button>
-            {error.descripcion && <p>{error.imagen}</p>}                      
-        </div>  
-          <br/>        
-
-          <Container sx={{maxHeight: 500, maxWidth: 300}}>
-          <img src={ imageURL? imageURL : imgDefault} alt="img" style={{ width: '300px', height: 'auto', objectFit: "cover"}}/>      
-              
-          </Container>
-          
-          
-
-        <Button type="submit" variant="outlined" value="Crear Noticia">Crear noticia</Button>
-
-      </Box>
-      <Grid>
-        {/* Previsualizar noticia */}
-        <Grid  item xs={12} sm={6} alignItems="center">
-        <Box borderRadius={[5, 5, 5, 5]}  bgcolor="#FBEED8"  >
-          <div>
-          
-          <Typography variant="headline">{input.titulo}</Typography>
-          <br/>
-          
-
-          <Typography variant="body1" >{input.resumen}</Typography>
-          <br/>
-
-          
-
-          <div>
-          <img src={ imageURL? imageURL : imgDefault} alt="img" style={{ width: '300px', height: 'auto', objectFit: "cover"}}/>      
-
-          </div>
-
-          
-          <Typography variant="headline" >{input.descripcion}</Typography>
-
-          <div>
-            {category?.map((e,index)=>{
-              return(
-                <div key={index}>
-                  <p>{e.name}</p>
-                </div>
-              )
-            })}
-          </div>
-
-          </div>
-        </Box>
-        </Grid>
-        </Grid>   
-       </>
+    </div>
            
      
     )
   }
-  
