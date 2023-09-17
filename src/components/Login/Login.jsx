@@ -61,9 +61,9 @@ export default function Login() {
   //LOGIN LOCAL CON PASS Y EMAIL
   async function login(event) {
     event.preventDefault();
-    dispatch(loading());
 
    const data = await dispatch(localLogin(users));
+    console.log(data)
    if(data.access_token){
     navigate('/')
    } 
@@ -168,14 +168,7 @@ export default function Login() {
               </Typography>
             ) : null}
           </Box>
-        
-        <Box>
-          <GoogleLogin
-            useOneTap
-            onError={handleError}
-            onSuccess={handleSuccess}
-          />
-        </Box>
+      
         <Typography>{successLogin}</Typography>
       </Box>
     </GoogleOAuthProvider>

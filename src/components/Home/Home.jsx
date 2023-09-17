@@ -13,7 +13,7 @@ import { getAllSponsor } from "../../redux/sponsorActions/sponsorActions";
 import { getUserById } from "../../redux/login-registerActions/loginActions";
 import SwiperNotices from "../SwiperNotices/SwiperNotices";
 import LastNotice from "../CardNoticiaGrande/LastNotice";
-import getAllMatch from '../../redux/partidosActions/partidosActions'
+import {getAllMatch} from '../../redux/partidosActions/partidosActions'
 export default function Home() {
   const dispatch = useDispatch();
   const noticias = useSelector((state) => state.noticias);

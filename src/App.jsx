@@ -4,7 +4,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
 import Login from "../src/components/Login/Login";
-import SingUp from "../src/components/Login/SingUp";
+import SingUp from "../src/components/SingUp/SingUp";
 import NoticiaDetail from "./components/detailNoticia/NoticiaDetail";
 import CrearNoticia from "./components/CraerNoticia/CrearNoticia";
 import PerfilUsuario from "./components/PerfilUsuario/Perfil";

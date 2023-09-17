@@ -159,7 +159,7 @@ export default function FullFeaturedCrudGrid() {
                 ? true
                 : false
               : userFound.active,
-            razonBan: `${newRow.razonBan} Infracción aplicada por: ${perfilUsuario.email} el día ${date}`,
+            razonBan: newRow.razonBan && newRow.razonBan!=='*'?`${newRow.razonBan}. Infracción aplicada por: ${perfilUsuario.email} el día ${date}`:'*',
           },
         };
         const response = await dispatch(updateUserFromAdmin(newRow.id, action));
