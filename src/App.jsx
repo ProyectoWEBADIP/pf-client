@@ -49,7 +49,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
 
-        {location.pathname !== "/" ? null : {location.pathname !== '/' ? null : <Banner />}}
+        {location.pathname !== "/" ? null : <Banner />}
         {location.pathname !== '/auth/dashboard' ? (
           <Navbar themeMode={themeMode} toggleThemeMode={toggleThemeMode} />
         ) : null}
