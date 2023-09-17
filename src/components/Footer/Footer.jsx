@@ -1,5 +1,6 @@
 import { Facebook, Instagram, Twitter } from "@mui/icons-material";
 import "./Footer.css";
+import logo from '../../components/Navbar/Banner/img/Escudo ADIP sin fondo.png'
 import { Link } from "react-router-dom";
 export const Footer = () => {
   return (
@@ -7,7 +8,7 @@ export const Footer = () => {
       <footer>
         <div className="logo-footer">
           <img
-            src="src/components/Navbar/Banner/img/Escudo ADIP sin fondo.png "
+            src={logo}
             alt=""
           />
         </div>

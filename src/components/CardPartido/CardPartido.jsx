@@ -59,7 +59,7 @@ export default function CardPartido({
     <Input
       value={partidoModificado.competence}
       name="competence"
-      onChange={handleChange}
+      // onChange={handleChange}
     />
   ) : (
     <Typography variant="body2" fontWeight="bold">

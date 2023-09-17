@@ -1,9 +1,7 @@
 import { Box } from "@mui/material";
 import naranjaTeam from "./img/naranjaTeam.jpg";
-import bandera from "./img/bandera.jpg"
+import logo from './img/Escudo ADIP sin fondo.png'
 import banderin from "./img/banderin2.jpg"
-import masculino from "./img/masculino2.jpg"
-import masculinoCup from "./img/futbolmasculino.jpg"
 import "./banner.css";
 import { Facebook, Instagram, Twitter } from "@mui/icons-material";
 import { Link } from "react-router-dom";
@@ -17,15 +15,17 @@ export const Banner = () => {
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           backgroundSize: "cover",
-          width: "100vw",
-          height: 420,
+          width: "100%",
+          height: 390,
+          // width: "100vw",
+          // height: 420,
           justifyContent: "center",
         }}
       >
         <div className="logoBannerConteiner">
         
           <img
-            src= "src/components/Navbar/Banner/img/Escudo ADIP sin fondo.png"
+            src={logo}
             alt=""
           />
 

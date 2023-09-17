@@ -36,8 +36,6 @@ export default function UpdateNoticia() {
   const data = useSelector((state) => state.noticeById);
   const globalCategories = useSelector((state) => state.categorias);
   const response = useSelector((state) => state.updateNoticia);
-  console.log(globalCategories);
- 
 
   useEffect(() => {
     dispatch(getNoticeById(id));
@@ -96,9 +94,7 @@ export default function UpdateNoticia() {
   const handlerSubmit = (e) => {
     e.preventDefault();
     const tieneErrors = Object.keys(error);
-    
- 
- 
+
     if (tieneErrors.length === 0) {
       let body = {
         title: input.title,
@@ -112,30 +108,29 @@ export default function UpdateNoticia() {
         resume: data.resume,
         content: data.content,
         image: data.image,
-        categoryIds: data.categories.map((el) => el.id)
-      }
-    let arrayNoticia = [];
+        categoryIds: data.categories.map((el) => el.id),
+      };
+      let arrayNoticia = [];
       for (let key in noticia) {
-         arrayNoticia.push(key); 
-         arrayNoticia.push(noticia[key]); 
+        arrayNoticia.push(key);
+        arrayNoticia.push(noticia[key]);
       }
-    let arrayBody = [];
-    for (let key in body) {
-       arrayBody.push(key); 
-       arrayBody.push(body[key]); 
-    }
-     
-      
-      if(arrayBody.join(" ") !== arrayNoticia.join(" ")) {
+      let arrayBody = [];
+      for (let key in body) {
+        arrayBody.push(key);
+        arrayBody.push(body[key]);
+      }
+
+      if (arrayBody.join(" ") !== arrayNoticia.join(" ")) {
         dispatch(updateNoticia(id, body));
         navigate("/");
       } else {
-        alert("No se encontraron cambios")
+        alert("No se encontraron cambios");
       }
     } else {
       alert("Verifique los campos");
     }
-}
+  };
 
   const handlerDeleteCategories = (id) => {
     setInput({
@@ -156,177 +151,202 @@ export default function UpdateNoticia() {
     });
   };
 
-
   return (
-    <Container>
-      <Grid container justifyContent="center" spacing={2}>
-        <Grid item xs={12} boxShadow={{ boxShadow: 3 }} sm={6}>
-          <Box
+    <Box>
+        <Grid container justifyContent="center" >
+          <Grid item sm={5} my={4} mr={2}>
+            <Box
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center", // Centrar horizontalmente
-              textAlign: "center", // Centrar texto horizontalmente
+              boxShadow: 3,
+              bgcolor: (theme) =>
+                theme.palette.mode === "dark" ? "#101010" : "#fff",
+              color: (theme) =>
+                theme.palette.mode === "dark" ? "grey.300" : "grey.800",
+              p: 1,
+              m: 1,
+              borderRadius: 2,
+              textAlign: "center",
+              fontSize: "0.875rem",
+              fontWeight: "700",
+              padding: "40px",
             }}
-          >
-            <Typography>Editor de noticias</Typography>
-            <Box>
-              {error.title ? (
-                <Typography color="error">{error.title}</Typography>
+            >
+              <Typography variant="h4" fontWeight="bold">Editor de noticias</Typography>
+              <Box>
+                {error.title ? (
+                  <Typography color="error">{error.title}</Typography>
+                ) : null}
+                <br />
+                <TextField
+                  name="title"
+                  value={input.title}
+                  onChange={handleChange}
+                  required
+                  fullWidth
+                  label="Titulo"
+                  focused
+                />
+              </Box>
+
+              <Box sx={{mt: 2}}>
+              {error.resume ? (
+                <Typography color="error">{error.resume}</Typography>
               ) : null}
-              <br />
               <TextField
-                name="title"
-                value={input.title}
+                name="resume"
+                value={input?.resume}
                 onChange={handleChange}
                 required
                 fullWidth
-                label="Titulo"
+                label="Resumen"
                 focused
               />
-            </Box>
-            {error.resume ? (
-              <Typography color="error">{error.resume}</Typography>
-            ) : null}
-            <TextField
-              name="resume"
-              value={input?.resume}
-              onChange={handleChange}
-              required
-              fullWidth
-              label="Resumen"
-              focused
-            />
-            {error.content ? (
-              <Typography color="error">{error.content}</Typography>
-            ) : null}
-            <br />
-            <TextField
-              id="filled-multiline-static"
-              multiline
-              rows={6}
-              onChange={handleChange}
-              variant="filled"
-              value={input?.content}
-              fullWidth
-              name="content"
-              required
-              label="Contenido"
-              focused
-            />
-
-            <Typography variant="body1" fontWeight="bold">
-              Categorias:
-            </Typography>
-            {error.categories ? (
-              <Typography color="error">{error.categories}</Typography>
-            ) : null}
-
-            <div>
-              {input.categories?.map((el) => (
-                <Button key={el.id}
-                  variant="outlined"
-                  size="xs"
-                  sx={{
-                    fontSize: "10px",
-                    alignContent: "center",
-                    margin: "5px",
-                  }}
-                  type="button"
-                  onClick={() => handlerDeleteCategories(el.id)}
-                >
-                  Eliminar categoria {el.name}
-                </Button>
-              ))}
-            </div>
-
-            <br />
-            <Box>
-              <Typography variant="body1" fontWeight="bold">
-                Agregar una nueva categoria:
-              </Typography>
-              <NativeSelect onChange={handleAddCategorie}>
-                {globalCategories?.map((el) => (
-                  <option key={el.id} value={el.id}>
-                    {el.name}
-                  </option>
-                ))}
-              </NativeSelect>
-            </Box>
-            <Box>
-              <Typography variant="body1" fontWeight="bold">
-                Editar imagen:
-              </Typography>
-              {input.image !== "" ? (
-                <img
-                  src={input?.image}
-                  alt="Imagen"
-                  style={{ maxWidth: "200px", maxHeight: "200px" }}
-                />
-              ) : (
-                <input
-                  type="File"
-                  required
-                  onChange={(event) => setNewImage(event.target.files[0])}
-                />
-              )}
-              <br />
-            </Box>
-            {input.image !== "" ? (
-              <Button
-                variant="contained"
-                onClick={() => setInput({ ...input, image: "" })}
-              >
-                <ClearIcon></ClearIcon>
-              </Button>
-            ) : (
-              <Button onClick={() => handlerSubmitImage()}>Subir imagen</Button>
-            )}
-          </Box>
-        </Grid>
-        <Grid item boxShadow={{ boxShadow: 3 }} xs={12} sm={6}>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center", // Centrar horizontalmente
-              textAlign: "center", // Centrar texto horizontalmente
-            }}
-          >
-            <Typography variant="body2" fontWeight="bold">
-              Así quedaría la noticia
-            </Typography>
-
-            <Box>
-              <Typography variant="h6" component="h1">
-                {input.title}
-              </Typography>
-              <Typography variant="body1" component="p">
-                {input.resume}
-              </Typography>
-              <hr />
-              {input.image !== "" ? (
-                <img
-                  src={input.image}
-                  alt="Imagen"
-                  style={{ maxWidth: "200px", maxHeight: "200px" }}
-                />
+              </Box>
+              <Box>
+              {error.content ? (
+                <Typography color="error">{error.content}</Typography>
               ) : null}
-              <hr />
-              <Typography variant="body1" component="p">
-                {input.content}
+              <br />
+              <TextField
+                id="filled-multiline-static"
+                multiline
+                rows={6}
+                onChange={handleChange}
+                variant="filled"
+                value={input?.content}
+                fullWidth
+                name="content"
+                required
+                label="Contenido"
+                focused
+              />
+                </Box>
+              <Typography variant="h6" fontWeight="bold" sx={{ mt : 2 }}>
+                Categorias:
               </Typography>
-              <Typography variant="body2" component="p">
-                {input.date}
-              </Typography>
-            </Box>
-          </Box>
-        </Grid>
-      </Grid>
+              {error.categories ? (
+                <Typography color="error">{error.categories}</Typography>
+              ) : null}
 
-      <Box sx={{ mt: 5, display: "flex", justifyContent: "center" }}>
-        <button onClick={handlerSubmit}>Enviar Edición</button>
-      </Box>
-    </Container>
+              <div>
+                {input.categories?.map((el) => (
+                  <Button
+                    key={el.id}
+                    variant="outlined"
+                    size="xs"
+                    sx={{
+                      fontSize: "10px",
+                      alignContent: "center",
+                      margin: "5px",
+                    }}
+                    type="button"
+                    onClick={() => handlerDeleteCategories(el.id)}
+                  >
+                    Eliminar categoria {el.name}
+                  </Button>
+                ))}
+              </div>
+
+              <br />
+              <Box>
+                <Typography variant="h6" fontWeight="bold">
+                  Agregar una nueva categoria:
+                </Typography>
+                <NativeSelect onChange={handleAddCategorie} sx={{mt : 2}}>
+                  {globalCategories?.map((el) => (
+                    <option key={el.id} value={el.id}>
+                      {el.name}
+                    </option>
+                  ))}
+                </NativeSelect>
+              </Box>
+              <Box sx={{mt : 2}}>
+                <Typography variant="body1" fontWeight="bold">
+                  Editar imagen:
+                </Typography>
+                <Box sx={{mt : 2}}>
+                {input.image !== "" ? (
+                  <img
+                    src={input?.image}
+                    alt="Imagen"
+                    style={{ maxWidth: "200px", maxHeight: "200px" }}
+                  />
+                ) : (
+                  <input
+                    type="File"
+                    required
+                    onChange={(event) => setNewImage(event.target.files[0])}
+                  />
+                )}
+                </Box>
+
+              </Box>
+              {input.image !== "" ? (
+                <Button
+                  variant="contained"
+                  onClick={() => setInput({ ...input, image: "" })}
+                >
+                  <ClearIcon></ClearIcon>
+                </Button>
+              ) : (
+                <Button onClick={() => handlerSubmitImage()} sx={{mt : 2}}>
+                  Subir imagen
+                </Button>
+              )}
+            </Box>
+          </Grid>
+          <Grid sm={5} my={4} ml={2}>
+            <Box
+              sx={{
+                boxShadow: 3,
+                bgcolor: (theme) =>
+                  theme.palette.mode === "dark" ? "#101010" : "#fff",
+                color: (theme) =>
+                  theme.palette.mode === "dark" ? "grey.300" : "grey.800",
+                p: 1,
+                m: 1,
+                borderRadius: 2,
+                textAlign: "center",
+                fontSize: "0.875rem",
+                fontWeight: "700",
+                padding: "40px",
+              }}
+              
+            >
+              <Typography variant="h4" fontWeight="bold">
+                Así quedaría la noticia
+              </Typography>
+
+              <Box sx={{mt : 2}}>
+                <Typography variant="h6" component="h1">
+                  {input.title}
+                </Typography>
+                <Typography variant="body1" component="p">
+                  {input.resume}
+                </Typography>
+                <hr />
+                {input.image !== "" ? (
+                  <img
+                    src={input.image}
+                    alt="Imagen"
+                    style={{ maxWidth: "200px", maxHeight: "200px" }}
+                  />
+                ) : null}
+                <hr />
+                <Typography variant="body1" component="p">
+                  {input.content}
+                </Typography>
+                <Typography variant="body2" component="p">
+                  {input.date}
+                </Typography>
+        <Box sx={{ mt: 5, display: "flex", justifyContent: "center" }}>
+          <Button onClick={handlerSubmit} variant="contained">Enviar Edición</Button>
+        </Box>
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+
+    </Box>
   );
 }
