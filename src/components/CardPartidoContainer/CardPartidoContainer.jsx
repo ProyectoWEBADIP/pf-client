@@ -1,72 +1,30 @@
-import CardPartido from "../CardPartido/CardPartido"
-import style from "./CardPartidoContainer.module.css"
+import { Link } from "react-router-dom";
+import CardPartido from "../CardPartido/CardPartido";
+import { useSelector } from "react-redux";
+import { Box } from "@mui/material";
 
-export default function CardPartidoContainer(){
-    let info = [{
-        titulo: "ANTERIOR",
-        categoria: "PRIMERA MASCULINA",
-        competencia: "TORNEO APERTURA 2023",
-        escudoLocal: "C:\Users\Usuario\Desktop\PF\pf-client\src\componentes",
-        escudoVisitante: "../CardPartido/Escudo ADIP sin fondo.png",
-        resultado: "1-0",
-        fecha: "Domingo 27/8 15:30", 
-        ubicacion: "ADIP (10 Y 485)",
-        descripcion: "En Villa Castells, la primera masculina se quedo con los 3 puntos de un partido trabado con un gol de penal de plastino"
-    },
-    {
-        titulo: "PROXIMO",
-        categoria: "PRIMERA MASCULINA",
-        competencia: "TORNEO APERTURA 2023",
-        escudoLocal: "C:\Users\Usuario\Desktop\Escudo ADIP sin fondo.png",
-        escudoVisitante: "C:\Users\Usuario\Desktop\Escudo ADIP sin fondo.png",
-        resultado: "VS",
-        fecha: "Domingo 3/9 15:30", 
-        ubicacion: "ADIP (10 Y 485)",
-        descripcion: "En Villa Castells, la primera masculina se quedo con los 3 puntos de un partido trabado con un gol de penal de plastino"
-    },
-    {
-        titulo: "ANTERIOR",
-        categoria: "PRIMERA FEMENINA",
-        competencia: "TORNEO APERTURA 2023",
-        escudoLocal: "C:\Users\Usuario\Desktop\Escudo ADIP sin fondo.png",
-        escudoVisitante: "C:\Users\Usuario\Desktop\Escudo ADIP sin fondo.png",
-        resultado: "1-0",
-        fecha: "Domingo 27/8 15:30", 
-        ubicacion: "ADIP (10 Y 485)",
-        descripcion: "En Villa Castells, la primera masculina se quedo con los 3 puntos de un partido trabado con un gol de penal de plastino"}
-    // },
-    // {
-    //     titulo: "PROXIMO",
-    //     categoria: "PRIMERA FEMENINA",
-    //     competencia: "TORNEO APERTURA 2023",
-    //     escudoLocal: "C:\Users\Usuario\Desktop\Escudo ADIP sin fondo.png",
-    //     escudoVisitante: "C:\Users\Usuario\Desktop\Escudo ADIP sin fondo.png",
-    //     resultado: "VS",
-    //     fecha: "Domingo 3/9 15:30", 
-    //     ubicacion: "ADIP (10 Y 485)",
-    //     descripcion: "En Villa Castells, la primera masculina se quedo con los 3 puntos de un partido trabado con un gol de penal de plastino"
-    // },
-]
- return(
-    <div className={style.cont}>
-    {info?.map((info, i)=>{
-            return (
-                <div className={style.contCard} key={i}>
-                    <CardPartido
-                        key={i}
-                        titulo={info.titulo}
-                        categoria={info.categoria}
-                        competencia={info.competencia}
-                        escudoLocal={info.escudoLocal}
-                        escudoVisitante={info.escudoVisitante}
-                        resultado={info.resultado}
-                        fecha={info.fecha}
-                        ubicacion={info.ubicacion}
-                        />
-                </div>
-            )
-        })
-        }
-        </div>
-        )
+export default function CardPartidoContainer() {
+  const info = useSelector((state) => state.partidos);
+
+  return (
+    <Box>
+      {info?.map((info, i) => (
+        <Box key={i} marginBottom={2} sx={{ marginRight: "10px" }}>
+          <CardPartido
+            title={info.title}
+            category_name={info.category_name}
+            competence={info.competence}
+            Local_shield={info.Local_shield}
+            visitor_shield={info.visitor_shield}
+            date={info.date}
+            location={info.location}
+            description={info.description}
+            home_goals={info.home_goals}
+            visitor_goals={info.visitor_goals}
+          />
+        </Box>
+      ))}
+      <Link to={"/editarPartidos"}>Editar</Link>
+    </Box>
+  );
 }
