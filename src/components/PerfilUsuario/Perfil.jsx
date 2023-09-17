@@ -173,7 +173,7 @@ export default function Perfil() {
         </div>
       ) : null}
       {!isLoading ? (
-        !perfilUsuario.active ? (
+        !perfilUsuario?.active ? (
           <div className={style.contProf}>
             {
               //Este contendrá todo para hacer la previsualización
@@ -360,13 +360,13 @@ export default function Perfil() {
 
                   <Container>
                     <Typography variant="body1">
-                      Email: {perfilUsuario.email}
+                      Email: {perfilUsuario?.email}
                     </Typography>
                     <Typography variant="body1">
                       Fecha de Nacimiento: {profileData.birthDate}
                     </Typography>
                     <Typography variant="body1">
-                      DNI: {profileData.dni}
+                      DNI: {profileData?.dni}
                     </Typography>
                     <Typography variant="body1" fontWeight="bold">
                       Deuda acumulada: $0
@@ -385,7 +385,7 @@ export default function Perfil() {
               <UpdateProfile perfilUsuario={perfilUsuario} />
             )}
             <div className="centerProfileContainer">
-            {role === 'super_admin' && perfilUsuario.profile ? (
+            {role === 'super_admin' && perfilUsuario?.profile ? (
                   <Link to={'/auth/dashboard'}>
                     <button className="learn-more">
                       <span aria-hidden="true" className="circle">
@@ -398,14 +398,14 @@ export default function Perfil() {
               <div className="portadaContainer">
                 <img
                   src={
-                    perfilUsuario.image ? perfilUsuario.image : defaultPortada
+                    perfilUsuario?.image ? perfilUsuario?.image : defaultPortada
                   }
                   alt=""
                 />
                 <img
                   src={
-                    perfilUsuario.profile.image
-                      ? perfilUsuario.profile.image
+                    perfilUsuario?.profile?.image
+                      ? perfilUsuario?.profile?.image
                       : imgDefault
                   }
                   alt=""
@@ -415,8 +415,8 @@ export default function Perfil() {
               <div className="nameAndEditContainer">
                
                 <h1>
-                  {perfilUsuario.profile.firstName}{' '}
-                  {perfilUsuario.profile.lastName}
+                  {perfilUsuario?.profile?.firstName}{' '}
+                  {perfilUsuario?.profile?.lastName}
                 </h1>
                 <div className="editButtonContainer">
                   <div
@@ -432,26 +432,26 @@ export default function Perfil() {
                 <div className="detallesContainer">
                   <span className="detallesSpan">Detalles</span>
                   <div className="dataContainers">
-                    <Email /> <span>{perfilUsuario.email}</span>
+                    <Email /> <span>{perfilUsuario?.email}</span>
                   </div>
                   <div className="dataContainers">
-                    <BadgeIcon /> <span>{perfilUsuario.profile.dni}</span>
+                    <BadgeIcon /> <span>{perfilUsuario?.profile?.dni}</span>
                   </div>
                   <div className="dataContainers">
                     <CakeIcon />
-                    <span>{perfilUsuario.profile.birthDate.split('T')[0]}</span>
+                    <span>{perfilUsuario?.profile?.birthDate.split('T')[0]}</span>
                   </div>
                   <div className="dataContainers">
                     <LocalPhoneIcon />
-                    <span>{perfilUsuario.profile.phone}</span>
+                    <span>{perfilUsuario?.profile?.phone}</span>
                   </div>
                   <div className="dataContainers">
-                    {perfilUsuario.profile.gender === 'Femenino' ? (
+                    {perfilUsuario?.profile?.gender === 'Femenino' ? (
                       <FemaleIcon />
                     ) : (
                       <MaleIcon />
                     )}
-                    <span>{perfilUsuario.profile.gender}</span>
+                    <span>{perfilUsuario?.profile?.gender}</span>
                   </div>
                 </div>
                 <div className="estadoDeudaContainer">

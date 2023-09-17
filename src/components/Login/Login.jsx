@@ -34,11 +34,15 @@ export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loginRegisterErrors = useSelector((state) => state.loginRegisterErrors);
+  console.log("loginRegisterErrors", loginRegisterErrors);
 
   const successLogin = useSelector((state) => state.successLogin);
+  console.log("successLogin", successLogin);
 
   const logginIn = useSelector((state) => state.logginIn);
+  console.log("logginIn", logginIn);
   const actualPath = useSelector((state) => state.actualPath);
+  console.log("actualPath", actualPath);
   const handleChange = (event) => {
     setUsers({
       ...users,
@@ -171,6 +175,7 @@ export default function Login() {
       
         <Typography>{successLogin}</Typography>
       </Box>
+      
     </GoogleOAuthProvider>
     </div>
   );
