@@ -49,16 +49,24 @@ export default function Login() {
 
   function handleSuccess(credentials) {
     if (credentials.credential) {
+    
       dispatch(googleRegisterUser(credentials));
       navigate("/");
+    
     }
-  }
 
+  }
+  
   //LOGIN LOCAL CON PASS Y EMAIL
-  function login(event) {
+  async function login (event) {
     event.preventDefault();
-    dispatch(localLogin(users));
     dispatch(loading());
+    await dispatch(localLogin(users));
+    if(localStorage.userId){
+      navigate("/");
+      
+    } alert("Necesita loguarse")
+    console.log("users",users);
   }
   
 
@@ -153,9 +161,9 @@ export default function Login() {
             ) : null}
           </Box>
         ) : actualPath ? (
-          navigate(`${actualPath}`)
+          null
         ) : (
-          navigate("/")
+        null
         )}
         <Box>
           <GoogleLogin

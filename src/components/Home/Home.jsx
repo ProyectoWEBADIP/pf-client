@@ -18,8 +18,9 @@ export default function Home() {
   const perfilUsuario = useSelector((state) => state.perfilUsuario);
   useEffect(() => {
     dispatch(getAllCategories());
-    if (!perfilUsuario.length && localStorage.userId) {
-      dispatch(getUserById(localStorage.userId));
+    if(!perfilUsuario.length && localStorage.userId){
+    dispatch(getUserById(localStorage.userId))
+    dispatch(getAllMatch())
     }
     dispatch(getAllNoticias());
     dispatch(getAllSponsor());

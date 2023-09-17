@@ -43,6 +43,7 @@ import {
 //---->SPONSOR---------
 import { GET_ALL_SPONSOR,GET_SPONSOR_BY_ID,UPDATE_SPONSOR } from "./sponsorActions/sponsorActionsTypes";//DASHBOARD TYPES
 import {RENDER_CORRECT_DASH} from './dashboardAdminActions/actionTypes'
+import { GET_ALL_MATCH } from './partidosActions/partidosActions';
 const initialState = {
    isLoading: false,
    //LOGIN_STATES//
@@ -76,6 +77,7 @@ const initialState = {
    updateSponsor:{},
     
 
+  partidos: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -288,6 +290,12 @@ export default function rootReducer(state = initialState, action) {
          return {
             roles: action.payload,
          };
+        case GET_ALL_MATCH: 
+        return {
+         ...state,
+         partidos: action.payload
+
+        } 
       case GET_ALL_ROLES_BY_ID:
          return { ...state };
       case POST_ROL:

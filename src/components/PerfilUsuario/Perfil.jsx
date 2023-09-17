@@ -33,6 +33,7 @@ export default function Perfil() {
 
   initMercadoPago(`TEST-c2bc2a6c-e7ac-4a00-bd64-68b499cde86d`)
   const createPreference = async () => {
+    console.log("entre");
     try {
       const {data} = await axios.post(`http://localhost:3001/payment/createPreference`, {
         description: "Cuota mensual Club deportivo A.D.I.P",
@@ -51,7 +52,7 @@ export default function Perfil() {
   }
   
   const handleBuy = async () => {
-    const id =  await createPreference()
+    const id = await createPreference()
     if(id){
       setPreferenceId(id)
     }

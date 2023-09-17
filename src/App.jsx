@@ -12,6 +12,7 @@ import AdminDashboard from "./dashboardAdminComponents/adminDashboard/AdminDashb
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { getDesignTokens } from "../helpers/theme";
 import React, { useState } from "react";
+import EditarPartidos from "./components/EditarPartidos/EditarPartidos";
 import { Banner } from "./components/Navbar/Banner/Banner";
 import { Footer } from "./components/Footer/Footer";
 import { ButtonUpper } from "./components/ButtonUpper/ButtonUpper";
@@ -73,6 +74,7 @@ function App() {
           <Route path={"/sponsor2"} element={<Sponsor2 />} />
           <Route path={"/sponsor3"} element={<Sponsor3 />} />
           <Route path={"/sponsor4"} element={<Sponsor4 />} />
+          <Route path={"/editarPartidos"} element={<EditarPartidos/>}/>
         </Routes>
         <ButtonUpper />
         <Footer />
