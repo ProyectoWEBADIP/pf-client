@@ -11,16 +11,16 @@ const Sponsor2 = () => {
 
     const location2= sponsor.filter(el=> el.location>=6 && el.location<=10)
     const inOrder=location2.sort((a,b)=>a.location-b.location)
-    console.log(inOrder);
+    
     useEffect(()=>{
         dispatch(getAllSponsor())
     },[dispatch])
   return (
-    <div className="contt">
+    <div className="cont_sponsor2">
         
         {inOrder?.map((el)=>{
             return(
-                <img className='imgg' key={el.id} src={el.image} alt="img" />
+                <img className='img_sponsor2_' key={el.id} src={el.image} alt="img" />
             )
         })}
 

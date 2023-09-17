@@ -39,11 +39,11 @@ export default function Home() {
    <div className="parteCentral">
     <CardPartidoContainer/>
     <div className="sponsor1">
-    <h3>sponsors</h3>
+    <Sponsor1/>
   </div>
    <SwiperNotices/>
   <div className="sponsor1">
-    <h3>sponsors</h3>
+    <Sponsor2/>
   </div>
    </div>
    <div className="parteDerecha"></div>

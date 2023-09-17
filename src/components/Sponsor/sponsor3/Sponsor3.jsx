@@ -17,13 +17,13 @@ const Sponsor3 = () => {
         dispatch(getAllSponsor())
     },[dispatch])
   return (
-    <div className='caja'>
+    <div className='cont_sponsor3_'>
      
         
     {inOrder?.map((el)=>{
       return(
       
-        <img className='immg' key={el.id} src={el.image} alt="imagen" />
+        <img className='img_sponsor3_' key={el.id} src={el.image} alt="imagen" />
      
       )
     })}

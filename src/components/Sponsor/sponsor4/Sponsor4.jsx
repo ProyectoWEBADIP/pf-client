@@ -18,13 +18,13 @@ const Sponsor4 = () => {
     const inOrder=location4.sort((a,b)=>a.location - b.location)
 
   return (
-    <div className='caja'>
+    <div className='cont_sponsor4_'>
     
        
    {inOrder?.map((el)=>{
      return(
      
-       <img className='foto' key={el.id} src={el.image} alt="imagen" />
+       <img className='img_sponsor4_' key={el.id} src={el.image} alt="imagen" />
     
      )
    })}

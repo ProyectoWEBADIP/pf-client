@@ -20,13 +20,13 @@ const Sponsor1 = () => {
     
    
   return (
-    <div className='box'>
+    <div className='box_sponsor1_'>
      
         
         {inOrder?.map((el)=>{
           return(
           
-            <img className='img' key={el.id} src={el.image} alt="imagen" />
+            <img className='img_sponsor1_' key={el.id} src={el.image} alt="imagen" />
          
           )
         })}     
