@@ -25,6 +25,8 @@ import UpDateSponsor from "./components/upDateSponsor/upDateSponsor";
 import Sponsor2 from "./components/Sponsor/sponsor2/Sponsor2";
 import Sponsor3 from "./components/Sponsor/sponsor3/Sponsor3";
 import Sponsor4 from "./components/Sponsor/sponsor4/Sponsor4";
+import ClubHistoria from "./components/ClubHistoria/ClubHistoria";
+import ClubComision from "./components/ClubComision/ClubComision";
 
 function App() {
   const storedThemeMode = localStorage.getItem("themeMode") || "light";
@@ -53,6 +55,9 @@ function App() {
           <Route path={"/detalle/:id"} element={<NoticiaDetail />} />
           <Route path={"/crearNoticia"} element={<CrearNoticia />} />
           <Route path={"/:id/profile"} element={<PerfilUsuario />} />
+          <Route path={"/club/historia"} element={<ClubHistoria />} />
+          <Route path={"/club/comision"} element={<ClubComision />} />
+
           <Route
             path={"/auth/dashboard"}
             element={
