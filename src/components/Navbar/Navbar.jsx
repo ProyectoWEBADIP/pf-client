@@ -8,12 +8,20 @@ import { SwichtThemes } from "../ModeThemes/SwichtThemes";
 import { StyledToolbar } from "./StyledToolBar/StyledToolbar";
 import AccountMenu from "./AccountMenu/AccountMenu";
 import { MenuItems } from "./Menu/MenuItems";
+import { useLocation } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
 const Navbar = ({ themeMode, toggleThemeMode }) => {
+
+  const location = useLocation()
+  
+
   return (
     <>
-      <AppBar className="conteinNavBar">
+      <AppBar
+        className="conteinNavBar"
+        sx={{ position: location.pathname !== "/login" ? "fixed" : "static" }}
+      >
         <StyledToolbar>
           <div>
             <MenuItems />
