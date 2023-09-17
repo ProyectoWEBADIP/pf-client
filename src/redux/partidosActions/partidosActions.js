@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios"
 
 export const GET_ALL_MATCH = "GET_ALL_MATCH"

@@ -7,12 +7,7 @@ export default function(input){
     }
     if(input.nombre?.length<=0){
         error.nombre="*Este campo es obligatorio*"
-    }
-
-    //-----------CATEGORIA-----------------
-    if(input.categoria==0 || input.categoria==""){
-        error.categoria="*Este campo es obligatorio*"
-    }
+    }  
     
     return error;
 }

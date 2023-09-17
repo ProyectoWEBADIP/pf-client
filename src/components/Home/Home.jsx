@@ -9,6 +9,7 @@ import { getAllNoticias } from "../../redux/noticiasActions/noticiasActions";
 import { getAllCategories } from "../../redux/categoriasActions/categoriasActions";
 import "./home.css";
 import Sponsor2 from "../Sponsor/sponsor2/Sponsor2";
+import Sponsor1 from "../Sponsor/sponsor1/Sponsor1";
 import { getAllSponsor } from "../../redux/sponsorActions/sponsorActions";
 import { getUserById } from "../../redux/login-registerActions/loginActions";
 import SwiperNotices from "../SwiperNotices/SwiperNotices";
@@ -38,11 +39,11 @@ export default function Home() {
    <div className="parteCentral">
     <CardPartidoContainer/>
     <div className="sponsor1">
-    <h3>sponsors</h3>
+    <Sponsor1/>
   </div>
    <SwiperNotices/>
   <div className="sponsor1">
-    <h3>sponsors</h3>
+    <Sponsor2/>
   </div>
    </div>
    <div className="parteDerecha"></div>

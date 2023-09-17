@@ -179,64 +179,60 @@ export default function rootReducer(state = initialState, action) {
         updateSponsor: action.payload,
       };
 
-    case GET_SPONSOR_BY_ID:
-      return {
-        ...state,
-        sponsorById: action.payload,
-      };
-
-    //LOCAL_LOGIN CASES//
-    case LOCAL_LOGIN:
-      if (action.payload.statusCode !== 203) {
-        localStorage.setItem("access_token", action.payload.access_token);
-        localStorage.setItem("userLogin", true);
-        localStorage.setItem("userId", action.payload.id);
-        return {
-          ...state,
-          logginIn: false,
-          usuario: action.payload,
-          loggedIn: true,
-          loginRegisterErrors: {},
-          isLoading: false,
-        };
-      } else {
-        return {
-          ...state,
-          isLoading: false,
-          logginIn: false,
-          loginRegisterErrors: action.payload,
-        };
-      }
-    case LOGGIN_IN:
-      return {
-        ...state,
-        isLoading: false,
-        logginIn: true,
-      };
-    case HISTORY:
-      return { ...state, actualPath: action.payload };
-    case LOGOUT:
-      localStorage.removeItem("access_token");
-      localStorage.removeItem("userLogin");
-      localStorage.removeItem("userId");
-      return {
-        ...state,
-        isLoading: false,
-        logginIn: false,
-        usuario: [],
-        loggedIn: false,
-        actualPath: "",
-        successLogin: "",
-        perfilUsuario: [],
-      };
-    //REGISTER CASES//
-    case REGISTER_USER: //REGISTRO CON GOOGLE
-      localStorage.setItem(
-        "access_token",
-        action.payload.access_token.access_token
-      );
-      localStorage.setItem("userLogin", true);
-      localStorage.setItem("userId", action.payload.id);
+      
+     
+         //LOCAL_LOGIN CASES//
+      case LOCAL_LOGIN:
+         if (action.payload.statusCode !== 203) {
+            localStorage.setItem("access_token", action.payload.access_token);
+            localStorage.setItem("userLogin", true);
+            localStorage.setItem("userId", action.payload.id);
+            return {
+               ...state,
+               logginIn: false,
+               usuario: action.payload,
+               loggedIn: true,
+               loginRegisterErrors: {},
+               isLoading: false,
+            };
+         } else {
+            return {
+               ...state,
+               isLoading: false,
+               logginIn: false,
+               loginRegisterErrors: action.payload,
+            };
+         }
+      case LOGGIN_IN:
+         return {
+            ...state,
+            isLoading: false,
+            logginIn: true,
+         };
+      case HISTORY:
+         return { ...state, actualPath: action.payload };
+      case LOGOUT:
+         localStorage.removeItem("access_token");
+         localStorage.removeItem("userLogin");
+         localStorage.removeItem("userId");
+         return {
+            ...state,
+            isLoading: false,
+            logginIn: false,
+            usuario: [],
+            loggedIn: false,
+            actualPath: "",
+            successLogin: "",
+            perfilUsuario: [],
+         };
+      //REGISTER CASES//
+      case REGISTER_USER: //REGISTRO CON GOOGLE
+         localStorage.setItem(
+            "access_token",
+            action.payload.access_token.access_token
+         );
+         localStorage.setItem("userLogin", true);
+         localStorage.setItem("userId", action.payload.id);
 
       return {
         ...state,

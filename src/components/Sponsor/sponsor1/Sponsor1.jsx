@@ -8,23 +8,25 @@ const Sponsor1 = () => {
     
     const sponsor = useSelector((state)=>state.sponsor);
     
-    console.log(sponsor,"estado");
+    
     
     useEffect(()=>{
         dispatch(getAllSponsor())
     },[dispatch])
     
-    const location1 = sponsor.filter(objeto => objeto.location === 1);
-    console.log(location1,"loc1");
+    const locationHome = sponsor.filter(objeto => objeto.location >= 1 && objeto.location <=5);
+    const inOrder= locationHome.sort((a, b) => a.location - b.location); 
+    console.log(inOrder);
+    
    
   return (
-    <div className='box'>
+    <div className='box_sponsor1_'>
      
         
-        {location1?.map((el)=>{
+        {inOrder?.map((el)=>{
           return(
           
-            <img className='img' key={el.id} src={el.image} alt="imagen" />
+            <img className='img_sponsor1_' key={el.id} src={el.image} alt="imagen" />
          
           )
         })}     

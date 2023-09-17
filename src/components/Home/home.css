@@ -8,12 +8,13 @@
 .parteCentral{
   display: flex;
   flex-direction: column;
-align-items: center;
-gap: 1rem;
+  align-items: center;
+  gap: 1rem;
 }
 .parteCentral .sponsor1{
-  text-align: center;
-  width: 120%;
-  height: 10%;
-  background-color: rgba(255, 0, 0, 0.222);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120%;  
+  
 }

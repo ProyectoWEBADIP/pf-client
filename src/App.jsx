@@ -22,7 +22,6 @@ import CrearSponsor from "./components/CrearSponsor/CrearSponsor";
 import Sponsor1 from "./components/Sponsor/sponsor1/Sponsor1";
 import RecuperarContraseña from "./components/RecuperarContraseña/RecuperarContraseña";
 import UpdateNoticia from "./components/UpdateNoticia/UpdateNoticia";
-import CardSponsor from "./components/CardSponsor/CardSponsor";
 import UpDateSponsor from "./components/upDateSponsor/upDateSponsor";
 import Sponsor2 from "./components/Sponsor/sponsor2/Sponsor2";
 import Sponsor3 from "./components/Sponsor/sponsor3/Sponsor3";
@@ -87,12 +86,13 @@ function App() {
             path={'/login/recuperacion'}
             element={<RecuperarContraseña />}
           />
-
-          <Route path={'/sponsor1'} element={<Sponsor1 />} />
-          <Route path={'/cardSponsor'} element={<CardSponsor />} />
-          <Route path={'/sponsor2'} element={<Sponsor2 />} />
-          <Route path={'/sponsor3'} element={<Sponsor3 />} />
-          <Route path={'/sponsor4'} element={<Sponsor4 />} />
+          <Route path={"/editarNoticia/:id"} element={<UpdateNoticia />} />
+          <Route path={"/crearSponsor"} element={<CrearSponsor />} />
+          <Route path={"/sponsor1"} element={<Sponsor1 />} />         
+          <Route path={"/editarSponsor"} element={<UpDateSponsor />} />
+          <Route path={"/sponsor2"} element={<Sponsor2 />} />
+          <Route path={"/sponsor3"} element={<Sponsor3 />} />
+          <Route path={"/sponsor4"} element={<Sponsor4 />} />
           <Route path={"/editarPartidos"} element={<EditarPartidos/>}/>
         </Routes>
         <ButtonUpper />

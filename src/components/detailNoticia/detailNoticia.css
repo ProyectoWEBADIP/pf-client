@@ -2,19 +2,17 @@
   width: 100vw;
   height: 91vh;
   display: grid;
-  grid-template-columns: 20% auto 20%;
-  overflow: scroll;
+  grid-template-columns: 10% 80% 10%;
+  
 }
-
 .noticiaContainer {
   display: flex;
   flex-direction: column;
-align-items: center;
+  align-items: center;
   padding: 10px;
   width: 100%;
   height: 100%;
 }
-
 .imgCont {
   width: 73%;
   position: relative;
@@ -22,43 +20,16 @@ align-items: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 65%;
-  overflow-y: auto;
+  height: 65%;  
 }
-.imgCont > img {
+
+.noticiaContainer > img {
   width: 50rem;
   border-radius: 1rem;
 }
-.fechaPublicacion{
+.izq_sponsor_Detail{
   display: flex;
-    position: absolute;
-  color: black;
-  font-size: 1.5rem;
-  width: auto;
-  height: 3rem;
-  border-radius: 1rem;
-  align-items: center;
-  right: 10px;
-  bottom: 10px;
-
 }
-.dateSpan{
-  color: white;
-  background-color: rgba(0, 0, 0, 0.77);
+.der_sponsor_detail{
+  display: flex;
 }
-.NoticiaTitle {
-  font-size: 2rem;
-  letter-spacing: 0.25em;
-  word-spacing: 0.25em;
-  text-align: center;
-}
-.resumeSpan{
-  font-size: 1.3rem;
-  letter-spacing: normal;
-  word-spacing: normal;
-}
-.contentNoticia{
-  padding: 2rem;
-  text-indent: 40px;
-}
-
