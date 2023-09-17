@@ -39,12 +39,18 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import UpdateProfile from '../../views/updateProfile/UpdateProfile';
 import { showProfileEdit } from '../../redux/profileActions/profileActions';
+import jwtDecode from 'jwt-decode';
 export default function Perfil() {
   //!HOOKS
   const [preferenceId, setPreferenceId] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const id = localStorage.userId; //AGARRO ID DEL USER DEL LOCALSTORAGE
+  const token = localStorage?.access_token;
+  let role;
+  if (token) {
+    role = jwtDecode(token).role;
+  }
   const [profileData, setProfileData] = useState({
     firstName: '',
     lastName: '',
@@ -92,7 +98,6 @@ export default function Perfil() {
   const [imageURL, setImageURL] = useState(''); //url
 
   const handleChange = (event) => {
-
     if (event.target.name === 'image') {
       const file = event.target.files[0];
       setFile(event.target.files[0]);
@@ -103,7 +108,6 @@ export default function Perfil() {
       ...profileData,
       [event.target.name]: event.target.value,
     });
-    console.log(profileData)
   };
   const imgDefault =
     'https://pbs.twimg.com/profile_images/1454099552106074116/eEn8pMnN_400x400.jpg';
@@ -160,7 +164,7 @@ export default function Perfil() {
   const [showError, setShowError] = useState(false);
   const defaultPortada =
     'https://scontent.faep8-3.fna.fbcdn.net/v/t39.30808-6/305992807_521694693292923_2963066236492463977_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=52f669&_nc_eui2=AeGiSi1-TM-lB_d9-i3c27f1aOxNPw_iYSRo7E0_D-JhJPunk3XycWNuUqjCrEf63vXDG4DccZwNtoNAdObM8SmI&_nc_ohc=P2BksXWzwl8AX-7kYvH&_nc_ht=scontent.faep8-3.fna&oh=00_AfBqKZ8gqLwU6veGy0XwhZSNRgmIelgTW9GpWmhNuNItpA&oe=6503DC49';
-    return (
+  return (
     <div className={style.perfContainerContainer}>
       {showError ? (
         <div className="alerts">
@@ -248,7 +252,7 @@ export default function Perfil() {
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         label="Género"
-                        name='gender'
+                        name="gender"
                         onChange={handleChange}
                       >
                         <MenuItem value="Femenino">Femenino</MenuItem>
@@ -380,6 +384,16 @@ export default function Perfil() {
               <UpdateProfile perfilUsuario={perfilUsuario} />
             )}
             <div className="centerProfileContainer">
+            {role === 'super_admin' && perfilUsuario.profile ? (
+                  <Link to={'/auth/dashboard'}>
+                    <button className="learn-more">
+                      <span aria-hidden="true" className="circle">
+                        <span className="icon arrow"></span>
+                      </span>
+                      <span className="button-text">Administrador</span>
+                    </button>
+                  </Link>
+                ) : null}
               <div className="portadaContainer">
                 <img
                   src={
@@ -398,6 +412,7 @@ export default function Perfil() {
               </div>
 
               <div className="nameAndEditContainer">
+               
                 <h1>
                   {perfilUsuario.profile.firstName}{' '}
                   {perfilUsuario.profile.lastName}
@@ -430,7 +445,11 @@ export default function Perfil() {
                     <span>{perfilUsuario.profile.phone}</span>
                   </div>
                   <div className="dataContainers">
-                    {perfilUsuario.profile.gender === 'Femenino'?<FemaleIcon/>:<MaleIcon/>}
+                    {perfilUsuario.profile.gender === 'Femenino' ? (
+                      <FemaleIcon />
+                    ) : (
+                      <MaleIcon />
+                    )}
                     <span>{perfilUsuario.profile.gender}</span>
                   </div>
                 </div>
@@ -454,9 +473,6 @@ export default function Perfil() {
                     )}
                   </div>
                 </div>
-              </div>
-              <div className="otraInfoContainer">
-                <h3>Hola</h3>
               </div>
             </div>
 

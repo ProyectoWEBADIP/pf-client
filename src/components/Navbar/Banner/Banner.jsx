@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import naranjaTeam from "./img/naranjaTeam.jpg";
+import logo from './img/Escudo ADIP sin fondo.png'
 import "./banner.css";
 import { Facebook, Instagram, Twitter } from "@mui/icons-material";
 import { Link } from "react-router-dom";
@@ -13,13 +14,13 @@ export const Banner = () => {
           backgroundPosition: "center",
           backgroundSize: "cover",
           width: "100%",
-          height: 420,
+          height: 390,
           justifyContent: "center",
         }}
       >
         <div className="logoBannerConteiner">
           <img
-            src="src/components/Navbar/Banner/img/Escudo ADIP sin fondo.png"
+            src={logo}
             alt=""
           />
 

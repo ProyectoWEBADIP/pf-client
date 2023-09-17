@@ -17,17 +17,18 @@
   height: 140px;
   position: relative;
 
-  .shadow {
-    position: absolute;
-    width: 100%;
-    height: 10px;
-    background-color: grey;
-    bottom: 0;
-    border-radius: 100%;
-    transform: scaleX(.8);
-    opacity: .6;
-    animation: shadowScale 1s linear infinite;
-  }
+}
+
+.shadow {
+  position: absolute;
+  width: 100%;
+  height: 10px;
+  background-color: grey;
+  bottom: 0;
+  border-radius: 100%;
+  transform: scaleX(.8);
+  opacity: .6;
+  animation: shadowScale 1s linear infinite;
 }
 .gravity {
   width: 40px;

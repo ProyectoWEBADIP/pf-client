@@ -26,6 +26,7 @@ import {
   GET_USER_BY_ID,
   CREATE_PROFILE_LOCAL,
   REGISTER_USER_LOCAL,
+  ERROR,
   
 } from './login-registerActions/actionTypes';
 //Categorias types
@@ -76,12 +77,18 @@ const initialState = {
    sponsor:[],
    sponsorBackUp:[],
    updateSponsor:{},
-   sponsorById:{}
+   sponsorById:{},
+   errors:''
 
 };
 
 export default function rootReducer(state = initialState, action) {
    switch (action.type) {
+      case ERROR:
+         return {
+            ...state,
+            errors:action.payload
+         }
       case IS_LOADING:
          return {
             ...state,

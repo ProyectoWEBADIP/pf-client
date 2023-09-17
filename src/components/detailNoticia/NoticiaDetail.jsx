@@ -16,7 +16,6 @@ export default function NoticiaDetail() {
 
   //!HOOKS
   useEffect(() => {
-dispatch(setIsLoading())
     dispatch(getNoticiaDetail(id));
     dispatch(getAllSponsor())
     return()=>{

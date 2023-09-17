@@ -27,7 +27,8 @@ const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
 
 export default function Login() {
   const [error, setError] = useState({});
-  const [users, setUsers] = useState({ email: "", password: ""});
+  const [loading, setLoading] = useState();
+   const [users, setUsers] = useState({ email: "", password: ""});
 
 
   const dispatch = useDispatch();
@@ -49,9 +50,9 @@ export default function Login() {
 
   function handleSuccess(credentials) {
     if (credentials.credential) {
+      console.log(credentials)
       dispatch(googleRegisterUser(credentials));
       dispatch(localLogin())
-      alert('Iniciando sesión con Google...')
       navigate("/");
     }
   }
@@ -62,7 +63,6 @@ export default function Login() {
     dispatch(loading());
 
    const data = await dispatch(localLogin(users));
-   console.log(data)
    if(data.access_token){
     navigate('/')
    } 
@@ -70,7 +70,7 @@ export default function Login() {
   return (
     <div className="loginContainer">
       <GoogleOAuthProvider clientId={CLIENT_ID}>
-      <Box 
+      <Box
         style={{ padding: "40px" }}
         sx={({ boxShadow: 3 }, { bgcolor: "white" })}
       >

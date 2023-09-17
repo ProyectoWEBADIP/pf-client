@@ -37,11 +37,12 @@ const actualDash = useSelector(state=> state.actualDash)
                 <item.icon />
                 <span>{item.heading}</span>
               </div>
+              
             );
           })}
           <div>
             <Link to="/">
-              <UilSignOutAlt className="outButton" />
+              <UilSignOutAlt  className="outButton" />
             </Link>
           </div>
         </div>

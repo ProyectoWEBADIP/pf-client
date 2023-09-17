@@ -6,8 +6,9 @@ import { Box, Button, Paper, Toolbar, Typography } from "@mui/material"
 export default function CardPartido({titulo, categoria, competencia, escudoLocal, escudoVisitante, resultado, fecha, ubicacion}){
 return (
     <Paper elevation={3}>
-     <Box padding={1}>
-        <Typography variant="h5" fontWeight="bold">{titulo}</Typography>
+     <Box 
+     maxWidth={220} textAlign={'center'}>
+        <Typography variant="h4" fontWeight="bold">{titulo}</Typography>
         <Typography variant="body1" fontWeight="light">{categoria}</Typography>
         <Typography variant="body2" fontWeight="bold">{competencia}</Typography>
         

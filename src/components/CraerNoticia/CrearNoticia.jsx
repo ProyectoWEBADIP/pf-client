@@ -92,19 +92,19 @@ export default function CrearNoticia() {
       }, 5000);
       setCanCreateNotice(false);
     }
+  }
 
-    const handleImageChange=(event)=>{
-      const file = event.target.files[0];   
-            
-      setImageURL(URL.createObjectURL(file));    
+  function handleImageChange(evemt){
+    const file = event.target.files[0];   
+          
+    setImageURL(URL.createObjectURL(file));    
 
-      setInput({
-        ...input,
-        imagen: file
-      })   
-     
-    }
-    
+    setInput({
+      ...input,
+      imagen: file
+    })   
+   
+  }
     const handleSelect=(e)=>{
       const idCategory= +allCategorias[e.target.value].id;       
      
@@ -147,7 +147,7 @@ export default function CrearNoticia() {
       }
       
     }
-  };
+  
 
   const handleSubmit = (event) => {
     // const arr= Object.keys(error)
@@ -374,4 +374,3 @@ export default function CrearNoticia() {
      
     )
   }
-  
