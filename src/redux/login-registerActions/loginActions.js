@@ -10,7 +10,8 @@ import {
   REGISTER_USER_LOCAL,
   CREATE_PROFILE_LOCAL,
   CREATE_LOCAL_PROFILE_ERRORS,
-  GET_USER_BY_ID
+  GET_USER_BY_ID,
+  ERROR
 } from './actionTypes';
 //?LOGIN ACTIONS
 export function localLogin(userCredentials) {
@@ -21,8 +22,9 @@ export function localLogin(userCredentials) {
         userCredentials
       );
       dispatch({ type: LOCAL_LOGIN, payload: data });
+      return data;
     } catch (error) {
-      dispatch({ type: LOCAL_LOGIN, payload: error });
+      dispatch({ type: ERROR, payload: error });
     }
   };
 }
@@ -50,6 +52,7 @@ export function registerUser(userData) {
         userData
       );
       dispatch({ type: REGISTER_USER_LOCAL, payload: data });
+      return data;
     } catch (error) {
       dispatch({ type: LOGIN_REGISTER_ERRORS, payload: error });
     }

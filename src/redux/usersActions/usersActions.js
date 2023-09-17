@@ -63,7 +63,18 @@ export function getUserByEmail(email) {
     }
   }
 }
-
+export function updateUserProfile (id, body){
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.patch(`http://localhost:3001/users/${id}`, body)
+return data
+      
+    } catch (error) {
+     alert(error.message)
+     
+    }
+  }
+}
 export function updateUser (id, body){
   return async (dispatch) => {
     try {

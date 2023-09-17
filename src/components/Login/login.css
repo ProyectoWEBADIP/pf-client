@@ -1,21 +1,34 @@
-
+.loginContainer{
+  display: flex;
+  width: 100vw;
+  height: 90vh;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.loaderLoginContainer{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
 .box {
   margin: 0 auto;
   width: 40px;
   height: 140px;
   position: relative;
 
-  .shadow {
-    position: absolute;
-    width: 100%;
-    height: 10px;
-    background-color: grey;
-    bottom: 0;
-    border-radius: 100%;
-    transform: scaleX(.8);
-    opacity: .6;
-    animation: shadowScale 1s linear infinite;
-  }
+}
+
+.shadow {
+  position: absolute;
+  width: 100%;
+  height: 10px;
+  background-color: grey;
+  bottom: 0;
+  border-radius: 100%;
+  transform: scaleX(.8);
+  opacity: .6;
+  animation: shadowScale 1s linear infinite;
 }
 .gravity {
   width: 40px;
