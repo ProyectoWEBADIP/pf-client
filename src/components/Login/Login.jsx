@@ -56,7 +56,6 @@ export default function Login() {
       navigate("/");
     }
   }
-
   //LOGIN LOCAL CON PASS Y EMAIL
   async function login(event) {
     event.preventDefault();
