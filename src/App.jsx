@@ -28,7 +28,8 @@ import Sponsor3 from "./components/Sponsor/sponsor3/Sponsor3";
 import Sponsor4 from "./components/Sponsor/sponsor4/Sponsor4";
 import ClubHistoria from "./components/ClubHistoria/ClubHistoria";
 import ClubComision from "./components/ClubComision/ClubComision";
-
+import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRoutes";
+import ProtectedSuperAdminRoutes from "./components/ProtectedRoutes/ProtectedSuperAdminRoutes";
 function App() {
   const storedThemeMode = localStorage.getItem('themeMode') || 'light';
   const [themeMode, setThemeMode] = useState(storedThemeMode);
@@ -53,7 +54,7 @@ function App() {
         <Routes>
           <Route path={'/'} element={<Home />} />
           <Route path={'/login'} element={<Login />} />
-          <Route path={'/login/SignUp'} element={<SignUp />} />
+          <Route path={'/login/SignUp'} element={<SingUp />} />
           <Route path={'/detalle/:id'} element={<NoticiaDetail />} />
           <Route path={'/:id/profile'} element={<PerfilUsuario />} />
           <Route element={<ProtectedRoutes />}>

@@ -168,11 +168,7 @@ export default function Login() {
               </Typography>
             ) : null}
           </Box>
-        ) : actualPath ? (
-          null
-        ) : (
-        null
-        )}
+        
         <Box>
           <GoogleLogin
             useOneTap
