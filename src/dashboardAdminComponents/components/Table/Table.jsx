@@ -159,7 +159,7 @@ export default function FullFeaturedCrudGrid() {
                 ? true
                 : false
               : userFound.active,
-            razonBan: `${newRow.razonBan}. Infracción aplicada por: ${perfilUsuario.email} el día ${date}`,
+            razonBan: newRow.razonBan && newRow.razonBan!=='*'?`${newRow.razonBan}. Infracción aplicada por: ${perfilUsuario.email} el día ${date}`:'*',
           },
         };
         const response = await dispatch(updateUserFromAdmin(newRow.id, action));
@@ -271,7 +271,6 @@ export default function FullFeaturedCrudGrid() {
       </div>
     );
   const columns = [
-    // { field: 'id', headerName: 'ID', width: 90, align: 'center', hide:true },
     {
       field: 'username',
       headerAlign: 'center',
@@ -284,25 +283,12 @@ export default function FullFeaturedCrudGrid() {
       headerName: 'Nombre completo',
       width: 210,
     },
-
-    // {
-    //   field: 'apellido',
-    //   headerAlign: 'center',
-    //   headerName: 'Apellido',
-    //   width: 140,
-    // },
     {
       field: 'edad',
       headerName: 'Edad',
       width: 120,
       headerAlign: 'center',
     },
-    // {
-    //   field: 'email',
-    //   headerAlign: 'center',
-    //   headerName: 'Email',
-    //   width: 230,
-    // },
     {
       field: 'role',
       headerAlign: 'center',
@@ -313,13 +299,6 @@ export default function FullFeaturedCrudGrid() {
       valueOptions: ['user', 'admin', 'super_admin'],
       renderCell: customColumnsRol,
     },
-    // {
-    //   field: 'dni',
-    //   headerName: 'DNI',
-    //   type: 'number',
-    //   width: 100,
-    //   headerAlign: 'center',
-    // },
 
     {
       field: 'activo',
@@ -340,21 +319,7 @@ export default function FullFeaturedCrudGrid() {
       width: 180,
       renderCell: customColumnsRol,
     },
-    // {
-    //   field: 'image',
-    //   headerName: 'Imagen',
-    //   width: 120,
-    // },
-    // {
-    //   field: 'profile_id',
-    //   headerName: 'Id del perfil',
-    //   width: 110,
-    // },
-    // {
-    //   field: 'fechaRegistro',
-    //   headerName: 'Fecha de Registro',
-    //   width: 160,
-    // },
+
     {
       field: 'actions',
       type: 'actions',
@@ -406,10 +371,10 @@ export default function FullFeaturedCrudGrid() {
   ];
   const noRows = [{ id: '123', email: 'No se cargaron los usuarios' }];
   return (
-    <Box 
-    className='boxTable'
+    <Box
+      className="boxTable"
       sx={{
-        height: 550,
+        
         '& .actions': {
           color: 'text.secondary',
         },
@@ -449,12 +414,13 @@ export default function FullFeaturedCrudGrid() {
         </div>
       ) : null}
       {!showStatus ? null : (
-        <div className="overlay">
+        <div  className="overlay">
           <div className="statusCont">
             <div className="statusTextCont">
               <div className="buttCont">
                 {' '}
                 <Close
+                fontSize='large'
                   className="closeButton"
                   onClick={() => {
                     setShowStatus(false);

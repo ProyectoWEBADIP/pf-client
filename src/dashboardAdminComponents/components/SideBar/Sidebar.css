@@ -2,6 +2,7 @@
   display: flex;
   position: relative;
   transition: all 300ms ease;
+  flex-direction: column;
   height: 100%;
   justify-content: space-evenly;
 }
@@ -66,8 +67,11 @@
   margin-right: calc(1rem-8px);
 }
 .outButton {
+  color: black;
   position: absolute;
   bottom: 3rem;
+  width: 3rem;
+  height: 3rem;
 }
 .outButton:hover {
   transform: scale(1.3);

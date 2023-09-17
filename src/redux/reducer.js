@@ -26,6 +26,7 @@ import {
   GET_USER_BY_ID,
   CREATE_PROFILE_LOCAL,
   REGISTER_USER_LOCAL,
+  ERROR,
   
 } from './login-registerActions/actionTypes';
 //Categorias types
@@ -43,6 +44,7 @@ import {
 //---->SPONSOR---------
 import { GET_ALL_SPONSOR,GET_SPONSOR_BY_ID,UPDATE_SPONSOR } from "./sponsorActions/sponsorActionsTypes";//DASHBOARD TYPES
 import {RENDER_CORRECT_DASH} from './dashboardAdminActions/actionTypes'
+import { SHOW_UPDATE_PROFILE } from './profileActions/actionTypes';
 import { GET_ALL_MATCH } from './partidosActions/partidosActions';
 const initialState = {
    isLoading: false,
@@ -58,6 +60,7 @@ const initialState = {
    usuario: {},
    perfilUsuario: [],
    verificacionDeUsuario: {},
+   showEditProfile:false,
    mensajeDeVerificacionDeContraseña: [],  
    //NOTICIAS STATES//
    noticias: [],
@@ -76,12 +79,18 @@ const initialState = {
    sponsorBackUp:[],
    updateSponsor:{},
    sponsorById:{},
-   partidos: []
+   partidos: [],
+   errors:'',
 
 };
 
 export default function rootReducer(state = initialState, action) {
    switch (action.type) {
+      case ERROR:
+         return {
+            ...state,
+            errors:action.payload
+         }
       case IS_LOADING:
          return {
             ...state,
@@ -93,6 +102,11 @@ export default function rootReducer(state = initialState, action) {
           noticiasPPage:action.payload
 
         }
+        case SHOW_UPDATE_PROFILE:
+         return {
+            ...state,
+            showEditProfile:action.payload
+         }
     case GET_ALL_NOTICIAS:
       let filterNotice = action.payload.filter((el) => el.active === true)
       return {
@@ -111,8 +125,8 @@ export default function rootReducer(state = initialState, action) {
       case GET_NOTICIA_DETAIL:
          return {
             ...state,
-            detalleNoticia: action.payload,
             isLoading: false,
+            detalleNoticia: action.payload,
             notFoundNoticias: false,
          };
       case FILTER_NOTICIAS:

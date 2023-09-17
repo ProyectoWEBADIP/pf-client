@@ -11,13 +11,17 @@ import "./home.css";
 import Sponsor2 from "../Sponsor/sponsor2/Sponsor2";
 import { getAllSponsor } from "../../redux/sponsorActions/sponsorActions";
 import { getUserById } from "../../redux/login-registerActions/loginActions";
-import { getAllMatch } from "../../redux/partidosActions/partidosActions";
+import SwiperNotices from "../SwiperNotices/SwiperNotices";
+import LastNotice from "../CardNoticiaGrande/LastNotice";
+import {getAllMatch} from '../../redux/partidosActions/partidosActions'
 export default function Home() {
   const dispatch = useDispatch();
   const noticias = useSelector((state) => state.noticias);
   const perfilUsuario = useSelector((state) => state.perfilUsuario);
+
   useEffect(() => {
     dispatch(getAllCategories());
+
     if(!perfilUsuario.length && localStorage.userId){
     dispatch(getUserById(localStorage.userId))
     dispatch(getAllMatch())
@@ -28,22 +32,20 @@ export default function Home() {
 
   return (
     <div className="homeContainer">
-      <div className="Sidebar">
-        <h2>Filtrar noticias</h2>
-        <Filtros />
-      </div>
-      <div className="Noticias">
-        <Typography variant="h2" fontWeight="bold" mt={4}>
-          Noticias
-        </Typography>
-        <CardsNoticias />
-      </div>
-      <div className="Partidos">
-        <CardPartidoContainer />
-        <div className="sponsor">
-          <Sponsor2 />
-        </div>
-      </div>
+
+   <div className="parteIzquierda"></div>
+   
+   <div className="parteCentral">
+    <CardPartidoContainer/>
+    <div className="sponsor1">
+    <h3>sponsors</h3>
+  </div>
+   <SwiperNotices/>
+  <div className="sponsor1">
+    <h3>sponsors</h3>
+  </div>
+   </div>
+   <div className="parteDerecha"></div>
     </div>
   );
 }

@@ -8,10 +8,10 @@ import "./anotherBoton.css";
           <a id="top" href="#">
             Datos Interesantes
           </a>
-          <a id="middle" href="#">
+          <a id="middle" href="/club/comision">
             Autoridades
           </a>
-          <a id="bottom" href="#">
+          <a id="bottom" href="/club/historia">
             Historia
           </a>
         </div>
