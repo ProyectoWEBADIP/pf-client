@@ -9,12 +9,10 @@ import {
   Button,
   Typography,
   InputAdornment,
-  Container,
 } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import PersonIcon from "@mui/icons-material/Person";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
-import { v4 as uuidv4 } from "uuid";
 import emailjs from "@emailjs/browser";
 
 export default function SignUp() {
@@ -55,12 +53,12 @@ export default function SignUp() {
 
     if (tieneErrors.length === 0) {
       setVerificacionEmail(true);
-      const codigoDeVerificacion = uuidv4().slice(0, 5);
+      const codigoDeVerificacion = Math.floor(Math.random() * (9999 - 1000) + 1000 ) + "";
       setCodigoGeneradoLocalmente(codigoDeVerificacion);
       console.log("codigo verificacion", codigoVerificacion);
       emailjs.send(
-        "service_8c6uo6a",
-        "template_p35w6dm",
+        "service_ckm9srh",
+        "template_z7oue8n",
         { 
           asunto: "Verificación de Correo Electrónico - Código de Confirmación",
           to_email: input.email, 
@@ -69,7 +67,7 @@ export default function SignUp() {
           verification_code: codigoDeVerificacion,
           footer: "Por favor, utiliza este código en nuestra página de inicio de sesión para confirmar que tu correo electrónico está registrado en nuestra plataforma. Si no solicitaste esta acción o tienes alguna pregunta, por favor, contáctanos a través de Correo de Soporte proyectoadipweb@gmail.com"
         },
-        "LVu_qcdfDk8ci54aS"
+        "Vfm3hxnSN68eRyMYf"
       );
       console.log("salí");
     } else {
@@ -90,7 +88,7 @@ export default function SignUp() {
   };
 
   return (
-    <Container >
+    <Box style={{display: "flex", width: "100vw", justifyContent: "center", alignItems: "center"}}>
     <Box
       component="form"
       onSubmit={handleSubmit}
@@ -108,6 +106,12 @@ export default function SignUp() {
         fontWeight: "700",
         padding: "40px",
       }}
+      display="flex"
+            flexDirection={"column"}
+            alignItems="center"
+            justifyContent={"center"}
+            margin="auto"
+            my={4}
     >
       <Typography variant="h4" fontWeight="bold">
         Crea tu cuenta aquí
@@ -249,6 +253,6 @@ export default function SignUp() {
         </Box>
       )}
     </Box>
-    </Container>
+    </Box>
   );
 }

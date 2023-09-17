@@ -75,7 +75,7 @@ const initialState = {
    sponsor:[],
    sponsorBackUp:[],
    updateSponsor:{},
-   sponsorById:{}
+   sponsorById:{},
 
   partidos: []
 };
