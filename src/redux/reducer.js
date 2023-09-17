@@ -75,9 +75,9 @@ const initialState = {
    sponsor:[],
    sponsorBackUp:[],
    updateSponsor:{},
-   sponsorById:{}
+   sponsorById:{},
+   partidos: []
 
-  partidos: []
 };
 
 export default function rootReducer(state = initialState, action) {

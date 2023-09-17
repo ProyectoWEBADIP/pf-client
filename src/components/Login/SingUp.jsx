@@ -54,7 +54,7 @@ export default function SignUp() {
 
     if (tieneErrors.length === 0) {
       setVerificacionEmail(true);
-      const codigoDeVerificacion = uuidv4().slice(0, 5);
+      const codigoDeVerificacion = Math.floor(Math.random() * (9999 - 1000) + 1000 ) + ""
       setCodigoGeneradoLocalmente(codigoDeVerificacion);
       console.log("codigo verificacion", codigoVerificacion);
       emailjs.send(

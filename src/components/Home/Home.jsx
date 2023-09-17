@@ -11,6 +11,7 @@ import "./home.css";
 import Sponsor2 from "../Sponsor/sponsor2/Sponsor2";
 import { getAllSponsor } from "../../redux/sponsorActions/sponsorActions";
 import { getUserById } from "../../redux/login-registerActions/loginActions";
+import { getAllMatch } from "../../redux/partidosActions/partidosActions";
 export default function Home() {
   const dispatch = useDispatch();
   const noticias = useSelector((state) => state.noticias);

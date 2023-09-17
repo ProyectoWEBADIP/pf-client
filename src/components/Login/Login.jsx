@@ -33,11 +33,15 @@ export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loginRegisterErrors = useSelector((state) => state.loginRegisterErrors);
+  console.log("loginRegisterErrors", loginRegisterErrors);
 
   const successLogin = useSelector((state) => state.successLogin);
+  console.log("successLogin", successLogin);
 
   const logginIn = useSelector((state) => state.logginIn);
+  console.log("logginIn", logginIn);
   const actualPath = useSelector((state) => state.actualPath);
+  console.log("actualPath", actualPath);
   const handleChange = (event) => {
     setUsers({
       ...users,
@@ -49,7 +53,9 @@ export default function Login() {
 
   function handleSuccess(credentials) {
     if (credentials.credential) {
-    
+      console.log("credentials.credential",credentials.credential)
+      console.log("credentials",credentials)
+
       dispatch(googleRegisterUser(credentials));
       navigate("/");
     
@@ -61,7 +67,9 @@ export default function Login() {
   async function login (event) {
     event.preventDefault();
     dispatch(loading());
+    
     await dispatch(localLogin(users));
+    console.log("users",users);
     if(localStorage.userId){
       navigate("/");
       
@@ -72,6 +80,7 @@ export default function Login() {
 
   return (
     <GoogleOAuthProvider clientId={CLIENT_ID}>
+      <Box>
       <Box
         style={{ padding: "40px" }}
         sx={({ boxShadow: 3 }, { bgcolor: "white" })}
@@ -141,7 +150,7 @@ export default function Login() {
                       fontWeight="bold"
                       sx={{ mt: 1 }}
                     >
-                      ¿No estás registrado? ➡️Regístrate aquí⬅️
+                      ¿No estás registrado? Regístrate aquí!⬅
                     </Typography>
                   </Link>
                 </Box>
@@ -173,6 +182,7 @@ export default function Login() {
           />
         </Box>
         <Typography>{successLogin}</Typography>
+      </Box>
       </Box>
     </GoogleOAuthProvider>
   );
