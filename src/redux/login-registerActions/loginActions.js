@@ -28,8 +28,8 @@ export function localLogin(userCredentials) {
       }
       dispatch({ type: LOCAL_LOGIN, payload: data });
       return data;
+      return data;
     } catch (error) {
-      console.log(error, "Entro al catch");
       dispatch({ type: ERROR, payload: error });
     }
   };
@@ -59,6 +59,7 @@ export function registerUser(userData) {
         userData
       );
       dispatch({ type: REGISTER_USER_LOCAL, payload: data });
+      return data;
     } catch (error) {
       dispatch({ type: LOGIN_REGISTER_ERRORS, payload: error });
     }

@@ -13,8 +13,8 @@ export default function NoticiaDetail() {
   //!HOOKS
   const { id } = useParams();
   const dispatch = useDispatch();
-  //!HOOKS
 
+  //!HOOKS
   useEffect(() => {
     dispatch(getNoticiaDetail(id));
     dispatch(getAllSponsor())
@@ -23,7 +23,7 @@ export default function NoticiaDetail() {
     }
 
   }, [dispatch]);
-
+const isLoading = useSelector(state=>state.isLoading)
   const detalleNoticia = useSelector((state) => state.detalleNoticia);
  
   return (

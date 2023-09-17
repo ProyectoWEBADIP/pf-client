@@ -21,22 +21,27 @@ import LockIcon from "@mui/icons-material/Lock";
 import PersonIcon from "@mui/icons-material/Person";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import emailjs from "@emailjs/browser";
-import style from "./login.module.css";
-
+import { ignore } from "@cloudinary/url-gen/qualifiers/rotationMode";
+import './login.css'
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
 
 export default function Login() {
   const [error, setError] = useState({});
-  const [users, setUsers] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState();
+   const [users, setUsers] = useState({ email: "", password: "" });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loginRegisterErrors = useSelector((state) => state.loginRegisterErrors);
+  console.log("loginRegisterErrors", loginRegisterErrors);
 
   const successLogin = useSelector((state) => state.successLogin);
+  console.log("successLogin", successLogin);
 
   const logginIn = useSelector((state) => state.logginIn);
+  console.log("logginIn", logginIn);
   const actualPath = useSelector((state) => state.actualPath);
+  console.log("actualPath", actualPath);
   const handleChange = (event) => {
     setUsers({
       ...users,
@@ -48,24 +53,31 @@ export default function Login() {
 
   function handleSuccess(credentials) {
     if (credentials.credential) {
+      console.log(credentials)
       dispatch(googleRegisterUser(credentials));
+      dispatch(localLogin())
       navigate("/");
+    
     }
-  }
 
+  }
   //LOGIN LOCAL CON PASS Y EMAIL
-  function login(event) {
+  async function login(event) {
     event.preventDefault();
-    dispatch(localLogin(users));
-    dispatch(loading());
-  }
 
+   const data = await dispatch(localLogin(users));
+    console.log(data)
+   if(data.access_token){
+    navigate('/')
+   } 
+  }
   return (
-    <GoogleOAuthProvider clientId={CLIENT_ID}>
+    <div className="loginContainer">
+      <GoogleOAuthProvider clientId={CLIENT_ID}>
       <Box style={{ padding: "40px" }} sx={{ boxShadow: 3, bgcolor: "white" }}>
-        {!localStorage.userLogin === true ? (
-          <Box>
-            <Typography variant="h4">Bienvenido</Typography>
+       
+          <Box >
+            <Typography variant="h4" textAlign={'center'}>Bienvenido</Typography>
             {!logginIn ? (
               <Box>
                 <Box component="form" onSubmit={login}>
@@ -120,7 +132,6 @@ export default function Login() {
                     ¿Olvidaste tu contraseña?
                   </Link>
                 </Box>
-
                 <Box>
                   <Link to="/login/SignUp">
                     <Typography
@@ -128,18 +139,28 @@ export default function Login() {
                       fontWeight="bold"
                       sx={{ mt: 1 }}
                     >
-                      ¿No estás registrado? ➡️Regístrate aquí⬅️
+                      ¿No estás registrado? Haz click aquí⬅️
                     </Typography>
                   </Link>
                 </Box>
+                <Box>
+          <GoogleLogin
+            useOneTap
+            onError={handleError}
+            onSuccess={handleSuccess}
+          />
+        </Box>
               </Box>
-            ) : (
-              <Box className={style.box}>
-                <Box className={style.shadow}></Box>
-                <Box className={style.gravity}>
-                  <Box className={style.ball}></Box>
+              
+            ) : (<div className="loaderLoginContainer">
+              <Box className="box">
+                <Box className="shadow"></Box>
+                <Box className="gravity">
+                  <Box className="ball"></Box>
                 </Box>
               </Box>
+            </div>
+              
             )}
             {loginRegisterErrors ? (
               <Typography color="red" sx={{ mt: 2 }}>
@@ -147,20 +168,11 @@ export default function Login() {
               </Typography>
             ) : null}
           </Box>
-        ) : actualPath ? (
-          navigate(`${actualPath}`)
-        ) : (
-          navigate("/")
-        )}
-        <Box>
-          <GoogleLogin
-            useOneTap
-            onError={handleError}
-            onSuccess={handleSuccess}
-          />
-        </Box>
+      
         <Typography>{successLogin}</Typography>
       </Box>
+      
     </GoogleOAuthProvider>
+    </div>
   );
 }

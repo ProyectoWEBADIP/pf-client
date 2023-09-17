@@ -17,11 +17,14 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import NoticiaDetail from '../../../components/detailNoticia/NoticiaDetail';
 import {
+  deleteNotice,
+  getAllNoticias,
   getNoticiaDetail,
   getNoticiaDetailAdmin,
 } from '../../../redux/noticiasActions/noticiasActions';
 import './noticiasDash.css';
-import { Close } from '@mui/icons-material';
+import { Clear, Close, Delete, RemoveCircle } from '@mui/icons-material';
+import { Navigate, useNavigate } from 'react-router-dom';
 export default function FullFeaturedCrudGrid() {
   const noticias = useSelector((state) => state.noticias);
   const dispatch = useDispatch();
@@ -167,8 +170,16 @@ export default function FullFeaturedCrudGrid() {
             icon={<EditIcon />}
             label="Edit"
             className="textPrimary"
-            onClick={handleEditClick(id)}
+            onClick={() => handleUpdateNotice(id)}
             color="inherit"
+          />,
+          <GridActionsCellItem
+            icon={<Delete />}
+            label="Info"
+            color="inherit"
+            onClick={() => {
+              handleDeleteNotice(id);
+            }}
           />,
           <GridActionsCellItem
             icon={<InfoIcon />}
@@ -182,6 +193,16 @@ export default function FullFeaturedCrudGrid() {
       },
     },
   ];
+  const navigate = useNavigate();
+  const handleUpdateNotice = (id) => {
+    navigate(`/editarNoticia/${id}`);
+  };
+  const handleDeleteNotice = (id) => {
+    const body = { active: false };
+    dispatch(deleteNotice(id, body));
+    alert('Eliminando noticia...');
+    dispatch(getAllNoticias());
+  };
   return (
     <Box
       sx={{
@@ -218,44 +239,31 @@ export default function FullFeaturedCrudGrid() {
       {!showStatus ? null : (
         <div className="overlay">
           <div className="noticeModalCont">
-          <div className="buttCont">
-                <Close
-                  className="closeButtonNotice"
-                  onClick={() => {
-                    setShowStatus(false);
-                  }}
-                />
-              </div>
+            <div className="buttCont">
+              <Close
+              fontSize='large'
+                className="closeButtonNotice"
+                onClick={() => {
+                  setShowStatus(false);
+                }}
+              />
+            </div>
             <div className="titleNoticeCont">
               <span>{noticiaDetail[0].title}</span>
             </div>
-            <div className="resumeImageCont">
-              <div className="resumeContainer">
-                <span className='subtitles'>Subtítulo</span>
-                <span className='infoContainer'>
-                {noticiaDetail[0].resume}
-                </span>
-               <div className="contentContainer">
-               <span className='subtitles'>Contenido: </span>
-                <span className='infoContainer'>{noticiaDetail[0].content}</span>
-               </div>
-               <div className="categoryDateContainer">
-             <div className='catContaienr'>
-             <span className='subtitles'>Categorías</span>
-                <span className='infoContainer'>Acá van las categorias de la noticia.</span>
-             </div>
-             <div className='dateContainer'>
-             <span className='subtitles'>Fecha de publicación </span>
-                <span className='infoContainer'>{noticiaDetail[0].date.split('T')[0] + ' a las ' + noticiaDetail[0].date.split('T')[1].split('.')[0]}</span>
-             </div>
-           
-               </div>
+            <div className="noticeDataContainer">
+             <div className="imgNoticeContModal">
+              <img src={noticiaDetail[0].image} alt="" />
+              <div className="resume-date-container">
+                <span>{noticiaDetail[0].date.split('T')[0]+ ' / '+ noticiaDetail[0].date.split('T')[1].split('.')[0]}</span>
+                <span>{noticiaDetail[0].resume}</span>
               </div>
-              <div className="imgContainer">
-                <img src={noticiaDetail[0].image} alt="" />
-              </div>
+             </div>
+             <div className="contentContainer">
+              <span>{noticiaDetail[0].content}</span>
+              <span>Categorías: categorías de la noticia.</span>
+             </div>
             </div>
-            
           </div>
         </div>
       )}

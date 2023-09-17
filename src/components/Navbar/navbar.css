@@ -3,11 +3,13 @@
   width: 30%;
   justify-content: space-evenly;
 }
+.conteinMenu{
+
+}
 
 .conteinNavBar {
   width: 100%;
   align-items: end;
   justify-content: flex-end;
-  background-color: blue;
   display: flex;
 }

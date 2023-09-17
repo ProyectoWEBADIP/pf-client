@@ -45,6 +45,8 @@ import {
 //---->SPONSOR---------
 import { GET_ALL_SPONSOR,GET_SPONSOR_BY_ID,UPDATE_SPONSOR } from "./sponsorActions/sponsorActionsTypes";//DASHBOARD TYPES
 import {RENDER_CORRECT_DASH} from './dashboardAdminActions/actionTypes'
+import { SHOW_UPDATE_PROFILE } from './profileActions/actionTypes';
+import { GET_ALL_MATCH } from './partidosActions/partidosActions';
 const initialState = {
    isLoading: false,
    //LOGIN_STATES//
@@ -59,6 +61,7 @@ const initialState = {
    usuario: {},
    perfilUsuario: [],
    verificacionDeUsuario: {},
+   showEditProfile:false,
    mensajeDeVerificacionDeContraseña: [],  
    //NOTICIAS STATES//
    noticias: [],
@@ -78,7 +81,9 @@ const initialState = {
    updateSponsor:{},
   sponsorById: {},
   //ERRORS
-  errors:''
+  errors:'',
+   partidos: [],
+   errors:'',
 
 };
 
@@ -96,6 +101,11 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         errors: action.payload,
       };
+      case ERROR:
+         return {
+            ...state,
+            errors:action.payload
+         }
     case IS_LOADING:
       return {
         ...state,
@@ -106,6 +116,11 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         noticiasPPage: action.payload,
       };
+        case SHOW_UPDATE_PROFILE:
+         return {
+            ...state,
+            showEditProfile:action.payload
+         }
     case GET_ALL_NOTICIAS:
       let filterNotice = action.payload.filter((el) => el.active === true);
       return {
@@ -253,69 +268,73 @@ export default function rootReducer(state = initialState, action) {
         actualDash: action.payload,
       };
     //CREAR Y/O ACTUALIZAR PERFIL CASES
-    case CREATE_PROFILE_LOCAL:
-      return {
-        ...state,
-        isLoading: false,
-        perfilUsuario: action.payload,
-      };
-    case REGISTER_USER_LOCAL:
-      return {
-        ...state,
-        loginRegisterLocal: action.payload,
-      };
-    case GET_ALL_CATEGORIES:
-      return {
-        ...state,
-        categorias: action.payload,
-      };
-    case GET_NOTICIAS_BY_CATEGORY:
-      let filterNoticeForCategorie = action.payload.filter(
-        (el) => el.active === true
-      );
-      return {
-        ...state,
-        noticias: filterNoticeForCategorie,
-      };
-    case GET_USER_BY_EMAIL:
-      return {
-        ...state,
-        verificacionDeUsuario: action.payload,
-      };
-    case UPDATE_PASSWORD:
-      return {
-        ...state,
-        mensajeDeVerificacionDeContraseña: action.payload,
-      };
+      case CREATE_PROFILE_LOCAL:
+         return {
+            ...state,
+            isLoading: false,
+            perfilUsuario: action.payload,
+         };
+      case REGISTER_USER_LOCAL:
+        return {
+          ...state,
+          loginRegisterLocal: action.payload
+        }
+        case GET_ALL_CATEGORIES: 
+        return {
+          ...state,
+          categorias: action.payload
+        }
+        case GET_NOTICIAS_BY_CATEGORY:
+          let filterNoticeForCategorie = action.payload.filter((el) => el.active === true) 
+        return {
+          ...state,
+         noticias: filterNoticeForCategorie 
+        }
+        case GET_USER_BY_EMAIL:
+         return{
+            ...state,
+            verificacionDeUsuario: action.payload
+         }
+         case UPDATE_PASSWORD:
+         return{
+            ...state,
+            mensajeDeVerificacionDeContraseña: action.payload
+         };
+         
+        case DELETE_NOTICE: 
+        return {
+          ...state,
+          deleteNotice: action.payload
+        }
+        case GET_NOTICE_BY_ID:
+          return {
+            ...state,
+            noticeById: action.payload
+          }
+        case UPDATE_NOTICE: 
+        return {
+          ...state,
+          updateNotice: action.payload
+        }
+        case GET_ALL_ROLES:
+         return {
+            roles: action.payload,
+         };
+        case GET_ALL_MATCH: 
+        return {
+         ...state,
+         partidos: action.payload
 
-    case DELETE_NOTICE:
-      return {
-        ...state,
-        deleteNotice: action.payload,
-      };
-    case GET_NOTICE_BY_ID:
-      return {
-        ...state,
-        noticeById: action.payload,
-      };
-    case UPDATE_NOTICE:
-      return {
-        ...state,
-        updateNotice: action.payload,
-      };
-    case GET_ALL_ROLES:
-      return {
-        roles: action.payload,
-      };
-    case GET_ALL_ROLES_BY_ID:
-      return { ...state };
-    case POST_ROL:
-      return { ...state };
-    case PATCH_ROL:
-      return { ...state };
-    case DELETE_ROL:
-      return { ...state };
-
+        } 
+      case GET_ALL_ROLES_BY_ID:
+         return { ...state };
+      case POST_ROL:
+         return { ...state };
+      case PATCH_ROL:
+         return { ...state };
+      case DELETE_ROL:
+         return { ...state };   
+   
     default:
       return { ...state };
   }

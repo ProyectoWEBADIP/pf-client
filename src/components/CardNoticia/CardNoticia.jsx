@@ -16,7 +16,7 @@ const CardNoticia = ({title, id, image, date}) => {
   const handleDeleteNotice = () => {
     const body = {active: false}
     dispatch(deleteNotice(id, body))
-    alert("Eliminando noticia")
+    alert("Eliminando noticia...")
     dispatch(getAllNoticias())  
   } 
   
@@ -36,9 +36,9 @@ const CardNoticia = ({title, id, image, date}) => {
       <CardContent>
           <Typography variant='h6'>{title}</Typography>
           <Typography variant='body2'>{date?.split("T")[0]}</Typography>
-          <Button onClick={()=>{handleDeleteNotice()}}>Eliminar</Button>
-          <Button onClick={()=>{handleUpdateNotice()}}><Link to={`/editarNoticia/${id}}`}>Editar</Link></Button>
+         <div className="cardsButCont">
           <Link to={`/detalle/${id}`}>Ver más</Link>
+         </div>
       </CardContent>
       </CardActionArea>
     </Card>

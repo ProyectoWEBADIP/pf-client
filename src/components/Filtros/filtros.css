@@ -1,17 +1,13 @@
 .containerFiltros{
-  height: 100%;
+  height: 25%;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 10px;
-align-items: center;
 
 }
-/* .type{
- font-weight: bold;
-  font-size: 2rem;
-} */
+
 .catFilterCont{
 display: flex;
 flex-direction: column;
@@ -26,5 +22,5 @@ align-items: center;
 height: 15rem;
 }
 .filtroFechaCont{
-height: 100%;;
+height: 100%;
 }
