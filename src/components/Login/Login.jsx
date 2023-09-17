@@ -175,7 +175,7 @@ export default function Login() {
       
         <Typography>{successLogin}</Typography>
       </Box>
-      </Box>
+      
     </GoogleOAuthProvider>
     </div>
   );
