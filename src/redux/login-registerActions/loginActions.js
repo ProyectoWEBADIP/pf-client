@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import axios from 'axios';
+import axios from "axios";
 import {
   LOGIN_REGISTER_ERRORS,
   LOCAL_LOGIN,
@@ -11,8 +11,9 @@ import {
   CREATE_PROFILE_LOCAL,
   CREATE_LOCAL_PROFILE_ERRORS,
   GET_USER_BY_ID,
-  ERROR
-} from './actionTypes';
+  ERROR,
+  CLEAR_ERR0R,
+} from "./actionTypes";
 //?LOGIN ACTIONS
 export function localLogin(userCredentials) {
   return async (dispatch) => {
@@ -21,7 +22,12 @@ export function localLogin(userCredentials) {
         `http://localhost:3001/auth/login`,
         userCredentials
       );
+      console.log(data);
+      if (data.statusCode === 203) {
+        dispatch({ type: ERROR, payload: data.message });
+      }
       dispatch({ type: LOCAL_LOGIN, payload: data });
+      return data;
       return data;
     } catch (error) {
       dispatch({ type: ERROR, payload: error });
@@ -41,6 +47,7 @@ export function loading() {
 export function logout() {
   return (dispatch) => {
     dispatch({ type: LOGOUT });
+    dispatch({type:CLEAR_ERR0R})
   };
 }
 //?REGISTER ACTIONS
@@ -75,22 +82,20 @@ export function googleRegisterUser(userData) {
 //!SUBIR IMAGEN A CLOUDINARY
 
 //?CREAR PERFIL ACTIONS
-export function getUserById(id){
+export function getUserById(id) {
   return async (dispatch) => {
     try {
-      const { data } = await axios(
-        `http://localhost:3001/users/${id}`
-      );
+      const { data } = await axios(`http://localhost:3001/users/${id}`);
+      console.log(data);
       dispatch({ type: GET_USER_BY_ID, payload: data });
     } catch (error) {
       dispatch({ type: CREATE_LOCAL_PROFILE_ERRORS, payload: error });
     }
   };
 }
-export function createLocalProfile(id,userData) {
+export function createLocalProfile(id, userData) {
   return async (dispatch) => {
     try {
-
       const { data } = await axios.post(
         `http://localhost:3001/users/${id}/profile`,
         userData

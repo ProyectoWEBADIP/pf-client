@@ -28,8 +28,7 @@ const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
 export default function Login() {
   const [error, setError] = useState({});
   const [loading, setLoading] = useState();
-   const [users, setUsers] = useState({ email: "", password: ""});
-
+   const [users, setUsers] = useState({ email: "", password: "" });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -75,10 +74,7 @@ export default function Login() {
   return (
     <div className="loginContainer">
       <GoogleOAuthProvider clientId={CLIENT_ID}>
-      <Box
-        style={{ padding: "40px" }}
-        sx={({ boxShadow: 3 }, { bgcolor: "white" })}
-      >
+      <Box style={{ padding: "40px" }} sx={{ boxShadow: 3, bgcolor: "white" }}>
        
           <Box >
             <Typography variant="h4" textAlign={'center'}>Bienvenido</Typography>
@@ -132,8 +128,8 @@ export default function Login() {
                 </Box>
 
                 <Box>
-                  <Link to={"/login/recuperacion"} sx={{mt:2}}>
-                  ¿Olvidaste tu contraseña?
+                  <Link to={"/login/recuperacion"} sx={{ mt: 2 }}>
+                    ¿Olvidaste tu contraseña?
                   </Link>
                 </Box>
                 <Box>

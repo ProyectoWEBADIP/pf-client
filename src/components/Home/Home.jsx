@@ -24,8 +24,8 @@ export default function Home() {
 
     if(!perfilUsuario.length && localStorage.userId){
     dispatch(getUserById(localStorage.userId))
-    dispatch(getAllMatch())
-    }
+  }
+  dispatch(getAllMatch())
     dispatch(getAllNoticias());
     dispatch(getAllSponsor());
   }, [dispatch]);

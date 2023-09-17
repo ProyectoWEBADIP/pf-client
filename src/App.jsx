@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import "./App.css";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./components/Home/Home";
@@ -26,6 +27,7 @@ import UpDateSponsor from "./components/upDateSponsor/upDateSponsor";
 import Sponsor2 from "./components/Sponsor/sponsor2/Sponsor2";
 import Sponsor3 from "./components/Sponsor/sponsor3/Sponsor3";
 import Sponsor4 from "./components/Sponsor/sponsor4/Sponsor4";
+import { SignIn } from "./components/Login/SignIn/SignIn";
 import ClubHistoria from "./components/ClubHistoria/ClubHistoria";
 import ClubComision from "./components/ClubComision/ClubComision";
 import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRoutes";
@@ -47,13 +49,13 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
 
-        {location.pathname !== '/' ? null : <Banner />}
+        {location.pathname !== "/" ? null : <Banner />}
         {location.pathname !== '/auth/dashboard' ? (
           <Navbar themeMode={themeMode} toggleThemeMode={toggleThemeMode} />
         ) : null}
         <Routes>
           <Route path={'/'} element={<Home />} />
-          <Route path={'/login'} element={<Login />} />
+          <Route path={'/login'} element={<SignIn />} />
           <Route path={'/login/SignUp'} element={<SingUp />} />
           <Route path={'/detalle/:id'} element={<NoticiaDetail />} />
           <Route path={'/:id/profile'} element={<PerfilUsuario />} />
@@ -94,6 +96,7 @@ function App() {
           <Route path={"/editarPartidos"} element={<EditarPartidos/>}/>
         </Routes>
         <ButtonUpper />
+        {/* {location.pathname !== "/" ? null : } */}
         {location.pathname === '/auth/dashboard' || location.pathname === '/:id/profile' ? (
           null
           ) : <Footer />}
