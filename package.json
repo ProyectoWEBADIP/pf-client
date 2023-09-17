@@ -25,6 +25,7 @@
     "@mui/x-data-grid-generator": "^6.12.1",
     "@mui/x-date-pickers": "^6.12.1",
     "@react-oauth/google": "^0.11.1",
+    "aos": "^2.3.4",
     "apexcharts": "^3.42.0",
     "axios": "^1.5.0",
     "cloudinary-core": "^2.13.0",
