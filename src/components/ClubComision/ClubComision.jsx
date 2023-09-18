@@ -1,5 +1,5 @@
-import { Box, Container, Grid, Toolbar, Typography } from '@mui/material'
-import React, { useEffect } from 'react'
+import { Box, Container, Typography } from '@mui/material'
+import { useEffect } from 'react'
 import Aos from 'aos'
 import 'aos/dist/aos.css'
 

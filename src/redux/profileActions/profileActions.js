@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
-import axios from 'axios';
+import axios from '../../../axios-config';
+;
 import { SHOW_UPDATE_PROFILE } from './actionTypes';
 
 export function showProfileEdit() {
@@ -38,7 +39,7 @@ export function updateUserProfile(id, userFields){
   return async (dispatch)=>{
     try {
       const {data} = await axios.patch(
-        `http://localhost:3001/users/updateProfile/${id}`,
+        `/users/updateProfile/${id}`,
         userFields
       );
       return data

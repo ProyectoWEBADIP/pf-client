@@ -1,5 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
+import axios from '../../../axios-config';
+;
 import { useDispatch} from "react-redux";
 import './crearSponsor.css';
 import { postSponsor,getAllSponsor } from "../../redux/sponsorActions/sponsorActions";

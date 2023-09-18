@@ -1,8 +1,11 @@
 /* eslint-disable no-unused-vars */
-import style from './notFound.module.css'
+import './notFound.css'
 export default function NotFoundComponent() {
-  //hi
   return (
-   <div><span ></span>UPS... parece que no hay noticias.</div>
+   <div className='notfound-container'>
+    <div className="img-notFound">
+      <img src='https://res.cloudinary.com/drpdobxfu/image/upload/v1695014502/gnoeufmlzchbjc8wnxoc.png' alt="" />
+    </div>
+   </div>
   )
 }

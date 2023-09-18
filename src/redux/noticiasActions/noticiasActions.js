@@ -8,7 +8,7 @@ import {
    
   NOTICIAS_PER_PAGE,
 } from "./noticiasActionTypes";
-import axios from "axios";
+import axios from 'axios'
 import {
   
   GET_NOTICIA_DETAIL,
@@ -30,7 +30,8 @@ import {
 export function getAllNoticias() {
    return async (dispatch) => {
       try {
-         const { data } = await axios(`http://localhost:3001/notices`);
+;
+const { data } = await axios(`/notices`);
          dispatch({ type: GET_ALL_NOTICIAS, payload: data });
       } catch (error) {
          console.log(error);
@@ -48,7 +49,7 @@ export function postNoticia(body) {
        
          console.log("entre a la action");
          const { data } = await axios.post(
-            `http://localhost:3001/notices`,
+            `https://backend-adipweb.onrender.com/notices`,
             body
             );
          dispatch({ type: POST_NOTICIA, payload: data });
@@ -61,7 +62,7 @@ export function postNoticia(body) {
 export function getNoticiaDetail(id) {
    return async (dispatch) => {
       try {
-         const { data } = await axios(`http://localhost:3001/notices/${id}`);
+         const { data } = await axios(`https://backend-adipweb.onrender.com/notices/${id}`);
          dispatch({ type: GET_NOTICIA_DETAIL, payload: data[0] });
       } catch (error) {
          return alert(error.message);
@@ -71,7 +72,7 @@ export function getNoticiaDetail(id) {
 export function getNoticiaDetailAdmin(id) {
    return async (dispatch) => {
       try {
-         const { data } = await axios(`http://localhost:3001/notices/${id}`);
+         const { data } = await axios(`https://backend-adipweb.onrender.com/notices/${id}`);
          return data;
       } catch (error) {
          return alert(error.message);
@@ -85,7 +86,7 @@ export function getNoticiasByTitle(title) {
             return dispatch({ type: CLEAN_FILTERS_NOTICIAS });
          }
          const { data } = await axios(
-            `http://localhost:3001/notices/byTitlePartial/${title}`
+            `https://backend-adipweb.onrender.com/notices/byTitlePartial/${title}`
          );
 
          return dispatch({ type: GET_NOTICIAS_BY_TITLE, payload: data.data });
@@ -108,7 +109,7 @@ export function filteredNoticias(startDate, endDate) {
    return async (dispatch) => {
       try {
          const { data } = await axios(
-            `http://localhost:3001/notices/byDateRange?startDate=${startDate}&endDate=${endDate}`
+            `/notices/byDateRange?startDate=${startDate}&endDate=${endDate}`
          );
          dispatch({ type: FILTER_NOTICIAS, payload: data.data });
       } catch (error) {
@@ -121,7 +122,7 @@ export const getNoticiasByCategory = (id) => {
    return async (dispatch) => {
       try {
          const { data } = await axios(
-            `http://localhost:3001/notices/byCategory/${id}`
+            `/notices/byCategory/${id}`
          );
          dispatch({ type: GET_NOTICIAS_BY_CATEGORY, payload: data });
       } catch (error) {
@@ -132,7 +133,7 @@ export const getNoticiasByCategory = (id) => {
 export const deleteNotice = (id, body) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.patch(`http://localhost:3001/notices/inact/${id}`, body)
+      const { data } = await axios.patch(`/notices/inact/${id}`, body)
       
       dispatch({type: DELETE_NOTICE, payload: data})
     } catch (error) {
@@ -143,7 +144,7 @@ export const deleteNotice = (id, body) => {
 export const getNoticeById = (id) =>{
   return async (dispatch) => {
     try {
-      const { data } = await axios(`http://localhost:3001/notices/${id}`)
+      const { data } = await axios(`/notices/${id}`)
       
       
       dispatch({type: GET_NOTICE_BY_ID, payload: data[0]})
@@ -156,7 +157,7 @@ export const updateNoticia = (id, body) => {
   console.log("body",body);
     return async (dispatch) => {
       try {
-       const { data } = await axios.patch(`http://localhost:3001/notices/${id}`, body) 
+       const { data } = await axios.patch(`/notices/${id}`, body) 
        console.log("data update", data);
        dispatch({type: UPDATE_NOTICE, payload: data[0]})
       } catch (error) {
@@ -164,6 +165,6 @@ export const updateNoticia = (id, body) => {
       }
     }
 }
-export const updatePartidos = (data) => {
-   return dispatch({type})
-}
+// export const updatePartidos = (data) => {
+//    return dispatch({type})
+// }
