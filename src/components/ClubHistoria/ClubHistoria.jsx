@@ -174,7 +174,7 @@ const ClubHistoria = () => {
          </Grid>
 
         <Grid item xs={6} md={4}>
-        <div data-aos="fade-up-left">
+        <div data-aos="fade-up-left">                 
         <Box borderRadius={5} p={3} m={2} boxShadow={"5px 5px 10px #ccc"} sx={{":hover":{ boxShadow: "5px 5px 10px #ccc"}, backgroundColor:"whitesmoke", }}>
             <img style={{objectFit: "cover", maxWidth: "100%",}} src={adip}/>
          </Box>
