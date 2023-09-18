@@ -167,7 +167,7 @@ export default function Perfil() {
   const [errorAlert, setErrorAlert] = useState('');
   const [showError, setShowError] = useState(false);
   const defaultPortada =
-    'https://scontent.faep8-3.fna.fbcdn.net/v/t39.30808-6/305992807_521694693292923_2963066236492463977_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=52f669&_nc_eui2=AeGiSi1-TM-lB_d9-i3c27f1aOxNPw_iYSRo7E0_D-JhJPunk3XycWNuUqjCrEf63vXDG4DccZwNtoNAdObM8SmI&_nc_ohc=P2BksXWzwl8AX-7kYvH&_nc_ht=scontent.faep8-3.fna&oh=00_AfBqKZ8gqLwU6veGy0XwhZSNRgmIelgTW9GpWmhNuNItpA&oe=6503DC49';
+    'https://res.cloudinary.com/drpdobxfu/image/upload/v1695063800/kfoqlqqc1yevcyeoggvg.jpg';
   return (
     <div className={style.perfContainerContainer}>
       {showError ? (
