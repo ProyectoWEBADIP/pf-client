@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-case-declarations */
-import axios from '../../../axios-config';
+import axios from 'axios';
 ;
 import { GET_ALL_USERS,GET_USER_BY_ID } from './usersActionTypes';
 import {  GET_USER_BY_EMAIL, UPDATE_PASSWORD } from './usersActionTypes';

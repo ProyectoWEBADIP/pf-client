@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
-import axios from '../../../axios-config';
-;
+import axios from "axios";
 import {
   LOGIN_REGISTER_ERRORS,
   LOCAL_LOGIN,
@@ -23,7 +22,6 @@ export function localLogin(userCredentials) {
         `/auth/login`,
         userCredentials
       );
-      console.log(data);
       if (data.statusCode === 203) {
         dispatch({ type: ERROR, payload: data.message });
       }

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import './App.css';
+import './app.css';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Home from './components/Home/Home';
@@ -17,15 +17,10 @@ import EditarPartidos from './components/EditarPartidos/EditarPartidos';
 import { Banner } from './components/Navbar/Banner/Banner';
 import { Footer } from './components/Footer/Footer';
 import { ButtonUpper } from './components/ButtonUpper/ButtonUpper';
-import { CrearRol } from './components/CrearRole/CrearRol';
 import CrearSponsor from './components/CrearSponsor/CrearSponsor';
-import Sponsor1 from './components/Sponsor/sponsor1/Sponsor1';
 import RecuperarContraseña from './components/RecuperarContraseña/RecuperarContraseña';
 import UpdateNoticia from './components/UpdateNoticia/UpdateNoticia';
 import UpDateSponsor from './components/upDateSponsor/upDateSponsor';
-import Sponsor2 from './components/Sponsor/sponsor2/Sponsor2';
-import Sponsor3 from './components/Sponsor/sponsor3/Sponsor3';
-import Sponsor4 from './components/Sponsor/sponsor4/Sponsor4';
 import { SignIn } from './components/Login/SignIn/SignIn';
 import ClubHistoria from './components/ClubHistoria/ClubHistoria';
 import ClubComision from './components/ClubComision/ClubComision';
@@ -43,7 +38,6 @@ function App() {
   };
   const location = useLocation();
   const theme = createTheme(getDesignTokens(themeMode));
-
   return (
     <div className="AppContainer">
       <ThemeProvider theme={theme}>
@@ -54,8 +48,6 @@ function App() {
           <Navbar themeMode={themeMode} toggleThemeMode={toggleThemeMode} />
         ) : null}
         <Routes>
-
-        <Route path='*' element={<NotFoundComponent />} />
           <Route path={'/'} element={<Home />} />
           <Route path={'/login'} element={<SignIn />} />
           <Route path={'/login/SignUp'} element={<SingUp />} />
@@ -63,19 +55,15 @@ function App() {
           <Route path={'/:id/profile'} element={<PerfilUsuario />} />
           <Route element={<ProtectedRoutes />}>
             <Route path={'/crearNoticia'} element={<CrearNoticia />} />
-            <Route path={'/crearRoles'} element={<CrearRol />} />
             <Route path={'/editarNoticia/:id'} element={<UpdateNoticia />} />
             <Route path={'/editarSponsor'} element={<UpDateSponsor />} />
             <Route path={'/crearSponsor'} element={<CrearSponsor />} />
             <Route path={'/editarNoticia/:id'} element={<UpdateNoticia />} />
             <Route path={'/crearSponsor'} element={<CrearSponsor />} />
-            <Route path={'/sponsor1'} element={<Sponsor1 />} />
             <Route path={'/editarSponsor'} element={<UpDateSponsor />} />
-            <Route path={'/sponsor2'} element={<Sponsor2 />} />
-            <Route path={'/sponsor3'} element={<Sponsor3 />} />
-            <Route path={'/sponsor4'} element={<Sponsor4 />} />
             <Route path={'/editarPartidos'} element={<EditarPartidos />} />
           </Route>
+          <Route path='*' element={<NotFoundComponent />} />
 
           <Route path={'/club/historia'} element={<ClubHistoria />} />
           <Route path={'/club/comision'} element={<ClubComision />} />
@@ -98,8 +86,8 @@ function App() {
           />
         </Routes>
         <ButtonUpper />
-        {location.pathname === '/auth/dashboard' ||
-        location.pathname === '/:id/profile' ? null : (
+        {location.pathname !== '/' || location.pathname !== '/club/historia'||
+        location.pathname !==` /club/comision` ? null : (
           <Footer />
         )}
       </ThemeProvider>

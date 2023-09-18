@@ -43,7 +43,7 @@ export default function SwiperNotices() {
         onAutoplayTimeLeft={onAutoplayTimeLeft}
         className="mySwiper"
       >
-        {noticias.map((not,i)=>{
+        {noticias?.map((not,i)=>{
           return (
         <SwiperSlide key={i}>
             <Card
@@ -54,16 +54,16 @@ export default function SwiperNotices() {
           <CardMedia
             className="imageCard"
             component="img"
-            image={not.image}
+            image={not?.image}
           />
           
         </CardActionArea>
       </Card>
       <CardContent className="cardContent">
 
-            <span>{not.title}</span>
+            <span>{not?.title}</span>
 
-            <Link to={`/detalle/${not.id}`}>
+            <Link to={`/detalle/${not?.id}`}>
               <button className='leerMasButton'>Leer más</button>
             </Link>
           </CardContent>

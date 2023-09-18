@@ -27,7 +27,8 @@ const isLoading = useSelector(state=>state.isLoading)
   const detalleNoticia = useSelector((state) => state.detalleNoticia);
  
   return (
-    <div className='NoticiaDetailContainer'>
+    <div className="notdetailContainerfather">
+      <div className='NoticiaDetailContainer'>
       <div className='izq_sponsor_Detail'>
       <Sponsor3/>
       </div>
@@ -41,6 +42,7 @@ const isLoading = useSelector(state=>state.isLoading)
       <div className='der_sponsor_detail'>
       <Sponsor4/>
       </div>
+    </div>
     </div>
   );
 }

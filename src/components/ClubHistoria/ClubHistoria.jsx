@@ -17,7 +17,7 @@ const ClubHistoria = () => {
   }, []);
 
   return (
-    <>
+    <Box sx={{paddingBottom:'150px'}}>
       <Typography
         sx={{ fontWeight: 'bold', textAlign:'center'}}
         variant="h2"
@@ -335,7 +335,7 @@ const ClubHistoria = () => {
           </Grid>
         </Grid>
       </Container>
-    </>
+    </Box>
   );
 };
 
