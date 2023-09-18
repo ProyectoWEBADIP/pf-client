@@ -1,64 +1,75 @@
-.perfContainerContainer{
+.perfContainerContainer {
   display: flex;
-justify-content: center;
-align-items: center;
+  justify-content: center;
+  align-items: center;
   width: 100vw;
   height: 100vh;
   align-content: center;
   overflow: auto;
-
 }
 
-.box {
+.boxLoadingBall {
   margin: 0 auto;
   width: 40px;
   height: 140px;
   position: relative;
-
-  .shadow {
-    position: absolute;
-    width: 100%;
-    height: 10px;
-    background-color: grey;
-    bottom: 0;
-    border-radius: 100%;
-    transform: scaleX(.8);
-    opacity: .6;
-    animation: shadowScale 1s linear infinite;
-  }
 }
-.gravity {
+.shadowLoadingBall {
+  position: absolute;
+  width: 100%;
+  height: 10px;
+  background-color: grey;
+  bottom: 0;
+  border-radius: 100%;
+  transform: scaleX(0.8);
+  opacity: 0.6;
+  animation: shadowScale 1s linear infinite;
+}
+
+.gravityLoadingBall {
   width: 40px;
   height: 40px;
   animation: bounce 1s cubic-bezier(0.68, 0.35, 0.29, 0.54) infinite;
 }
-.ball {
+.ballLoadingBall {
   width: 40px;
   height: 40px;
   background-image: url('https://cdn2.iconfinder.com/data/icons/activity-5/50/26BD-soccer-ball-128.png');
   background-size: cover;
-  animation: roll .7s linear infinite;
+  animation: roll 0.7s linear infinite;
 }
 
-.img img{
-   width: 100%; /* Asegura que la imagen ocupe todo el espacio del div */
-    height: 100%; /* Asegura que la imagen ocupe todo el espacio del div */
-    object-fit: cover;
+.img img {
+  width: 100%; /* Asegura que la imagen ocupe todo el espacio del div */
+  height: 100%; /* Asegura que la imagen ocupe todo el espacio del div */
+  object-fit: cover;
 }
 
 @keyframes roll {
-  0% {}
-  100% { transform: rotate(360deg) }
+  0% {
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 @keyframes bounce {
-  0% {}
-  50% { transform: translateY(100px) }
-  100% {}
+  0% {
+  }
+  50% {
+    transform: translateY(100px);
+  }
+  100% {
+  }
 }
 @keyframes shadowScale {
-  0% {}
-  50% { transform: scaleX(1); opacity: .8;}
-  100% {}
+  0% {
+  }
+  50% {
+    transform: scaleX(1);
+    opacity: 0.8;
+  }
+  100% {
+  }
 }
 /* TERMINA LOADER*/
 .loader {
@@ -68,12 +79,12 @@ align-items: center;
   width: 130px;
   height: var(--height-of-loader);
   border-radius: 30px;
-  background-color: rgba(0,0,0,0.2);
+  background-color: rgba(0, 0, 0, 0.2);
   position: relative;
 }
 
 .loader::before {
-  content: "";
+  content: '';
   position: absolute;
   background: var(--loader-color);
   top: 0;
@@ -82,7 +93,6 @@ align-items: center;
   height: 100%;
   border-radius: 30px;
   animation: moving 1s ease-in-out infinite;
-  ;
 }
 
 @keyframes moving {
@@ -110,19 +120,18 @@ align-items: center;
   overflow: hidden;
 }
 
-.contProf{
-    display: flex;
-    justify-content: center;
-    width: 50%;
-    text-align: center;
-    height: auto;
-    align-items: center;
-
+.contProf {
+  display: flex;
+  justify-content: center;
+  width: 50%;
+  text-align: center;
+  height: auto;
+  align-items: center;
 }
-.perfilCont{
+.perfilCont {
   display: flex;
   flex-direction: column;
- width: 70vw;
+  width: 70vw;
   height: auto;
   background-color: red;
 }
@@ -131,61 +140,55 @@ align-items: center;
   flex-direction: column;
   width: 30vw;
   justify-content: space-around;
-  background-color: #FB731C;
-  border: solid .3rem black;
+  background-color: #fb731c;
+  border: solid 0.3rem black;
   border-radius: 2rem;
-
 }
-.formContainer form{
+.formContainer form {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-
 }
-.formContainer form button{
+.formContainer form button {
   background-color: orange;
 }
-.formcomponentcont{
-    width: 100%;
-height: auto;
+.formcomponentcont {
+  width: 100%;
+  height: auto;
 }
-.prevContainer{
-
+.prevContainer {
   width: 30vw;
   justify-content: space-around;
   height: auto;
-  background-color: #FB731C;
+  background-color: #fb731c;
 
-
- border: solid .3rem black;
+  border: solid 0.3rem black;
   border-radius: 2rem;
-
 }
-.prevImgCont{
+.prevImgCont {
   width: 100%;
   display: flex;
   justify-content: space-around;
-
 }
 
-.perfilContainer{
+.perfilContainer {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   width: 50vw;
   height: 70vh;
   background-color: rgba(217, 129, 15, 0.599);
-  border: .5rem solid rgba(0, 0, 0, 0.279);
+  border: 0.5rem solid rgba(0, 0, 0, 0.279);
   border-radius: 1rem;
 }
-.imgCont{
+.imgCont {
   display: flex;
   justify-content: space-around;
 }
-.imgCont img{
+.imgCont img {
   width: 10rem;
-  background-color: #FB731C;
-  border: .2rem solid rgb(0, 0, 0);
+  background-color: #fb731c;
+  border: 0.2rem solid rgb(0, 0, 0);
   border-radius: 100%;
 }

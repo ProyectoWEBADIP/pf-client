@@ -1,4 +1,5 @@
 .NoticiaDetailContainer {
+  padding-top: 50px;
   width: 100vw;
   height: 91vh;
   display: grid;
