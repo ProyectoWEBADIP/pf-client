@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from './axios-config';
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import {

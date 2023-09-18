@@ -8,7 +8,7 @@ import {
   createLocalProfile,
   getUserById,
 } from '../../redux/login-registerActions/loginActions';
-import axios from 'axios';
+import axios from './axios-config';
 import { setIsLoading } from '../../utils/setIsLoading';
 import {
   Alert,

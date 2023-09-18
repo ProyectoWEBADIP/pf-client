@@ -8,7 +8,7 @@ import {
    
   NOTICIAS_PER_PAGE,
 } from "./noticiasActionTypes";
-import axios from "axios";
+import axios from './axios-config';
 import {
   
   GET_NOTICIA_DETAIL,

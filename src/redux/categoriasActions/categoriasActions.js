@@ -1,5 +1,5 @@
 import { POST_CATEGORIAS, GET_ALL_CATEGORIES } from "./categoriasActionTypes";
-import axios from "axios";
+import axios from './axios-config';
 
 export function postCategoria(body) {
    return async () => {

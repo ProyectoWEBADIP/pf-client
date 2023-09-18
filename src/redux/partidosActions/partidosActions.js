@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import axios from "axios"
+import axios from './axios-config'
 
 export const GET_ALL_MATCH = "GET_ALL_MATCH"
 export const UPDATE_MATCH = "UPDATE_MATCH"
