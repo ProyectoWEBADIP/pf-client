@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
-import axios from './axios-config';
+import axios from '../../../axios-config';
+;
 import {
   LOGIN_REGISTER_ERRORS,
   LOCAL_LOGIN,

@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
-import axios from './axios-config';
+import axios from '../../../axios-config';
+;
 import { SHOW_UPDATE_PROFILE } from './actionTypes';
 
 export function showProfileEdit() {
