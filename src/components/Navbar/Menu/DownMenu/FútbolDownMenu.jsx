@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./anotherBoton.css";
 const FutbolMenu = () => {
   return (
@@ -5,15 +6,15 @@ const FutbolMenu = () => {
       <div className="paste-button">
         <button className="button">Fútbol &nbsp;⮟</button>
         <div className="dropdown-content">
-          <a id="top" href="#">
+          <Link id="top" to="#">
             Fútbol Femenino
-          </a>
-          <a id="middle" href="#">
+          </Link>
+          <Link id="middle" to="#">
             Fútbol Masculino
-          </a>
-          <a id="bottom" href="#">
+          </Link>
+          <Link id="bottom" to="#">
             Estadisticas
-          </a>
+          </Link>
         </div>
       </div>
     </div>
