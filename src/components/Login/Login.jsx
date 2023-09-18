@@ -21,23 +21,29 @@ import {
 } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import PersonIcon from "@mui/icons-material/Person";
-
-import style from "./login.module.css";
-
+import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
+import emailjs from "@emailjs/browser";
+import { ignore } from "@cloudinary/url-gen/qualifiers/rotationMode";
+import './login.css'
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
 
 export default function Login() {
   const [error, setError] = useState({});
-  const [users, setUsers] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState();
+   const [users, setUsers] = useState({ email: "", password: "" });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loginRegisterErrors = useSelector((state) => state.loginRegisterErrors);
+  console.log("loginRegisterErrors", loginRegisterErrors);
 
   const successLogin = useSelector((state) => state.successLogin);
+  console.log("successLogin", successLogin);
 
   const logginIn = useSelector((state) => state.logginIn);
+  console.log("logginIn", logginIn);
   const actualPath = useSelector((state) => state.actualPath);
+  console.log("actualPath", actualPath);
   const handleChange = (event) => {
     setUsers({
       ...users,
@@ -49,151 +55,124 @@ export default function Login() {
 
   function handleSuccess(credentials) {
     if (credentials.credential) {
+      console.log(credentials)
       dispatch(googleRegisterUser(credentials));
+      dispatch(localLogin())
       navigate("/");
     }
   }
-
   //LOGIN LOCAL CON PASS Y EMAIL
   async function login(event) {
     event.preventDefault();
-    dispatch(loading());
-    await dispatch(localLogin(users));
-    if (localStorage.userId) {
-      navigate("/");
-    }
-    alert("Necesita loguarse");
-    console.log("users", users);
+
+   const data = await dispatch(localLogin(users));
+    console.log(data)
+   if(data.access_token){
+    navigate('/')
+   } 
   }
-
   return (
-    <GoogleOAuthProvider clientId={CLIENT_ID}>
-      <Box
-        style={{
-          display: "flex",
-          width: "100vw",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Box
-          component="form"
-          sx={{
-            boxShadow: 3,
-            bgcolor: (theme) =>
-              theme.palette.mode === "dark" ? "#101010" : "#fff",
-            color: (theme) =>
-              theme.palette.mode === "dark" ? "grey.300" : "grey.800",
-            p: 1,
-            m: 1,
-            borderRadius: 2,
-            textAlign: "center",
-            fontSize: "0.875rem",
-            fontWeight: "700",
-            padding: "40px",
-          }}
-          display="flex"
-          flexDirection={"column"}
-          alignItems="center"
-          justifyContent={"center"}
-          margin="auto"
-          my={4}
-        >
-          {!localStorage.userLogin === true ? (
-            <Box>
-              <Typography variant="h4">Bienvenido</Typography>
-              {!logginIn ? (
-                <Box>
-                  <Box component="form" onSubmit={login}>
-                    <Box>
-                      <TextField
-                        label="Usuario:"
-                        name="email"
-                        value={users.email}
-                        type="email"
-                        placeholder="Email..."
-                        onChange={handleChange}
-                        sx={{ mt: 2 }}
-                        InputProps={{
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              <PersonIcon />
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
-                      {error.email ? (
-                        <Typography color="red" sx={{ mt: 1 }}>
-                          {error.email}
-                        </Typography>
-                      ) : null}
-                    </Box>
-
-                    <Box sx={{ mt: 2 }}>
-                      <TextField
-                        label="Contraseña:"
-                        name="password"
-                        onChange={handleChange}
-                        value={users.password}
-                        type="password"
-                        placeholder="Contraseña..."
-                        InputProps={{
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              <LockIcon />
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
-                    </Box>
-                    <Button type="submit" variant="outlined" sx={{ mt: 2 }}>
-                      Iniciar sesión
-                    </Button>
-                  </Box>
-
-                  <Box sx={{ mt: 1 }}>
-                    <Link to={"/login/recuperacion"} sx={{ mt: 2 }}>
-                      ¿Olvidaste tu contraseña?
-                    </Link>
-                  </Box>
-
+    <div className="loginContainer">
+      <GoogleOAuthProvider clientId={CLIENT_ID}>
+      <Box style={{ padding: "40px" }} sx={{ boxShadow: 3, bgcolor: "white" }}>
+       
+          <Box >
+            <Typography variant="h4" textAlign={'center'}>Bienvenido</Typography>
+            {!logginIn ? (
+              <Box>
+                <Box component="form" onSubmit={login}>
                   <Box>
-                    <Link to="/login/SignUp">
-                      <Typography
-                        variant="subtitle1"
-                        fontWeight="bold"
-                        sx={{ mt: 1 }}
-                      >
-                        ¿No estás registrado? ➡️Regístrate aquí⬅️
+                    <TextField
+                      label="Usuario:"
+                      name="email"
+                      value={users.email}
+                      type="email"
+                      placeholder="Email..."
+                      onChange={handleChange}
+                      sx={{ mt: 2 }}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <PersonIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                    {error.email ? (
+                      <Typography color="red" sx={{ mt: 1 }}>
+                        {error.email}
                       </Typography>
-                    </Link>
+                    ) : null}
                   </Box>
-                </Box>
-              ) : (
-                <Box className={style.box}>
-                  <Box className={style.shadow}></Box>
-                  <Box className={style.gravity}>
-                    <Box className={style.ball}></Box>
+
+                  <Box sx={{ mt: 2 }}>
+                    <TextField
+                      label="Contraseña:"
+                      name="password"
+                      onChange={handleChange}
+                      value={users.password}
+                      type="password"
+                      placeholder="Contraseña..."
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <LockIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
                   </Box>
+                  <Button type="submit" variant="outlined" sx={{ mt: 2 }}>
+                    Iniciar sesión
+                  </Button>
                 </Box>
-              )}
-              {loginRegisterErrors ? (
-                <Typography color="red" sx={{ mt: 2 }}>
-                  {loginRegisterErrors.message}
-                </Typography>
-              ) : null}
-            </Box>
-          ) : actualPath ? null : null}
-          <Box>
-            <GoogleLogin
-              useOneTap
-              onError={handleError}
-              onSuccess={handleSuccess}
-            />
-          </Box>
-          <Typography>{successLogin}</Typography>
+
+                <Box>
+                  <Link to={"/login/recuperacion"} sx={{ mt: 2 }}>
+                    ¿Olvidaste tu contraseña?
+                  </Link>
+                </Box>
+                <Box>
+                  <Link to="/login/SignUp">
+                    <Typography
+                      variant="subtitle1"
+                      fontWeight="bold"
+                      sx={{ mt: 1 }}
+                    >
+                      ¿No estás registrado? Haz click aquí⬅️
+                    </Typography>
+                  </Link>
+                </Box>
+                <Box>
+          <GoogleLogin
+            useOneTap
+            onError={handleError}
+            onSuccess={handleSuccess}
+          />
         </Box>
+              </Box>
+              
+            ) : (<div className="loaderLoginContainer">
+              <Box className="box">
+                <Box className="shadow"></Box>
+                <Box className="gravity">
+                  <Box className="ball"></Box>
+                </Box>
+              </Box>
+            </div>
+              
+            )}
+            {loginRegisterErrors ? (
+              <Typography color="red" sx={{ mt: 2 }}>
+                {loginRegisterErrors.message}
+              </Typography>
+            ) : null}
+          </Box>
+      
+        <Typography>{successLogin}</Typography>
       </Box>
+      
     </GoogleOAuthProvider>
+    </div>
   );
 }

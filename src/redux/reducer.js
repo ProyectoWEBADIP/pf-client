@@ -4,7 +4,7 @@ import {
   FILTER_NOTICIAS,
   GET_ALL_NOTICIAS,
   GET_NOTICIA_DETAIL,
-  CLEAN_NOTICIA_DETAIL,
+  CLEAN_NOTICIA_DETAIL, 
   GET_NOTICIAS_BY_TITLE,
   CLEAN_FILTERS_NOTICIAS,
   NOT_FOUND_NOTICIAS,
@@ -26,6 +26,8 @@ import {
   GET_USER_BY_ID,
   CREATE_PROFILE_LOCAL,
   REGISTER_USER_LOCAL,
+  ERROR,
+  CLEAR_ERR0R,
   
 } from './login-registerActions/actionTypes';
 //Categorias types
@@ -43,6 +45,7 @@ import {
 //---->SPONSOR---------
 import { GET_ALL_SPONSOR,GET_SPONSOR_BY_ID,UPDATE_SPONSOR } from "./sponsorActions/sponsorActionsTypes";//DASHBOARD TYPES
 import {RENDER_CORRECT_DASH} from './dashboardAdminActions/actionTypes'
+import { SHOW_UPDATE_PROFILE } from './profileActions/actionTypes';
 import { GET_ALL_MATCH } from './partidosActions/partidosActions';
 const initialState = {
    isLoading: false,
@@ -58,6 +61,7 @@ const initialState = {
    usuario: {},
    perfilUsuario: [],
    verificacionDeUsuario: {},
+   showEditProfile:false,
    mensajeDeVerificacionDeContraseña: [],  
    //NOTICIAS STATES//
    noticias: [],
@@ -75,87 +79,99 @@ const initialState = {
    sponsor:[],
    sponsorBackUp:[],
    updateSponsor:{},
-   sponsorById:{},
+  sponsorById: {},
+  //ERRORS
+  errors:'',
+   partidos: [],
 
-  partidos: []
 };
 
 export default function rootReducer(state = initialState, action) {
-   switch (action.type) {
-      case IS_LOADING:
+  switch (action.type) {
+    case CLEAR_ERR0R:
+      return {
+        ...state,
+        errors:''
+      }
+      case ERROR:
          return {
             ...state,
-            isLoading: true,
-         };
-        case NOTICIAS_PER_PAGE:
-        return {
-          ...state,
-          noticiasPPage:action.payload
-
-        }
+            errors:action.payload
+         }
+    case IS_LOADING:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case NOTICIAS_PER_PAGE:
+      return {
+        ...state,
+        noticiasPPage: action.payload,
+      };
+        case SHOW_UPDATE_PROFILE:
+         return {
+            ...state,
+            showEditProfile:action.payload
+         }
     case GET_ALL_NOTICIAS:
-      let filterNotice = action.payload.filter((el) => el.active === true)
+      let filterNotice = action.payload.filter((el) => el.active === true);
       return {
         ...state,
         noticias: filterNotice,
         isLoading: false,
-        noticiasBackUp:filterNotice,
-        notFoundNoticias:false
+        noticiasBackUp: filterNotice,
+        notFoundNoticias: false,
       };
-      case GET_NOTICIAS_BY_TITLE:
-         return {
-            ...state,
-            noticias: action.payload,
-            notFoundNoticias: false,
-         };
-      case GET_NOTICIA_DETAIL:
-         return {
-            ...state,
-            detalleNoticia: action.payload,
-            isLoading: false,
-            notFoundNoticias: false,
-         };
-      case FILTER_NOTICIAS:
-         return {
-            noticias: action.payload,
-            isLoading: false,
-            notFoundNoticias: false,
-         };
-      case CLEAN_FILTERS_NOTICIAS:
-         return {
-            ...state,
-            noticias: [...state.noticiasBackUp],
-            notFoundNoticias: false,
-         };
-      case CLEAN_NOTICIA_DETAIL:
-         return {
-            ...state,
-            detalleNoticia: {},
-         };
-      case NOT_FOUND_NOTICIAS:
-         return {
-            ...state,
-            notFoundNoticias: true,
-         };
-         //SPONSOR//
-      case GET_ALL_SPONSOR:
-         return{
-            ...state,
-            sponsor:action.payload,
-            sponsorBackUp:action.payload
-         }
-      
-      case UPDATE_SPONSOR:
-         return{
-            ...state,
-            updateSponsor:action.payload
-         }
+    case GET_NOTICIAS_BY_TITLE:
+      return {
+        ...state,
+        noticias: action.payload,
+        notFoundNoticias: false,
+      };
+    case GET_NOTICIA_DETAIL:
+      return {
+        ...state,
+        detalleNoticia: action.payload,
+        isLoading: false,
+        notFoundNoticias: false,
+      };
+    case FILTER_NOTICIAS:
+      return {
+        noticias: action.payload,
+        isLoading: false,
+        notFoundNoticias: false,
+      };
+    case CLEAN_FILTERS_NOTICIAS:
+      return {
+        ...state,
+        noticias: [...state.noticiasBackUp],
+        notFoundNoticias: false,
+      };
+    case CLEAN_NOTICIA_DETAIL:
+      return {
+        ...state,
+        detalleNoticia: {},
+      };
+    case NOT_FOUND_NOTICIAS:
+      return {
+        ...state,
+        notFoundNoticias: true,
+      };
+    //SPONSOR//
+    case GET_ALL_SPONSOR:
+      return {
+        ...state,
+        sponsor: action.payload,
+        sponsorBackUp: action.payload,
+      };
 
-      case GET_SPONSOR_BY_ID:
-         return{
-            ...state,
-            sponsorById:action.payload
-         }
+    case UPDATE_SPONSOR:
+      return {
+        ...state,
+        updateSponsor: action.payload,
+      };
+
+      
      
          //LOCAL_LOGIN CASES//
       case LOCAL_LOGIN:
@@ -210,35 +226,35 @@ export default function rootReducer(state = initialState, action) {
          localStorage.setItem("userLogin", true);
          localStorage.setItem("userId", action.payload.id);
 
-         return {
-            ...state,
-            isLoading: false,
-            usuario: action.payload.access_token,
-            successLogin: action.payload.message,
-            logginIn: false,
-            loggedIn: true,
-            loginRegisterErrors: {},
-         };
-      //GET USUARIOS CASES
-      case GET_ALL_USERS:
-         return {
-            ...state,
-            allUsers: action.payload,
-            isLoading: false,
-         }
-     
-      case GET_USER_BY_ID:
-         return {
-            ...state,
-            isLoading: false,
-            perfilUsuario: action.payload,
-         };
-        //DASHBOARD ADMIN STATES
-      case RENDER_CORRECT_DASH:
-        return{
-          ...state,
-          actualDash:action.payload
-        }
+      return {
+        ...state,
+        isLoading: false,
+        usuario: action.payload.access_token,
+        successLogin: action.payload.message,
+        logginIn: false,
+        loggedIn: true,
+        loginRegisterErrors: {},
+      };
+    //GET USUARIOS CASES
+    case GET_ALL_USERS:
+      return {
+        ...state,
+        allUsers: action.payload,
+        isLoading: false,
+      };
+
+    case GET_USER_BY_ID:
+      return {
+        ...state,
+        isLoading: false,
+        perfilUsuario: action.payload,
+      };
+    //DASHBOARD ADMIN STATES
+    case RENDER_CORRECT_DASH:
+      return {
+        ...state,
+        actualDash: action.payload,
+      };
     //CREAR Y/O ACTUALIZAR PERFIL CASES
       case CREATE_PROFILE_LOCAL:
          return {

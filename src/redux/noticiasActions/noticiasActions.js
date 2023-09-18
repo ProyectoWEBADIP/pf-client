@@ -45,11 +45,12 @@ export function paginado(noticias){
 export function postNoticia(body) {
    return async (dispatch) => {
       try {
+       
+         console.log("entre a la action");
          const { data } = await axios.post(
             `http://localhost:3001/notices`,
             body
-         );
-
+            );
          dispatch({ type: POST_NOTICIA, payload: data });
       } catch (error) {
          console.log(error);

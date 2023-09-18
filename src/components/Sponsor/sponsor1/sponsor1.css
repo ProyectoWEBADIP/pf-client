@@ -1,15 +1,17 @@
-.box{
+.box_sponsor1_{
     width: 100%;   
     display: flex;    
-    text-align: center;    
+    justify-content: space-around;
+    align-items: center;   
     border-top: 1px solid #f2f2f2;
-    padding: 75px 0 5px;
-    flex-direction: column;
+    flex-wrap: wrap;    
+  
 }
 
-.img{
-    max-width: 60%;
-    height: auto;
+.img_sponsor1_{
+    max-width: 20%;
+    max-height: 100px;   
     opacity: 0.5;
+   
 }
 

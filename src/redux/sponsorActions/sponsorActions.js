@@ -6,7 +6,7 @@ export function postSponsor(body){
         try {
             
             const {data}= await axios.post(`http://localhost:3001/sponsors`,body)
-
+            console.log(data);
             dispatch({type:POST_SPONSOR, payload:data})
             
         } catch (error) {
@@ -16,9 +16,8 @@ export function postSponsor(body){
 }
 export function getAllSponsor(){
     return async(dispatch)=>{
-        try {
-            const {data}= await axios(`http://localhost:3001/sponsors`)
-          
+        try {            
+            const {data}= await axios(`http://localhost:3001/sponsors`)            
             dispatch({type:GET_ALL_SPONSOR ,payload:data})
         } catch (error) {
             throw new Error({error:error.message})
@@ -29,7 +28,7 @@ export function updateSponsor(id,body){
     return async(dispatch)=>{
         try {
             const {data}= await axios.patch(`http://localhost:3001/sponsors/${id}`,body)
-            
+            console.log(data);
             dispatch({type:UPDATE_SPONSOR,payload:data[0]})
             
         } catch (error) {
