@@ -1,5 +1,5 @@
 import { POST_SPONSOR ,GET_ALL_SPONSOR,UPDATE_SPONSOR, GET_SPONSOR_BY_ID} from "./sponsorActionsTypes";
-import axios from "axios";
+import axios from './axios-config';
 
 export function postSponsor(body){
     return async(dispatch)=>{

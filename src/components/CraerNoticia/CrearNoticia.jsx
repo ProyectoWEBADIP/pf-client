@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import validation from './validaciones';
-import axios from 'axios';
+import axios from './axios-config';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { postNoticia } from '../../redux/noticiasActions/noticiasActions';

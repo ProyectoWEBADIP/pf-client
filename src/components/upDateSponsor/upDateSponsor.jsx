@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector,useDispatch } from 'react-redux';
 import { getAllSponsor,updateSponsor } from '../../redux/sponsorActions/sponsorActions';
 import './upDateSponsor.css';
-import axios from 'axios';
+import axios from './axios-config';
 
 
 
