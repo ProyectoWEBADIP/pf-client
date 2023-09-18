@@ -4,12 +4,14 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import style from './Perfil.module.css';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import {
   createLocalProfile,
   getUserById,
 } from '../../redux/login-registerActions/loginActions';
-import axios from '../../../axios-config';
-;
+import axios from 'axios';
+import EditIcon from '@mui/icons-material/Edit';
+
 import { setIsLoading } from '../../utils/setIsLoading';
 import {
   Alert,
@@ -22,6 +24,7 @@ import {
   Select,
   TextField,
   Toolbar,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import MaleIcon from '@mui/icons-material/Male';
@@ -41,6 +44,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import UpdateProfile from '../../views/updateProfile/UpdateProfile';
 import { showProfileEdit } from '../../redux/profileActions/profileActions';
 import jwtDecode from 'jwt-decode';
+import { getAllNoticias } from '../../redux/noticiasActions/noticiasActions';
 export default function Perfil() {
   //!HOOKS
   const [preferenceId, setPreferenceId] = useState(null);
@@ -65,16 +69,13 @@ export default function Perfil() {
 
   initMercadoPago(`TEST-c2bc2a6c-e7ac-4a00-bd64-68b499cde86d`);
   const createPreference = async () => {
-    console.log("entre");
+    console.log('entre');
     try {
-      const { data } = await axios.post(
-        `/payment/createPreference`,
-        {
-          description: 'Cuota mensual Club deportivo A.D.I.P',
-          price: 100,
-          quantity: 1,
-        }
-      );
+      const { data } = await axios.post(`/payment/createPreference`, {
+        description: 'Cuota mensual Club deportivo A.D.I.P',
+        price: 100,
+        quantity: 1,
+      });
       return data.body.id;
     } catch (error) {
       setErrorAlert(error.message);
@@ -91,8 +92,9 @@ export default function Perfil() {
       setPreferenceId(id);
     }
   };
-
+  const noticias = useSelector((state) => state.noticias);
   useEffect(() => {
+    dispatch(getAllNoticias());
     dispatch(setIsLoading());
     dispatch(getUserById(id));
   }, [dispatch, id]);
@@ -381,21 +383,55 @@ export default function Perfil() {
           </div>
         ) : (
           <div className="profileContainer">
-            <div className="leftProfileContainer"></div>
+            <div className="leftProfileContainer">
+              {role !== 'user' && perfilUsuario?.profile ? (
+                <div className="table-edit-container">
+                  <div className="link-edits-container">
+                    <Link to="/editarSponsor">
+                      <h4 title="Haz click aquí para editar los sponsors">
+                        Editar sponsors
+                      </h4>
+                    </Link>
+                  </div>
+                  <div className="link-edits-container">
+                    <h4>
+                      Editar noticias{' '}
+                      <Tooltip
+                        title="Si quieres editar una noticia, haz click en su título."
+                        placement="top-start"
+                      >
+                        <button className="button-question">
+                          <QuestionMarkIcon fontSize="small" />
+                        </button>
+                      </Tooltip>
+                    </h4>
+                    {noticias?.map((not, i) => {
+                      return (
+                        <div key={i}>
+                          <Link to={`/editarNoticia/${not.id}`}>
+                            <span>*{not.title}</span>
+                          </Link>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : null}
+            </div>
             {!showEditProfile ? null : (
               <UpdateProfile perfilUsuario={perfilUsuario} />
             )}
             <div className="centerProfileContainer">
-            {role === 'super_admin' && perfilUsuario?.profile ? (
-                  <Link to={'/auth/dashboard'}>
-                    <button className="learn-more">
-                      <span aria-hidden="true" className="circle">
-                        <span className="icon arrow"></span>
-                      </span>
-                      <span className="button-text">Administrador</span>
-                    </button>
-                  </Link>
-                ) : null}
+              {role === 'super_admin' && perfilUsuario?.profile ? (
+                <Link to={'/auth/dashboard'}>
+                  <button className="learn-more">
+                    <span aria-hidden="true" className="circle">
+                      <span className="icon arrow"></span>
+                    </span>
+                    <span className="button-text">Administrador</span>
+                  </button>
+                </Link>
+              ) : null}
               <div className="portadaContainer">
                 <img
                   src={
@@ -414,7 +450,6 @@ export default function Perfil() {
               </div>
 
               <div className="nameAndEditContainer">
-               
                 <h1>
                   {perfilUsuario?.profile?.firstName}{' '}
                   {perfilUsuario?.profile?.lastName}
@@ -440,7 +475,9 @@ export default function Perfil() {
                   </div>
                   <div className="dataContainers">
                     <CakeIcon />
-                    <span>{perfilUsuario?.profile?.birthDate.split('T')[0]}</span>
+                    <span>
+                      {perfilUsuario?.profile?.birthDate.split('T')[0]}
+                    </span>
                   </div>
                   <div className="dataContainers">
                     <LocalPhoneIcon />
@@ -492,5 +529,3 @@ export default function Perfil() {
     </div>
   );
 }
-
-

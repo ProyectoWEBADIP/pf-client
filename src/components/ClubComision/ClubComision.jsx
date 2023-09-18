@@ -8,7 +8,7 @@ const ClubComision = () => {
         Aos.init()
     },[])
   return (
-    <Container sx={{ display: "flex", flexDirection: 'column', justifyContent: "center", textAlign: "center", fontFamily:"serif"}}>
+    <Container sx={{ display: "flex", flexDirection: 'column', justifyContent: "center", textAlign: "center", fontFamily:"serif", paddingBottom:'150px'}}>
     
     <div style={{padding: "50px"}} >
         <Typography mt={4} sx={{fontWeight: "bold"}} variant='h2'>COMISIÓN DIRECTIVA 2023-2025</Typography>

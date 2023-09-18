@@ -121,12 +121,11 @@ export default function rootReducer(state = initialState, action) {
         showEditProfile: action.payload,
       };
     case GET_ALL_NOTICIAS:
-      let filterNotice = action.payload.filter((el) => el.active === true);
+      // let filterNotice = action.payload.filter((el) => el.active === true);
       return {
         ...state,
-        noticias: filterNotice,
-        noticiasBackUp: filterNotice,
-        notFoundNoticias: false,
+        noticias: action.payload,
+        noticiasBackUp: action.payload,
       };
     case GET_NOTICIAS_BY_TITLE:
       return {
