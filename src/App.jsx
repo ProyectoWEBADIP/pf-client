@@ -38,6 +38,7 @@ function App() {
   };
   const location = useLocation();
   const theme = createTheme(getDesignTokens(themeMode));
+
   return (
     <div className="AppContainer">
       <ThemeProvider theme={theme}>
@@ -63,11 +64,8 @@ function App() {
             <Route path={'/editarSponsor'} element={<UpDateSponsor />} />
             <Route path={'/editarPartidos'} element={<EditarPartidos />} />
           </Route>
-          <Route path='*' element={<NotFoundComponent />} />
-
           <Route path={'/club/historia'} element={<ClubHistoria />} />
           <Route path={'/club/comision'} element={<ClubComision />} />
-
           <Route
             path={'/auth/dashboard'}
             element={
@@ -79,15 +77,15 @@ function App() {
               </ProtectedSuperAdminRoutes>
             }
           />
-
           <Route
             path={'/login/recuperacion'}
             element={<RecuperarContraseña />}
           />
+          <Route path="*" element={<NotFoundComponent />} />
         </Routes>
         <ButtonUpper />
-        {location.pathname !== '/' || location.pathname !== '/club/historia'||
-        location.pathname !==` /club/comision` ? null : (
+        {location.pathname === '/auth/dashboard' ||
+        location.pathname === '/auth/dashboard' ? null : (
           <Footer />
         )}
       </ThemeProvider>
