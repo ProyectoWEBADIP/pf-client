@@ -43,7 +43,6 @@ function App() {
     <div className="AppContainer">
       <ThemeProvider theme={theme}>
         <CssBaseline />
-
         {location.pathname !== '/' ? null : <Banner />}
         {location.pathname !== '/auth/dashboard' ? (
           <Navbar themeMode={themeMode} toggleThemeMode={toggleThemeMode} />
