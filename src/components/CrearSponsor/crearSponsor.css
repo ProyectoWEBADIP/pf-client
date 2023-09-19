@@ -3,7 +3,8 @@
     align-items: center;
     justify-content: center;
     width: 100vw;
-    
+    margin-top: 5rem;
+    margin-bottom: 1rem;
 } 
 .et_form_sponsor{
     background-color:#FBEED8;

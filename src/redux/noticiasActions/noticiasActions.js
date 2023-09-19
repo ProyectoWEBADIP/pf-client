@@ -1,20 +1,15 @@
 /* eslint-disable no-unused-vars */
 import {
-   GET_ALL_NOTICIAS,
-   
+   GET_ALL_NOTICIAS,   
    FILTER_NOTICIAS,
    POST_NOTICIA,
-   CLEAN_NOTICIA_DETAIL,
-   
-  NOTICIAS_PER_PAGE,
+   CLEAN_NOTICIA_DETAIL,   
+   NOTICIAS_PER_PAGE,
 } from "./noticiasActionTypes";
 import axios from "axios";
 import {
   
   GET_NOTICIA_DETAIL,
-  
-  
-
   GET_NOTICIAS_BY_CATEGORY,
   DELETE_NOTICE,
   GET_NOTICE_BY_ID,
@@ -44,9 +39,8 @@ export function paginado(noticias){
 }
 export function postNoticia(body) {
    return async (dispatch) => {
-      try {
-       
-         console.log("entre a la action");
+      try {      
+         
          const { data } = await axios.post(
             `/notices`,
             body
@@ -164,6 +158,23 @@ export const updateNoticia = (id, body) => {
       }
     }
 }
-// export const updatePartidos = (data) => {
-//    return dispatch({type})
-// }
+
+export function submitImgCloudinary(file){
+   return async(dispatch)=>{
+      try {
+         const formData = new FormData();
+         formData.append('file', file);
+         formData.append('upload_preset', 'Noticias');
+         formData.append('cloud_name', 'drpdobxfu');
+   
+         const { data } = await axios.post(
+           'https://api.cloudinary.com/v1_1/drpdobxfu/image/upload',
+           formData
+         );   
+         data.message= "Imagen subida con exito"
+        return data
+       } catch (error) {
+         return {message:"Error al subir la imagen"}
+       }
+   }
+}

@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import validation from './validaciones';
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { postNoticia } from '../../redux/noticiasActions/noticiasActions';
@@ -12,6 +11,7 @@ import { Button} from "@mui/base";
 import AlertError from '../../assets/AlertError/AlertError';
 import SucessAlert from '../../assets/AlertSuccess/AlertSuccess';
 import './crearNoticia.css';
+import { submitImgCloudinary } from '../../redux/noticiasActions/noticiasActions';
 
 
 
@@ -63,51 +63,21 @@ export default function CrearNoticia() {
       [event.target.name]: event.target.value,
     });
   };
-  const submitImage = async (e) => {
-    e.preventDefault();    
-      
+  
+
+  const handleImageChange= async(event)=>{
+    const file =  event.target.files[0];          
     
-  }
-
-  const handleImageChange= async (event)=>{
-    const file = event.target.files[0];   
-          
-    setImageURL(URL.createObjectURL(file));    
-
+    setImageURL(URL.createObjectURL(file));  
+    
     setInput({
       ...input,
       imagen: file
     })   
-
-    try {
-      const formData = new FormData();
-      formData.append('file', input.imagen);
-      formData.append('upload_preset', 'Noticias');
-      formData.append('cloud_name', 'drpdobxfu');
-
-      const { data } = await axios.post(
-        'https://api.cloudinary.com/v1_1/drpdobxfu/image/upload',
-        formData
-      );
-
-      setInput({ ...input, imagen: data.secure_url });
-      console.log(input.imagen,"input.img");
-
-      setSuccessAlert('Imágen subida exitosamente.');
-      setShowSuccess(true);
-      setTimeout(() => {
-        setShowSuccess(false);
-      }, 5000);
-      
-      setCanCreateNotice(true);
-    } catch (error) {
-      setErrorAlert(error.message);
-      setShowError(true);
-      setTimeout(() => {
-        setShowError(false);
-      }, 5000);
-      setCanCreateNotice(false);
-    }
+     const cloudiResponse= await dispatch(submitImgCloudinary(file))
+     setInput({...input, imagen:cloudiResponse.secure_url})
+     console.log(input.imagen);
+     setCanCreateNotice(true)
    
   }
     const handleSelect=(e)=>{
@@ -210,19 +180,14 @@ export default function CrearNoticia() {
     setCrearCategory(name); 
     dispatch(postCategoria({ active: true, name }));  
 
-    setInput({
-      ...input,
-      crear: "",
-    });
- 
     alert("Categoria creada con exito!")
+    dispatch(getAllCategories());
     // setSuccessAlert('Categoria creada con exito!');
     // setShowSuccess(true);
     // setTimeout(() => {
     //   setShowSuccess(false);
     // }, 5000);
     
-    dispatch(getAllCategories());
   };
   const [errorAlert, setErrorAlert] = useState('');
   const [showError, setShowError] = useState(false);
@@ -319,8 +284,7 @@ export default function CrearNoticia() {
             <br/>
 
             <div className='cont_selecImg_div'>
-            <TextField type="file" name="imagen" accept="image/*" onChange={handleImageChange}/>
-            <button className='button_subirImg_notices' onClick={submitImage}>Subir Imagen</button>
+            <TextField type="file" name="imagen" accept="image/*" onChange={handleImageChange}/>            
             </div>        
             
                           

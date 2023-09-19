@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { POST_SPONSOR ,GET_ALL_SPONSOR,UPDATE_SPONSOR, GET_SPONSOR_BY_ID} from "./sponsorActionsTypes";
 import axios from "axios";
 
@@ -5,8 +6,7 @@ export function postSponsor(body){
     return async(dispatch)=>{
         try {
             
-            const {data}= await axios.post(`/sponsors`,body)
-            console.log(data);
+            const {data}= await axios.post(`/sponsors`,body)            
             dispatch({type:POST_SPONSOR, payload:data})
             
         } catch (error) {
@@ -45,6 +45,27 @@ export function getSponsorById(id){
             
         } catch (error) {
             console.log(error.message);
+        }
+    }
+}
+
+export function submitImgCloudy(file){
+    return async(dispatch)=>{
+        try {        
+            const formData = new FormData()
+            formData.append("file",file)
+            formData.append("upload_preset", "sponsor")
+            formData.append("cloud_name","drpdobxfu")
+            
+            const {data}= await axios.post("https://api.cloudinary.com/v1_1/drpdobxfu/image/upload",formData);
+
+            data.message= "Imagen subida con exito"
+             
+            alert("Subida con  exito!")  
+            return data        
+            
+          } catch (error) {
+            return {message:"Error al subir la imagen"}
         }
     }
 }
