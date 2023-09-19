@@ -5,13 +5,13 @@ const PatrocinioMenu = () => {
       <div className="paste-button">
         <button className="button">Patrocinadores &nbsp; ⮟</button>
         <div className="dropdown-content">
-          <a id="top" href="#">
+          <a id="top" to="#">
             Sponsor...
           </a>
-          <a id="middle" href="#">
+          <a id="middle" to="#">
             Sponsor...
           </a>
-          <a id="bottom" href="#">
+          <a id="bottom" to="#">
             Sponsor...
           </a>
         </div>

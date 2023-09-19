@@ -6,17 +6,14 @@ import './sponsor1.css';
 const Sponsor1 = () => {
     const dispatch=useDispatch();
     
-    const sponsor = useSelector((state)=>state.sponsor);
-    
-    
+    const sponsor = useSelector((state)=>state.sponsor);    
     
     useEffect(()=>{
         dispatch(getAllSponsor())
     },[dispatch])
     
     const locationHome = sponsor.filter(objeto => objeto.location >= 1 && objeto.location <=5);
-    const inOrder= locationHome.sort((a, b) => a.location - b.location); 
-    console.log(inOrder);
+    const inOrder= locationHome.sort((a, b) => a.location - b.location);   
     
    
   return (

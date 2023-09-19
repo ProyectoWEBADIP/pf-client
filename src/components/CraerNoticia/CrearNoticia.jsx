@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import validation from './validaciones';
 import axios from 'axios';
@@ -39,8 +40,7 @@ export default function CrearNoticia() {
   }, [dispatch]);
 
   const handleChange = (event) => {
-    console.log("====>",input.descripcion);
-    event.preventDefault();
+   event.preventDefault();
 
     setInput({
       ...input,
@@ -66,6 +66,19 @@ export default function CrearNoticia() {
   const submitImage = async (e) => {
     e.preventDefault();    
       
+    
+  }
+
+  const handleImageChange= async (event)=>{
+    const file = event.target.files[0];   
+          
+    setImageURL(URL.createObjectURL(file));    
+
+    setInput({
+      ...input,
+      imagen: file
+    })   
+
     try {
       const formData = new FormData();
       formData.append('file', input.imagen);
@@ -76,8 +89,10 @@ export default function CrearNoticia() {
         'https://api.cloudinary.com/v1_1/drpdobxfu/image/upload',
         formData
       );
+
       setInput({ ...input, imagen: data.secure_url });
-      console.log(input.imagen);
+      console.log(input.imagen,"input.img");
+
       setSuccessAlert('Imágen subida exitosamente.');
       setShowSuccess(true);
       setTimeout(() => {
@@ -93,17 +108,6 @@ export default function CrearNoticia() {
       }, 5000);
       setCanCreateNotice(false);
     }
-  }
-
-  function handleImageChange(event){
-    const file = event.target.files[0];   
-          
-    setImageURL(URL.createObjectURL(file));    
-
-    setInput({
-      ...input,
-      imagen: file
-    })   
    
   }
     const handleSelect=(e)=>{
@@ -137,10 +141,8 @@ export default function CrearNoticia() {
     const deleteCategory= (e)=>{
       console.log(e);
       const categoryFilter= category.filter((c)=>c !== e)      
-      //los que no quiere eliminar
-   
-      setCategory([...categoryFilter])  
-      
+      //los que no quiere eliminar   
+      setCategory([...categoryFilter])        
       if(categoryFilter.length==0){
         setError({
           ...error,
@@ -156,8 +158,7 @@ export default function CrearNoticia() {
    
     event.preventDefault();
     const form = document.getElementById('formulario');
-    const ids = category.map((item) => item.id);
-  console.log(ids, category, "ids categoryes en el handleSubmit");
+    const ids = category.map((item) => item.id); 
     const body = {
       title: input.titulo,
       resume: input.resumen,

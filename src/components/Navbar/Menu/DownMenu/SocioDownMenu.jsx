@@ -5,13 +5,13 @@ const SocioMenu = () => {
       <div className="paste-button">
         <button className="button">Socios/as &nbsp; ⮟</button>
         <div className="dropdown-content">
-          <a id="top" href="#">
+          <a id="top" to="#">
             Novedades
           </a>
-          <a id="middle" href="#">
+          <a id="middle" to="#">
             Asosiate
           </a>
-          <a id="bottom" href="#">
+          <a id="bottom" to="#">
             Preguntas Frecuentes
           </a>
         </div>

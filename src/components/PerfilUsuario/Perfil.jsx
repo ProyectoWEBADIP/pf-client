@@ -67,7 +67,7 @@ export default function Perfil() {
     console.log("entre");
     try {
       const { data } = await axios.post(
-        `http://localhost:3001/payment/createPreference`,
+        `/payment/createPreference`,
         {
           description: 'Cuota mensual Club deportivo A.D.I.P',
           price: 100,

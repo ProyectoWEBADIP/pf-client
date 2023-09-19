@@ -77,7 +77,7 @@ export const SignIn = () => {
                 </span>
               </div>
               <span className="forgot-password">
-                <a href="#">Olvidé mi contraseña</a>
+                <a to="#">Olvidé mi contraseña</a>
               </span>
               <input
                 className="login-button"
@@ -122,7 +122,7 @@ export const SignIn = () => {
             </div>
           </div>
           <span className="agreement">
-            <a href="#">Learn user licence agreement</a>
+            <a to="#">Learn user licence agreement</a>
           </span>
         </div>
       )}

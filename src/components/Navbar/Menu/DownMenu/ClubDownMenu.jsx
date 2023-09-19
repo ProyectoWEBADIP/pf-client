@@ -5,13 +5,13 @@ import "./anotherBoton.css";
       <div className="paste-button">
         <button className="button">Club &nbsp; ⮟</button>
         <div className="dropdown-content">
-          <a id="top" href="#">
+          <a id="top" to="#">
             Datos Interesantes
           </a>
-          <a id="middle" href="/club/comision">
+          <a id="middle" to="/club/comision">
             Autoridades
           </a>
-          <a id="bottom" href="/club/historia">
+          <a id="bottom" to="/club/historia">
             Historia
           </a>
         </div>
