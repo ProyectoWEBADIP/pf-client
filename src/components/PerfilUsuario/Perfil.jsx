@@ -422,16 +422,6 @@ export default function Perfil() {
               <UpdateProfile perfilUsuario={perfilUsuario} />
             )}
             <div className="centerProfileContainer">
-              {role === 'super_admin' && perfilUsuario?.profile ? (
-                <Link to={'/auth/dashboard'}>
-                  <button className="learn-more">
-                    <span aria-hidden="true" className="circle">
-                      <span className="icon arrow"></span>
-                    </span>
-                    <span className="button-text">Administrador</span>
-                  </button>
-                </Link>
-              ) : null}
               <div className="portadaContainer">
                 <img
                   src={
@@ -515,7 +505,20 @@ export default function Perfil() {
               </div>
             </div>
 
-            <div className="rigthProfileContainer"></div>
+            <div className="rigthProfileContainer">
+            {role === 'super_admin' && perfilUsuario?.profile ? (
+                <div>
+                  <Link to={'/auth/dashboard'}>
+                  <button className="learn-more">
+                    <span aria-hidden="true" className="circle">
+                      <span className="icon arrow"></span>
+                    </span>
+                    <span className="button-text">Administrador</span>
+                  </button>
+                </Link>
+                </div>
+              ) : null}
+            </div>
           </div>
         )
       ) : (

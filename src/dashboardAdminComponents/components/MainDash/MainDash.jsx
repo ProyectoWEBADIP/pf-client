@@ -10,7 +10,6 @@ const MainDash = () => {
   const actualDash = useSelector((state) => state.actualDash);
   const dispatch = useDispatch();
   useEffect(() => {
-    
     dispatch(getAllUsers());
   });
   return (
@@ -23,10 +22,6 @@ const MainDash = () => {
             </h1>
             <Cards />
           </div>
-          <div>
-            <h2>Usuarios registrados</h2>
-            <Table />
-          </div>
         </div>
       ) : actualDash === 1 ? (
         <div className="MainDash">
@@ -38,7 +33,13 @@ const MainDash = () => {
           </div>
         </div>
       ) : actualDash === 2 ? (
-        <div className="MainDash">HOLAAAA actualDash 2</div>
+        <div className="MainDash">
+          {' '}
+          <div>
+            <h2>Usuarios registrados</h2>
+            <Table />
+          </div>
+        </div>
       ) : (
         <div className="MainDash">HOLAAAA 3333333</div>
       )}

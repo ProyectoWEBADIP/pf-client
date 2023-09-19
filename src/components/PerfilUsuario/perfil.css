@@ -175,6 +175,8 @@ width: 90%;
   font-size: 1.2rem;
 }
 .rigthProfileContainer{
+  padding-top: 100px;
+  position:relative;
 }
 
 .learn-more {
@@ -191,9 +193,7 @@ width: 90%;
   padding: 0;
   font-size: inherit;
   font-family: inherit;
-  bottom: 10px;
-  right: 10px;;
-
+left: 10px;
 }
 
 .learn-more .circle {
@@ -246,7 +246,8 @@ width: 90%;
   bottom: 0;
   padding: 0.75rem 0;
   margin: 0 0 0 1.85rem;
-  color: rgb(0, 0, 0);
+  color: grey;
+
   font-weight: 700;
   line-height: 1.6;
   text-align: center;
