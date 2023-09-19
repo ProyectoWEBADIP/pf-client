@@ -16,10 +16,10 @@
     width: 100vw;
     height: 100%;
     padding: 2rem;
-    padding-bottom:150px;
 
 }
 .cont_form_div{
+    margin-top: 100px;
     background-color:#FCEDDA;
     display: flex;
     align-items: center;

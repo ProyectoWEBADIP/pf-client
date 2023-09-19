@@ -159,7 +159,10 @@ export default function FullFeaturedCrudGrid() {
                 ? true
                 : false
               : userFound.active,
-            razonBan: newRow.razonBan && newRow.razonBan!=='*'?`${newRow.razonBan}. Infracción aplicada por: ${perfilUsuario.email} el día ${date}`:'*',
+            razonBan:
+              newRow.razonBan && newRow.razonBan !== '*'
+                ? `${newRow.razonBan}. Infracción aplicada por: ${perfilUsuario.email} el día ${date}`
+                : '*',
           },
         };
         const response = await dispatch(updateUserFromAdmin(newRow.id, action));
@@ -374,7 +377,6 @@ export default function FullFeaturedCrudGrid() {
     <Box
       className="boxTable"
       sx={{
-        
         '& .actions': {
           color: 'text.secondary',
         },
@@ -414,13 +416,13 @@ export default function FullFeaturedCrudGrid() {
         </div>
       ) : null}
       {!showStatus ? null : (
-        <div  className="overlay">
+        <div className="overlay">
           <div className="statusCont">
             <div className="statusTextCont">
               <div className="buttCont">
                 {' '}
                 <Close
-                fontSize='large'
+                  fontSize="large"
                   className="closeButton"
                   onClick={() => {
                     setShowStatus(false);
@@ -512,6 +514,68 @@ export default function FullFeaturedCrudGrid() {
         </div>
       )}
       <DataGrid
+        localeText={{
+          noRowsLabel: 'No se ha encontrado datos.',
+          noResultsOverlayLabel: 'No se ha encontrado ningún resultado',
+          toolbarColumns: 'Columnas',
+          toolbarColumnsLabel: 'Seleccionar columnas',
+          toolbarFilters: 'Filtros',
+          toolbarFiltersLabel: 'Ver filtros',
+          toolbarFiltersTooltipHide: 'Quitar filtros',
+          toolbarFiltersTooltipShow: 'Ver filtros',
+          columnMenuLabel: 'Menú',
+          columnMenuShowColumns: 'Mostrar columnas',
+          columnMenuManageColumns: 'Administrar columnas',
+          columnMenuFilter: 'Filtro',
+          columnMenuHideColumn: 'Ocultar',
+          columnMenuUnsort: 'Desordenar',
+          columnMenuSortAsc: 'Ordenar ASC',
+          columnMenuSortDesc: 'Ordenar DESC',
+          toolbarDensity: 'Densidad',
+          toolbarDensityLabel: 'Densidad',
+          toolbarDensityCompact: 'Compacta',
+          toolbarDensityStandard: 'Estándar',
+          toolbarDensityComfortable: 'Cómoda',
+          toolbarExport: 'Exportar',
+          toolbarExportLabel: 'Exportar',
+          toolbarExportCSV: 'Descargar como CSV',
+          toolbarExportPrint: 'Imprimir',
+          toolbarExportExcel: 'Descargar como Excel',
+          columnsPanelTextFieldLabel: 'Columna de búsqueda',
+          columnsPanelTextFieldPlaceholder: 'Título de columna',
+          columnsPanelDragIconLabel: 'Reordenar columna',
+          columnsPanelShowAllButton: 'Mostrar todo',
+          columnsPanelHideAllButton: 'Ocultar todo',
+          filterPanelAddFilter: 'Agregar filtro',
+          filterPanelRemoveAll: 'Remover todos',
+          filterPanelDeleteIconLabel: 'Borrar',
+          filterPanelLogicOperator: 'Operador lógico',
+          filterPanelOperator: 'Operadores',
+          filterPanelOperatorAnd: 'Y',
+          filterPanelOperatorOr: 'O',
+          filterPanelColumns: 'Columnas',
+          filterPanelInputLabel: 'Valor',
+          filterPanelInputPlaceholder: 'Valor de filtro',
+          filterOperatorContains: 'contiene',
+          filterOperatorEquals: 'es igual',
+          filterOperatorStartsWith: 'comienza con',
+          filterOperatorEndsWith: 'termina con',
+          filterOperatorIs: 'es',
+          filterOperatorNot: 'no es',
+          filterOperatorAfter: 'es posterior',
+          filterOperatorOnOrAfter: 'es en o posterior',
+          filterOperatorBefore: 'es anterior',
+          filterOperatorOnOrBefore: 'es en o anterior',
+          filterOperatorIsEmpty: 'esta vacío',
+          filterOperatorIsNotEmpty: 'no esta vacío',
+          filterOperatorIsAnyOf: 'es cualquiera de',
+          'filterOperator=': '=',
+          'filterOperator!=': '!=',
+          'filterOperator>': '>',
+          'filterOperator>=': '>=',
+          'filterOperator<': '<',
+          'filterOperator<=': '<=',
+        }}
         sx={{ textAlign: 'justify' }}
         rows={users ? users : noRows}
         columns={columns}
