@@ -4,11 +4,14 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import style from './Perfil.module.css';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import {
   createLocalProfile,
   getUserById,
 } from '../../redux/login-registerActions/loginActions';
 import axios from 'axios';
+import EditIcon from '@mui/icons-material/Edit';
+
 import { setIsLoading } from '../../utils/setIsLoading';
 import {
   Alert,
@@ -21,6 +24,7 @@ import {
   Select,
   TextField,
   Toolbar,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import MaleIcon from '@mui/icons-material/Male';
@@ -40,6 +44,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import UpdateProfile from '../../views/updateProfile/UpdateProfile';
 import { showProfileEdit } from '../../redux/profileActions/profileActions';
 import jwtDecode from 'jwt-decode';
+import { getAllNoticias } from '../../redux/noticiasActions/noticiasActions';
 export default function Perfil() {
   //!HOOKS
   const [preferenceId, setPreferenceId] = useState(null);
@@ -64,16 +69,13 @@ export default function Perfil() {
 
   initMercadoPago(`TEST-c2bc2a6c-e7ac-4a00-bd64-68b499cde86d`);
   const createPreference = async () => {
-    console.log("entre");
+    console.log('entre');
     try {
-      const { data } = await axios.post(
-        `/payment/createPreference`,
-        {
-          description: 'Cuota mensual Club deportivo A.D.I.P',
-          price: 100,
-          quantity: 1,
-        }
-      );
+      const { data } = await axios.post(`/payment/createPreference`, {
+        description: 'Cuota mensual Club deportivo A.D.I.P',
+        price: 100,
+        quantity: 1,
+      });
       return data.body.id;
     } catch (error) {
       setErrorAlert(error.message);
@@ -90,8 +92,9 @@ export default function Perfil() {
       setPreferenceId(id);
     }
   };
-
+  const noticias = useSelector((state) => state.noticias);
   useEffect(() => {
+    dispatch(getAllNoticias());
     dispatch(setIsLoading());
     dispatch(getUserById(id));
   }, [dispatch, id]);
@@ -164,7 +167,7 @@ export default function Perfil() {
   const [errorAlert, setErrorAlert] = useState('');
   const [showError, setShowError] = useState(false);
   const defaultPortada =
-    'https://scontent.faep8-3.fna.fbcdn.net/v/t39.30808-6/305992807_521694693292923_2963066236492463977_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=52f669&_nc_eui2=AeGiSi1-TM-lB_d9-i3c27f1aOxNPw_iYSRo7E0_D-JhJPunk3XycWNuUqjCrEf63vXDG4DccZwNtoNAdObM8SmI&_nc_ohc=P2BksXWzwl8AX-7kYvH&_nc_ht=scontent.faep8-3.fna&oh=00_AfBqKZ8gqLwU6veGy0XwhZSNRgmIelgTW9GpWmhNuNItpA&oe=6503DC49';
+    'https://res.cloudinary.com/drpdobxfu/image/upload/v1695063800/kfoqlqqc1yevcyeoggvg.jpg';
   return (
     <div className={style.perfContainerContainer}>
       {showError ? (
@@ -380,21 +383,45 @@ export default function Perfil() {
           </div>
         ) : (
           <div className="profileContainer">
-            <div className="leftProfileContainer"></div>
+            <div className="leftProfileContainer">
+              {role !== 'user' && perfilUsuario?.profile ? (
+                <div className="table-edit-container">
+                  <div className="link-edits-container">
+                    <Link to="/editarSponsor">
+                      <h4 title="Haz click aquí para editar los sponsors">
+                        Editar sponsors
+                      </h4>
+                    </Link>
+                  </div>
+                  <div className="link-edits-container">
+                    <h4>
+                      Editar noticias{' '}
+                      <Tooltip
+                        title="Si quieres editar una noticia, haz click en su título."
+                        placement="top-start"
+                      >
+                        <button className="button-question">
+                          <QuestionMarkIcon fontSize="small" />
+                        </button>
+                      </Tooltip>
+                    </h4>
+                    {noticias?.map((not, i) => {
+                      return (
+                        <div key={i}>
+                          <Link to={`/editarNoticia/${not.id}`}>
+                            <span>*{not.title}</span>
+                          </Link>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : null}
+            </div>
             {!showEditProfile ? null : (
               <UpdateProfile perfilUsuario={perfilUsuario} />
             )}
             <div className="centerProfileContainer">
-            {role === 'super_admin' && perfilUsuario?.profile ? (
-                  <Link to={'/auth/dashboard'}>
-                    <button className="learn-more">
-                      <span aria-hidden="true" className="circle">
-                        <span className="icon arrow"></span>
-                      </span>
-                      <span className="button-text">Administrador</span>
-                    </button>
-                  </Link>
-                ) : null}
               <div className="portadaContainer">
                 <img
                   src={
@@ -413,7 +440,6 @@ export default function Perfil() {
               </div>
 
               <div className="nameAndEditContainer">
-               
                 <h1>
                   {perfilUsuario?.profile?.firstName}{' '}
                   {perfilUsuario?.profile?.lastName}
@@ -439,7 +465,9 @@ export default function Perfil() {
                   </div>
                   <div className="dataContainers">
                     <CakeIcon />
-                    <span>{perfilUsuario?.profile?.birthDate.split('T')[0]}</span>
+                    <span>
+                      {perfilUsuario?.profile?.birthDate.split('T')[0]}
+                    </span>
                   </div>
                   <div className="dataContainers">
                     <LocalPhoneIcon />
@@ -477,137 +505,30 @@ export default function Perfil() {
               </div>
             </div>
 
-            <div className="rigthProfileContainer"></div>
+            <div className="rigthProfileContainer">
+            {role === 'super_admin' && perfilUsuario?.profile ? (
+                <div>
+                  <Link to={'/auth/dashboard'}>
+                  <button className="learn-more">
+                    <span aria-hidden="true" className="circle">
+                      <span className="icon arrow"></span>
+                    </span>
+                    <span className="button-text">Administrador</span>
+                  </button>
+                </Link>
+                </div>
+              ) : null}
+            </div>
           </div>
         )
       ) : (
-        <div className={style.box}>
-          <div className={style.shadow}></div>
-          <div className={style.gravity}>
-            <div className={style.ball}></div>
+        <div className={style.boxLoadingBall}>
+          <div className={style.shadowLoadingBall}></div>
+          <div className={style.gravityLoadingBall}>
+            <div className={style.ballLoadingBall}></div>
           </div>
         </div>
       )}
     </div>
   );
 }
-// (
-//   <div className={style.contProf}>
-//       {
-//         //Este contendrá todo para hacer la previsualización
-//       }
-//       {/* <div className={style.image}>
-//         <img src="https://pbs.twimg.com/profile_images/1454099552106074116/eEn8pMnN_400x400.jpg" />
-//       </div> */}
-//       <Grid container spacing={{md: 2}}>
-
-//         <Grid item xs={12} sm={12} md={6} marginBottom={5}>
-
-//         <form onSubmit={handleSubmit}>
-//           <Box  display="flex" flexDirection={"column"} maxWidth={400} minWidth={300} alignItems="center" justifyContent={"center"} margin="auto" padding={3} borderRadius={5} boxShadow={"5px 5px 10px #ccc"} sx={{":hover":{ boxShadow: "5px 5px 10px #ccc"}, backgroundColor:"whitesmoke", marginX: 3}}>
-//             <Typography variant='body2' fontWeight="bold" >Actualiza tu perfil para terminar de registrarte!</Typography>
-//             <TextField margin="normal" htmlFor="firstName" name='firstName' type='text' label="Nombre" onChange={handleChange}/>
-//             <TextField margin="normal" htmlFor="lastName" name='lastName' type='text' label="Apellido" onChange={handleChange}/>
-//             <TextField margin="normal" htmlFor="birthDate" name="birthDate" type='date' focused label="Fecha de Nacimiento" onChange={handleChange} color='grey' />
-//             <TextField margin="normal" htmlFor="dni" name="dni" type='text' label="DNI" onChange={handleChange}/>
-
-//             <Toolbar>
-//               <TextField margin="normal" htmlFor="image" name="image" type='file' label="Imagen" focused onChange={handleChange} color='grey'></TextField>
-//               <Button variant="contained" size='xs' sx={{ marginLeft:"5px", fontSize: "10px", alignContent:"center"}} type="button" onClick={submitImgToCloudinary} startIcon={<FileUploadOutlinedIcon/>}>Cargar</Button>
-//             </Toolbar>
-//             <p>{cloudinaryResponse?<div className={style.loader}></div>:success}</p>
-
-//             <Button type="submit" sx={{marginTop: 2,}} variant='outlined'>Actualizar perfil</Button>
-//           </Box>
-
-//         </form>
-//         </Grid>
-
-//     {
-//       //!ACÁ SE DIVIDE LA VISTA PREVIA
-//     }
-
-//       <Grid item xs={12} sm={12} md={6}>
-//       <Box  display="flex" flexDirection={"column"} maxWidth={400} minWidth={300} alignItems="center" justifyContent={"center"} margin="auto" padding={3} borderRadius={5} boxShadow={"5px 5px 10px #ccc"} sx={{":hover":{ boxShadow: "5px 5px 10px #ccc"}, backgroundColor:"whitesmoke", marginX: 3 }}>
-
-//           <Container sx={{borderRadius: "50%", borderColor: "black", borderStyle: "solid", borderWidth: "2px", overflow: "hidden", width:"15vw", height:"15vw", marginBottom: 3,}}>
-//           <img
-//             src={profileData.image ? imageURL : imgDefault}
-//             alt="img"
-//             style={{
-//               width: "100%", // Añade esto
-//               height: "100%", // Añade esto
-//               objectFit: "cover"
-//             }}
-
-//           />
-//           </Container>
-
-//           <Typography variant='h4' fontWeight="lighter">Hola</Typography>
-//           <Typography variant='h4' fontWeight="bold">{profileData.firstName} {profileData.lastName}!</Typography>
-
-//           <Container>
-//             <Typography variant='body1'>Email: {perfilUsuario.email}</Typography>
-//             <Typography variant='body1'>Fecha de Nacimiento: {profileData.birthDate}</Typography>
-//             <Typography variant='body1'>DNI: {profileData.dni}</Typography>
-//             <Typography variant='body1' fontWeight="bold">Deuda acumulada: $0</Typography>
-
-//           </Container>
-
-//           {/* {error.imagen && <p>{error.imagen}</p>} */}
-//       </Box>
-//       </Grid>
-
-//     </Grid>
-//   </div>
-
-// )
-
-// (
-//   <div >
-//     {' '}
-//     {/*  ACÁ SE DIVIDE CUANDO TIENE PERFIL Y CUANDO NO*/}
-
-//     <Box className={style.perfilCont} alignItems="center" justifyContent={"center"}  borderRadius={5} boxShadow={"5px 5px 10px #ccc"} sx={{":hover":{ boxShadow: "5px 5px 10px #ccc"}, backgroundColor:"whitesmoke", padding: 5 }}>
-//       <Grid container spacing={5} sx={{width: "95%", alignItems: "center"}}>
-//         <Grid item xs={8}>
-//           <Typography variant='h3' fontWeight="bold">Hola {perfilUsuario.profile.firstName}</Typography>
-//           <Typography variant='h3' fontWeight="bold">{perfilUsuario.profile.lastName}!</Typography>
-//           <Button variant='outlined' sx={{marginTop:2}}>Generar Carnet digital</Button>
-//         </Grid>
-//         <Grid item xs={4}>
-//           <Container sx={{display:"flex", justifyContent:"center",  borderRadius: "50%", borderColor: "black", borderStyle: "solid", borderWidth: "2px", overflow: "hidden", width:"20vw", height:"20vw", }}>
-//           <img
-//           src={ perfilUsuario.profile.image
-//               ? perfilUsuario.profile.image
-//               : imgDefault}
-//           alt="img"
-//           style={{
-//             width: "150%", // Añade esto
-//             height: "auto", // Añade esto
-//             objectFit: "cover"
-//           }}
-//           />
-//           </Container>
-//         </Grid>
-
-//       </Grid>
-
-//       <Container sx={{ justifyContent: "center", alignContent: "center"}}>
-//         <Typography variant='body1' sx={{ marginTop: "10px" }}>Email: {perfilUsuario.email}</Typography>
-//         <Typography variant='body1' sx={{ marginTop: "10px" }}>Fecha de Nacimiento: {' '}{perfilUsuario.profile.birthDate.split('T')[0]}</Typography>
-//         <Typography variant='body1' sx={{ marginTop: "10px" }}>DNI: {perfilUsuario.profile.dni}</Typography>
-//         <Typography variant='body1' sx={{ marginTop: "10px", marginBottom:"5px" }} fontWeight="bold">Deuda acumulada: $0</Typography>
-//         <Button onClick={handleBuy} variant='outlined'>Saldar deuda</Button>
-//         {preferenceId && <Wallet initialization={{ preferenceId }} />}
-//       </Container>
-//     </Box>
-// {perfilUsuario.role==='super_admin' && perfilUsuario.profile?    <Link to={'/auth/dashboard'}>
-// <button className="learn-more">
-// <span aria-hidden="true" className="circle">
-// <span className="icon arrow"></span>
-// </span>
-// <span className="button-text">Administrador</span>
-// </button></Link>:null}
-//   </div>
-// )

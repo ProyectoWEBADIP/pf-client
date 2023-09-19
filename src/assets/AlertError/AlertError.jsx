@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 
 const AlertError = () => {
   const errors = useSelector((state) => state.errors);
-  
   return (
     <div>
       <Alert severity="error">{errors}</Alert>

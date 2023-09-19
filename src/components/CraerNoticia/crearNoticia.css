@@ -19,6 +19,7 @@
     
 }
 .cont_form_div{
+    margin-top: 100px;
     background-color:#FCEDDA;
     display: flex;
     align-items: center;

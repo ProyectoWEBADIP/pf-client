@@ -37,7 +37,7 @@ export default function CardPartido({
   return (
     <Paper elevation={3}>
       {detalles ? (
-        <Box padding={1} overflow={"auto"} maxHeight={"13.5rem"}>
+        <Box padding={1} overflow={"auto"} width={"13.5rem"} maxHeight={"13.5rem"}>
           <Box>
             <p style={{ marginBottom: "10px" }}>
               {partidoModificado.description}
@@ -59,7 +59,6 @@ export default function CardPartido({
     <Input
       value={partidoModificado.competence}
       name="competence"
-      // onChange={handleChange}
     />
   ) : (
     <Typography variant="body2" fontWeight="bold">

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./anotherBoton.css";
 const PatrocinioMenu = () => {
   return (
@@ -5,15 +6,15 @@ const PatrocinioMenu = () => {
       <div className="paste-button">
         <button className="button">Patrocinadores &nbsp; ⮟</button>
         <div className="dropdown-content">
-          <a id="top" to="#">
+          <Link id="top" to="/sponsors">
             Sponsor...
-          </a>
-          <a id="middle" to="#">
+          </Link>
+          <Link id="middle" to="#">
             Sponsor...
-          </a>
-          <a id="bottom" to="#">
+          </Link>
+          <Link id="bottom" to="/">
             Sponsor...
-          </a>
+          </Link>
         </div>
       </div>
     </div>

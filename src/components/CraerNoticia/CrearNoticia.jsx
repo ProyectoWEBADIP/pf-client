@@ -89,7 +89,6 @@ export default function CrearNoticia() {
      if(category.length>4){
        alert("Maximo 4 categorias")
      } else if(!tieneID){
-      //se carga para renderizarlo abajo
        setCategory([
          ...category,
          {         
@@ -109,7 +108,6 @@ export default function CrearNoticia() {
     }    
 
     const deleteCategory= (e)=>{
-      console.log(e);
       const categoryFilter= category.filter((c)=>c !== e)      
       //los que no quiere eliminar   
       setCategory([...categoryFilter])        
@@ -138,7 +136,6 @@ export default function CrearNoticia() {
       active: true,
       user_id:userId
     };
-    console.log(body,"body");   
     
     if (canCreateNotice) {
       try {
@@ -181,7 +178,6 @@ export default function CrearNoticia() {
     dispatch(postCategoria({ active: true, name }));  
 
     alert("Categoria creada con exito!")
-    dispatch(getAllCategories());
     // setSuccessAlert('Categoria creada con exito!');
     // setShowSuccess(true);
     // setTimeout(() => {

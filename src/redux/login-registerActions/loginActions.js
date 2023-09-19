@@ -20,9 +20,9 @@ export function localLogin(userCredentials) {
     try {
       const { data } = await axios.post(
         `/auth/login`,
+        `/auth/login`,
         userCredentials
       );
-      console.log(data);
       if (data.statusCode === 203) {
         dispatch({ type: ERROR, payload: data.message });
       }

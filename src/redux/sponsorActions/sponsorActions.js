@@ -6,7 +6,8 @@ export function postSponsor(body){
     return async(dispatch)=>{
         try {
             
-            const {data}= await axios.post(`/sponsors`,body)            
+            const {data}= await axios.post(`/sponsors`,body)
+            console.log(data);
             dispatch({type:POST_SPONSOR, payload:data})
             
         } catch (error) {
