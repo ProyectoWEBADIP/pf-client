@@ -23,7 +23,6 @@ export function localLogin(userCredentials) {
         `/auth/login`,
         userCredentials
       );
-      console.log(data);
       if (data.statusCode === 203) {
         dispatch({ type: ERROR, payload: data.message });
       }

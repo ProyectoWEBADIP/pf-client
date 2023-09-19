@@ -19,7 +19,7 @@ import {
   NativeSelect,
   Container,
 } from "@mui/material";
-import axios from '../../../axios-config';
+import axios from 'axios';
 ;
 import SelectInput from "@mui/material/Select/SelectInput";
 import { getAllCategories } from "../../redux/categoriasActions/categoriasActions";

@@ -25,7 +25,6 @@ export default function Home() {
   useEffect(() => {
     dispatch(setIsLoading())
     dispatch(getAllCategories());
-
     if (!perfilUsuario.length && localStorage.userId) {
       dispatch(getUserById(localStorage.userId));
     }

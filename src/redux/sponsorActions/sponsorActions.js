@@ -5,7 +5,7 @@ export function postSponsor(body){
     return async(dispatch)=>{
         try {
             
-            const {data}= await axios.post(`https://backend-adipweb.onrender.com/sponsors`,body)
+            const {data}= await axios.post(`/sponsors`,body)
             console.log(data);
             dispatch({type:POST_SPONSOR, payload:data})
             
@@ -17,7 +17,7 @@ export function postSponsor(body){
 export function getAllSponsor(){
     return async(dispatch)=>{
         try {            
-            const {data}= await axios(`https://backend-adipweb.onrender.com/sponsors`)            
+            const {data}= await axios(`/sponsors`)            
             dispatch({type:GET_ALL_SPONSOR ,payload:data})
         } catch (error) {
             throw new Error({error:error.message})
@@ -27,7 +27,7 @@ export function getAllSponsor(){
 export function updateSponsor(id,body){
     return async(dispatch)=>{
         try {
-            const {data}= await axios.patch(`https://backend-adipweb.onrender.com/sponsors/${id}`,body)
+            const {data}= await axios.patch(`/sponsors/${id}`,body)
             console.log(data);
             dispatch({type:UPDATE_SPONSOR,payload:data[0]})
             
@@ -39,7 +39,7 @@ export function updateSponsor(id,body){
 export function getSponsorById(id){
     return async(dispatch)=>{
         try {
-            const {data}= await axios(`https://backend-adipweb.onrender.com/sponsors/${id}`)
+            const {data}= await axios(`/sponsors/${id}`)
             dispatch({type:GET_SPONSOR_BY_ID,payload:data[0]})
             console.log(data);
             

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useDispatch, useSelector } from 'react-redux';
 import Validation from '../Login/validaciones';
 import { useState } from 'react';
@@ -13,7 +14,6 @@ import {
 import LockIcon from '@mui/icons-material/Lock';
 import PersonIcon from '@mui/icons-material/Person';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
-import { v4 as uuidv4 } from 'uuid';
 import emailjs from '@emailjs/browser';
 import './singup.css';
 import logo from '../../assets/Escudo ADIP sin fondo.png';
@@ -47,7 +47,8 @@ export default function SignUp() {
   };
 
   const respuesta = useSelector((state) => state.loginRegisterLocal);
-
+const [message,setMessage] = useState('');
+const [showAlerts, setShowAlerst] = useState(false)
   function handleSubmit(e) {
     e.preventDefault();
     const tieneErrors = Object.keys(error);
@@ -76,24 +77,6 @@ export default function SignUp() {
       alert('Verifique los campos');
     }
   }
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  //   const tieneErrors = Object.keys(error);
-
-  //   if (tieneErrors.length === 0) {
-  //     setVerificacionEmail(true);
-  //     const codigoDeVerificacion = uuidv4().slice(0, 5);
-  //     setCodigoGeneradoLocalmente(codigoDeVerificacion);
-  //     emailjs.send(
-  //       "service_8c6uo6a",
-  //       "template_p35w6dm",
-  //       { to_email: input.email, verification_code: codigoDeVerificacion },
-  //       "LVu_qcdfDk8ci54aS"
-  //     );
-  //   } else {
-  //     alert("Verifique los campos");
-  //   }
-  // }
   const handlerCodeVerification = (event) => {
     event.preventDefault();
     setCodigoVerificacion(event.target.value);

@@ -1,23 +1,18 @@
-import axios from '../../../axios-config';
+import axios from 'axios'
 ;
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import {
   Box,
   Button,
-  Container,
   Grid,
-  InputLabel,
   MenuItem,
   Paper,
   Select,
   TextField,
   Toolbar,
   Typography,
-  Divider,
 } from "@mui/material";
-import style from "../CardPartido/cardPartido.module.css";
-import logo from "../../assets/Escudo ADIP sin fondo.png";
 import {
   getAllMatch,
   updateMatch,
