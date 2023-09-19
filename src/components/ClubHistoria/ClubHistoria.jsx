@@ -306,6 +306,7 @@ const ClubHistoria = () => {
             </div>
           </Grid>
 
+
           <Grid item xs={6} md={4}>
             <div data-aos="fade-up-left">
               <Box
@@ -327,7 +328,8 @@ const ClubHistoria = () => {
           </Grid>
         </Grid>
       </Container>
-    </Box>
+
+    </>
   );
 };
 
