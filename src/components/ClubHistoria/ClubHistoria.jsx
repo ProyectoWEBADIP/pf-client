@@ -9,6 +9,7 @@ const ClubHistoria = () => {
   }, []);
 
   return (
+    
     <Box sx={{paddingBottom:'150px'}}>
       <Typography
         sx={{ fontWeight: 'bold', textAlign:'center'}}
@@ -329,7 +330,7 @@ const ClubHistoria = () => {
         </Grid>
       </Container>
 
-    </>
+    </Box>
   );
 };
 
