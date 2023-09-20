@@ -12,11 +12,11 @@ import AlertError from '../../assets/AlertError/AlertError';
 import SucessAlert from '../../assets/AlertSuccess/AlertSuccess';
 import './crearNoticia.css';
 import { submitImgCloudinary } from '../../redux/noticiasActions/noticiasActions';
-
-
+import { Link } from 'react-router-dom';
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 
 export default function CrearNoticia() {
-  const imgDefault = 'https://cdn-icons-png.flaticon.com/256/20/20079.png';
+  const imgDefault = 'https://res.cloudinary.com/drpdobxfu/image/upload/v1695161197/Noticias/xfy5crhkywnnpsakmbzr.png';
   let allCategorias = useSelector((state) => state.categorias);
   
   const [input, setInput] = useState({
@@ -192,6 +192,10 @@ export default function CrearNoticia() {
 
   return (
     <div className='cont_general_noticia'>
+      <div className='cont_link_buton'>
+        <Link className='icon_back_notice' to='/auth/dashboard#/crearNoticia'><KeyboardReturnIcon fontSize='large'/></Link>
+
+      </div>
       <div className='cont_form_div'>
           <form id="formulario" onSubmit={handleSubmit}>
 
@@ -283,8 +287,10 @@ export default function CrearNoticia() {
             <TextField type="file" name="imagen" accept="image/*" onChange={handleImageChange}/>            
             </div>        
             
-                          
-              <img className='renderiza_img_notices' src={ imageURL? imageURL : imgDefault} alt="img" style={{ width: '300px', height: 'auto', objectFit: "cover"}}/>            
+              <div className='cont_img_notices_render'>
+                <img className='renderiza_img_notices' src={ imageURL? imageURL : imgDefault} alt="img"/>     
+              </div>            
+                     
 
             <div className='div_submit_notice'>
             <Button className='button_submit_notices' type="submit" variant="outlined" value="Crear Noticia">Crear noticia</Button>
@@ -292,7 +298,7 @@ export default function CrearNoticia() {
           </form>
       </div>
 
-  
+              
         {/*------------------------- Previsualizar noticia ------------------------------------------------------------*/}
           <div className='cont_previsu_div'>       
             

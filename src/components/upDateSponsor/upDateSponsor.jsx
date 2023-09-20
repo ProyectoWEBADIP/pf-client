@@ -169,7 +169,7 @@ const UpDateSponsor = () => {
                 )
               })}
             </select>
-            <p className='texto'>Aqui te damos un ejemplo de como funcionan las ubicaciones</p>
+            <p className='texto_sponsor_ej'>Aqui te damos un ejemplo de como funcionan las ubicaciones</p>
               <div className='maqueta_ubicar_sponsor'>                
                 <img className="ejemplo" src={imgHome} alt="home" />
                 <img className="ejemplo" src={imgDetalle} alt="detalleNoticia" />
@@ -230,9 +230,13 @@ const UpDateSponsor = () => {
               </div>                
 
               <div className='contenedor_guardar_sponsor'>
-                <button onClick={handleSubmit} className='buton_guardar_sponsor'>Guardar cambios</button>                
+                <button onClick={handleSubmit} className='butonUpdate_guardar_sponsor'>Guardar cambios</button>                
               </div>
           </div>
+          {/* <div className="contenido_botones_">
+            <button className="buton_crear_sponsor">Crear Sponsor</button>
+            <button className="buton_crear_sponsor">Lista Sponsor</button>
+          </div> */}
 
       </div>
     

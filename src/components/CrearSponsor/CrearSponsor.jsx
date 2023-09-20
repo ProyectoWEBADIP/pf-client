@@ -101,10 +101,13 @@ const CrearSponsor = () => {
                     {imagen && <img className ="imagen"src={imagen} alt="img"/>}
                 </div>            
                 <br />            
-                <button className="buton_crear_sponsor" type="submit">Crear sponsor</button>
+                <button className="buton_create_sponsor" type="submit">Crear sponsor</button>
             </form>
         </div>      
-        
+        {/* <div className="contenido_botones_">
+            <button className="buton_crear_sponsor">Lista Sponsor</button>
+            <button className="buton_crear_sponsor">Editar Sponsor</button>
+        </div> */}
     </div>
   )
 }
