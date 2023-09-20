@@ -1,0 +1,12 @@
+.perfil-nav-cont{
+  width: 100%;
+  height: 10%;
+}
+.perfil-nav-cont>span{
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  justify-content: space-around;
+  
+  display: flex;
+}
