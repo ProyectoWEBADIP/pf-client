@@ -17,7 +17,7 @@ export default function QRCarnet() {
         />
       </div>
       <div>
-        <Link to={"/"}><button>Home</button></Link>
+        <Link to={`/${localStorage.userId}/profile`}><button>Volver al perfil</button></Link>
       </div>
     </div>
   );

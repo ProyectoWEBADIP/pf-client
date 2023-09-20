@@ -180,13 +180,6 @@ const RecuperarContraseña = () => {
             <div>
               <div>
                 <div>
-                  {/* <input
-              type="text"
-              label="Ingresé el codigo"
-              value={codigoVerificacion}
-              onChange={handleChangeVerificationCode}
-            /> */}
-
                   <div className="input-container-recuperacion ic2-recuperacion">
                     <input
                       placeholder=""
@@ -196,7 +189,7 @@ const RecuperarContraseña = () => {
                     />
                     <div className="cut cut-short">
                       <label className="iLabel" htmlFor="email">
-                        Código
+                        Ingresa el código
                       </label>
                     </div>
                   </div>
@@ -216,13 +209,6 @@ const RecuperarContraseña = () => {
             <div>
               <div>
                 <div>
-                  {/* <input
-                type="password"
-                label="Ingrese nueva contraseña"
-                name="value1"
-                value={password.value1}
-                onChange={handleChangePassword}
-              /> */}
                   <div className="input-container-recuperacion ic2-recuperacion">
                     <input
                       placeholder=""
@@ -239,13 +225,6 @@ const RecuperarContraseña = () => {
                   </div>
                 </div>
                 <div>
-                  {/* <input
-                type="password"
-                label="Repita su contraseña"
-                name="value2"
-                value={password.value2}
-                onChange={handleChangePassword}
-              /> */}
                   <div className="input-container-recuperacion ic2-recuperacion">
                     <input
                       placeholder=""

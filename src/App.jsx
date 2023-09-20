@@ -32,7 +32,6 @@ import Noticias from './views/Noticias/Noticias';
 import SuccessPayment from './views/SuccessPayment/SuccessPayment';
 import CarnetDigital from "./components/CarnetDigital/CarnetDigital";
 import QRCarnet from "./components/QrCarnet/QrCarnet";
-import SuccessPayment from "./views/SuccessPayment/SuccessPayment";
 function App() {
   const storedThemeMode = localStorage.getItem('themeMode') || 'light';
   const [themeMode, setThemeMode] = useState(storedThemeMode);
