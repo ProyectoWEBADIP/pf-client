@@ -30,7 +30,6 @@ import ProtectedSuperAdminRoutes from './components/ProtectedRoutes/ProtectedSup
 import NotFoundComponent from './components/notFound/NotFound';
 import Noticias from './views/Noticias/Noticias';
 import SuccessPayment from './views/SuccessPayment/SuccessPayment';
-import CarnetDigital from "./components/CarnetDigital/CarnetDigital";
 import QRCarnet from "./components/QrCarnet/QrCarnet";
 function App() {
   const storedThemeMode = localStorage.getItem('themeMode') || 'light';
@@ -59,7 +58,6 @@ function App() {
           <Route path={'/login/SignUp'} element={<SignUp />} />
           <Route path={'/detalle/:id'} element={<NoticiaDetail />} />
           <Route path={'/:id/profile'} element={<PerfilUsuario />} />
-          <Route path={"/carnetDigital/:id"} element={<CarnetDigital/>}/>
           <Route path={"/QrCarnetDigital/:dni"} element={<QRCarnet/>}/>
           <Route path={'/success/'} element={<SuccessPayment />} />
 
