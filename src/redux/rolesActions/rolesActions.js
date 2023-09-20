@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
 import {
-   GET_ALL_ROLES,
-   GET_ALL_ROLES_BY_ID,
-   POST_ROL,
-   PATCH_ROL,
-   DELETE_ROL,
+  GET_ALL_ROLES,
+  GET_ALL_ROLES_BY_ID,
+  POST_ROL,
+  PATCH_ROL,
+  DELETE_ROL,
 } from "./rolesActionsTypes";
 
 //trae todos los roles

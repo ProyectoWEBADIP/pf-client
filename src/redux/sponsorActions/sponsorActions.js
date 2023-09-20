@@ -1,5 +1,9 @@
-/* eslint-disable no-unused-vars */
-import { POST_SPONSOR ,GET_ALL_SPONSOR,UPDATE_SPONSOR, GET_SPONSOR_BY_ID} from "./sponsorActionsTypes";
+import {
+  POST_SPONSOR,
+  GET_ALL_SPONSOR,
+  UPDATE_SPONSOR,
+  GET_SPONSOR_BY_ID,
+} from "./sponsorActionsTypes";
 import axios from "axios";
 
 export function postSponsor(body){
@@ -24,7 +28,8 @@ export function getAllSponsor(){
             throw new Error({error:error.message})
         }
     }
-}
+  }
+
 export function updateSponsor(id,body){
     return async(dispatch)=>{
         try {

@@ -46,11 +46,12 @@ export function loading() {
 export function logout() {
   return (dispatch) => {
     dispatch({ type: LOGOUT });
-    dispatch({type:CLEAR_ERR0R})
+    dispatch({ type: CLEAR_ERR0R });
   };
 }
 //?REGISTER ACTIONS
 export function registerUser(userData) {
+  console.log(userData)
   return async (dispatch) => {
     try {
       const { data } = await axios.post(
