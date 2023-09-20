@@ -5,7 +5,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import Home from './components/Home/Home';
 import Navbar from './components/Navbar/Navbar';
 import Login from '../src/components/Login/Login';
-import SingUp from '../src/components/SingUp/SingUp';
+import SignUp from './components/SignUp/SignUp';
 import NoticiaDetail from './components/detailNoticia/NoticiaDetail';
 import CrearNoticia from './components/CraerNoticia/CrearNoticia';
 import PerfilUsuario from './components/PerfilUsuario/Perfil';
@@ -46,7 +46,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         {location.pathname !== '/' ? null : <Banner />}
-        {location.pathname !== '/auth/dashboard' ? (
+        {location.pathname !== "/auth/dashboard" ? (
           <Navbar themeMode={themeMode} toggleThemeMode={toggleThemeMode} />
         ) : null}
         <Routes>
@@ -54,7 +54,7 @@ function App() {
 
           <Route path={'/'} element={<Home />} />
           <Route path={'/login'} element={<SignIn />} />
-          <Route path={'/login/SignUp'} element={<SingUp />} />
+          <Route path={'/login/SignUp'} element={<SignUp />} />
           <Route path={'/detalle/:id'} element={<NoticiaDetail />} />
           <Route path={'/:id/profile'} element={<PerfilUsuario />} />
           <Route element={<ProtectedRoutes />}>
@@ -82,7 +82,7 @@ function App() {
             }
           />
           <Route
-            path={'/login/recuperacion'}
+            path={"/login/recuperacion"}
             element={<RecuperarContraseña />}
           />
           <Route path="*" element={<NotFoundComponent />} />
