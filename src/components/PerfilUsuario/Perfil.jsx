@@ -1,18 +1,18 @@
 /* eslint-disable no-unused-vars */
-'use client';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import style from './Perfil.module.css';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+"use client";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import style from "./Perfil.module.css";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import {
   createLocalProfile,
   getUserById,
-} from '../../redux/login-registerActions/loginActions';
-import axios from 'axios';
+} from "../../redux/login-registerActions/loginActions";
+import axios from "axios";
 import EditIcon from '@mui/icons-material/Edit';
 
-import { setIsLoading } from '../../utils/setIsLoading';
+import { setIsLoading } from "../../utils/setIsLoading";
 import {
   Alert,
   Badge,
@@ -26,24 +26,24 @@ import {
   Toolbar,
   Tooltip,
   Typography,
-} from '@mui/material';
-import MaleIcon from '@mui/icons-material/Male';
-import FemaleIcon from '@mui/icons-material/Female';
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import BadgeIcon from '@mui/icons-material/Badge';
-import { Box, Container, padding } from '@mui/system';
-import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
-import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
-import './perfil.css';
-import AlertError from '../../assets/AlertError/AlertError';
-import logo from '../../assets/Escudo ADIP sin fondo.png';
-import { Edit, Email } from '@mui/icons-material';
-import CakeIcon from '@mui/icons-material/Cake';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import UpdateProfile from '../../views/updateProfile/UpdateProfile';
-import { showProfileEdit } from '../../redux/profileActions/profileActions';
-import jwtDecode from 'jwt-decode';
+} from "@mui/material";
+import MaleIcon from "@mui/icons-material/Male";
+import FemaleIcon from "@mui/icons-material/Female";
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import BadgeIcon from "@mui/icons-material/Badge";
+import { Box, Container, padding } from "@mui/system";
+import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
+import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
+import "./perfil.css";
+import AlertError from "../../assets/AlertError/AlertError";
+import logo from "../../assets/Escudo ADIP sin fondo.png";
+import { Edit, Email } from "@mui/icons-material";
+import CakeIcon from "@mui/icons-material/Cake";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import UpdateProfile from "../../views/updateProfile/UpdateProfile";
+import { showProfileEdit } from "../../redux/profileActions/profileActions";
+import jwtDecode from "jwt-decode";
 import { getAllNoticias } from '../../redux/noticiasActions/noticiasActions';
 export default function Perfil() {
   //!HOOKS
@@ -57,13 +57,13 @@ export default function Perfil() {
     role = jwtDecode(token).role;
   }
   const [profileData, setProfileData] = useState({
-    firstName: '',
-    lastName: '',
-    dni: '',
-    birthDate: '',
-    gender: '',
-    phone: '',
-    image: '',
+    firstName: "",
+    lastName: "",
+    dni: "",
+    birthDate: "",
+    gender: "",
+    phone: "",
+    image: "",
   });
   const [file, setFile] = useState(null);
 
@@ -99,10 +99,10 @@ export default function Perfil() {
     dispatch(getUserById(id));
   }, [dispatch, id]);
 
-  const [imageURL, setImageURL] = useState(''); //url
+  const [imageURL, setImageURL] = useState(""); //url
 
   const handleChange = (event) => {
-    if (event.target.name === 'image') {
+    if (event.target.name === "image") {
       const file = event.target.files[0];
       setFile(event.target.files[0]);
       const path = URL.createObjectURL(file);
@@ -114,21 +114,10 @@ export default function Perfil() {
     });
   };
   const imgDefault =
-    'https://pbs.twimg.com/profile_images/1454099552106074116/eEn8pMnN_400x400.jpg';
+    "https://pbs.twimg.com/profile_images/1454099552106074116/eEn8pMnN_400x400.jpg";
 
   //?FUNCION QUE DESHABILITA EL BOTON PARA ACTUALIZAR PERFIL SI HAY ERRORES
-  // function disabler() {
-  //     let disabled = true;
-  //     for (const err in error) {
-  //       if (error[err] === "") {
-  //         disabled = false;
-  //       } else {
-  //         disabled = true;
-  //         break;
-  //       }
-  //     }
-  //     return disabled;
-  //   }
+
   const [cloudinaryResponse, setCloudinaryResponse] = useState(null);
   const [success, setSuccess] = useState(false);
   async function submitImgToCloudinary() {
@@ -136,12 +125,12 @@ export default function Perfil() {
     setSuccess(false);
     try {
       const formData = new FormData();
-      formData.append('file', file);
-      formData.append('upload_preset', 'Usuarios');
-      formData.append('cloud_name', 'drpdobxfu');
+      formData.append("file", file);
+      formData.append("upload_preset", "Usuarios");
+      formData.append("cloud_name", "drpdobxfu");
 
       const { data } = await axios.post(
-        'https://api.cloudinary.com/v1_1/drpdobxfu/image/upload',
+        "https://api.cloudinary.com/v1_1/drpdobxfu/image/upload",
         formData
       );
 
@@ -164,7 +153,7 @@ export default function Perfil() {
   const showEditProfile = useSelector((state) => state.showEditProfile);
   const isLoading = useSelector((state) => state.isLoading);
 
-  const [errorAlert, setErrorAlert] = useState('');
+  const [errorAlert, setErrorAlert] = useState("");
   const [showError, setShowError] = useState(false);
   const defaultPortada =
     'https://res.cloudinary.com/drpdobxfu/image/upload/v1695063800/kfoqlqqc1yevcyeoggvg.jpg';
@@ -178,29 +167,23 @@ export default function Perfil() {
       {!isLoading ? (
         !perfilUsuario?.active ? (
           <div className={style.contProf}>
-            {
-              //Este contendrá todo para hacer la previsualización
-            }
-            {/* <div className={style.image}>
-                    <img src="https://pbs.twimg.com/profile_images/1454099552106074116/eEn8pMnN_400x400.jpg" />
-                  </div> */}
             <Grid container spacing={{ md: 2 }}>
               <Grid item xs={12} sm={12} md={6} marginBottom={5}>
                 <form onSubmit={handleSubmit}>
                   <Box
                     display="flex"
-                    flexDirection={'column'}
+                    flexDirection={"column"}
                     maxWidth={400}
                     minWidth={300}
                     alignItems="center"
-                    justifyContent={'center'}
+                    justifyContent={"center"}
                     margin="auto"
                     padding={3}
                     borderRadius={5}
-                    boxShadow={'5px 5px 10px #ccc'}
+                    boxShadow={"5px 5px 10px #ccc"}
                     sx={{
-                      ':hover': { boxShadow: '5px 5px 10px #ccc' },
-                      backgroundColor: 'whitesmoke',
+                      ":hover": { boxShadow: "5px 5px 10px #ccc" },
+                      backgroundColor: "whitesmoke",
                       marginX: 3,
                     }}
                   >
@@ -279,9 +262,9 @@ export default function Perfil() {
                         variant="contained"
                         size="xs"
                         sx={{
-                          marginLeft: '5px',
-                          fontSize: '10px',
-                          alignContent: 'center',
+                          marginLeft: "5px",
+                          fontSize: "10px",
+                          alignContent: "center",
                         }}
                         type="button"
                         onClick={submitImgToCloudinary}
@@ -316,30 +299,30 @@ export default function Perfil() {
               <Grid item xs={12} sm={12} md={6}>
                 <Box
                   display="flex"
-                  flexDirection={'column'}
+                  flexDirection={"column"}
                   maxWidth={400}
                   minWidth={300}
                   alignItems="center"
-                  justifyContent={'center'}
+                  justifyContent={"center"}
                   margin="auto"
                   padding={3}
                   borderRadius={5}
-                  boxShadow={'5px 5px 10px #ccc'}
+                  boxShadow={"5px 5px 10px #ccc"}
                   sx={{
-                    ':hover': { boxShadow: '5px 5px 10px #ccc' },
-                    backgroundColor: 'whitesmoke',
+                    ":hover": { boxShadow: "5px 5px 10px #ccc" },
+                    backgroundColor: "whitesmoke",
                     marginX: 3,
                   }}
                 >
                   <Container
                     sx={{
-                      borderRadius: '50%',
-                      borderColor: 'black',
-                      borderStyle: 'solid',
-                      borderWidth: '2px',
-                      overflow: 'hidden',
-                      width: '15vw',
-                      height: '15vw',
+                      borderRadius: "50%",
+                      borderColor: "black",
+                      borderStyle: "solid",
+                      borderWidth: "2px",
+                      overflow: "hidden",
+                      width: "15vw",
+                      height: "15vw",
                       marginBottom: 3,
                     }}
                   >
@@ -347,9 +330,9 @@ export default function Perfil() {
                       src={profileData.image ? imageURL : imgDefault}
                       alt="img"
                       style={{
-                        width: '100%', // Añade esto
-                        height: '100%', // Añade esto
-                        objectFit: 'cover',
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
                       }}
                     />
                   </Container>
@@ -375,8 +358,6 @@ export default function Perfil() {
                       Deuda acumulada: $0
                     </Typography>
                   </Container>
-
-                  {/* {error.imagen && <p>{error.imagen}</p>} */}
                 </Box>
               </Grid>
             </Grid>
@@ -441,7 +422,7 @@ export default function Perfil() {
 
               <div className="nameAndEditContainer">
                 <h1>
-                  {perfilUsuario?.profile?.firstName}{' '}
+                  {perfilUsuario?.profile?.firstName}{" "}
                   {perfilUsuario?.profile?.lastName}
                 </h1>
                 <div className="editButtonContainer">
@@ -474,7 +455,7 @@ export default function Perfil() {
                     <span>{perfilUsuario?.profile?.phone}</span>
                   </div>
                   <div className="dataContainers">
-                    {perfilUsuario?.profile?.gender === 'Femenino' ? (
+                    {perfilUsuario?.profile?.gender === "Femenino" ? (
                       <FemaleIcon />
                     ) : (
                       <MaleIcon />
@@ -492,7 +473,7 @@ export default function Perfil() {
                   </div>
                   {!preferenceId ? (
                     <div className="pagarContainer">
-                      {' '}
+                      {" "}
                       <button onClick={handleBuy}>Pagar con MercadoPago</button>
                     </div>
                   ) : null}
