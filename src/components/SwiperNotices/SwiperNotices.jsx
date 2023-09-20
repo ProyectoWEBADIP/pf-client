@@ -48,7 +48,7 @@ export default function SwiperNotices() {
         <SwiperSlide key={i}>
             <Card
         className="noticesCards"
-        sx={{ minWidth: "70%", minHeight: '100%', maxHeight: '100%', maxWidth: '100%' }}
+        sx={{ minWidth: "70%", minHeight: '50%', maxHeight: '70%', maxWidth: '100%' , overflow:'hidden'}}
       >
         <CardActionArea>
           <CardMedia

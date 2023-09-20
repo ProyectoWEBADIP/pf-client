@@ -46,8 +46,11 @@ const UpdateProfile = ({ perfilUsuario }) => {
   const [showAlert, setShowAlert] = useState(false);
   const [imgUpdated, setImgUpdated] = useState(false);
   const [alert, setAlert] = useState('');
+  const [changes, setChanges] = useState(false)
 
   function handleChange(e) {
+    setChanges(true)
+
     if (e.target.name === 'image') {
       setImgUpdated(true);
       const file = e.target.files[0];
@@ -67,34 +70,41 @@ const UpdateProfile = ({ perfilUsuario }) => {
     });
   }
   const [loading, setLoading] = useState(false);
-
   async function handleUpload(e) {
-    if (imgUpdated) {
+    if(changes){
+      if (imgUpdated) {
+        setLoading(true)
+        const cloudinaryResponse = await dispatch(submitImgToCloudinary(file));
+        updatedFields.image = cloudinaryResponse.secure_url;
+        setAlert(cloudinaryResponse.message);
+        setShowAlert(true);
+        setTimeout(() => {
+          setShowAlert(false);
+        }, 5000);
+      }
+      const id = perfilUsuario.profile.id;
       setLoading(true)
-      const cloudinaryResponse = await dispatch(submitImgToCloudinary(file));
-      updatedFields.image = cloudinaryResponse.secure_url;
-      setAlert(cloudinaryResponse.message);
-      setShowAlert(true);
+      const response = await dispatch(updateUserProfile(id, updatedFields));
+      setLoading(false)
+      setImgUpdated(false);
+      setSuccess(`${response} La página se refrescará.`);
       setTimeout(() => {
-        setShowAlert(false);
-      }, 5000);
+        location.reload()
+        setSuccess(false);
+        
+      }, 3000);
+      return;
+    } else{
+      setSuccess(`No hay cambios que aplicar.`);
+      setTimeout(() => {
+        setSuccess(false);
+        
+      }, 3000);
     }
-    const id = perfilUsuario.profile.id;
-    setLoading(true)
-    const response = await dispatch(updateUserProfile(id, updatedFields));
-    setLoading(false)
-    setImgUpdated(false);
-    setSuccess(`${response} La página se refrescará.`);
-    setTimeout(() => {
-      location.reload()
-      setSuccess(false);
-      
-    }, 3000);
-    return;
   }
   return (
     <div className="overlayUpdateModal">
-      <div className="updateModal">
+      <div className={localStorage.themeMode==='light'?"updateModal light":"updateModal dark"}>
         { loading ? (
           <div className="loading-update-profile">
             <div className="lds-roller">

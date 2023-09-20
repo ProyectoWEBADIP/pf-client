@@ -71,7 +71,6 @@ const CrearSponsor = () => {
         
         const cloudiResponde= await dispatch(submitImgCloudy(file))
         setInput({...input,img:cloudiResponde.secure_url})
-        console.log(input.img);
         setCloudinary(true)
     }
 

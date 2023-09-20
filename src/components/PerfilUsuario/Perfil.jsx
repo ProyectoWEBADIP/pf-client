@@ -9,11 +9,11 @@ import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import {
   createLocalProfile,
   getUserById,
-} from "../../redux/login-registerActions/loginActions";
-import axios from "axios";
+} from '../../redux/login-registerActions/loginActions';
+import axios from 'axios';
 import EditIcon from '@mui/icons-material/Edit';
 
-import { setIsLoading } from "../../utils/setIsLoading";
+import { setIsLoading } from '../../utils/setIsLoading';
 import {
   Alert,
   Button,
@@ -56,13 +56,13 @@ export default function Perfil() {
     role = jwtDecode(token).role;
   }
   const [profileData, setProfileData] = useState({
-    firstName: "",
-    lastName: "",
-    dni: "",
-    birthDate: "",
-    gender: "",
-    phone: "",
-    image: "",
+    firstName: '',
+    lastName: '',
+    dni: '',
+    birthDate: '',
+    gender: '',
+    phone: '',
+    image: '',
   });
   const [file, setFile] = useState(null);
   const [errors, setErrors] = useState({
@@ -78,7 +78,7 @@ export default function Perfil() {
     try {
       const { data } = await axios.post(`/payment/createPreference`, {
         description: 'Cuota mensual Club deportivo A.D.I.P',
-        price: 100,
+        price: perfilUsuario.profile.saldo,
         quantity: 1,
       });
       return data.body.id;
@@ -90,9 +90,11 @@ export default function Perfil() {
       }, 5000);
     }
   };
-
+  const [mpLoading, setmpLoading] = useState(false);
   const handleBuy = async () => {
+    setmpLoading(true);
     const id = await createPreference();
+    setmpLoading(false);
     if (id) {
       setPreferenceId(id);
     }
@@ -104,10 +106,10 @@ export default function Perfil() {
     dispatch(getUserById(id));
   }, [dispatch, id]);
 
-  const [imageURL, setImageURL] = useState(""); //url
+  const [imageURL, setImageURL] = useState(''); //url
 
   const handleChange = (event) => {
-    if (event.target.name === "image") {
+    if (event.target.name === 'image') {
       const file = event.target.files[0];
       setFile(event.target.files[0]);
       const path = URL.createObjectURL(file);
@@ -122,7 +124,7 @@ export default function Perfil() {
     );
   };
   const imgDefault =
-    "https://pbs.twimg.com/profile_images/1454099552106074116/eEn8pMnN_400x400.jpg";
+    'https://pbs.twimg.com/profile_images/1454099552106074116/eEn8pMnN_400x400.jpg';
 
   //FUNCION QUE DESHABILITA EL BOTON PARA ACTUALIZAR PERFIL SI HAY ERRORES
   function disabler() {
@@ -144,12 +146,12 @@ export default function Perfil() {
     setSuccess(false);
     try {
       const formData = new FormData();
-      formData.append("file", file);
-      formData.append("upload_preset", "Usuarios");
-      formData.append("cloud_name", "drpdobxfu");
+      formData.append('file', file);
+      formData.append('upload_preset', 'Usuarios');
+      formData.append('cloud_name', 'drpdobxfu');
 
       const { data } = await axios.post(
-        "https://api.cloudinary.com/v1_1/drpdobxfu/image/upload",
+        'https://api.cloudinary.com/v1_1/drpdobxfu/image/upload',
         formData
       );
 
@@ -175,7 +177,7 @@ export default function Perfil() {
   const showEditProfile = useSelector((state) => state.showEditProfile);
   const isLoading = useSelector((state) => state.isLoading);
 
-  const [errorAlert, setErrorAlert] = useState("");
+  const [errorAlert, setErrorAlert] = useState('');
   const [showError, setShowError] = useState(false);
   const defaultPortada =
     'https://res.cloudinary.com/drpdobxfu/image/upload/v1695063800/kfoqlqqc1yevcyeoggvg.jpg';
@@ -308,9 +310,7 @@ export default function Perfil() {
           </div>
         ) : (
           <div className="profileContainer">
-            <div className="leftProfileContainer">
-             
-            </div>
+            <div className="leftProfileContainer"></div>
             {!showEditProfile ? null : (
               <UpdateProfile perfilUsuario={perfilUsuario} />
             )}
@@ -331,12 +331,12 @@ export default function Perfil() {
                   alt=""
                 />
               </div>
-
               <div className="nameAndEditContainer">
                 <h1>
-                  {perfilUsuario?.profile?.firstName}{" "}
+                  {perfilUsuario?.profile?.firstName}{' '}
                   {perfilUsuario?.profile?.lastName}
                 </h1>
+
                 <div className="editButtonContainer">
                   <div
                     onClick={() => {
@@ -367,7 +367,7 @@ export default function Perfil() {
                     <span>{perfilUsuario?.profile?.phone}</span>
                   </div>
                   <div className="dataContainers">
-                    {perfilUsuario?.profile?.gender === "Femenino" ? (
+                    {perfilUsuario?.profile?.gender === 'Femenino' ? (
                       <FemaleIcon />
                     ) : (
                       <MaleIcon />
@@ -376,29 +376,57 @@ export default function Perfil() {
                   </div>
                 </div>
                 <div className="estadoDeudaContainer">
-                  <div className="estadocontainer">
-                    <span className="detallesSpan">Estado de cuenta</span>
-                    <div className="dataContainers">
-                      <AttachMoneyIcon fontSize="large" />
-                      <span>Deuda actual: $1900,57</span>
+                  {perfilUsuario.profile.saldo > 0 ? (
+                    <div className="estadodeuda-container">
+                      <span className="detallesSpan">Estado de cuenta</span>
+
+                      <span className="deuda-span">
+                        <AttachMoneyIcon fontSize="large" />
+                        Deuda actual: ${perfilUsuario.profile.saldo}
+                      </span>
+                      <div className="mercadopagoContainer">
+                        {mpLoading ? (
+                          <div className="loader-barra-container">
+                            <span className="loader-barra-mp"></span>
+                          </div>
+                        ) : preferenceId ? (
+                          <div>
+                            <Wallet initialization={{ preferenceId }} />
+                          </div>
+                        ) : (
+                          <div className="pagarContainer">
+                            {' '}
+                            <button onClick={handleBuy}>
+                              Pagar con MercadoPago
+                            </button>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                  {!preferenceId ? (
-                    <div className="pagarContainer">
-                      {" "}
-                      <button onClick={handleBuy}>Pagar con MercadoPago</button>
+                  ) : (
+                    <div className="aldia-container">
+                      <span className="detallesSpan">Estado de cuenta</span>
+                      <div>
+                        <img
+                          src="https://res.cloudinary.com/drpdobxfu/image/upload/v1695234309/utawyobyj6ujarsa52hm.png"
+                          alt=""
+                        />
+                        <span>Usted no presenta deudas.</span>
+                      </div>
                     </div>
-                  ) : null}
-                  <div className="mercadopagoContainer">
-                    {preferenceId && (
-                      <Wallet initialization={{ preferenceId }} />
-                    )}
-                  </div>
+                  )}
                 </div>
               </div>
-              {perfilUsuario.active && <Link to={`/QrCarnetDigital/${perfilUsuario.profile.dni}`}><button>Generar carnet digital</button></Link>}
+              <div className="carnet-container">
+              <div className="gen-carnet-container">
+             {perfilUsuario.active && (
+                <Link to={`/QrCarnetDigital/${perfilUsuario.profile.dni}`}>
+                  <button>Generar carnet digital</button>
+                </Link>
+              )}
+             </div>
+              </div>
             </div>
-
             <div className="rigthProfileContainer">
               {role === 'super_admin' && perfilUsuario?.profile ? (
                 <div>

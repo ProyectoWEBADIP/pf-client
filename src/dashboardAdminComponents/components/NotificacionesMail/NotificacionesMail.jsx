@@ -26,7 +26,6 @@ export default function NotificacionesMail() {
   const [select, setSelect] = useState(false)
 
   const allUsers = useSelector((state) => state.allUsers);
-  
 
   const handleChangeSearchUser = (event) => {
     setUserSearch(event.target.value);

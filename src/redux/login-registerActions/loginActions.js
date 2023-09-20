@@ -50,7 +50,6 @@ export function logout() {
 }
 //?REGISTER ACTIONS
 export function registerUser(userData) {
-  console.log(userData)
   return async (dispatch) => {
     try {
       const { data } = await axios.post(
@@ -73,6 +72,7 @@ export function googleRegisterUser(userData) {
         userData
       );
       dispatch({ type: REGISTER_USER, payload: data });
+      return data;
     } catch (error) {
       dispatch({ type: LOGIN_REGISTER_ERRORS, payload: error });
     }
@@ -85,7 +85,6 @@ export function getUserById(id) {
   return async (dispatch) => {
     try {
       const { data } = await axios(`/users/${id}`);
-      console.log(data);
       dispatch({ type: GET_USER_BY_ID, payload: data });
     } catch (error) {
       dispatch({ type: CREATE_LOCAL_PROFILE_ERRORS, payload: error });
