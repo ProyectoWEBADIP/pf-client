@@ -27,6 +27,8 @@ import ClubComision from './components/ClubComision/ClubComision';
 import ProtectedRoutes from './components/ProtectedRoutes/ProtectedRoutes';
 import ProtectedSuperAdminRoutes from './components/ProtectedRoutes/ProtectedSuperAdminRoutes';
 import NotFoundComponent from './components/notFound/NotFound';
+import Noticias from './views/Noticias/Noticias';
+import SuccessPayment from './views/SuccessPayment/SuccessPayment';
 function App() {
   const storedThemeMode = localStorage.getItem('themeMode') || 'light';
   const [themeMode, setThemeMode] = useState(storedThemeMode);
@@ -48,6 +50,8 @@ function App() {
           <Navbar themeMode={themeMode} toggleThemeMode={toggleThemeMode} />
         ) : null}
         <Routes>
+        <Route path={'/success'} element={<SuccessPayment />} />
+
           <Route path={'/'} element={<Home />} />
           <Route path={'/login'} element={<SignIn />} />
           <Route path={'/login/SignUp'} element={<SingUp />} />
@@ -65,6 +69,7 @@ function App() {
           </Route>
           <Route path={'/club/historia'} element={<ClubHistoria />} />
           <Route path={'/club/comision'} element={<ClubComision />} />
+          <Route path={'/noticias'} element={<Noticias />} />
           <Route
             path={'/auth/dashboard'}
             element={
@@ -80,7 +85,7 @@ function App() {
             path={'/login/recuperacion'}
             element={<RecuperarContraseña />}
           />
-          {/* <Route path="*" element={<NotFoundComponent />} /> */}
+          <Route path="*" element={<NotFoundComponent />} />
         </Routes>
         <ButtonUpper />
         {location.pathname === '/auth/dashboard' ||

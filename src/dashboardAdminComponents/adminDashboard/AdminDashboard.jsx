@@ -34,7 +34,7 @@ const AdminDashboard = ({ themeMode, toggleThemeMode }) => {
         <Sidebar />
         <MainDash />
         {actualDash === 0 ? (
-          <RigthSide themeMode={themeMode} toggleThemeMode={toggleThemeMode} />
+          <RigthSide />
         ) : null}
       </div>
     </div>

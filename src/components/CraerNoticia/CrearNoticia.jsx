@@ -65,7 +65,6 @@ export default function CrearNoticia() {
   };
   const submitImage = async (e) => {
     e.preventDefault();    
-      
     try {
       const formData = new FormData();
       formData.append('file', input.imagen);
@@ -96,7 +95,6 @@ export default function CrearNoticia() {
 
   function handleImageChange(event){
     const file = event.target.files[0];   
-          
     setImageURL(URL.createObjectURL(file));    
 
     setInput({

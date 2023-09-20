@@ -44,62 +44,61 @@ const UpdateProfile = ({ perfilUsuario }) => {
   const [file, setFile] = useState(null);
   const [success, setSuccess] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-const [imgUpdated, setImgUpdated] = useState(false)
-  const [alert, setAlert] = useState('')
+  const [imgUpdated, setImgUpdated] = useState(false);
+  const [alert, setAlert] = useState('');
 
   function handleChange(e) {
     if (e.target.name === 'image') {
-      setImgUpdated(true)
+      setImgUpdated(true);
       const file = e.target.files[0];
       setFile(e.target.files[0]);
       const path = URL.createObjectURL(file);
       setImageURL(path);
-
     }
-if(e.target.name === 'dni' && updatedFields.dni.length<8){
-  setUpdatedFields({
-    ...updatedFields,
-    [e.target.name]: e.target.value,
-  });
-}
-setUpdatedFields({
-  ...updatedFields,
-  [e.target.name]: e.target.value,
-});
+    if (e.target.name === 'dni' && updatedFields.dni.length < 8) {
+      setUpdatedFields({
+        ...updatedFields,
+        [e.target.name]: e.target.value,
+      });
+    }
+    setUpdatedFields({
+      ...updatedFields,
+      [e.target.name]: e.target.value,
+    });
   }
 
   async function handleUpload(e) {
-    if(imgUpdated){
+    if (imgUpdated) {
       const cloudinaryResponse = await dispatch(submitImgToCloudinary(file));
-      updatedFields.image = cloudinaryResponse.secure_url
+      updatedFields.image = cloudinaryResponse.secure_url;
       setAlert(cloudinaryResponse.message);
       setShowAlert(true);
       setTimeout(() => {
-      setShowAlert(false);
-        
+        setShowAlert(false);
       }, 5000);
     }
-    const id = perfilUsuario.profile.id
-const response = await dispatch(updateUserProfile(id,updatedFields))
-setImgUpdated(false)
-setSuccess(response)
-setTimeout(() => {
-  setSuccess(false)
-}, 5000);
-return ;
+    const id = perfilUsuario.profile.id;
+    const response = await dispatch(updateUserProfile(id, updatedFields));
+    setImgUpdated(false);
+    setSuccess(response);
+    setTimeout(() => {
+      setSuccess(false);
+    }, 5000);
+    return;
   }
   return (
     <div className="overlayUpdateModal">
-      
       <div className="updateModal">
-        {showAlert && <div className="imageAlertModal">
-          <Alert severity="success">{alert}</Alert>
-        </div>}
-        {success && <div className='successUpdate'>
-          <AlertSuccess success={success}/>
+        {showAlert && (
+          <div className="imageAlertModal">
+            <Alert severity="success">{alert}</Alert>
           </div>
-  
-          }
+        )}
+        {success && (
+          <div className="successUpdate">
+            <AlertSuccess success={success} />
+          </div>
+        )}
         <div
           className="closeButtonContainer"
           onClick={() => dispatch(unshowProfileEdit())}
@@ -113,14 +112,13 @@ return ;
           <div className="namesModal">
             <TextField
               InputProps={{
-               
                 startAdornment: (
                   <InputAdornment position="start">
                     <AccountCircle />
                   </InputAdornment>
                 ),
               }}
-              name='firstName'
+              name="firstName"
               placeholder={perfilUsuario.profile.firstName}
               id="outlined-basic"
               onChange={handleChange}
@@ -129,14 +127,13 @@ return ;
             />
             <TextField
               InputProps={{
-                
                 startAdornment: (
                   <InputAdornment position="start">
                     <AccountCircle />
                   </InputAdornment>
                 ),
               }}
-              name='lastName'
+              name="lastName"
               placeholder={perfilUsuario.profile.lastName}
               onChange={handleChange}
               id="outlined-basic"
@@ -182,7 +179,6 @@ return ;
           />
           <RadioGroup
             onChange={handleChange}
-
             row
             aria-labelledby="demo-radio-buttons-group-label"
             defaultValue={perfilUsuario.profile.gender}
@@ -211,14 +207,14 @@ return ;
             id="outlined-basic"
             onChange={handleChange}
             label="Teléfono"
-            name='phone'
+            name="phone"
             variant="outlined"
           />
         </div>
         <div className="dniModal">
           <TextField
             InputProps={{
-           maxLength: 10 ,
+              maxLength: 10,
 
               startAdornment: (
                 <InputAdornment position="start">
@@ -229,7 +225,7 @@ return ;
             id="outlined-basic"
             onChange={handleChange}
             label="DNI"
-            name='dni'
+            name="dni"
             variant="outlined"
             maxLength="8"
             placeholder={perfilUsuario.profile.dni}
