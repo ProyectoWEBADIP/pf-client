@@ -354,9 +354,6 @@ export default function Perfil() {
                     <Typography variant="body1">
                       DNI: {profileData?.dni}
                     </Typography>
-                    <Typography variant="body1" fontWeight="bold">
-                      Deuda acumulada: $0
-                    </Typography>
                   </Container>
                 </Box>
               </Grid>
@@ -484,6 +481,7 @@ export default function Perfil() {
                   </div>
                 </div>
               </div>
+              {perfilUsuario.active && <Link to={`/QrCarnetDigital/${perfilUsuario.profile.dni}`}><button>Generar carnet digital</button></Link>}
             </div>
 
             <div className="rigthProfileContainer">

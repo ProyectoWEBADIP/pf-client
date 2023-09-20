@@ -11,6 +11,8 @@ import ListaSponsor from "../../../components/ListaSposor/ListaSponsor";
 import UpDateSponsor from "../../../components/upDateSponsor/upDateSponsor";
 import { Link } from "react-router-dom";
 
+import NotificacionesMail from '../NotificacionesMail/NotificacionesMail'
+
 const MainDash = () => {
   const actualDash = useSelector((state) => state.actualDash);
   const dispatch = useDispatch();
@@ -56,7 +58,9 @@ const MainDash = () => {
           </div>
         </div>
       ) : actualDash === 3 ? (
-        <div className="MainDash">HOLAAAA 3333333</div>
+        <div className="MainDash"><h1>Notificaciones</h1>
+        <NotificacionesMail />
+        </div>
       ) : actualDash === 4 ? (
         <div className="MainDash">
           {" "}

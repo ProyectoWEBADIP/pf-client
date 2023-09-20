@@ -25,9 +25,10 @@ export function getAllNoticias() {
    return async (dispatch) => {
       try {
          const { data } = await axios(`/notices`);
+         
          dispatch({ type: GET_ALL_NOTICIAS, payload: data });
       } catch (error) {
-         console.log(error);
+
       }
    };
 }
@@ -42,11 +43,12 @@ export function postNoticia(body) {
          
          const { data } = await axios.post(
             `/notices`,
+            `/notices`,
             body
             );
          dispatch({ type: POST_NOTICIA, payload: data });
       } catch (error) {
-         console.log(error);
+         alert(error.message);
       }
    };
 }
@@ -55,6 +57,7 @@ export function getNoticiaDetail(id) {
    return async (dispatch) => {
       try {
          const { data } = await axios(`/notices/${id}`);
+         
          dispatch({ type: GET_NOTICIA_DETAIL, payload: data[0] });
       } catch (error) {
          return alert(error.message);
@@ -118,7 +121,7 @@ export const getNoticiasByCategory = (id) => {
          );
          dispatch({ type: GET_NOTICIAS_BY_CATEGORY, payload: data });
       } catch (error) {
-         console.log(error.message);
+         alert(error.message);
       }
    };
 };
@@ -129,7 +132,7 @@ export const deleteNotice = (id, body) => {
       
       dispatch({type: DELETE_NOTICE, payload: data})
     } catch (error) {
-      console.log(error.message);
+      alert(error.message);
     }
   };
 };
@@ -141,19 +144,19 @@ export const getNoticeById = (id) => {
       
       dispatch({type: GET_NOTICE_BY_ID, payload: data[0]})
     } catch (error) {
-      console.log(error.message);
+      alert(error.message);
     }
   };
 };
 export const updateNoticia = (id, body) => {
-  console.log("body",body);
+
     return async (dispatch) => {
       try {
        const { data } = await axios.patch(`/notices/${id}`, body) 
-       console.log("data update", data);
+
        dispatch({type: UPDATE_NOTICE, payload: data[0]})
       } catch (error) {
-        console.log(error.message);
+        alert(error.message);
       }
     }
 }

@@ -29,7 +29,7 @@ const CrearSponsor = () => {
             location: 0,
             user_id:userId
         }        
-            console.log(body);
+
 
         if(cloudinary){            
             dispatch(postSponsor(body))
