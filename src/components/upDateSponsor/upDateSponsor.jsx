@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import { useSelector,useDispatch } from 'react-redux';
 import { getAllSponsor,updateSponsor } from '../../redux/sponsorActions/sponsorActions';
 import './upDateSponsor.css';
-import axios from 'axios';
+import { submitImgCloudy } from '../../redux/sponsorActions/sponsorActions';
 
 
 
@@ -19,6 +20,7 @@ const UpDateSponsor = () => {
     const imgHome="https://res.cloudinary.com/drpdobxfu/image/upload/v1694726718/sponsor/Captura_de_pantalla_2023-09-14_181923_kct7tp.png";
     const imgDetalle="https://res.cloudinary.com/drpdobxfu/image/upload/v1694726718/sponsor/Captura_de_pantalla_2023-09-14_181954_t0gc1z.png";
     const userId=localStorage.userId;
+    
     
     
     useEffect(()=>{
@@ -107,34 +109,19 @@ const UpDateSponsor = () => {
     
    
     const handleImgChange = async (event)=>{
-      event.preventDefault();
-      const file= event.target.files[0]    
+      
+      const file= event.target.files[0]
       if(enter){
-        setNewImg(file)
+        setNewImg(URL.createObjectURL(file))
+        setState({...state, image:file})
+        const cloudiResponse= await dispatch(submitImgCloudy(file))
+        setState({...state,image:cloudiResponse.secure_url})
       }else{
         alert("seleccione sponsor a editar")
       }
     }  
      
-    const handleCloudiChange= async()=>{
-      if(state.image === "" && newImg!==""){
-        try {
-          const formData = new FormData();
-          formData.append("file", newImg);
-          formData.append("upload_preset", "sponsor");
-          formData.append("cloud_name", "drpdobxfu");
   
-          const { data } = await axios.post(
-            "https://api.cloudinary.com/v1_1/drpdobxfu/image/upload",
-            formData
-          );
-          setState({ ...state, image: data.secure_url });
-          alert("Subida con exito!");         
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    }
 
     const deleteImg=()=>{
 
@@ -182,7 +169,7 @@ const UpDateSponsor = () => {
                 )
               })}
             </select>
-            <p className='texto'>Aqui te damos un ejemplo de como funcionan las ubicaciones</p>
+            <p className='texto_sponsor_ej'>Aqui te damos un ejemplo de como funcionan las ubicaciones</p>
               <div className='maqueta_ubicar_sponsor'>                
                 <img className="ejemplo" src={imgHome} alt="home" />
                 <img className="ejemplo" src={imgDetalle} alt="detalleNoticia" />
@@ -236,16 +223,20 @@ const UpDateSponsor = () => {
                   }
                   </div>
               <div>
-                {state.image!== "" ? (
+                {state.image!== "" && (
                     <button className='eliminar_imagen_sponsor'  onClick={deleteImg}>Eliminar imagen</button>  
-                ):<button className='submit_sponsor_img_update' onClick={handleCloudiChange}>Subir imagen a la nube</button>}
+                )}
                             
               </div>                
 
               <div className='contenedor_guardar_sponsor'>
-                <button onClick={handleSubmit} className='buton_guardar_sponsor'>Guardar cambios</button>                
+                <button onClick={handleSubmit} className='butonUpdate_guardar_sponsor'>Guardar cambios</button>                
               </div>
           </div>
+          {/* <div className="contenido_botones_">
+            <button className="buton_crear_sponsor">Crear Sponsor</button>
+            <button className="buton_crear_sponsor">Lista Sponsor</button>
+          </div> */}
 
       </div>
     

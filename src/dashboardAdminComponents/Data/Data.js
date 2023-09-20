@@ -10,7 +10,9 @@ import {
   UilUsdSquare,
   UilMoneyWithdrawal
 } from "@iconscout/react-unicons";
-
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import NewspaperIcon from '@mui/icons-material/Newspaper';
+import WallpaperSharpIcon from '@mui/icons-material/WallpaperSharp';
 export const SidebarData = [
   {
     icon: UilEstate,
@@ -25,15 +27,13 @@ export const SidebarData = [
     heading: "Usuarios"
   },
   {
-    icon: UilPackage,
-    heading: "Dashboard"
+    icon: NotificationsNoneIcon,
+    heading: "Notificaciones"
   },
   {
-    icon: UilChart,
-    heading: "Dashboard"
+    icon: WallpaperSharpIcon,
+    heading: "Sponsor"
   },
-
-
 ]
 
 export const cardsData = [

@@ -1,0 +1,169 @@
+.form-signUp-conteiner {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.error-register {
+  position: absolute;
+  bottom: -25%;
+  z-index: 10;
+  left: 0;
+}
+
+.loading-register {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(81, 73, 73, 0.584);
+  backdrop-filter: blur(2px);
+  top: 0;
+  left: 0;
+  z-index: 5;
+  border-radius: 20px;
+}
+
+.form-signUp {
+  position: relative;
+  background: linear-gradient(0deg, rgb(255, 107, 2) 10%, rgb(221, 66, 0) 100%);
+  border-radius: 20px;
+  box-sizing: border-box;
+  height: auto;
+  padding: 20px;
+  width: 500px;
+}
+
+.title-signUp {
+  color: #eee;
+  font-family: sans-serif;
+  font-size: 36px;
+  font-weight: 600;
+  margin-top: 30px;
+}
+
+.subtitle-signUp {
+  color: #eee;
+  font-family: sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.input-container {
+  height: 50px;
+  position: relative;
+  width: 100%;
+}
+.password-conteinersignUp{
+  height: 100%;
+   display: flex;
+  position: relative;
+  align-items: center;
+}
+
+.password-conteinersignUp span {
+  position: absolute;
+  right: 15px;
+  bottom: 6%;
+}
+
+.ic1 {
+  margin-top: 40px;
+}
+
+.ic2 {
+  margin-top: 45px;
+  
+}
+
+.input-signUp {
+  /* background-color: rgb(0, 0, 0); */
+  background-color: rgb(234, 101, 0);
+  border-radius: 12px;
+  border: 0;
+  box-sizing: border-box;
+  color: #eee;
+  font-size: 16px;
+  height: 100%;
+  outline: 0;
+  padding: 4px 20px 0;
+  width: 100%;
+}
+
+.cut {
+  border-radius: 10px;
+  height: 20px;
+  left: -10px;
+  position: absolute;
+  top: -39px;
+  transform: translateY(0);
+  transition: transform 200ms;
+  width: 200%;
+}
+
+.cut-short {
+  width: 50px;
+}
+
+.iLabel {
+  width: 220px;
+  color: white;
+  font-family: sans-serif;
+  left: 20px;
+  line-height: 14px;
+  pointer-events: none;
+  position: absolute;
+  transform-origin: 0 50%;
+  transition: transform 200ms, color 200ms;
+  top: 20px;
+}
+
+.input-signUp:focus ~ .cut {
+  transform: translateY(-3px);
+}
+
+.input-signUp:focus ~ .iLabel {
+  transform: translateY(-30px) translateX(10px) scale(0.75);
+}
+
+.input-signUp:not(:focus) ~ .iLabel {
+  color: rgb(255, 255, 255);
+  top: 20px;
+}
+
+.input-signUp:focus ~ .iLabel {
+  color: white;
+}
+
+.submit-signUp {
+  background-color: rgb(234, 101, 0);
+  border-radius: 12px;
+  border: 0;
+  box-sizing: border-box;
+  color: #eee;
+  cursor: pointer;
+  font-size: 18px;
+  height: 50px;
+  margin-top: 38px;
+  text-align: center;
+  width: 100%;
+}
+
+.submit-signUp:active {
+  background-color: rgb(234, 101, 0);
+}
+
+.span-SignUp {
+  background-color: rgba(255, 0, 0, 0.245);
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+  font-size: 17px;
+  border-radius: 0.5rem;
+  padding: 0.1rem;
+  /* border: 0.1rem solid rgba(0, 0, 0, 0.709); */
+  top: -10%;
+}

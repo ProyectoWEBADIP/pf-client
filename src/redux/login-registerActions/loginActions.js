@@ -19,14 +19,14 @@ export function localLogin(userCredentials) {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(
-        `/auth/login`,
+        `/auth/login`,        
         userCredentials
       );
       if (data.statusCode === 203) {
         dispatch({ type: ERROR, payload: data.message });
       }
       dispatch({ type: LOCAL_LOGIN, payload: data });
-      return data;
+      return data;      
     } catch (error) {
       dispatch({ type: ERROR, payload: error });
     }
@@ -45,11 +45,12 @@ export function loading() {
 export function logout() {
   return (dispatch) => {
     dispatch({ type: LOGOUT });
-    dispatch({type:CLEAR_ERR0R})
+    dispatch({ type: CLEAR_ERR0R });
   };
 }
 //?REGISTER ACTIONS
 export function registerUser(userData) {
+  console.log(userData)
   return async (dispatch) => {
     try {
       const { data } = await axios.post(
@@ -84,6 +85,7 @@ export function getUserById(id) {
   return async (dispatch) => {
     try {
       const { data } = await axios(`/users/${id}`);
+      console.log(data);
       dispatch({ type: GET_USER_BY_ID, payload: data });
     } catch (error) {
       dispatch({ type: CREATE_LOCAL_PROFILE_ERRORS, payload: error });

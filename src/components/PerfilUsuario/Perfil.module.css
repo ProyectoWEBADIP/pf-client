@@ -121,11 +121,23 @@
 
 .contProf {
   display: flex;
+  border: .1rem solid orangered;
+  padding: 5px;
+  border-radius: .5rem;
+  margin-top: 80px;
   justify-content: center;
   width: 50%;
   text-align: center;
   height: auto;
   align-items: center;
+}
+
+.contProf>div:first-child{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  height: auto;
+  width: 100%;
 }
 .perfilCont {
   display: flex;
