@@ -35,15 +35,15 @@ export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loginRegisterErrors = useSelector((state) => state.loginRegisterErrors);
-  console.log("loginRegisterErrors", loginRegisterErrors);
+
 
   const successLogin = useSelector((state) => state.successLogin);
-  console.log("successLogin", successLogin);
+
 
   const logginIn = useSelector((state) => state.logginIn);
-  console.log("logginIn", logginIn);
+
   const actualPath = useSelector((state) => state.actualPath);
-  console.log("actualPath", actualPath);
+
   const handleChange = (event) => {
     setUsers({
       ...users,
@@ -55,7 +55,7 @@ export default function Login() {
 
   function handleSuccess(credentials) {
     if (credentials.credential) {
-      console.log(credentials)
+
       dispatch(googleRegisterUser(credentials));
       dispatch(localLogin())
       navigate("/");
@@ -66,7 +66,7 @@ export default function Login() {
     event.preventDefault();
 
    const data = await dispatch(localLogin(users));
-    console.log(data)
+
    if(data.access_token){
     navigate('/')
    } 

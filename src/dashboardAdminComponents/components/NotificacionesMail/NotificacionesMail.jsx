@@ -106,8 +106,8 @@ export default function NotificacionesMail() {
 
   return (
     <Box>
-      <Grid container spacing={7} className="containerNotification">
-        <Grid item xs={1} md={5} >
+      <Grid container spacing={7} className="containerQR">
+        <Grid item xs={1} md={5} className="cardContainer" >
           <Box
             sx={{
               boxShadow: 3,
@@ -229,7 +229,7 @@ export default function NotificacionesMail() {
               <TextareaAutosize
                 placeholder="Escriba su correo aquí..."
                 minRows="14"
-                cols="52"
+                cols="30"
                 value={message}
                 onChange={handleChageMessage}
                 fullWidth

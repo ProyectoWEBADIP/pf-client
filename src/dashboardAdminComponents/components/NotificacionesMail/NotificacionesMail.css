@@ -1,7 +1,7 @@
-.containerNotification{
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
-  height: 80vh;
-}
+.containerQR{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    height: 80vh;
+}  

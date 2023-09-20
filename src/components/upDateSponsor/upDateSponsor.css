@@ -1,8 +1,8 @@
 .cont_update_sponsor{    
-    display: flex;
-    padding: 5rem;
-    align-items: center;
-    justify-content: space-between;
+    display: flex;   
+    align-items: center;   
+    width: 75vw;
+    
 }
 .cardIzq_update_sponsor{    
     display: flex;
@@ -10,10 +10,11 @@
     justify-content: space-between;    
     flex-direction: column;
     border: 3px solid orange ;
-    padding: 1rem;
-    margin-right: 2rem;
+    padding: 1rem;    
     border-radius: 1rem;   
     background-color: rgba(255, 166, 0, 0.116);
+    width: 20rem;
+    height: 25rem;
 }
 .select_sponsor_editar{
     padding: 8px;
@@ -33,7 +34,10 @@
     border-radius: 1rem;    
     position: relative;
     background-color: rgba(255, 166, 0, 0.116);
-    
+    width: 25rem;
+    margin-left: 1rem;
+    height: 25rem;
+
 }
 .campo1{
     display: flex;
@@ -56,7 +60,7 @@
     border-radius:  1rem;
     
 }
-.buton_guardar_sponsor{
+.butonUpdate_guardar_sponsor{
     margin-right: 4rem;  
     background-color: rgba(245, 222, 179, 0.959);
    
@@ -77,14 +81,15 @@
 }
 .maqueta_ubicar_sponsor{
     display: flex;    
-    max-width: 80%;   
+    max-width: 98%;   
     justify-content: space-between;
-    padding: 0.5rem;  
+    margin-bottom: 1.5rem;
       
 }
 .file_sponsor_update{    
     margin-bottom: 1rem;    
     margin-top: 6rem;
+    font-size: small;
 }
 .eliminar_imagen_sponsor{
     font-size: small;
@@ -99,8 +104,10 @@
 .ejemplo{
     width: 45%;     
 }
-.texto{
+.texto_sponsor_ej{
     font-size: medium;
+    text-align: center;
+
 }
 .cont_alerta_sponsor{    
     position: absolute;
