@@ -7,6 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import InfoIcon from '@mui/icons-material/Info';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
+import ForwardToInboxIcon from '@mui/icons-material/ForwardToInbox';
 import {
   GridRowModes,
   DataGrid,
@@ -31,7 +32,7 @@ import SucessAlert from '../../../assets/AlertSuccess/AlertSuccess';
 import { registerUser } from '../../../redux/login-registerActions/loginActions';
 import { FormControl, TextField } from '@mui/material';
 
-function calcularEdad(birthday) {
+export function calcularEdad(birthday) {
   if (birthday) {
     const birthday_arr = birthday.split('/');
     const birthday_date = new Date(

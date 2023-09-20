@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+
 import CssBaseline from '@mui/material/CssBaseline';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Home from './components/Home/Home';
@@ -29,6 +30,9 @@ import ProtectedSuperAdminRoutes from './components/ProtectedRoutes/ProtectedSup
 import NotFoundComponent from './components/notFound/NotFound';
 import Noticias from './views/Noticias/Noticias';
 import SuccessPayment from './views/SuccessPayment/SuccessPayment';
+import CarnetDigital from "./components/CarnetDigital/CarnetDigital";
+import QRCarnet from "./components/QrCarnet/QrCarnet";
+import SuccessPayment from "./views/SuccessPayment/SuccessPayment";
 function App() {
   const storedThemeMode = localStorage.getItem('themeMode') || 'light';
   const [themeMode, setThemeMode] = useState(storedThemeMode);
@@ -56,6 +60,11 @@ function App() {
           <Route path={'/login/SignUp'} element={<SignUp />} />
           <Route path={'/detalle/:id'} element={<NoticiaDetail />} />
           <Route path={'/:id/profile'} element={<PerfilUsuario />} />
+          <Route path={"/carnetDigital/:id"} element={<CarnetDigital/>}/>
+          <Route path={"/QrCarnetDigital/:dni"} element={<QRCarnet/>}/>
+          <Route path={'/success/'} element={<SuccessPayment />} />
+
+          
           <Route element={<ProtectedRoutes />}>
             <Route path={'/crearNoticia'} element={<CrearNoticia />} />
             <Route path={'/editarNoticia/:id'} element={<UpdateNoticia />} />

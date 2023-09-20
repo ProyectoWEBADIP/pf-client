@@ -52,6 +52,7 @@ export function updateUserProfile(id, userFields) {
     try {
       const {data} = await axios.patch(
         `/users/updateProfile/${id}`,
+        
         userFields
       );
       return data;
@@ -59,4 +60,17 @@ export function updateUserProfile(id, userFields) {
       return alert(error.message);
     }
   };
+}
+export function pagarCuotaPorMp(id,saldo){
+  return async(dispatch)=>{
+    try {
+      const {data} = await axios.patch(
+        `/users/updateSaldo/${id}`,
+        saldo
+      );
+      return data
+    } catch (error) {
+      alert(error.message)
+    }
+  }
 }

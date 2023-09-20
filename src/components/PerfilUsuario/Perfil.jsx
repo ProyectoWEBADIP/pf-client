@@ -395,6 +395,7 @@ export default function Perfil() {
                   </div>
                 </div>
               </div>
+              {perfilUsuario.active && <Link to={`/QrCarnetDigital/${perfilUsuario.profile.dni}`}><button>Generar carnet digital</button></Link>}
             </div>
 
             <div className="rigthProfileContainer">
