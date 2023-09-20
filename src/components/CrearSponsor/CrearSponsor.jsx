@@ -1,14 +1,10 @@
 import { useState } from "react";
-import axios from 'axios';
-;
 import { useDispatch} from "react-redux";
 import './crearSponsor.css';
 import { postSponsor,getAllSponsor } from "../../redux/sponsorActions/sponsorActions";
 import validation from "./validation";
 import { useEffect } from "react";
-
-
-
+import { submitImgCloudy } from "../../redux/sponsorActions/sponsorActions";
 const CrearSponsor = () => {
     const [input,setInput]= useState({nombre:"",img:"",active:true});
     const [imagen,setImagen]=useState("");    
@@ -35,14 +31,13 @@ const CrearSponsor = () => {
         }        
 
 
-        if(cloudinary===true && !error.categoria){            
+        if(cloudinary){            
             dispatch(postSponsor(body))
             form.reset();
 
             setInput({
                 nombre:"",
-                img:"",
-                ubicacion:"",
+                img:"",                
                 active:true,              
             })
 
@@ -63,42 +58,24 @@ const CrearSponsor = () => {
             [event.target.name] : event.target.value            
         })          
        
-        setError(validation({...input,[event.target.name] : event.target.value}))     
+        setError(validation({...input,[event.target.name] : event.target.value}))  
+
     }
 
     
-    const handleImgChange=(event)=>{
-       
+    const handleImgChange= async(event)=>{
+
         const file=event.target.files[0]
         setImagen(URL.createObjectURL(file))        
-        
         setInput({...input, img: file})  
         
-      
+        const cloudiResponde= await dispatch(submitImgCloudy(file))
+        setInput({...input,img:cloudiResponde.secure_url})
+        console.log(input.img);
+        setCloudinary(true)
     }
 
-    const handleCloudySubmit= async(event)=>{
-        event.preventDefault();   
-        
-        try {        
-            const formData = new FormData()
-            formData.append("file",input.img)
-            formData.append("upload_preset", "sponsor")
-            formData.append("cloud_name","drpdobxfu")
-            
-            const {data}= await axios.post("https://api.cloudinary.com/v1_1/drpdobxfu/image/upload",formData)            
-
-            setInput({...input, img: data.secure_url})  
-            setCloudinary(true)
-            
-            alert("Subida con  exito!")          
-            
-          } catch (error) {
-            alert(error.message);
-          }
-    }
-
-      
+       
      
 
   return (
@@ -118,22 +95,19 @@ const CrearSponsor = () => {
                     <h4>2° paso</h4>
                     <label  htmlFor="">Selecciona la imagen</label>                    
                     <input className="img_sponsor" onChange={handleImgChange} type="file" name="imagen" accept="image/*"/>
-                </div>
-        
-                <div className="subirImagen_sponsor_form">
-                    <h4>3° paso</h4>
-                    <label htmlFor="">Sube la imagen a la nube</label>                 
-                    <button className='buton_subirImg_sponsor' onClick={handleCloudySubmit}>Subir</button>
-                </div>
+                </div>                
 
                 <div className="renderiza_img_sponsor">
                     {imagen && <img className ="imagen"src={imagen} alt="img"/>}
                 </div>            
                 <br />            
-                <button className="buton_crear_sponsor" type="submit">Crear sponsor</button>
+                <button className="buton_create_sponsor" type="submit">Crear sponsor</button>
             </form>
         </div>      
-        
+        {/* <div className="contenido_botones_">
+            <button className="buton_crear_sponsor">Lista Sponsor</button>
+            <button className="buton_crear_sponsor">Editar Sponsor</button>
+        </div> */}
     </div>
   )
 }

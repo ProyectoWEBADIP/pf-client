@@ -88,7 +88,7 @@ function App() {
             path={"/login/recuperacion"}
             element={<RecuperarContraseña />}
           />
-          {/* <Route path="*" element={<NotFoundComponent />} /> */}
+          <Route path="*" element={<NotFoundComponent />} />
         </Routes>
         <ButtonUpper />
         {location.pathname === '/auth/dashboard' ||

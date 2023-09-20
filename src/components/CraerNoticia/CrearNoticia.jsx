@@ -1,7 +1,6 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import validation from './validaciones';
-import axios from 'axios';
-
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { postNoticia } from '../../redux/noticiasActions/noticiasActions';
@@ -12,11 +11,12 @@ import { Button} from "@mui/base";
 import AlertError from '../../assets/AlertError/AlertError';
 import SucessAlert from '../../assets/AlertSuccess/AlertSuccess';
 import './crearNoticia.css';
-
-
+import { submitImgCloudinary } from '../../redux/noticiasActions/noticiasActions';
+import { Link } from 'react-router-dom';
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 
 export default function CrearNoticia() {
-  const imgDefault = 'https://cdn-icons-png.flaticon.com/256/20/20079.png';
+  const imgDefault = 'https://res.cloudinary.com/drpdobxfu/image/upload/v1695161197/Noticias/xfy5crhkywnnpsakmbzr.png';
   let allCategorias = useSelector((state) => state.categorias);
   
   const [input, setInput] = useState({
@@ -40,7 +40,7 @@ export default function CrearNoticia() {
   }, [dispatch]);
 
   const handleChange = (event) => {
-    event.preventDefault();
+   event.preventDefault();
 
     setInput({
       ...input,
@@ -63,46 +63,21 @@ export default function CrearNoticia() {
       [event.target.name]: event.target.value,
     });
   };
-  const submitImage = async (e) => {
-    e.preventDefault();    
-      
-    try {
-      const formData = new FormData();
-      formData.append('file', input.imagen);
-      formData.append('upload_preset', 'Noticias');
-      formData.append('cloud_name', 'drpdobxfu');
+  
 
-      const { data } = await axios.post(
-        'https://api.cloudinary.com/v1_1/drpdobxfu/image/upload',
-        formData
-      );
-      setInput({ ...input, imagen: data.secure_url });
-      setSuccessAlert('Imágen subida exitosamente.');
-      setShowSuccess(true);
-      setTimeout(() => {
-        setShowSuccess(false);
-      }, 5000);
-      
-      setCanCreateNotice(true);
-    } catch (error) {
-      setErrorAlert(error.message);
-      setShowError(true);
-      setTimeout(() => {
-        setShowError(false);
-      }, 5000);
-      setCanCreateNotice(false);
-    }
-  }
-
-  function handleImageChange(event){
-    const file = event.target.files[0];   
-          
-    setImageURL(URL.createObjectURL(file));    
-
+  const handleImageChange= async(event)=>{
+    const file =  event.target.files[0];          
+    
+    setImageURL(URL.createObjectURL(file));  
+    
     setInput({
       ...input,
       imagen: file
     })   
+     const cloudiResponse= await dispatch(submitImgCloudinary(file))
+     setInput({...input, imagen:cloudiResponse.secure_url})
+     console.log(input.imagen);
+     setCanCreateNotice(true)
    
   }
     const handleSelect=(e)=>{
@@ -134,10 +109,8 @@ export default function CrearNoticia() {
 
     const deleteCategory= (e)=>{
       const categoryFilter= category.filter((c)=>c !== e)      
-      //los que no quiere eliminar
-   
-      setCategory([...categoryFilter])  
-      
+      //los que no quiere eliminar   
+      setCategory([...categoryFilter])        
       if(categoryFilter.length==0){
         setError({
           ...error,
@@ -153,7 +126,7 @@ export default function CrearNoticia() {
    
     event.preventDefault();
     const form = document.getElementById('formulario');
-    const ids = category.map((item) => item.id);
+    const ids = category.map((item) => item.id); 
     const body = {
       title: input.titulo,
       resume: input.resumen,
@@ -204,19 +177,13 @@ export default function CrearNoticia() {
     setCrearCategory(name); 
     dispatch(postCategoria({ active: true, name }));  
 
-    setInput({
-      ...input,
-      crear: "",
-    });
- 
     alert("Categoria creada con exito!")
-    setSuccessAlert('Categoria creada con exito!');
-    setShowSuccess(true);
-    setTimeout(() => {
-      setShowSuccess(false);
-    }, 5000);
+    // setSuccessAlert('Categoria creada con exito!');
+    // setShowSuccess(true);
+    // setTimeout(() => {
+    //   setShowSuccess(false);
+    // }, 5000);
     
-    dispatch(getAllCategories());
   };
   const [errorAlert, setErrorAlert] = useState('');
   const [showError, setShowError] = useState(false);
@@ -225,6 +192,10 @@ export default function CrearNoticia() {
 
   return (
     <div className='cont_general_noticia'>
+      <div className='cont_link_buton'>
+        <Link className='icon_back_notice' to='/auth/dashboard#/crearNoticia'><KeyboardReturnIcon fontSize='large'/></Link>
+
+      </div>
       <div className='cont_form_div'>
           <form id="formulario" onSubmit={handleSubmit}>
 
@@ -313,12 +284,13 @@ export default function CrearNoticia() {
             <br/>
 
             <div className='cont_selecImg_div'>
-            <TextField type="file" name="imagen" accept="image/*" onChange={handleImageChange}/>
-            <button className='button_subirImg_notices' onClick={submitImage}>Subir Imagen</button>
+            <TextField type="file" name="imagen" accept="image/*" onChange={handleImageChange}/>            
             </div>        
             
-                          
-              <img className='renderiza_img_notices' src={ imageURL? imageURL : imgDefault} alt="img" style={{ width: '300px', height: 'auto', objectFit: "cover"}}/>            
+              <div className='cont_img_notices_render'>
+                <img className='renderiza_img_notices' src={ imageURL? imageURL : imgDefault} alt="img"/>     
+              </div>            
+                     
 
             <div className='div_submit_notice'>
             <Button className='button_submit_notices' type="submit" variant="outlined" value="Crear Noticia">Crear noticia</Button>
@@ -326,7 +298,7 @@ export default function CrearNoticia() {
           </form>
       </div>
 
-  
+              
         {/*------------------------- Previsualizar noticia ------------------------------------------------------------*/}
           <div className='cont_previsu_div'>       
             

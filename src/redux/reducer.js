@@ -89,8 +89,7 @@ const initialState = {
   sponsorById: {},
   //ERRORS
   errors:'',
-   partidos: [],
-   errors:'',
+   partidos: [],   
    perfilUsuarioCarnet: {},
 
 };
@@ -100,14 +99,13 @@ export default function rootReducer(state = initialState, action) {
     case CLEAR_ERR0R:
       return {
         ...state,
-        errors: '',
-      };
-    case ERROR:
-      return {
-        ...state,
-        errors: action.payload,
-      };
-
+        errors:''
+      }    
+      case ERROR:
+         return {
+            ...state,
+            errors:action.payload
+         }
     case IS_LOADING:
       return {
         ...state,
