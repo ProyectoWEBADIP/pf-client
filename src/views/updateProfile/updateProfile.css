@@ -1,0 +1,155 @@
+.overlayUpdateModal {
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.3)
+}
+.updateModal .successUpdate{
+  position: absolute;
+  left: 0;
+  bottom: -8rem;
+}
+.updateModal .imageAlertModal{
+position: absolute;
+left: 0;
+bottom:  -4rem;
+}
+.updateModal{
+  z-index: 10;
+  position: relative;
+  display: flex;
+  padding: 1rem;
+  flex-direction: column;
+  background-color: rgb(255, 255, 255);
+  gap: 1rem;
+  width: 40%;
+  height: auto;
+  border: .1rem solid rgb(254, 106, 7);
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.422);
+  border-radius: .5rem;
+}
+.updateModal .closeButtonContainer{
+  background-color: rgb(255, 111, 8);
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  color: rgb(28, 28, 28);
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  cursor: pointer;
+}
+.updateModal .closeButtonContainer:hover{
+  background-color: rgb(251, 132, 48);
+
+  transition: 300ms ease all;
+  border: .1rem solid grey;
+
+}
+.updateModal .titleModal{
+  text-align: center;
+  border-bottom: .1rem solid rgb(0, 0, 0);
+}
+.updateModal .titleModal>span{
+  font-size: 2rem;
+  font-weight: bold;
+}
+.updateModal .namesImgCont{
+  display: grid;
+  grid-template-columns: 70% 30%;
+width: 100%;
+height: auto;
+}
+.updateModal .namesModal{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+.updateModal .imgModal{
+  display: flex;
+  align-items: center;
+  position:relative;
+  justify-content: center;
+}
+.updateModal .imgModal>div:first-child{
+  width: 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 8rem;
+  border-radius: 50%;
+  overflow: hidden;
+  border: .1rem solid rgb(54, 54, 54);
+}
+.updateModal .imgModal>div>img{
+  width: 10rem;
+
+}
+.updateModal .birth-gender-imgModal{
+  display: flex;
+  justify-content: space-between;
+width: 100%;
+height: auto;
+}
+
+.updateModal .imgModal .fileContModal>input{
+display: none;
+}
+.updateModal .imgModal .fileContModal{
+  position: absolute;
+  width: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  height: 2.5rem;
+  background-color: rgba(62, 62, 62, 0.603);
+  bottom: -1rem;
+}
+.updateModal .imgModal .fileContModal>label{
+  color: rgb(255, 89, 0);
+  cursor: pointer;
+}
+.updateModal .saveButton{
+  cursor: pointer;
+  background-color: rgb(255, 111, 8);
+border: .1rem solid black;
+border-radius: .5rem;
+  position:absolute;
+  bottom: -1rem;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.422);
+  right: 2rem;
+}
+.updateModal .saveButton:hover{
+  transition: 200ms ease all;
+  background-color: rgb(251, 132, 48);
+
+
+}
+.updateModal .saveButton>span{
+  display: flex;
+  padding: .3rem;
+  justify-content:center ;
+  align-items: center;
+  font-weight: bold;
+}
+
+
+@media screen and (max-width: 1800px) {
+  .updateModal {
+    width: 60%;
+  }
+}
+@media screen and (max-width: 1250px) {
+  .updateModal {
+    width: 70%;
+  }
+}

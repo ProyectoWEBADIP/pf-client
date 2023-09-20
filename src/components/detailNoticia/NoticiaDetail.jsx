@@ -1,56 +1,48 @@
-import { useParams } from "react-router-dom"
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useParams } from 'react-router-dom';
+import { getHistory } from '../../redux/login-registerActions/loginActions';
+import { cleanNoticiaDetail, getNoticiaDetail } from '../../redux/noticiasActions/noticiasActions';
+import Sponsor3 from '../Sponsor/sponsor3/Sponsor3';
+import { getAllSponsor } from '../../redux/sponsorActions/sponsorActions';
+import Sponsor4 from '../Sponsor/sponsor4/Sponsor4';
+import './detailNoticia.css';
+export default function NoticiaDetail() {
+  //!HOOKS
+  const { id } = useParams();
+  const dispatch = useDispatch();
 
-export default function NoticiaDetail(){
+  //!HOOKS
+  useEffect(() => {
+    dispatch(getNoticiaDetail(id));
+    dispatch(getAllSponsor())
+    return()=>{
+      dispatch(cleanNoticiaDetail())
+    }
 
-    const { id } = useParams()
-    console.log(id);
-
-    const arr = [
-        {
-          id: 1,
-          titulo: "¡Equipo local gana el campeonato de fútbol!",
-          body: "El equipo de fútbol local logró una victoria impresionante en la final del campeonato, asegurándose el título después de un emocionante partido que mantuvo a los fanáticos al borde de sus asientos.",
-          img: "https://diariohoynet.nyc3.cdn.digitaloceanspaces.com/adjuntos/galerias/000/496/0000496131.jpg",
-        },
-        {
-          id: 2,
-          titulo: "Atleta nacional establece nuevo récord en los Juegos Olímpicos",
-          body: "Nuestro destacado atleta nacional dejó su marca en los Juegos Olímpicos al establecer un nuevo récord en la prueba de sprint. Su dedicación y esfuerzo finalmente dieron sus frutos, ganándose un lugar en la historia del deporte.",
-          img: "https://www.clarin.com/img/2023/07/08/optYrcwoz_360x240__1.jpg",
-        },
-        {
-          id: 3,
-          titulo: "Equipo de baloncesto se clasifica para las finales de la liga",
-          body: "El equipo de baloncesto de nuestra ciudad demostró su habilidad en la cancha al asegurarse un lugar en las finales de la liga. Después de una temporada llena de desafíos, están listos para competir por el campeonato.",
-          img: "https://www.clarin.com/img/2022/08/26/JUfs6IdeN_360x240__1.jpg",
-        },
-        {
-          id: 4,
-          titulo: "Nuevo récord mundial en natación",
-          body: "Un nadador talentoso batió todas las expectativas al establecer un nuevo récord mundial en la categoría de natación de estilo libre. Su velocidad y técnica impresionantes lo llevaron a superar la marca anterior y ganarse el respeto de la comunidad deportiva.",
-          img: "https://img2.rtve.es/i/?w=1600&i=1659088822807.jpg",
-        },
-        {
-          id: 5,
-          titulo: "Tenista internacional gana su tercer Grand Slam del año",
-          body: "El tenista internacional continúa su racha ganadora al llevarse su tercer título de Grand Slam en lo que va del año. Su dominio en la cancha y su dedicación incansable lo convierten en uno de los mejores atletas de la historia del tenis.",
-          img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSdrNy7Rns9hYPVw5t1ZJ2A-G0kRAyFhsc9w&usqp=CAU",
-        },
-      ];
-    const noticias = arr.filter(el => el.id == id)
-    
-    return (
-        <div>
-          {
-            noticias.map(el => {
-              return <div key={el.id}> 
-              <h1>{el.titulo}</h1>
-                      <p>{el.body}</p>
-                      </div>
-            })
-          }
-            
-           
-        </div>
-    )
+  }, [dispatch]);
+const isLoading = useSelector(state=>state.isLoading)
+  const detalleNoticia = useSelector((state) => state.detalleNoticia);
+ 
+  return (
+    <div className="notdetailContainerfather">
+      <div className='NoticiaDetailContainer'>
+      <div className='izq_sponsor_Detail'>
+      <Sponsor3/>
+      </div>
+      <div className='noticiaContainer'>
+        <h1>{detalleNoticia?.title}</h1>
+        <p>{detalleNoticia?.resume}</p>
+        <img src={detalleNoticia?.image} alt={detalleNoticia?.image}/>
+        <p>{detalleNoticia?.content}</p>
+        <p>{detalleNoticia?.date}</p>
+      </div>
+      <div className='der_sponsor_detail'>
+      <Sponsor4/>
+      </div>
+    </div>
+    </div>
+  );
 }

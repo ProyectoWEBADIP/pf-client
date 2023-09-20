@@ -1,0 +1,16 @@
+.logoBannerConteiner {
+  width: 150px;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 130px;
+  flex-direction: column;
+}
+.logoBannerConteiner > img {
+  width: 100px;
+}
+
+.socialConteiner {
+  display: flex;
+  justify-content: space-evenly;
+}

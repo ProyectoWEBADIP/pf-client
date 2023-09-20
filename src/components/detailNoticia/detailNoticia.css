@@ -1,0 +1,40 @@
+.notdetailContainerfather{
+  padding-bottom: 150px;
+}
+.NoticiaDetailContainer {
+  padding-top: 50px;
+  width: 100vw;
+  height: 91vh;
+  display: grid;
+  grid-template-columns: 10% 80% 10%;
+
+}
+.noticiaContainer {
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+    height: 100%;
+
+}
+.imgCont {
+  width: 73%;
+  position: relative;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 65%;  
+}
+
+.noticiaContainer > img {
+  width: 50rem;
+  border-radius: 1rem;
+}
+.izq_sponsor_Detail{
+  display: flex;
+}
+.der_sponsor_detail{
+  display: flex;
+}

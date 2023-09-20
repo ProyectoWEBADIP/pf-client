@@ -1,7 +1,10 @@
-.contNav{
-    background-color: orange;
-    display: flex;
-    justify-content: space-between;
-    padding: 2rem;
-    align-items: center;
+.conteinOrder {
+  display: flex;
+  justify-content: space-evenly;
+}
+.conteinNavBar {
+  width: 100%;
+  align-items: end;
+  justify-content: flex-end;
+  display: flex;
 }

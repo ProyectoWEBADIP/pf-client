@@ -1,0 +1,85 @@
+.noticeModalCont {
+  width: 70%;
+  height: 50%;
+  padding: 1rem;
+  position: absolute;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.972);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  border-radius: 1rem;
+}
+.titleNoticeCont > span {
+  font-weight: bold;
+  font-size: 2.3rem;
+}
+.titleNoticeCont {
+  text-align: center;
+}
+
+.closeButtonNotice{
+  position: absolute;
+  cursor: pointer;
+  background-color: rgb(255, 111, 8);
+
+  border-radius: 50%;
+
+  font-size: 2rem;
+  top: 10px;
+  right:10px;
+}
+.closeButtonNotice:hover{
+  background-color: rgb(252, 135, 51);
+
+  
+}
+
+.infoContainer {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.noticeDataContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  border-top: 0.2rem solid black;
+}
+
+.noticeDataContainer .imgNoticeContModal{
+  display: flex;
+  width: 100%;
+  height: 60%;
+  justify-content: center;
+  position: relative;
+} 
+
+.noticeDataContainer .imgNoticeContModal>img{
+  width: 80%;
+} 
+.noticeDataContainer .imgNoticeContModal .resume-date-container{
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(128, 128, 128, 0.761);
+  text-align: center;
+  width: 80%;
+} 
+
+.noticeDataContainer .contentContainer{
+  padding: 1rem;
+
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width:1980px) {
+  .noticeModalCont{
+    width: 50%;
+     height: 70%;
+  }
+}

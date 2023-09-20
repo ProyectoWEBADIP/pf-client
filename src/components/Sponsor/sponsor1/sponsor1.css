@@ -1,0 +1,16 @@
+.box_sponsor1_{
+    width: 100%;   
+    display: flex;    
+    justify-content: space-around;
+    align-items: center;   
+    flex-wrap: wrap;    
+  
+}
+
+.img_sponsor1_{
+    max-width: 20%;
+    max-height: 100px;   
+    opacity: 0.5;
+   
+}
+
