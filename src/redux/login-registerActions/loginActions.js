@@ -19,8 +19,7 @@ export function localLogin(userCredentials) {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(
-        `/auth/login`,
-        `/auth/login`,
+        `/auth/login`,        
         userCredentials
       );
       if (data.statusCode === 203) {
