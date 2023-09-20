@@ -1,6 +1,6 @@
 import QRCode from "react-qr-code";
 import { Link, useParams } from "react-router-dom";
-import styles from "./QRCarnet.module.css"; // Importa el módulo CSS
+import styles from ".qrCarnet.module.css"; // Importa el módulo CSS
 
 export default function QRCarnet() {
   const { dni } = useParams();
