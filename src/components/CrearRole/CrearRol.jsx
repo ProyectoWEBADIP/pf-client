@@ -84,7 +84,7 @@ export const CrearRol = () => {
 
             window.alert("El rol fue creado exitosamente.");
          } catch (error) {
-            console.log(error);
+            alert(error.message);
          }
       }
    };

@@ -48,7 +48,6 @@ export default function SignUp() {
   };
 
   const respuesta = useSelector((state) => state.loginRegisterLocal);
-  console.log("respuesta singup",respuesta);
   
   function handleSubmit(e) {
     e.preventDefault();
@@ -58,7 +57,7 @@ export default function SignUp() {
       setVerificacionEmail(true);
       const codigoDeVerificacion = Math.floor(Math.random() * (9999 - 1000) + 1000 ) + ""
       setCodigoGeneradoLocalmente(codigoDeVerificacion);
-      console.log("codigo verificacion", codigoVerificacion);
+
       emailjs.send(
         "service_8c6uo6a",
         "template_p35w6dm",
@@ -72,7 +71,7 @@ export default function SignUp() {
         },
         "LVu_qcdfDk8ci54aS"
       );
-      console.log("salí");
+
     } else {
       alert("Verifique los campos");
     }

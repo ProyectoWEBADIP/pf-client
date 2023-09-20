@@ -38,12 +38,25 @@ export function updateUserProfile(id, userFields){
   return async (dispatch)=>{
     try {
       const {data} = await axios.patch(
-        `http://localhost:3001/users/updateProfile/${id}`,
+        `/users/updateProfile/${id}`,
         userFields
       );
       return data
     } catch (error) {
       return alert(error.message)
+    }
+  }
+}
+export function pagarCuotaPorMp(id,saldo){
+  return async(dispatch)=>{
+    try {
+      const {data} = await axios.patch(
+        `/users/updateSaldo/${id}`,
+        saldo
+      );
+      return data
+    } catch (error) {
+      alert(error.message)
     }
   }
 }

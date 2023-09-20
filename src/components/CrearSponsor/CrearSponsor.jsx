@@ -32,7 +32,7 @@ const CrearSponsor = () => {
             location: 0,
             user_id:userId
         }        
-            console.log(body);
+
 
         if(cloudinary===true && !error.categoria){            
             dispatch(postSponsor(body))
@@ -93,7 +93,7 @@ const CrearSponsor = () => {
             alert("Subida con  exito!")          
             
           } catch (error) {
-            console.log(error);
+            alert(error.message);
           }
     }
 

@@ -7,6 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import InfoIcon from '@mui/icons-material/Info';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
+import ForwardToInboxIcon from '@mui/icons-material/ForwardToInbox';
 import {
   GridRowModes,
   DataGrid,
@@ -28,7 +29,7 @@ import { format } from 'date-fns';
 import AlertError from '../../../assets/AlertError/AlertError';
 import SucessAlert from '../../../assets/AlertSuccess/AlertSuccess';
 
-function calcularEdad(birthday) {
+export function calcularEdad(birthday) {
   if (birthday) {
     const birthday_arr = birthday.split('/');
     const birthday_date = new Date(

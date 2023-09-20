@@ -5,7 +5,7 @@ export function postCategoria(body) {
    return async () => {
       try {
          const { data } = await axios.post(
-            `http://localhost:3001/categories`,
+            `/categories`,
             body
          );
          return data;
@@ -17,10 +17,10 @@ export function postCategoria(body) {
 export function getAllCategories() {
    return async (dispatch) => {
       try {
-         const { data } = await axios("http://localhost:3001/categories");
+         const { data } = await axios("/categories");
          dispatch({ type: GET_ALL_CATEGORIES, payload: data });
       } catch (error) {
-         return console.log(error.message);
+        alert(error.message);
       }
    };
 }

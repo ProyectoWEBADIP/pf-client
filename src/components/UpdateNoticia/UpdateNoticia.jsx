@@ -86,7 +86,7 @@ export default function UpdateNoticia() {
 
         alert("Subida con exito!");
       } catch (error) {
-        console.log(error);
+        alert(error.message);
       }
     }
   };

@@ -39,7 +39,7 @@ export default function CrearNoticia() {
   }, [dispatch]);
 
   const handleChange = (event) => {
-    console.log("====>",input.descripcion);
+
     event.preventDefault();
 
     setInput({
@@ -77,7 +77,7 @@ export default function CrearNoticia() {
         formData
       );
       setInput({ ...input, imagen: data.secure_url });
-      console.log(input.imagen);
+
       setSuccessAlert('Imágen subida exitosamente.');
       setShowSuccess(true);
       setTimeout(() => {
@@ -124,7 +124,7 @@ export default function CrearNoticia() {
         }
       ])    
       }  
-      console.log(category,"ver aqui");
+
       setError(validation(
         {
             ...input, 
@@ -135,7 +135,7 @@ export default function CrearNoticia() {
     }    
 
     const deleteCategory= (e)=>{
-      console.log(e);
+
       const categoryFilter= category.filter((c)=>c !== e)      
       //los que no quiere eliminar
    
@@ -157,7 +157,7 @@ export default function CrearNoticia() {
     event.preventDefault();
     const form = document.getElementById('formulario');
     const ids = category.map((item) => item.id);
-  console.log(ids, category, "ids categoryes en el handleSubmit");
+
     const body = {
       title: input.titulo,
       resume: input.resumen,
@@ -167,7 +167,7 @@ export default function CrearNoticia() {
       active: true,
       user_id:userId
     };
-    console.log(body,"body");   
+
     
     if (canCreateNotice) {
       try {

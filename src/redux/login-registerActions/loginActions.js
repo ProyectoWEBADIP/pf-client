@@ -19,10 +19,10 @@ export function localLogin(userCredentials) {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(
-        `http://localhost:3001/auth/login`,
+        `/auth/login`,
         userCredentials
       );
-      console.log(data);
+
       if (data.statusCode === 203) {
         dispatch({ type: ERROR, payload: data.message });
       }
@@ -55,7 +55,7 @@ export function registerUser(userData) {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(
-        `http://localhost:3001/auth/register`,
+        `/auth/register`,
         userData
       );
       dispatch({ type: REGISTER_USER_LOCAL, payload: data });
@@ -70,7 +70,7 @@ export function googleRegisterUser(userData) {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(
-        `http://localhost:3001/auth/register/google`,
+        `/auth/register/google`,
         userData
       );
       dispatch({ type: REGISTER_USER, payload: data });
@@ -85,8 +85,8 @@ export function googleRegisterUser(userData) {
 export function getUserById(id) {
   return async (dispatch) => {
     try {
-      const { data } = await axios(`http://localhost:3001/users/${id}`);
-      console.log(data);
+      const { data } = await axios(`/users/${id}`);
+
       dispatch({ type: GET_USER_BY_ID, payload: data });
     } catch (error) {
       dispatch({ type: CREATE_LOCAL_PROFILE_ERRORS, payload: error });
@@ -97,7 +97,7 @@ export function createLocalProfile(id, userData) {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(
-        `http://localhost:3001/users/${id}/profile`,
+        `/users/${id}/profile`,
         userData
       );
       dispatch({ type: CREATE_PROFILE_LOCAL, payload: data });

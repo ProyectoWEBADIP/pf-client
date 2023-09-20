@@ -131,7 +131,7 @@ const UpDateSponsor = () => {
           setState({ ...state, image: data.secure_url });
           alert("Subida con exito!");         
         } catch (error) {
-          console.log(error);
+
         }
       }
     }

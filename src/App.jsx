@@ -31,6 +31,9 @@ import ClubHistoria from "./components/ClubHistoria/ClubHistoria";
 import ClubComision from "./components/ClubComision/ClubComision";
 import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRoutes";
 import ProtectedSuperAdminRoutes from "./components/ProtectedRoutes/ProtectedSuperAdminRoutes";
+import CarnetDigital from "./components/CarnetDigital/CarnetDigital";
+import QRCarnet from "./components/QrCarnet/QrCarnet";
+import SuccessPayment from "./views/SuccessPayment/SuccessPayment";
 function App() {
   const storedThemeMode = localStorage.getItem('themeMode') || 'light';
   const [themeMode, setThemeMode] = useState(storedThemeMode);
@@ -58,6 +61,11 @@ function App() {
           <Route path={'/login/SignUp'} element={<SingUp />} />
           <Route path={'/detalle/:id'} element={<NoticiaDetail />} />
           <Route path={'/:id/profile'} element={<PerfilUsuario />} />
+          <Route path={"/carnetDigital/:id"} element={<CarnetDigital/>}/>
+          <Route path={"/QrCarnetDigital/:dni"} element={<QRCarnet/>}/>
+          <Route path={'/success/'} element={<SuccessPayment />} />
+
+          
           <Route element={<ProtectedRoutes />}>
             <Route path={'/crearNoticia'} element={<CrearNoticia />} />
             <Route path={'/crearRoles'} element={<CrearRol />} />
@@ -94,6 +102,8 @@ function App() {
           <Route path={"/sponsor3"} element={<Sponsor3 />} />
           <Route path={"/sponsor4"} element={<Sponsor4 />} />
           <Route path={"/editarPartidos"} element={<EditarPartidos/>}/>
+          
+          
         </Routes>
         <ButtonUpper />
         {/* {location.pathname !== "/" ? null : } */}

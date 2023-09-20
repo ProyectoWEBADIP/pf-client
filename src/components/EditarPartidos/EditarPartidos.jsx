@@ -52,21 +52,21 @@ export default function EditarPartidos() {
         formData.append("file", imagenLocal);
         formData.append("upload_preset", "Escudos");
         formData.append("cloud_name", "drpdobxfu");
-        console.log("arriba del axios");
+   
         const { data } = await axios.post(
           "https://api.cloudinary.com/v1_1/drpdobxfu/image/upload",
           formData
         );
-        console.log("pase el axios");
+
         setPartidoModificado({
           ...partidoModificado,
           Local_shield: data.secure_url,
         });
         alert("Subida con  exito!");
       } catch (error) {
-        console.log(error);
+
       }
-      console.log("entré");
+
     } else {
       alert("debe subir una imagen");
     }
@@ -78,21 +78,21 @@ export default function EditarPartidos() {
         formData.append("file", imagenVisitante);
         formData.append("upload_preset", "Escudos");
         formData.append("cloud_name", "drpdobxfu");
-        console.log("arriba del axios");
+
         const { data } = await axios.post(
           "https://api.cloudinary.com/v1_1/drpdobxfu/image/upload",
           formData
         );
-        console.log("pase el axios");
+
         setPartidoModificado({
           ...partidoModificado,
           visitor_shield: data.secure_url,
         });
         alert("Subida con  exito!");
       } catch (error) {
-        console.log(error);
+
       }
-      console.log("entré");
+
     } else {
       alert("debe subir una imagen");
     }

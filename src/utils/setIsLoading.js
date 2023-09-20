@@ -6,7 +6,7 @@ export function setIsLoading() {
 dispatch({
   type: IS_LOADING})
     } catch (error) {
-      console.log(error)
+      alert(error.message)
     }
   };
 }
