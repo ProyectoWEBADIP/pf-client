@@ -53,14 +53,7 @@ const MainDash = () => {
         <div className="MainDash">HOLAAAA actualDash 2</div>
       ) : actualDash === 3 ? (
         <div className="MainDash">
-          {" "}
-          <div>
-            <h1>Notificaciones</h1>
-            <NotificacionesMail />
-          </div>
-        </div>
-      ) : actualDash === 3 ? (
-        <div className="MainDash"><h1>Notificaciones</h1>
+          <h2>Notificaciones</h2>
         <NotificacionesMail />
         </div>
       ) : actualDash === 4 ? (
