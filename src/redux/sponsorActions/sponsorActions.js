@@ -11,11 +11,11 @@ export function postSponsor(body){
         try {
             
             const {data}= await axios.post(`/sponsors`,body)
-            console.log(data);
+
             dispatch({type:POST_SPONSOR, payload:data})
             
         } catch (error) {
-            return console.log(error);
+            alert(error.message);
         }
     }
 }
@@ -34,11 +34,11 @@ export function updateSponsor(id,body){
     return async(dispatch)=>{
         try {
             const {data}= await axios.patch(`/sponsors/${id}`,body)
-            console.log(data);
+
             dispatch({type:UPDATE_SPONSOR,payload:data[0]})
             
         } catch (error) {
-            console.log(error.message);
+            alert(error.message);
         }
     }
 }
@@ -46,11 +46,12 @@ export function getSponsorById(id){
     return async(dispatch)=>{
         try {
             const {data}= await axios(`/sponsors/${id}`)
+            
             dispatch({type:GET_SPONSOR_BY_ID,payload:data[0]})
-            console.log(data);
+
             
         } catch (error) {
-            console.log(error.message);
+            alert(error.message);
         }
     }
 }

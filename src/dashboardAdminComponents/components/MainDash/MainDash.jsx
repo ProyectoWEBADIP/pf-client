@@ -6,6 +6,8 @@ import Table from '../Table/Table';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsers } from '../../../redux/usersActions/usersActions';
 import NoticiasDash from '../NoticiasDash/NoticiasDash';
+import NotificacionesMail from '../NotificacionesMail/NotificacionesMail'
+
 const MainDash = () => {
   const actualDash = useSelector((state) => state.actualDash);
   const dispatch = useDispatch();
@@ -40,9 +42,11 @@ const MainDash = () => {
             <Table />
           </div>
         </div>
-      ) : (
-        <div className="MainDash">HOLAAAA 3333333</div>
-      )}
+      ) : actualDash === 3 ? (
+        <div className="MainDash"><h1>Notificaciones</h1>
+        <NotificacionesMail />
+        </div>
+      ) : <div></div>}
     </div>
   );
 };

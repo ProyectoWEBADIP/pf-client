@@ -122,7 +122,7 @@ export default function CrearNoticia() {
         }
       ])    
       }  
-      console.log(category,"ver aqui");
+
       setError(validation(
         {
             ...input, 

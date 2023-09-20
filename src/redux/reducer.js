@@ -88,8 +88,11 @@ const initialState = {
   updateSponsor: {},
   sponsorById: {},
   //ERRORS
-  errors: '',
-  partidos: [],
+  errors:'',
+   partidos: [],
+   errors:'',
+   perfilUsuarioCarnet: {},
+
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -252,6 +255,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         isLoading: false,
         perfilUsuario: action.payload,
+        perfilUsuarioCarnet: action.payload
       };
     //DASHBOARD ADMIN STATES
     case RENDER_CORRECT_DASH:

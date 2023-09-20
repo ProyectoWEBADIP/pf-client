@@ -21,6 +21,7 @@ export function getUserLoggedById(id) {
     try {
       const { data } = await axios(`/users/${id}`);
       dispatch({ type: GET_USER_BY_ID, payload: data });
+
     } catch (error) {
       return alert(error.message);
     }
@@ -46,7 +47,7 @@ export function updateUserFromAdmin(id, action) {
       );
       return data;
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
 }
