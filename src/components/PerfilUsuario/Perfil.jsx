@@ -4,11 +4,14 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import style from "./Perfil.module.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import {
   createLocalProfile,
   getUserById,
 } from "../../redux/login-registerActions/loginActions";
 import axios from "axios";
+import EditIcon from '@mui/icons-material/Edit';
+
 import { setIsLoading } from "../../utils/setIsLoading";
 import {
   Alert,
@@ -21,6 +24,7 @@ import {
   Select,
   TextField,
   Toolbar,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import MaleIcon from "@mui/icons-material/Male";
@@ -40,6 +44,7 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import UpdateProfile from "../../views/updateProfile/UpdateProfile";
 import { showProfileEdit } from "../../redux/profileActions/profileActions";
 import jwtDecode from "jwt-decode";
+import { getAllNoticias } from '../../redux/noticiasActions/noticiasActions';
 export default function Perfil() {
   //!HOOKS
   const [preferenceId, setPreferenceId] = useState(null);
@@ -64,10 +69,10 @@ export default function Perfil() {
 
   initMercadoPago(`TEST-c2bc2a6c-e7ac-4a00-bd64-68b499cde86d`);
   const createPreference = async () => {
-    console.log("entre");
+    console.log('entre');
     try {
       const { data } = await axios.post(`/payment/createPreference`, {
-        description: "Cuota mensual Club deportivo A.D.I.P",
+        description: 'Cuota mensual Club deportivo A.D.I.P',
         price: 100,
         quantity: 1,
       });
@@ -87,8 +92,9 @@ export default function Perfil() {
       setPreferenceId(id);
     }
   };
-
+  const noticias = useSelector((state) => state.noticias);
   useEffect(() => {
+    dispatch(getAllNoticias());
     dispatch(setIsLoading());
     dispatch(getUserById(id));
   }, [dispatch, id]);
@@ -150,7 +156,7 @@ export default function Perfil() {
   const [errorAlert, setErrorAlert] = useState("");
   const [showError, setShowError] = useState(false);
   const defaultPortada =
-    "https://scontent.faep8-3.fna.fbcdn.net/v/t39.30808-6/305992807_521694693292923_2963066236492463977_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=52f669&_nc_eui2=AeGiSi1-TM-lB_d9-i3c27f1aOxNPw_iYSRo7E0_D-JhJPunk3XycWNuUqjCrEf63vXDG4DccZwNtoNAdObM8SmI&_nc_ohc=P2BksXWzwl8AX-7kYvH&_nc_ht=scontent.faep8-3.fna&oh=00_AfBqKZ8gqLwU6veGy0XwhZSNRgmIelgTW9GpWmhNuNItpA&oe=6503DC49";
+    'https://res.cloudinary.com/drpdobxfu/image/upload/v1695063800/kfoqlqqc1yevcyeoggvg.jpg';
   return (
     <div className={style.perfContainerContainer}>
       {showError ? (
@@ -358,21 +364,45 @@ export default function Perfil() {
           </div>
         ) : (
           <div className="profileContainer">
-            <div className="leftProfileContainer"></div>
+            <div className="leftProfileContainer">
+              {role !== 'user' && perfilUsuario?.profile ? (
+                <div className="table-edit-container">
+                  <div className="link-edits-container">
+                    <Link to="/editarSponsor">
+                      <h4 title="Haz click aquí para editar los sponsors">
+                        Editar sponsors
+                      </h4>
+                    </Link>
+                  </div>
+                  <div className="link-edits-container">
+                    <h4>
+                      Editar noticias{' '}
+                      <Tooltip
+                        title="Si quieres editar una noticia, haz click en su título."
+                        placement="top-start"
+                      >
+                        <button className="button-question">
+                          <QuestionMarkIcon fontSize="small" />
+                        </button>
+                      </Tooltip>
+                    </h4>
+                    {noticias?.map((not, i) => {
+                      return (
+                        <div key={i}>
+                          <Link to={`/editarNoticia/${not.id}`}>
+                            <span>*{not.title}</span>
+                          </Link>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : null}
+            </div>
             {!showEditProfile ? null : (
               <UpdateProfile perfilUsuario={perfilUsuario} />
             )}
             <div className="centerProfileContainer">
-              {role === "super_admin" && perfilUsuario?.profile ? (
-                <Link to={"/auth/dashboard"}>
-                  <button className="learn-more">
-                    <span aria-hidden="true" className="circle">
-                      <span className="icon arrow"></span>
-                    </span>
-                    <span className="button-text">Administrador</span>
-                  </button>
-                </Link>
-              ) : null}
               <div className="portadaContainer">
                 <img
                   src={
@@ -417,7 +447,7 @@ export default function Perfil() {
                   <div className="dataContainers">
                     <CakeIcon />
                     <span>
-                      {perfilUsuario?.profile?.birthDate.split("T")[0]}
+                      {perfilUsuario?.profile?.birthDate.split('T')[0]}
                     </span>
                   </div>
                   <div className="dataContainers">
@@ -456,14 +486,27 @@ export default function Perfil() {
               </div>
             </div>
 
-            <div className="rigthProfileContainer"></div>
+            <div className="rigthProfileContainer">
+            {role === 'super_admin' && perfilUsuario?.profile ? (
+                <div>
+                  <Link to={'/auth/dashboard'}>
+                  <button className="learn-more">
+                    <span aria-hidden="true" className="circle">
+                      <span className="icon arrow"></span>
+                    </span>
+                    <span className="button-text">Administrador</span>
+                  </button>
+                </Link>
+                </div>
+              ) : null}
+            </div>
           </div>
         )
       ) : (
-        <div className={style.box}>
-          <div className={style.shadow}></div>
-          <div className={style.gravity}>
-            <div className={style.ball}></div>
+        <div className={style.boxLoadingBall}>
+          <div className={style.shadowLoadingBall}></div>
+          <div className={style.gravityLoadingBall}>
+            <div className={style.ballLoadingBall}></div>
           </div>
         </div>
       )}

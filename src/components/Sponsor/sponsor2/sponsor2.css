@@ -1,13 +1,16 @@
-.contt{   
-    display: flex;   
-    flex-direction: column;    
-    align-items: flex-end;
+.cont_sponsor2{   
+    width: 100%;   
+    display: flex;    
+    justify-content: space-around;
+    align-items: center;   
+    flex-wrap: wrap; 
     
 }
-.imgg{
-    width: 70%;
-    height: auto;  
-    opacity: 0.5;
-    
+.img_sponsor2_{
+    max-width: 20%;
+    max-height: 80px;   
+    opacity: 0.5;  
+   
+      
 }
 

@@ -3,17 +3,82 @@
   height: auto;
   display: grid;
   grid-template-columns: 10% 80% 10%;
+  padding-bottom: 170px;
 }
 
 .parteCentral{
   display: flex;
   flex-direction: column;
-align-items: center;
-gap: 1rem;
+  align-items: center;
+  gap: 1rem;
 }
 .parteCentral .sponsor1{
-  text-align: center;
-  width: 120%;
-  height: 10%;
-  background-color: rgba(255, 0, 0, 0.222);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120%;  
+  
+}
+.boxLoadingBall {
+  margin: 0 auto;
+  width: 40px;
+  height: 140px;
+  position: relative;
+}
+.shadowLoadingBall {
+  position: absolute;
+  width: 100%;
+  height: 10px;
+  background-color: grey;
+  bottom: 0;
+  border-radius: 100%;
+  transform: scaleX(0.8);
+  opacity: 0.6;
+  animation: shadowScale 1s linear infinite;
+}
+
+.gravityLoadingBall {
+  width: 40px;
+  height: 40px;
+  animation: bounce 1s cubic-bezier(0.68, 0.35, 0.29, 0.54) infinite;
+}
+.ballLoadingBall {
+  width: 40px;
+  height: 40px;
+  background-image: url('https://cdn2.iconfinder.com/data/icons/activity-5/50/26BD-soccer-ball-128.png');
+  background-size: cover;
+  animation: roll 0.7s linear infinite;
+}
+
+.img img {
+  width: 100%; /* Asegura que la imagen ocupe todo el espacio del div */
+  height: 100%; /* Asegura que la imagen ocupe todo el espacio del div */
+  object-fit: cover;
+}
+
+@keyframes roll {
+  0% {
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes bounce {
+  0% {
+  }
+  50% {
+    transform: translateY(100px);
+  }
+  100% {
+  }
+}
+@keyframes shadowScale {
+  0% {
+  }
+  50% {
+    transform: scaleX(1);
+    opacity: 0.8;
+  }
+  100% {
+  }
 }

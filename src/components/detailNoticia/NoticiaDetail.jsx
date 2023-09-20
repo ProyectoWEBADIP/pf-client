@@ -8,7 +8,7 @@ import { cleanNoticiaDetail, getNoticiaDetail } from '../../redux/noticiasAction
 import Sponsor3 from '../Sponsor/sponsor3/Sponsor3';
 import { getAllSponsor } from '../../redux/sponsorActions/sponsorActions';
 import Sponsor4 from '../Sponsor/sponsor4/Sponsor4';
-import './noticiaDetail.css';
+import './detailNoticia.css';
 export default function NoticiaDetail() {
   //!HOOKS
   const { id } = useParams();
@@ -27,20 +27,22 @@ const isLoading = useSelector(state=>state.isLoading)
   const detalleNoticia = useSelector((state) => state.detalleNoticia);
  
   return (
-    <div className='contiene'>
-      <div className='izq'>
-      <Sponsor4/>
+    <div className="notdetailContainerfather">
+      <div className='NoticiaDetailContainer'>
+      <div className='izq_sponsor_Detail'>
+      <Sponsor3/>
       </div>
-      <div className='noticia'>
+      <div className='noticiaContainer'>
         <h1>{detalleNoticia?.title}</h1>
         <p>{detalleNoticia?.resume}</p>
         <img src={detalleNoticia?.image} alt={detalleNoticia?.image}/>
         <p>{detalleNoticia?.content}</p>
         <p>{detalleNoticia?.date}</p>
       </div>
-      <div className='der'>
-      <Sponsor3/>
+      <div className='der_sponsor_detail'>
+      <Sponsor4/>
       </div>
+    </div>
     </div>
   );
 }

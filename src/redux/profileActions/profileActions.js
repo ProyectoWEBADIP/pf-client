@@ -37,7 +37,7 @@ export function submitImgToCloudinary(file) {
 export function updateUserProfile(id, userFields) {
   return async (dispatch) => {
     try {
-      const { data } = await axios.patch(
+      const {data} = await axios.patch(
         `/users/updateProfile/${id}`,
         userFields
       );

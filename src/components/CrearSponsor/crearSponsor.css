@@ -1,65 +1,94 @@
-.form{
+.contenedor_form{
+    display: flex;
     align-items: center;
-    background-color:#FBEED8;
-    top: 9%;
-    left:50%;
-   position:absolute;  
-    width: 600px;
-    border-radius: 1rem;
-    padding: 40px;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
-    overflow: auto;
-    height: 80vh;
-}   
-.h2{
-    color: rgb(216, 146, 15);
-}
-.name{     
-    padding: 10px;    
-}
-.name input{
-    padding: 5px;
-    border-radius: 4px;
-    margin-bottom: 16px;
-    border: 3px solid orange;
-    font-size: 18px;
-}
-.img{
-    align-items: center;   
-    padding: 10px;
-    width: 400px;
+    justify-content: center;
+    width: 100vw;
     
+} 
+.et_form_sponsor{
+    background-color:#FBEED8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 1rem; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);  
+    padding: 2rem;
+    margin-top: 1rem;
+} 
+.h2_form_ponsor{
+    color: #FF6500;
+    margin-top: 1px;
 }
-.img input{
-    padding: 5px;
+.name_sponsor_form{     
+    padding: 10px;   
+    width: 100%;   
+}
+.name_sponsor_form h4{   
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 3px;
+    color:rgb(88, 88, 88);
+}
+.name_sponsor_form label{
+margin-left: 2rem;
+margin-right: 1rem;
+}
+.Tipofile_sponsor_form{
+   width: 100%;
+   padding: 10px;
+}
+.Tipofile_sponsor_form h4{   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:rgb(88, 88, 88);
+   
+}
+.Tipofile_sponsor_form label{  
+    margin-right: 12px;
+}
+.img_sponsor{    
+    border: 3px solid  #FF6500;
+    padding: 4px;
     border-radius: 4px;
-    margin-bottom: 16px;
-    border: 3px solid orange;
-    font-size: 13px;    
 }
-
-.bot{
+.subirImagen_sponsor_form{
     align-items: center;   
     padding: 10px;
-    width: 400px;
+    width: 100%;   
+}
+.subirImagen_sponsor_form h4{   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:rgb(88, 88, 88);
+}
+.buton_subirImg_sponsor{
+    margin-left: 2rem;
+    font-size: small;
+    background-color: #FF6500;
 }
 .bot button{
-    border:3px solid orange;
+    border:3px solid  #FF6500;
 }
 .check{
     border: 3px solid orange;
     border-radius: 4px;
     padding: 5px;
 }
-.crear{
-    border: 3px solid orange;
+.buton_crear_sponsor{
+    background-color: #FF6500;
     border-radius: 4px;
-    padding: 5px;
+    padding: 7px;
 }
 .imagen{
     width: 150px;
     display: flex;
-    padding: 10px;   
-    
+    padding: 10px;    
+}
+.renderiza_img_sponsor{
+    margin-top: 1rem;
 }
 

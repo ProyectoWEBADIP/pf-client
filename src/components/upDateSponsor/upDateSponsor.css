@@ -1,36 +1,39 @@
-.selec{    
-    text-align: center;
-    border: 4px solid orange ;
-    padding: 1rem;
-    margin-left: 1rem;
-    border-radius: 1rem;
-    
-    
+.cont_update_sponsor{    
+    display: flex;
+    padding: 5rem;
+    align-items: center;
+    justify-content: space-between;
 }
-.select{
+.cardIzq_update_sponsor{    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;    
+    flex-direction: column;
+    border: 3px solid orange ;
+    padding: 1rem;
+    margin-right: 2rem;
+    border-radius: 1rem;   
+    background-color: rgba(255, 166, 0, 0.116);
+}
+.select_sponsor_editar{
     padding: 8px;
     background-color: wheat;
     border: 3px;
     border-radius:  1rem;
     font-size: medium;    
 }
-.contenedor{    
-    display: flex;
-    padding: 6rem;
-    text-align: center;
-    justify-content: space-between;
-}
-.carta{
-    border: 4px solid orange;
-    padding: 12rem;
-    flex-direction: column;
+.cardDerecha_update_sponsor{
     display: flex;
     align-items: center;
-    text-align: center; 
-    font-size: medium;    
-    margin-left: 6rem;    
+    justify-content: center;
+    flex-direction: column;
+    border: 3px solid orange;
+    padding: 9.5rem;
+    text-align: center;      
     border-radius: 1rem;    
     position: relative;
+    background-color: rgba(255, 166, 0, 0.116);
+    
 }
 .campo1{
     display: flex;
@@ -53,18 +56,63 @@
     border-radius:  1rem;
     
 }
-.boton{
+.buton_guardar_sponsor{
     margin-right: 4rem;  
+    background-color: rgba(245, 222, 179, 0.959);
    
 }
-.divboton{
-    display: flex;
-    flex-direction: row;
+.contenedor_guardar_sponsor{    
     position: absolute;
-    bottom: 1rem;
-    left: 50%;
-    transform: translateX(-50%);    
+    bottom: 1rem;    
+    margin-left: 3rem;  
+         
 }
-.img{
-    font-size: xx-small;
+.img_sponsor_editar{
+    max-height: 100%;
+    max-width: 100%;
+}
+.cont_renderImg_sponsor{
+   width: 20rem;
+   height: 10rem;   
+}
+.maqueta_ubicar_sponsor{
+    display: flex;    
+    max-width: 80%;   
+    justify-content: space-between;
+    padding: 0.5rem;  
+      
+}
+.file_sponsor_update{    
+    margin-bottom: 1rem;    
+    margin-top: 6rem;
+}
+.eliminar_imagen_sponsor{
+    font-size: small;
+    margin-top: 1rem;
+    background-color: rgba(245, 222, 179, 0.959);
+}
+.submit_sponsor_img_update{
+    font-size: small;
+    margin-top: 1rem;
+    background-color: rgba(245, 222, 179, 0.959);  
+}
+.ejemplo{
+    width: 45%;     
+}
+.texto{
+    font-size: medium;
+}
+.cont_alerta_sponsor{    
+    position: absolute;
+    margin-top: -3rem;
+    
+}
+.sure_sponsor_alerta{
+   background-color: rgba(245, 222, 179, 0.959);
+   padding: 5px;
+   border-radius: 1rem;  
+   border: 3px solid orange; 
+}
+.aceptar_buton_sponsor{
+    font-size: smaller ;   
 }

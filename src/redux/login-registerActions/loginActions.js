@@ -18,8 +18,10 @@ import {
 export function localLogin(userCredentials) {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(`/auth/login`, userCredentials);
-      console.log(data);
+      const { data } = await axios.post(
+        `/auth/login`,
+        userCredentials
+      );
       if (data.statusCode === 203) {
         dispatch({ type: ERROR, payload: data.message });
       }
@@ -51,8 +53,10 @@ export function registerUser(userData) {
   console.log(userData)
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(`/auth/register`, userData);
-      console.log(data);
+      const { data } = await axios.post(
+        `/auth/register`,
+        userData
+      );
       dispatch({ type: REGISTER_USER_LOCAL, payload: data });
       return data;
     } catch (error) {
@@ -64,7 +68,10 @@ export function registerUser(userData) {
 export function googleRegisterUser(userData) {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(`/auth/register/google`, userData);
+      const { data } = await axios.post(
+        `/auth/register/google`,
+        userData
+      );
       dispatch({ type: REGISTER_USER, payload: data });
     } catch (error) {
       dispatch({ type: LOGIN_REGISTER_ERRORS, payload: error });
@@ -78,7 +85,6 @@ export function getUserById(id) {
   return async (dispatch) => {
     try {
       const { data } = await axios(`/users/${id}`);
-      console.log(data);
       dispatch({ type: GET_USER_BY_ID, payload: data });
     } catch (error) {
       dispatch({ type: CREATE_LOCAL_PROFILE_ERRORS, payload: error });
@@ -88,7 +94,10 @@ export function getUserById(id) {
 export function createLocalProfile(id, userData) {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(`/users/${id}/profile`, userData);
+      const { data } = await axios.post(
+        `/users/${id}/profile`,
+        userData
+      );
       dispatch({ type: CREATE_PROFILE_LOCAL, payload: data });
     } catch (error) {
       dispatch({ type: CREATE_LOCAL_PROFILE_ERRORS, payload: error });

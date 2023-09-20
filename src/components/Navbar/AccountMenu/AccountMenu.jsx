@@ -39,7 +39,7 @@ export default function AccountMenu() {
   return (
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
-        <Tooltip title="Account settings">
+        <Tooltip title="Perfil">
           <IconButton
             onClick={handleClick}
             size="small"
@@ -48,7 +48,7 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+            <Avatar sx={{ width: 32, height: 32 }}>P</Avatar>
           </IconButton>
         </Tooltip>
       </Box>
@@ -70,12 +70,12 @@ export default function AccountMenu() {
             </MenuItem>
 
             <Divider />
-            <MenuItem onClick={handleClose}>
+            {/* <MenuItem onClick={handleClose}>
               <ListItemIcon>
                 <Settings fontSize="small" />
               </ListItemIcon>
               Configuración
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem onClick={() => logOut()}>
               <ListItemIcon>
                 <Logout fontSize="small" />
