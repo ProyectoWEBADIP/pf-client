@@ -24,7 +24,6 @@ export function getAllSponsor(){
         try {            
             const {data}= await axios(`/sponsors`)            
             dispatch({type:GET_ALL_SPONSOR ,payload:data})
-            console.log(data);
         } catch (error) {
             throw new Error({error:error.message})
         }

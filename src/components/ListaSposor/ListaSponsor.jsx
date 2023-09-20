@@ -8,7 +8,6 @@ import { updateSponsor } from "../../redux/sponsorActions/sponsorActions";
 
 const ListaSponsor = () => {
   const sponsor = useSelector((state) => state.sponsor);
-  console.log(sponsor);
   const dispatch = useDispatch();
 
   useEffect(() => {

@@ -5,7 +5,15 @@
   align-items: center;
   justify-content: center;
 }
-
+.login-success{
+  z-index: 100;
+  display: flex;
+justify-content: center;
+align-items: center;
+  position: absolute;
+  height: 80%;
+  width:80% ;
+}
 .link-reg-log{
   padding-top: 2px;
   display: flex;
