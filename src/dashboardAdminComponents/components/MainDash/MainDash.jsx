@@ -1,16 +1,16 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from 'react';
-import './MainDash.css';
-import Cards from '../Cards/Cards';
-import Table from '../Table/Table';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllUsers } from '../../../redux/usersActions/usersActions';
-import NoticiasDash from '../NoticiasDash/NoticiasDash';
+import React, { useEffect } from "react";
+import "./MainDash.css";
+import Cards from "../Cards/Cards";
+import Table from "../Table/Table";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllUsers } from "../../../redux/usersActions/usersActions";
+import NoticiasDash from "../NoticiasDash/NoticiasDash";
+import NotificacionesMail from "../NotificacionesMail/NotificacionesMail";
 const MainDash = () => {
   const actualDash = useSelector((state) => state.actualDash);
   const dispatch = useDispatch();
   useEffect(() => {
-    
     dispatch(getAllUsers());
   });
   return (
@@ -39,9 +39,14 @@ const MainDash = () => {
         </div>
       ) : actualDash === 2 ? (
         <div className="MainDash">HOLAAAA actualDash 2</div>
-      ) : (
-        <div className="MainDash">HOLAAAA 3333333</div>
-      )}
+      ) : actualDash === 3 ? (
+        <div className="MainDash">
+          <div>
+            <h1>Notificaciones</h1>
+            <NotificacionesMail />
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };

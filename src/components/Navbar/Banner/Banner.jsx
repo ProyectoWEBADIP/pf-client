@@ -11,14 +11,13 @@ export const Banner = () => {
     <div className="bannerConteiner">
       <Box
         sx={{
+          position:'',
           backgroundImage:  location.pathname === "/club/historia" || location.pathname === "/club/comision"? `url(${banderin})` :  `url(${naranjaTeam})`,
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           backgroundSize: "cover",
           width: "100%",
-          height: 390,
-          // width: "100vw",
-          // height: 420,
+          height: 400,
           justifyContent: "center",
         }}
       >

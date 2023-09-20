@@ -38,7 +38,7 @@ export function updateUserProfile(id, userFields){
   return async (dispatch)=>{
     try {
       const {data} = await axios.patch(
-        `http://localhost:3001/users/updateProfile/${id}`,
+        `/users/updateProfile/${id}`,
         userFields
       );
       return data

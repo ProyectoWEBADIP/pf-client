@@ -3,6 +3,7 @@ import { useSelector,useDispatch } from 'react-redux';
 import { getAllSponsor,updateSponsor } from '../../redux/sponsorActions/sponsorActions';
 import './upDateSponsor.css';
 import axios from 'axios';
+;
 
 
 
