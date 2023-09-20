@@ -37,7 +37,7 @@ const Navbar = ({ themeMode, toggleThemeMode }) => {
               toggleThemeMode={toggleThemeMode}
             />
             <SearchBar />
-            <Notificaciones />
+            {/* <Notificaciones /> */}
             <AccountMenu />
           </div>
         </StyledToolbar>

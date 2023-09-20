@@ -8,12 +8,11 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../redux/login-registerActions/loginActions";
 import { Link, useNavigate } from "react-router-dom";
-
+import './accMenu.css'
 export default function AccountMenu() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -62,11 +61,15 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         {access_token ? (
-          <div>
+          <div >
             <MenuItem onClick={handleClose}>
-              <Link to={`/${id}/profile`}>
-                <Avatar /> Perfil
+             <div className="perfil-nav-cont">
+             <Link to={`/${id}/profile`}>
+                <div className="perfil-nav-cont">
+                <span><Avatar /> <span>Mi perfil</span></span>
+                </div>
               </Link>
+             </div>
             </MenuItem>
 
             <Divider />
