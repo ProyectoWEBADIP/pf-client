@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
-import './app.css';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Home from './components/Home/Home';
 import Navbar from './components/Navbar/Navbar';
+import './index.css'
 import Login from '../src/components/Login/Login';
 import SignUp from './components/SignUp/SignUp';
 import NoticiaDetail from './components/detailNoticia/NoticiaDetail';
@@ -40,7 +40,6 @@ function App() {
   };
   const location = useLocation();
   const theme = createTheme(getDesignTokens(themeMode));
-
   return (
     <div className="AppContainer">
       <ThemeProvider theme={theme}>
@@ -69,7 +68,7 @@ function App() {
           </Route>
           <Route path={'/club/historia'} element={<ClubHistoria />} />
           <Route path={'/club/comision'} element={<ClubComision />} />
-          <Route path={'/noticias'} element={<Noticias />} />
+          {/* <Route path={'/noticias'} element={<Noticias />} /> */}
           <Route
             path={'/auth/dashboard'}
             element={
@@ -88,7 +87,7 @@ function App() {
           <Route path="*" element={<NotFoundComponent />} />
         </Routes>
         <ButtonUpper />
-        {location.pathname === '/auth/dashboard' ||
+        {location.pathname ===`/${localStorage.userId}/profile` ||
         location.pathname === '/auth/dashboard' ? null : (
           <Footer />
         )}

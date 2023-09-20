@@ -6,7 +6,7 @@ import "./anotherBoton.css";
       <div className="paste-button">
         <button className="button">Club &nbsp; ⮟</button>
         <div className="dropdown-content">
-          <Link  to='#'>
+          <Link  to='/datosInt'>
            <span id="top"> Datos Interesantes</span>
           </Link>
           <Link  to="/club/comision">

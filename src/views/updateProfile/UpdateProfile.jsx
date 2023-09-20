@@ -66,9 +66,11 @@ const UpdateProfile = ({ perfilUsuario }) => {
       [e.target.name]: e.target.value,
     });
   }
+  const [loading, setLoading] = useState(false);
 
   async function handleUpload(e) {
     if (imgUpdated) {
+      setLoading(true)
       const cloudinaryResponse = await dispatch(submitImgToCloudinary(file));
       updatedFields.image = cloudinaryResponse.secure_url;
       setAlert(cloudinaryResponse.message);
@@ -78,17 +80,35 @@ const UpdateProfile = ({ perfilUsuario }) => {
       }, 5000);
     }
     const id = perfilUsuario.profile.id;
+    setLoading(true)
     const response = await dispatch(updateUserProfile(id, updatedFields));
+    setLoading(false)
     setImgUpdated(false);
-    setSuccess(response);
+    setSuccess(`${response} La página se refrescará.`);
     setTimeout(() => {
+      location.reload()
       setSuccess(false);
-    }, 5000);
+      
+    }, 3000);
     return;
   }
   return (
     <div className="overlayUpdateModal">
       <div className="updateModal">
+        { loading ? (
+          <div className="loading-update-profile">
+            <div className="lds-roller">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        ) : null}
         {showAlert && (
           <div className="imageAlertModal">
             <Alert severity="success">{alert}</Alert>
@@ -231,11 +251,11 @@ const UpdateProfile = ({ perfilUsuario }) => {
             placeholder={perfilUsuario.profile.dni}
           />
         </div>
-        <div onClick={handleUpload} className="saveButton">
+       {loading? null:<div onClick={handleUpload} className="saveButton">
           <span>
             <Save fontSize="large" /> Guardar cambios
           </span>
-        </div>
+        </div>}
       </div>
     </div>
   );
