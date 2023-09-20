@@ -41,7 +41,7 @@ const actualDash = useSelector(state=> state.actualDash)
             );
           })}
           <div>
-            <Link to="/">
+            <Link to={`/${userProfile.id}/profile`}>
               <UilSignOutAlt  className="outButton" />
             </Link>
           </div>

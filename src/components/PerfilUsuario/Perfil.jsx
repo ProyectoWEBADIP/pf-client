@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
-"use client";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import style from "./Perfil.module.css";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+'use client';
+import validation from './validation';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import style from './Perfil.module.css';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import {
   createLocalProfile,
@@ -15,10 +16,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import { setIsLoading } from "../../utils/setIsLoading";
 import {
   Alert,
-  Badge,
   Button,
   FormControl,
-  Grid,
   InputLabel,
   MenuItem,
   Select,
@@ -26,25 +25,25 @@ import {
   Toolbar,
   Tooltip,
   Typography,
-} from "@mui/material";
-import MaleIcon from "@mui/icons-material/Male";
-import FemaleIcon from "@mui/icons-material/Female";
-import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
-import BadgeIcon from "@mui/icons-material/Badge";
-import { Box, Container, padding } from "@mui/system";
-import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
-import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
-import "./perfil.css";
-import AlertError from "../../assets/AlertError/AlertError";
-import logo from "../../assets/Escudo ADIP sin fondo.png";
-import { Edit, Email } from "@mui/icons-material";
-import CakeIcon from "@mui/icons-material/Cake";
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import UpdateProfile from "../../views/updateProfile/UpdateProfile";
-import { showProfileEdit } from "../../redux/profileActions/profileActions";
-import jwtDecode from "jwt-decode";
+} from '@mui/material';
+import MaleIcon from '@mui/icons-material/Male';
+import FemaleIcon from '@mui/icons-material/Female';
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import BadgeIcon from '@mui/icons-material/Badge';
+import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
+import './perfil.css';
+import AlertError from '../../assets/AlertError/AlertError';
+import logo from '../../assets/Escudo ADIP sin fondo.png';
+import { Edit, Email } from '@mui/icons-material';
+import CakeIcon from '@mui/icons-material/Cake';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import UpdateProfile from '../../views/updateProfile/UpdateProfile';
+import { showProfileEdit } from '../../redux/profileActions/profileActions';
+import jwtDecode from 'jwt-decode';
 import { getAllNoticias } from '../../redux/noticiasActions/noticiasActions';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 export default function Perfil() {
   //!HOOKS
   const [preferenceId, setPreferenceId] = useState(null);
@@ -66,10 +65,16 @@ export default function Perfil() {
     image: "",
   });
   const [file, setFile] = useState(null);
+  const [errors, setErrors] = useState({
+    firstName: 'Ingrese su nombre, por favor.',
+    lastName: 'Ingrese su apellido, por favor.',
+    dni: 'Ingrese su número de DNI.',
+    birthDate: 'Ingrese su fecha de nacimiento.',
+    phone: 'Ingrese su número de teléfono.',
+  });
 
   initMercadoPago(`TEST-c2bc2a6c-e7ac-4a00-bd64-68b499cde86d`);
   const createPreference = async () => {
-    console.log('entre');
     try {
       const { data } = await axios.post(`/payment/createPreference`, {
         description: 'Cuota mensual Club deportivo A.D.I.P',
@@ -112,12 +117,26 @@ export default function Perfil() {
       ...profileData,
       [event.target.name]: event.target.value,
     });
+    setErrors(
+      validation({ ...profileData, [event.target.name]: event.target.value })
+    );
   };
   const imgDefault =
     "https://pbs.twimg.com/profile_images/1454099552106074116/eEn8pMnN_400x400.jpg";
 
-  //?FUNCION QUE DESHABILITA EL BOTON PARA ACTUALIZAR PERFIL SI HAY ERRORES
-
+  //FUNCION QUE DESHABILITA EL BOTON PARA ACTUALIZAR PERFIL SI HAY ERRORES
+  function disabler() {
+    let disabled = true;
+    for (const err in errors) {
+      if (errors[err] === '') {
+        disabled = false;
+      } else {
+        disabled = true;
+        break;
+      }
+    }
+    return disabled;
+  }
   const [cloudinaryResponse, setCloudinaryResponse] = useState(null);
   const [success, setSuccess] = useState(false);
   async function submitImgToCloudinary() {
@@ -137,7 +156,7 @@ export default function Perfil() {
       setProfileData({ ...profileData, image: data.secure_url });
       setCloudinaryResponse(false);
       setSuccess(<Alert severity="success">Imagen subida exitosamente.</Alert>);
-      return;
+      return data;
     } catch (error) {
       setCloudinaryResponse(false);
       setSuccess(<Alert severity="error">Error al subir la imágen.</Alert>);
@@ -146,6 +165,8 @@ export default function Perfil() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    const cloudinaryResponse = await submitImgToCloudinary();
+    profileData.image = cloudinaryResponse.secure_url;
 
     dispatch(createLocalProfile(id, profileData));
   }
@@ -167,29 +188,11 @@ export default function Perfil() {
       {!isLoading ? (
         !perfilUsuario?.active ? (
           <div className={style.contProf}>
-            <Grid container spacing={{ md: 2 }}>
-              <Grid item xs={12} sm={12} md={6} marginBottom={5}>
-                <form onSubmit={handleSubmit}>
-                  <Box
-                    display="flex"
-                    flexDirection={"column"}
-                    maxWidth={400}
-                    minWidth={300}
-                    alignItems="center"
-                    justifyContent={"center"}
-                    margin="auto"
-                    padding={3}
-                    borderRadius={5}
-                    boxShadow={"5px 5px 10px #ccc"}
-                    sx={{
-                      ":hover": { boxShadow: "5px 5px 10px #ccc" },
-                      backgroundColor: "whitesmoke",
-                      marginX: 3,
-                    }}
-                  >
-                    <Typography variant="body2" fontWeight="bold">
-                      Actualiza tu perfil para terminar de registrarte!
-                    </Typography>
+            <form onSubmit={handleSubmit}>
+              <h2>¡Actualiza tu perfil para terminar de registrarte!</h2>
+              <div className="name-lastname-img-container">
+                <div className="names-create-profile-container">
+                  <div className="input-error-container">
                     <TextField
                       margin="normal"
                       htmlFor="firstName"
@@ -198,6 +201,9 @@ export default function Perfil() {
                       label="Nombre"
                       onChange={handleChange}
                     />
+                    {errors.firstName ? <span>{errors.firstName}</span> : null}
+                  </div>
+                  <div className="input-error-container">
                     <TextField
                       margin="normal"
                       htmlFor="lastName"
@@ -206,198 +212,103 @@ export default function Perfil() {
                       label="Apellido"
                       onChange={handleChange}
                     />
-                    <TextField
-                      margin="normal"
-                      htmlFor="birthDate"
-                      name="birthDate"
-                      type="date"
-                      focused
-                      label="Fecha de Nacimiento"
+                    {errors.lastName ? <span>{errors.lastName}</span> : null}
+                  </div>
+                </div>
+                <div className="photo-container">
+                  <img src={profileData.image ? imageURL : logo} alt="" />
+                  <div className="fileContModal">
+                    <input
                       onChange={handleChange}
-                      color="grey"
+                      name="image"
+                      id="uploadImgInput"
+                      type="file"
                     />
-                    <TextField
-                      margin="normal"
-                      htmlFor="dni"
-                      name="dni"
-                      type="text"
-                      label="DNI"
-                      onChange={handleChange}
-                    />
-                    <TextField
-                      margin="normal"
-                      name="phone"
-                      type="text"
-                      label="Teléfono"
-                      onChange={handleChange}
-                    />
-                    <FormControl fullWidth>
-                      <InputLabel id="demo-simple-select-label">
-                        Género
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        label="Género"
-                        name="gender"
-                        onChange={handleChange}
-                      >
-                        <MenuItem value="Femenino">Femenino</MenuItem>
-                        <MenuItem value="Masculino">Masculino</MenuItem>
-                      </Select>
-                    </FormControl>
+                    <label htmlFor="uploadImgInput">
+                      <FileUploadIcon fontSize="large" />
+                    </label>
+                  </div>
+                </div>
+              </div>
 
-                    <Toolbar>
-                      <TextField
-                        margin="normal"
-                        htmlFor="image"
-                        name="image"
-                        type="file"
-                        label="Imagen"
-                        focused
-                        onChange={handleChange}
-                        color="grey"
-                      ></TextField>
-                      <Button
-                        variant="contained"
-                        size="xs"
-                        sx={{
-                          marginLeft: "5px",
-                          fontSize: "10px",
-                          alignContent: "center",
-                        }}
-                        type="button"
-                        onClick={submitImgToCloudinary}
-                        startIcon={<FileUploadOutlinedIcon />}
-                      >
-                        Cargar
-                      </Button>
-                    </Toolbar>
-                    <p>
-                      {cloudinaryResponse ? (
-                        <div className={style.loader}></div>
-                      ) : (
-                        success
-                      )}
-                    </p>
+              <div className="birth-gender-container-profile">
+                <div className="input-error-container">
+                  <TextField
+                    margin="normal"
+                    htmlFor="birthDate"
+                    name="birthDate"
+                    type="date"
+                    focused
+                    label="Fecha de Nacimiento"
+                    onChange={handleChange}
+                    color="grey"
+                  />
+                  {errors.birthDate ? <span>{errors.birthDate}</span> : null}
+                </div>
 
-                    <Button
-                      type="submit"
-                      sx={{ marginTop: 2 }}
-                      variant="outlined"
+                <div className="gender-container">
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">
+                      Género
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      label="Género"
+                      name="gender"
+                      onChange={handleChange}
                     >
-                      Actualizar perfil
-                    </Button>
-                  </Box>
-                </form>
-              </Grid>
+                      <MenuItem value="Femenino">Femenino</MenuItem>
+                      <MenuItem value="Masculino">Masculino</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
+              </div>
+              <div className="phone-dni-container">
+                <div className="input-error-container">
+                  <TextField
+                    margin="normal"
+                    htmlFor="dni"
+                    name="dni"
+                    type="text"
+                    label="DNI"
+                    onChange={handleChange}
+                  />
+                  {errors.dni ? <span>{errors.dni}</span> : null}
+                </div>
+                <div className="input-error-container">
+                  <TextField
+                    margin="normal"
+                    name="phone"
+                    type="text"
+                    label="Teléfono"
+                    onChange={handleChange}
+                  />
+                  {errors.phone ? <span>{errors.phone}</span> : null}
+                </div>
+              </div>
+              <p>
+                {cloudinaryResponse ? (
+                  <div className={style.loader}></div>
+                ) : (
+                  success
+                )}
+              </p>
 
-              {
-                //!ACÁ SE DIVIDE LA VISTA PREVIA
-              }
-
-              <Grid item xs={12} sm={12} md={6}>
-                <Box
-                  display="flex"
-                  flexDirection={"column"}
-                  maxWidth={400}
-                  minWidth={300}
-                  alignItems="center"
-                  justifyContent={"center"}
-                  margin="auto"
-                  padding={3}
-                  borderRadius={5}
-                  boxShadow={"5px 5px 10px #ccc"}
-                  sx={{
-                    ":hover": { boxShadow: "5px 5px 10px #ccc" },
-                    backgroundColor: "whitesmoke",
-                    marginX: 3,
-                  }}
-                >
-                  <Container
-                    sx={{
-                      borderRadius: "50%",
-                      borderColor: "black",
-                      borderStyle: "solid",
-                      borderWidth: "2px",
-                      overflow: "hidden",
-                      width: "15vw",
-                      height: "15vw",
-                      marginBottom: 3,
-                    }}
-                  >
-                    <img
-                      src={profileData.image ? imageURL : imgDefault}
-                      alt="img"
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                      }}
-                    />
-                  </Container>
-
-                  <Typography variant="h4" fontWeight="lighter">
-                    Hola
-                  </Typography>
-                  <Typography variant="h4" fontWeight="bold">
-                    {profileData.firstName} {profileData.lastName}!
-                  </Typography>
-
-                  <Container>
-                    <Typography variant="body1">
-                      Email: {perfilUsuario?.email}
-                    </Typography>
-                    <Typography variant="body1">
-                      Fecha de Nacimiento: {profileData.birthDate}
-                    </Typography>
-                    <Typography variant="body1">
-                      DNI: {profileData?.dni}
-                    </Typography>
-                    <Typography variant="body1" fontWeight="bold">
-                      Deuda acumulada: $0
-                    </Typography>
-                  </Container>
-                </Box>
-              </Grid>
-            </Grid>
+              <div className="input-update-container">
+                <input
+                  className="update-perfil"
+                  type="submit"
+                  disabled={disabler()}
+                  value={'Actualizar mi perfil'}
+                />
+              </div>
+            </form>
           </div>
         ) : (
           <div className="profileContainer">
             <div className="leftProfileContainer">
-              {role !== 'user' && perfilUsuario?.profile ? (
-                <div className="table-edit-container">
-                  <div className="link-edits-container">
-                    <Link to="/editarSponsor">
-                      <h4 title="Haz click aquí para editar los sponsors">
-                        Editar sponsors
-                      </h4>
-                    </Link>
-                  </div>
-                  <div className="link-edits-container">
-                    <h4>
-                      Editar noticias{' '}
-                      <Tooltip
-                        title="Si quieres editar una noticia, haz click en su título."
-                        placement="top-start"
-                      >
-                        <button className="button-question">
-                          <QuestionMarkIcon fontSize="small" />
-                        </button>
-                      </Tooltip>
-                    </h4>
-                    {noticias?.map((not, i) => {
-                      return (
-                        <div key={i}>
-                          <Link to={`/editarNoticia/${not.id}`}>
-                            <span>*{not.title}</span>
-                          </Link>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              ) : null}
+             
             </div>
             {!showEditProfile ? null : (
               <UpdateProfile perfilUsuario={perfilUsuario} />
@@ -484,19 +395,20 @@ export default function Perfil() {
                   </div>
                 </div>
               </div>
+              {perfilUsuario.active && <Link to={`/QrCarnetDigital/${perfilUsuario.profile.dni}`}><button>Generar carnet digital</button></Link>}
             </div>
 
             <div className="rigthProfileContainer">
-            {role === 'super_admin' && perfilUsuario?.profile ? (
+              {role === 'super_admin' && perfilUsuario?.profile ? (
                 <div>
                   <Link to={'/auth/dashboard'}>
-                  <button className="learn-more">
-                    <span aria-hidden="true" className="circle">
-                      <span className="icon arrow"></span>
-                    </span>
-                    <span className="button-text">Administrador</span>
-                  </button>
-                </Link>
+                    <button className="learn-more">
+                      <span aria-hidden="true" className="circle">
+                        <span className="icon arrow"></span>
+                      </span>
+                      <span className="button-text">Administrador</span>
+                    </button>
+                  </Link>
                 </div>
               ) : null}
             </div>
