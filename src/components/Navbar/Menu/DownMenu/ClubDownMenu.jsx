@@ -9,12 +9,13 @@ import "./anotherBoton.css";
           <Link  to='/club/contacto'>
            <span id="top">Contacto</span>
           </Link>
-          <Link  to="/club/comision">
-            <span id="middle">Autoridades</span>
-          </Link>
           <Link to="/club/historia">
             <span  id="bottom">Historia</span>
           </Link>
+          <Link  to="/club/comision">
+            <span id="middle">Autoridades</span>
+          </Link>
+          
         </div>
       </div>
     </div>

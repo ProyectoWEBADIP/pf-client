@@ -17,7 +17,7 @@ const Navbar = ({ themeMode, toggleThemeMode }) => {
     <>
       <AppBar
         className="conteinNavBar"
-        sx={{ minWidth:'70%',maxWidth:'100%',position: location.pathname !== "/login" && location.pathname !== "/club/historia" ? "fixed" : "static" }}
+        sx={{ minWidth:'70%',maxWidth:'100%',position: location.pathname !== "/login" ? "fixed" : "static" }}
       >
         <StyledToolbar>
           <div>

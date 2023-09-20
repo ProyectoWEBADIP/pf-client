@@ -2,17 +2,26 @@ import { Box } from "@mui/material";
 import naranjaTeam from "./img/naranjaTeam.jpg";
 import logo from './img/Escudo ADIP sin fondo.png'
 import banderin from "./img/banderin2.jpg"
+import masculino from "./img/masculino2.jpg"
+import logros from "./img/copa2.jpg"
+import femenino from "./img/femenino.jpg"
 import "./banner.css";
 import { Facebook, Instagram, Twitter } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export const Banner = () => {
+  const location = useLocation();
+  
   return (
     <div className="bannerConteiner">
       <Box
         sx={{
           position:'relative',
-          backgroundImage:  location.pathname === "/club/historia" || location.pathname === "/club/comision"? `url(${banderin})` :  `url(${naranjaTeam})`,
+          backgroundImage:  location.pathname === "/club/historia" || location.pathname === "/club/comision" || location.pathname === "/club/contacto" ?  `url(${banderin})` 
+          : location.pathname === "/futbol/logros" ?  `url(${logros})` 
+          : location.pathname === "/futbol/masculino" ?  `url(${masculino})`
+          : location.pathname === "/futbol/femenino" ?  `url(${femenino})`
+          : `url(${naranjaTeam})`,
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           backgroundSize: "cover",

@@ -6,14 +6,14 @@ const FutbolMenu = () => {
       <div className="paste-button">
         <button className="button">Fútbol &nbsp;⮟</button>
         <div className="dropdown-content">
-          <Link id="top" to="#">
+          <Link id="top" to="/futbol/femenino">
             Fútbol Femenino
           </Link>
-          <Link id="middle" to="#">
+          <Link id="middle" to="/futbol/masculino">
             Fútbol Masculino
           </Link>
-          <Link id="bottom" to="#">
-            Estadisticas
+          <Link id="bottom" to="/futbol/logros">
+            Logros
           </Link>
         </div>
       </div>
