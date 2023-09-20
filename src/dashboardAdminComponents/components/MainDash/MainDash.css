@@ -154,7 +154,7 @@ align-items: center;
   width: 50%;
   height: 80%;
   background-color: rgba(255, 255, 255, 0.1);
-  animation: overlay 0.1s ease-in-out 0s;
+  animation: overlay1 0.1s ease-in-out 0s;
   pointer-events: none;
 }
 
@@ -163,7 +163,7 @@ align-items: center;
   height: 15px;
 }
 
-@keyframes overlay {
+@keyframes overlay1 {
   from {
      opacity: 0;
   }
