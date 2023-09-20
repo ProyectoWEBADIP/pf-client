@@ -39,7 +39,7 @@ export function updateUserProfile(id, userFields) {
     try {
       const {data} = await axios.patch(
         `/users/updateProfile/${id}`,
-        `/users/updateProfile/${id}`,
+        
         userFields
       );
       return data;

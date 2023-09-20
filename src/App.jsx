@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import './app.css';
+
 import CssBaseline from '@mui/material/CssBaseline';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Home from './components/Home/Home';
@@ -53,7 +53,7 @@ function App() {
         <Routes>
           <Route path={'/'} element={<Home />} />
           <Route path={'/login'} element={<SignIn />} />
-          <Route path={'/login/SignUp'} element={<SingUp />} />
+          <Route path={'/login/SignUp'} element={<SignUp />} />
           <Route path={'/detalle/:id'} element={<NoticiaDetail />} />
           <Route path={'/:id/profile'} element={<PerfilUsuario />} />
           <Route path={"/carnetDigital/:id"} element={<CarnetDigital/>}/>

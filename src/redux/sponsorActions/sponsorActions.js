@@ -46,7 +46,7 @@ export function getSponsorById(id){
     return async(dispatch)=>{
         try {
             const {data}= await axios(`/sponsors/${id}`)
-            const {data}= await axios(`/sponsors/${id}`)
+            
             dispatch({type:GET_SPONSOR_BY_ID,payload:data[0]})
 
             

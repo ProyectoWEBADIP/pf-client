@@ -25,7 +25,7 @@ export function getAllNoticias() {
    return async (dispatch) => {
       try {
          const { data } = await axios(`/notices`);
-         const { data } = await axios(`/notices`);
+         
          dispatch({ type: GET_ALL_NOTICIAS, payload: data });
       } catch (error) {
 
@@ -57,7 +57,7 @@ export function getNoticiaDetail(id) {
    return async (dispatch) => {
       try {
          const { data } = await axios(`/notices/${id}`);
-         const { data } = await axios(`/notices/${id}`);
+         
          dispatch({ type: GET_NOTICIA_DETAIL, payload: data[0] });
       } catch (error) {
          return alert(error.message);
