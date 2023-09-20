@@ -1,4 +1,9 @@
-import { POST_SPONSOR ,GET_ALL_SPONSOR,UPDATE_SPONSOR, GET_SPONSOR_BY_ID} from "./sponsorActionsTypes";
+import {
+  POST_SPONSOR,
+  GET_ALL_SPONSOR,
+  UPDATE_SPONSOR,
+  GET_SPONSOR_BY_ID,
+} from "./sponsorActionsTypes";
 import axios from "axios";
 
 export function postSponsor(body){
@@ -23,7 +28,8 @@ export function getAllSponsor(){
             throw new Error({error:error.message})
         }
     }
-}
+  }
+
 export function updateSponsor(id,body){
     return async(dispatch)=>{
         try {
@@ -39,6 +45,7 @@ export function updateSponsor(id,body){
 export function getSponsorById(id){
     return async(dispatch)=>{
         try {
+            const {data}= await axios(`/sponsors/${id}`)
             const {data}= await axios(`/sponsors/${id}`)
             dispatch({type:GET_SPONSOR_BY_ID,payload:data[0]})
 

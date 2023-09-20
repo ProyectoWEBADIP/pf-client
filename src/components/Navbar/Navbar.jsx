@@ -12,15 +12,20 @@ import { useLocation } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
 const Navbar = ({ themeMode, toggleThemeMode }) => {
-
   const location = useLocation()
-  
-
   return (
     <>
       <AppBar
         className="conteinNavBar"
-        sx={{ position: location.pathname !== "/login" ? "fixed" : "static" }}
+        sx={{
+          position:
+            location.pathname !== "/login" &&
+            location.pathname !== "/club/historia" &&
+            location.pathname !== "/login/recuperacion" &&
+            location.pathname !== "/login/SignUp"
+              ? "fixed"
+              : "static",
+        }}
       >
         <StyledToolbar>
           <div>

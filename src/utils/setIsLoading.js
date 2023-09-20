@@ -1,12 +1,9 @@
-import { IS_LOADING } from "../redux/login-registerActions/actionTypes";
+import { IS_LOADING } from '../redux/login-registerActions/actionTypes';
 
 export function setIsLoading() {
   return async function (dispatch) {
-    try {
-dispatch({
-  type: IS_LOADING})
-    } catch (error) {
-      alert(error.message)
-    }
+    dispatch({
+      type: IS_LOADING,
+    });
   };
 }

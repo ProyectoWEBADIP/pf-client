@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import CardNoticia from '../cardNoticia/CardNoticia';
+import CardNoticia from '../CardNoticia/CardNoticia';
 import './cardsNoticias.css';
 import { useSelector } from 'react-redux';
 import { Container, display, padding } from '@mui/system';

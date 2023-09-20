@@ -1,4 +1,4 @@
-import { POST_CATEGORIAS, GET_ALL_CATEGORIES } from "./categoriasActionTypes";
+import {  GET_ALL_CATEGORIES } from "./categoriasActionTypes";
 import axios from "axios";
 
 export function postCategoria(body) {
