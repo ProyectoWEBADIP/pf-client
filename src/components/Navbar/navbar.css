@@ -1,10 +1,6 @@
 .conteinOrder {
   display: flex;
-  width: 30%;
   justify-content: space-evenly;
-}
-.conteinMenu{
-
 }
 
 .conteinNavBar {

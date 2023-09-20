@@ -1,17 +1,17 @@
 import { Facebook, Instagram, Twitter } from "@mui/icons-material";
 import "./Footer.css";
-import logo from '../../components/Navbar/Banner/img/Escudo ADIP sin fondo.png'
+// import logo from '../../components/Navbar/Banner/img/Escudo ADIP sin fondo.png'
 import { Link } from "react-router-dom";
 export const Footer = () => {
   return (
     <div className="container-footer">
       <footer>
-        <div className="logo-footer">
+        {/* <div className="logo-footer">
           <img
             src={logo}
             alt=""
           />
-        </div>
+        </div> */}
 
         <div className="redes-footer">
           <a className="icon-facebook">
