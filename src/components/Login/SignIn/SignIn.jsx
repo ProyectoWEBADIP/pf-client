@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./SignIn.css";
 import { localLogin } from "../../../redux/login-registerActions/loginActions";
-import { Link, useNavigate } from "react-router-dom";
+import { Link,  useNavigate } from "react-router-dom";
 import { useState } from "react";
 import AlertError from "../../../assets/AlertError/AlertError";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -72,13 +72,24 @@ export const SignIn = () => {
                   placeholder="Contraseña"
                   onChange={handleChange}
                 />
-                <span onClick={()=>setPass(!showPass)}>
-                 {showPass? <VisibilityIcon />:<VisibilityOffIcon/>}
+                <span onClick={() => setPass(!showPass)}>
+                  {showPass ? <VisibilityIcon /> : <VisibilityOffIcon />}
                 </span>
               </div>
-              <span className="forgot-password">
-                <Link to="#">Olvidé mi contraseña</Link>
-              </span>
+              <div className="link-reg-log">
+                <div>
+                  <Link to="/login/recuperacion">
+                    <span className="forgot-password">
+                      Olvidé mi contraseña
+                    </span>
+                  </Link>
+                </div>
+                <div>
+                  <Link to="/login/SignUp">
+                    <span className="forgot-password">Asociarme</span>
+                  </Link>
+                </div>
+              </div>
               <input
                 className="login-button"
                 type="submit"
@@ -121,7 +132,6 @@ export const SignIn = () => {
               </button>
             </div>
           </div>
-         
         </div>
       )}
     </div>

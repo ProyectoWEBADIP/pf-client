@@ -17,7 +17,14 @@ const Navbar = ({ themeMode, toggleThemeMode }) => {
     <>
       <AppBar
         className="conteinNavBar"
-        sx={{ minWidth:'70%',maxWidth:'100%',position: location.pathname !== "/login" ? "fixed" : "static" }}
+        sx={{
+          position:
+            location.pathname !== "/login" &&
+            location.pathname !== "/login/recuperacion" &&
+            location.pathname !== "/login/SignUp"
+              ? "fixed"
+              : "static",
+        }}
       >
         <StyledToolbar>
           <div>
@@ -29,7 +36,7 @@ const Navbar = ({ themeMode, toggleThemeMode }) => {
               toggleThemeMode={toggleThemeMode}
             />
             <SearchBar />
-            <Notificaciones />
+            {/* <Notificaciones /> */}
             <AccountMenu />
           </div>
         </StyledToolbar>

@@ -7,6 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import InfoIcon from '@mui/icons-material/Info';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
+import ForwardToInboxIcon from '@mui/icons-material/ForwardToInbox';
 import {
   GridRowModes,
   DataGrid,
@@ -21,14 +22,17 @@ import {
   getUserById,
   updateUserFromAdmin,
 } from '../../../redux/usersActions/usersActions';
+import logo from '../../../assets/Escudo ADIP sin fondo.png';
 import './Table.css';
-import { Close } from '@mui/icons-material';
+import { Add, Close } from '@mui/icons-material';
 import defaultPhoto from '../../../assets/Escudo ADIP sin fondo.png';
 import { format } from 'date-fns';
 import AlertError from '../../../assets/AlertError/AlertError';
 import SucessAlert from '../../../assets/AlertSuccess/AlertSuccess';
+import { registerUser } from '../../../redux/login-registerActions/loginActions';
+import { FormControl, TextField } from '@mui/material';
 
-function calcularEdad(birthday) {
+export function calcularEdad(birthday) {
   if (birthday) {
     const birthday_arr = birthday.split('/');
     const birthday_date = new Date(
@@ -140,6 +144,7 @@ export default function FullFeaturedCrudGrid() {
   const [showError, setShowError] = React.useState(false);
   const [successAlert, setSuccessAlert] = React.useState('');
   const [showSuccess, setShowSuccess] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   const processRowUpdate = async (newRow) => {
     const updatedRow = { ...newRow, isNew: false };
@@ -147,6 +152,7 @@ export default function FullFeaturedCrudGrid() {
       'Esta accion modificará información importante del usuario, ¿estás seguro?'
     );
     if (confirm) {
+      setLoading(true);
       const userFound = await dispatch(getUserById(newRow.id));
       if (newRow) {
         const date = format(new Date(), 'dd-MM-yyyy HH:mm:ss');
@@ -174,12 +180,14 @@ export default function FullFeaturedCrudGrid() {
       }
 
       dispatch(getAllUsers());
+      setLoading(false);
     } else {
       setErrorAlert('Error al actualizar los datos del usuario.');
       setShowError(true);
       setTimeout(() => {
         setShowError(false);
       }, 5000);
+      setLoading(false);
     }
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
     return updatedRow;
@@ -235,8 +243,7 @@ export default function FullFeaturedCrudGrid() {
           justifyContent: 'center',
           alignItems: 'center',
           fontWeight: 'bold',
-          color: 'black',
-          backgroundColor: '#FFCA71',
+          color: 'orange',
           width: '100%',
           height: '100%',
         }}
@@ -250,8 +257,7 @@ export default function FullFeaturedCrudGrid() {
           justifyContent: 'center',
           alignItems: 'center',
           fontWeight: 'bold',
-          color: 'black',
-          backgroundColor: '#FE919D',
+          color: 'green',
           width: '100%',
           height: '100%',
         }}
@@ -373,9 +379,42 @@ export default function FullFeaturedCrudGrid() {
     },
   ];
   const noRows = [{ id: '123', email: 'No se cargaron los usuarios' }];
+  const [showAddUser, setShowAddUser] = React.useState(false);
+  const [newUser, setNewUser] = React.useState({
+    username: '',
+    email: '',
+    password: '',
+  });
+
+  function handleAddUserChange(e) {
+    setNewUser({
+      ...newUser,
+      [e.target.name]: e.target.value,
+    });
+  }
+  async function addNewUser(e) {
+      e.preventDefault();
+      const registered = await dispatch(registerUser(newUser));
+      if (registered?.registered) {
+        await dispatch(getAllUsers());
+        setSuccessAlert(registered.message);
+        setShowError(false);
+        setShowSuccess(true);
+        setTimeout(() => {
+          setShowSuccess(false);
+        }, 5000);
+      } else{
+        setShowSuccess(false)
+      setErrorAlert('Error al registrar el usuario. Verifique no repetir email ni nombre de  usuario.');
+      setShowError(true);
+      setTimeout(() => {
+        setShowError(false);
+      }, 5000);
+      }
+      
+  }
   return (
     <Box
-      className="boxTable"
       sx={{
         '& .actions': {
           color: 'text.secondary',
@@ -385,6 +424,55 @@ export default function FullFeaturedCrudGrid() {
         },
       }}
     >
+      {showAddUser ? (
+        <div className="overlay">
+          <div className="addUser-container">
+            <div className="adduser-closebutton-container">
+              {' '}
+              <Close
+                fontSize="medium"
+                className="closeButton"
+                onClick={() => {
+                  setShowAddUser(false);
+                }}
+              />
+            </div>
+              <h1>Ingresa los datos del usuario a registrar</h1>
+            <form onSubmit={addNewUser} action="">
+              <label htmlFor="">Nombre de usuario:</label>
+              <div className="input-email-container">
+                <TextField
+                  onChange={handleAddUserChange}
+                  required
+                  type="text"
+                  name="username"
+                />
+              </div>
+              <label htmlFor="">Email:</label>
+
+              <div className="input-email-container">
+                <TextField
+                  type="email"
+                  onChange={handleAddUserChange}
+                  required
+                  name="email"
+                />
+              </div>
+              <label htmlFor="">Contraseña:</label>
+
+              <div className="input-email-container">
+                <TextField
+                  onChange={handleAddUserChange}
+                  required
+                  type="text"
+                  name="password"
+                />
+              </div>
+              <input className='add-user-input' type="submit" value={'Registrar usuario'} />
+            </form>
+          </div>
+        </div>
+      ) : null}
       {showError ? (
         <div className="alerts">
           <AlertError error={errorAlert} />
@@ -513,83 +601,98 @@ export default function FullFeaturedCrudGrid() {
           </div>
         </div>
       )}
-      <DataGrid
-        localeText={{
-          noRowsLabel: 'No se ha encontrado datos.',
-          noResultsOverlayLabel: 'No se ha encontrado ningún resultado',
-          toolbarColumns: 'Columnas',
-          toolbarColumnsLabel: 'Seleccionar columnas',
-          toolbarFilters: 'Filtros',
-          toolbarFiltersLabel: 'Ver filtros',
-          toolbarFiltersTooltipHide: 'Quitar filtros',
-          toolbarFiltersTooltipShow: 'Ver filtros',
-          columnMenuLabel: 'Menú',
-          columnMenuShowColumns: 'Mostrar columnas',
-          columnMenuManageColumns: 'Administrar columnas',
-          columnMenuFilter: 'Filtro',
-          columnMenuHideColumn: 'Ocultar',
-          columnMenuUnsort: 'Desordenar',
-          columnMenuSortAsc: 'Ordenar ASC',
-          columnMenuSortDesc: 'Ordenar DESC',
-          toolbarDensity: 'Densidad',
-          toolbarDensityLabel: 'Densidad',
-          toolbarDensityCompact: 'Compacta',
-          toolbarDensityStandard: 'Estándar',
-          toolbarDensityComfortable: 'Cómoda',
-          toolbarExport: 'Exportar',
-          toolbarExportLabel: 'Exportar',
-          toolbarExportCSV: 'Descargar como CSV',
-          toolbarExportPrint: 'Imprimir',
-          toolbarExportExcel: 'Descargar como Excel',
-          columnsPanelTextFieldLabel: 'Columna de búsqueda',
-          columnsPanelTextFieldPlaceholder: 'Título de columna',
-          columnsPanelDragIconLabel: 'Reordenar columna',
-          columnsPanelShowAllButton: 'Mostrar todo',
-          columnsPanelHideAllButton: 'Ocultar todo',
-          filterPanelAddFilter: 'Agregar filtro',
-          filterPanelRemoveAll: 'Remover todos',
-          filterPanelDeleteIconLabel: 'Borrar',
-          filterPanelLogicOperator: 'Operador lógico',
-          filterPanelOperator: 'Operadores',
-          filterPanelOperatorAnd: 'Y',
-          filterPanelOperatorOr: 'O',
-          filterPanelColumns: 'Columnas',
-          filterPanelInputLabel: 'Valor',
-          filterPanelInputPlaceholder: 'Valor de filtro',
-          filterOperatorContains: 'contiene',
-          filterOperatorEquals: 'es igual',
-          filterOperatorStartsWith: 'comienza con',
-          filterOperatorEndsWith: 'termina con',
-          filterOperatorIs: 'es',
-          filterOperatorNot: 'no es',
-          filterOperatorAfter: 'es posterior',
-          filterOperatorOnOrAfter: 'es en o posterior',
-          filterOperatorBefore: 'es anterior',
-          filterOperatorOnOrBefore: 'es en o anterior',
-          filterOperatorIsEmpty: 'esta vacío',
-          filterOperatorIsNotEmpty: 'no esta vacío',
-          filterOperatorIsAnyOf: 'es cualquiera de',
-          'filterOperator=': '=',
-          'filterOperator!=': '!=',
-          'filterOperator>': '>',
-          'filterOperator>=': '>=',
-          'filterOperator<': '<',
-          'filterOperator<=': '<=',
-        }}
-        sx={{ textAlign: 'justify' }}
-        rows={users ? users : noRows}
-        columns={columns}
-        rowHeight={30}
-        editMode="row"
-        rowModesModel={rowModesModel}
-        onRowModesModelChange={handleRowModesModelChange}
-        onRowEditStop={handleRowEditStop}
-        processRowUpdate={processRowUpdate}
-        checkboxSelection={true}
-        slots={{
-          toolbar: GridToolbar,
-        }}
-      />
+      <div className="dataGrid-container">
+        <div
+          onClick={() => {
+            setShowAddUser(true);
+          }}
+          className="add-user-container"
+        >
+          <span>
+            <Add fontSize="small" />
+            Agregar usuario
+          </span>
+        </div>
+        <DataGrid
+        className='tablaDataGrid'
+          localeText={{
+            noRowsLabel: 'No se ha encontrado datos.',
+            noResultsOverlayLabel: 'No se ha encontrado ningún resultado',
+            toolbarColumns: 'Columnas',
+            toolbarColumnsLabel: 'Seleccionar columnas',
+            toolbarFilters: 'Filtros',
+            toolbarFiltersLabel: 'Ver filtros',
+            toolbarFiltersTooltipHide: 'Quitar filtros',
+            toolbarFiltersTooltipShow: 'Ver filtros',
+            columnMenuLabel: 'Menú',
+            columnMenuShowColumns: 'Mostrar columnas',
+            columnMenuManageColumns: 'Administrar columnas',
+            columnMenuFilter: 'Filtro',
+            columnMenuHideColumn: 'Ocultar',
+            columnMenuUnsort: 'Desordenar',
+            columnMenuSortAsc: 'Ordenar ASC',
+            columnMenuSortDesc: 'Ordenar DESC',
+            toolbarDensity: 'Densidad',
+            toolbarDensityLabel: 'Densidad',
+            toolbarDensityCompact: 'Compacta',
+            toolbarDensityStandard: 'Estándar',
+            toolbarDensityComfortable: 'Cómoda',
+            toolbarExport: 'Exportar',
+            toolbarExportLabel: 'Exportar',
+            toolbarExportCSV: 'Descargar como CSV',
+            toolbarExportPrint: 'Imprimir',
+            toolbarExportExcel: 'Descargar como Excel',
+            columnsPanelTextFieldLabel: 'Columna de búsqueda',
+            columnsPanelTextFieldPlaceholder: 'Título de columna',
+            columnsPanelDragIconLabel: 'Reordenar columna',
+            columnsPanelShowAllButton: 'Mostrar todo',
+            columnsPanelHideAllButton: 'Ocultar todo',
+            filterPanelAddFilter: 'Agregar filtro',
+            filterPanelRemoveAll: 'Remover todos',
+            filterPanelDeleteIconLabel: 'Borrar',
+            filterPanelLogicOperator: 'Operador lógico',
+            filterPanelOperator: 'Operadores',
+            filterPanelOperatorAnd: 'Y',
+            filterPanelOperatorOr: 'O',
+            filterPanelColumns: 'Columnas',
+            filterPanelInputLabel: 'Valor',
+            filterPanelInputPlaceholder: 'Valor de filtro',
+            filterOperatorContains: 'contiene',
+            filterOperatorEquals: 'es igual',
+            filterOperatorStartsWith: 'comienza con',
+            filterOperatorEndsWith: 'termina con',
+            filterOperatorIs: 'es',
+            filterOperatorNot: 'no es',
+            filterOperatorAfter: 'es posterior',
+            filterOperatorOnOrAfter: 'es en o posterior',
+            filterOperatorBefore: 'es anterior',
+            filterOperatorOnOrBefore: 'es en o anterior',
+            filterOperatorIsEmpty: 'esta vacío',
+            filterOperatorIsNotEmpty: 'no esta vacío',
+            filterOperatorIsAnyOf: 'es cualquiera de',
+            'filterOperator=': '=',
+            'filterOperator!=': '!=',
+            'filterOperator>': '>',
+            'filterOperator>=': '>=',
+            'filterOperator<': '<',
+            'filterOperator<=': '<=',
+          }}
+          sx={{ textAlign: 'justify',height:650}}
+          rows={users ? users : noRows}
+          columns={columns}
+          rowHeight={30}
+          editMode="row"
+          loading={loading}
+          rowModesModel={rowModesModel}
+          onRowModesModelChange={handleRowModesModelChange}
+          onRowEditStop={handleRowEditStop}
+          processRowUpdate={processRowUpdate}
+          checkboxSelection={true}
+          slots={{
+            toolbar: GridToolbar,
+          }}
+        />
+      </div>
     </Box>
   );
 }

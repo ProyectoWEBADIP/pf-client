@@ -20,6 +20,10 @@ export const getDesignTokens = (mode) => ({
           },
 
           divider: "rgba(0,0,0,0.12)",
+          background: {
+            paper: "#cfc6c6",
+          },
+          
         }
       : {
           primary: {

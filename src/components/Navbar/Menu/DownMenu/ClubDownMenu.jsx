@@ -10,10 +10,10 @@ import "./anotherBoton.css";
            <span id="top">Contacto</span>
           </Link>
           <Link to="/club/historia">
-            <span  id="bottom">Historia</span>
+            <span  id="middle">Historia</span>
           </Link>
           <Link  to="/club/comision">
-            <span id="middle">Autoridades</span>
+            <span id="bottom">Autoridades</span>
           </Link>
           
         </div>

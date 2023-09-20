@@ -2,8 +2,8 @@
 import axios from '../../../axios-config';
 
 
-export const GET_ALL_MATCH = "GET_ALL_MATCH"
-export const UPDATE_MATCH = "UPDATE_MATCH"
+export const GET_ALL_MATCH = "GET_ALL_MATCH";
+export const UPDATE_MATCH = "UPDATE_MATCH";
 
 export const getAllMatch = () =>{
     return async (dispatch) => {
@@ -15,14 +15,15 @@ export const getAllMatch = () =>{
             
         }
     }
-}
+  };
+
 export const updateMatch = (id, body) => {
-    return async (dispatch) => {
+  return async (dispatch) => {
     try {
         const { data } = await axios.patch(`/partidos/${id}`, body)
         if(!data.length) alert(data.response)
     } catch (error) {
-        console.error(error.message)
+      console.error(error.message);
     }
-}
-}
+  };
+};

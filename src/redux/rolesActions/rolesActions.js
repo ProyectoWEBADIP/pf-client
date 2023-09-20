@@ -2,11 +2,11 @@
 import axios from '../../../axios-config';
 ;
 import {
-   GET_ALL_ROLES,
-   GET_ALL_ROLES_BY_ID,
-   POST_ROL,
-   PATCH_ROL,
-   DELETE_ROL,
+  GET_ALL_ROLES,
+  GET_ALL_ROLES_BY_ID,
+  POST_ROL,
+  PATCH_ROL,
+  DELETE_ROL,
 } from "./rolesActionsTypes";
 
 //trae todos los roles
