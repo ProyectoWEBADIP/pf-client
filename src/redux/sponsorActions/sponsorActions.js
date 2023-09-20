@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {
   POST_SPONSOR,
   GET_ALL_SPONSOR,
