@@ -5,7 +5,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import Home from './components/Home/Home';
 import Navbar from './components/Navbar/Navbar';
 import Login from '../src/components/Login/Login';
-import SingUp from '../src/components/SingUp/SingUp';
+import SignUp from './components/SignUp/SignUp';
 import NoticiaDetail from './components/detailNoticia/NoticiaDetail';
 import CrearNoticia from './components/CraerNoticia/CrearNoticia';
 import PerfilUsuario from './components/PerfilUsuario/Perfil';
@@ -38,21 +38,21 @@ function App() {
   };
   const location = useLocation();
   const theme = createTheme(getDesignTokens(themeMode));
+
   return (
     <div className="AppContainer">
       <ThemeProvider theme={theme}>
         <CssBaseline />
-
         {location.pathname !== '/' ? null : <Banner />}
-        {location.pathname !== '/auth/dashboard' ? (
+        {location.pathname !== "/auth/dashboard" ? (
           <Navbar themeMode={themeMode} toggleThemeMode={toggleThemeMode} />
         ) : null}
         <Routes>
-          <Route path={'/'} element={<Home />} />
-          <Route path={'/login'} element={<SignIn />} />
-          <Route path={'/login/SignUp'} element={<SingUp />} />
-          <Route path={'/detalle/:id'} element={<NoticiaDetail />} />
-          <Route path={'/:id/profile'} element={<PerfilUsuario />} />
+          <Route path={"/"} element={<Home />} />
+          <Route path={"/login"} element={<SignIn />} />
+          <Route path={"/login/SignUp"} element={<SignUp />} />
+          <Route path={"/detalle/:id"} element={<NoticiaDetail />} />
+          <Route path={"/:id/profile"} element={<PerfilUsuario />} />
           <Route element={<ProtectedRoutes />}>
             <Route path={'/crearNoticia'} element={<CrearNoticia />} />
             <Route path={'/editarNoticia/:id'} element={<UpdateNoticia />} />
@@ -63,11 +63,8 @@ function App() {
             <Route path={'/editarSponsor'} element={<UpDateSponsor />} />
             <Route path={'/editarPartidos'} element={<EditarPartidos />} />
           </Route>
-          <Route path='*' element={<NotFoundComponent />} />
-
           <Route path={'/club/historia'} element={<ClubHistoria />} />
           <Route path={'/club/comision'} element={<ClubComision />} />
-
           <Route
             path={'/auth/dashboard'}
             element={
@@ -79,15 +76,15 @@ function App() {
               </ProtectedSuperAdminRoutes>
             }
           />
-
           <Route
-            path={'/login/recuperacion'}
+            path={"/login/recuperacion"}
             element={<RecuperarContraseña />}
           />
+          {/* <Route path="*" element={<NotFoundComponent />} /> */}
         </Routes>
         <ButtonUpper />
-        {location.pathname !== '/' || location.pathname !== '/club/historia'||
-        location.pathname !==` /club/comision` ? null : (
+        {location.pathname === '/auth/dashboard' ||
+        location.pathname === '/auth/dashboard' ? null : (
           <Footer />
         )}
       </ThemeProvider>

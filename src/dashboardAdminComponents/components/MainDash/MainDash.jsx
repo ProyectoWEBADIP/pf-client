@@ -23,10 +23,6 @@ const MainDash = () => {
             </h1>
             <Cards />
           </div>
-          <div>
-            <h2>Usuarios registrados</h2>
-            <Table />
-          </div>
         </div>
       ) : actualDash === 1 ? (
         <div className="MainDash">

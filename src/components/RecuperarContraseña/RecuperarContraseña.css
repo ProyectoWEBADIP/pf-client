@@ -1,0 +1,225 @@
+.error-recuperarContra {
+  position: absolute;
+  bottom: -20%;
+  z-index: 5;
+  left: 0;
+}
+.loading-recuperar {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(81, 73, 73, 0.584);
+  backdrop-filter: blur(2px);
+  top: 0;
+  left: 0;
+  z-index: 5;
+  border-radius: 10px;
+  
+}
+.form-container-recuperacion-father {
+  width: 100vw;
+  height: 65vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-container-recuperacion {
+  position: relative;
+  width: 450px;
+  background: linear-gradient(0deg, rgb(255, 107, 2) 10%, rgb(221, 66, 0) 100%);
+  padding: 32px 24px;
+  font-size: 25px;
+  font-family: inherit;
+  color: #212121;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+.form-container-recuperacion button:active {
+  scale: 0.95;
+}
+
+.form-container-recuperacion .logo-container-recuperacion {
+  color: white;
+  text-align: center;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.form-container-recuperacion .form-recuperacion {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container-recuperacion .form-group-recuperacion {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.form-container-recuperacion .form-group-recuperacion label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-container-recuperacion .form-group-recuperacion input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-family: inherit;
+  background: #de620acc;
+
+  font-size: 14px;
+  color: white;
+}
+
+.form-container-recuperacion .form-group-recuperacion input::placeholder {
+  opacity: 0.5;
+  color: rgb(254, 254, 254);
+}
+
+.form-container-recuperacion .form-group-recuperacion input:focus {
+  outline: none;
+  border-color: #000000;
+}
+
+.form-container-recuperacion .form-submit-btn-recuperacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: inherit;
+  color: #ffffff;
+  background: #de620acc;
+  border: none;
+  width: 100%;
+  padding: 12px 16px;
+  font-size: inherit;
+  gap: 8px;
+  margin: 12px 0;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.form-container-recuperacion .form-submit-btn-recuperacion:hover {
+  background-color: #e27100;
+}
+
+.form-container-recuperacion .link {
+  color: #1778f2;
+  text-decoration: none;
+}
+
+.form-container-recuperacion .signup-link-recuperacion {
+  align-self: center;
+  font-weight: 500;
+}
+
+.form-container-recuperacion .signup-link .link-recuperacion {
+  font-weight: 400;
+}
+
+.form-container-recuperacion .link-recuperacion:hover {
+  text-decoration: underline;
+}
+
+.input-container-recuperacion {
+  height: 50px;
+  position: relative;
+  width: 100%;
+}
+
+.ic2-recuperacion {
+  margin-top: 40px;
+}
+
+.lds-roller {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-roller div {
+  animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  transform-origin: 40px 40px;
+}
+.lds-roller div:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #fff;
+  margin: -4px 0 0 -4px;
+}
+.lds-roller div:nth-child(1) {
+  animation-delay: -0.036s;
+}
+.lds-roller div:nth-child(1):after {
+  top: 63px;
+  left: 63px;
+}
+.lds-roller div:nth-child(2) {
+  animation-delay: -0.072s;
+}
+.lds-roller div:nth-child(2):after {
+  top: 68px;
+  left: 56px;
+}
+.lds-roller div:nth-child(3) {
+  animation-delay: -0.108s;
+}
+.lds-roller div:nth-child(3):after {
+  top: 71px;
+  left: 48px;
+}
+.lds-roller div:nth-child(4) {
+  animation-delay: -0.144s;
+}
+.lds-roller div:nth-child(4):after {
+  top: 72px;
+  left: 40px;
+}
+.lds-roller div:nth-child(5) {
+  animation-delay: -0.18s;
+}
+.lds-roller div:nth-child(5):after {
+  top: 71px;
+  left: 32px;
+}
+.lds-roller div:nth-child(6) {
+  animation-delay: -0.216s;
+}
+.lds-roller div:nth-child(6):after {
+  top: 68px;
+  left: 24px;
+}
+.lds-roller div:nth-child(7) {
+  animation-delay: -0.252s;
+}
+.lds-roller div:nth-child(7):after {
+  top: 63px;
+  left: 17px;
+}
+.lds-roller div:nth-child(8) {
+  animation-delay: -0.288s;
+}
+.lds-roller div:nth-child(8):after {
+  top: 56px;
+  left: 12px;
+}
+@keyframes lds-roller {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

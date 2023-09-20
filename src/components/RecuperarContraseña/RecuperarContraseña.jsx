@@ -1,42 +1,30 @@
-/* eslint-disable no-unused-vars */
-import { v4 as uuidv4 } from "uuid";
+import { Link, useNavigate } from "react-router-dom";
 import emailjs from "@emailjs/browser";
-import {
-  Box,
-  TextField,
-  Button,
-  Typography,
-  InputAdornment,
-} from "@mui/material";
-import LockIcon from "@mui/icons-material/Lock";
-import PersonIcon from "@mui/icons-material/Person";
-import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
-import { useState } from "react";
+import "./RecuperarContraseña.css"; // Asegúrate de importar tu archivo CSS
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import {
   getUserByEmail,
   updateUser,
 } from "../../redux/usersActions/usersActions";
+import AlertError from "../../assets/AlertError/AlertError";
+import AlertSuccess from "../../assets/AlertSuccess/AlertSuccess";
 
-export default function RecuperarContraseña() {
+const RecuperarContraseña = () => {
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
   const [emailRecuperacion, setEmailRecuperacion] = useState("");
-  const [forgotPassword, setForgotPassword] = useState(false);
+  const [forgotPassword, setForgotPassword] = useState(1);
   const [codigoVerificacion, setCodigoVerificacion] = useState("");
   const [codigoVerificacionGenerado, setCodigoVerificacionGenerado] =
     useState("");
   const [password, setPassword] = useState({ value1: "", value2: "" });
-  const [newPassword, setNewPassword] = useState(false);
-
+  const [showError, setShowError] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const user = useSelector((state) => state.verificacionDeUsuario);
-
-  const message = useSelector(
-    (state) => state.mensajeDeVerificacionDeContraseña
-  );
 
   //! Manejo de boton de cambio de contraseña
   const handleChange = (e) => {
@@ -51,11 +39,18 @@ export default function RecuperarContraseña() {
     setCodigoVerificacion(e.target.value);
   };
 
-  const handlerSendEmail = () => {
-    if (/^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/.test(emailRecuperacion)) {
-  
-      dispatch(getUserByEmail(emailRecuperacion));
+  const handlerSendEmail = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const response = await dispatch(getUserByEmail(emailRecuperacion));
+    setLoading(false);
 
+    if (typeof response === "string") {
+      setShowError(<AlertError error={response} />);
+      setTimeout(() => {
+        setShowError(false);
+      }, 3000);
+    } else {
       const codigoRecuperacion =
         Math.floor(Math.random() * (9999 - 1000) + 1000) + "";
 
@@ -75,16 +70,16 @@ export default function RecuperarContraseña() {
         },
         "Vfm3hxnSN68eRyMYf"
       );
-      setForgotPassword(true);
-    } else {
-      alert("Email invalido");
+      setForgotPassword(2);
     }
   };
 
-  const verificationCode = () => {
+  const verificationCode = (e) => {
+    e.preventDefault();
+
     if (user.email == emailRecuperacion) {
       if (codigoVerificacion == codigoVerificacionGenerado) {
-        setNewPassword(true);
+        setForgotPassword(3);
       } else {
         alert("Datos incorrectos");
       }
@@ -94,117 +89,191 @@ export default function RecuperarContraseña() {
     }
   };
 
-  const handleSubmitUser = () => {
+  const handleSubmitUser = async (e) => {
+    e.preventDefault();
+
     if (password.value1 === password.value2) {
-      dispatch(updateUser(user.id, { password: password.value1 }));
-      alert("Contraseña actualizada");
-      navigate("/login");
+      setLoading(true);
+      await dispatch(updateUser(user.id, { password: password.value1 }));
+      setLoading(false);
+      setShowSuccess(
+        <AlertSuccess
+          success={
+            "Su contraseña ha sido cambiada con éxito. Será redireccionado."
+          }
+        />
+      );
+      setTimeout(() => {
+        setShowSuccess(false);
+        navigate("/login");
+      }, 3000);
     } else {
-      alert("Las constraseñas no coinciden");
+      setShowError(<AlertError error={"Las contraseñas no coinciden."} />);
+      setTimeout(() => {
+        setShowError(false);
+      }, 3000);
     }
   };
 
   return (
-    <Box
-      style={{
-        display: "flex",
-        width: "100vw",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Box
-        component="form"
-        sx={{
-          boxShadow: 3,
-          bgcolor: (theme) =>
-            theme.palette.mode === "dark" ? "#101010" : "#fff",
-          color: (theme) =>
-            theme.palette.mode === "dark" ? "grey.300" : "grey.800",
-          p: 1,
-          m: 1,
-          borderRadius: 2,
-          textAlign: "center",
-          fontSize: "0.875rem",
-          fontWeight: "700",
-          padding: "40px",
-        }}
-        display="flex"
-        flexDirection={"column"}
-        alignItems="center"
-        justifyContent={"center"}
-        margin="auto"
-        my={4}
-      >
-        <Typography variant="h4" fontWeight="bold">
-          Recuperación de contraseña
-        </Typography>
+    <div className="form-container-recuperacion-father">
+      <div className="form-container-recuperacion">
+        {showError ? (
+          <div className="error-recuperarContra"> {showError}</div>
+        ) : null}{" "}
+        {showSuccess ? (
+          <div className="error-recuperarContra"> {showSuccess}</div>
+        ) : null}
+        {loading ? (
+          <div className="loading-recuperar">
+            <div className="lds-roller">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        ) : null}
+        <div className="logo-container-recuperacion">
+          ¿Olvidaste tu contraseña?
+        </div>
+        <form className="form-recuperacion">
+          {forgotPassword === 1 ? (
+            <div>
+              <div className="input-container-recuperacion ic2-recuperacion">
+                <input
+                  placeholder=""
+                  type="email"
+                  name="emailRecuperacion"
+                  className="input-signUp"
+                  id="email"
+                  onChange={handleChange}
+                />
+                <div className="cut cut-short">
+                  <label className="iLabel" htmlFor="email">
+                    Email
+                  </label>
+                </div>
+              </div>
 
-        <Box>
-          <TextField
-            label="ingrese su email"
-            name="emailRecuperacion"
-            value={emailRecuperacion}
-            onChange={handleChange}
-            sx={{ mt: 2 }}
-          />
-        </Box>
-        <Button onClick={handlerSendEmail} variant="outlined" sx={{ mt: 2 }}>
-          Enviar código de verificación
-        </Button>
-        {forgotPassword && (
-          <Box>
-            <Typography variant="body1" wrap="wrap" sx={{ mt: 2 }}>
-              ✅ Correo enviado con éxito
-            </Typography>
-            <TextField
+              <button
+                className="form-submit-btn-recuperacion"
+                type="submit"
+                onClick={handlerSendEmail}
+              >
+                Recuperar contraseña
+              </button>
+
+              <div>
+                <Link to="/login/SignUp">
+                  <span className="forgot-password">
+                    ¿Aún no eres +Naranja?
+                  </span>
+                </Link>
+              </div>
+            </div>
+          ) : forgotPassword === 2 ? (
+            <div>
+              <div>
+                <div>
+                  {/* <input
               type="text"
               label="Ingresé el codigo"
               value={codigoVerificacion}
               onChange={handleChangeVerificationCode}
-              sx={{ mt: 2 }}
-            />
-            <Box>
-              <Button
-                variant="outlined"
-                onClick={verificationCode}
-                sx={{ mt: 2 }}
-              >
-                Verificar
-              </Button>
-            </Box>
-          </Box>
-        )}
-        {newPassword && (
-          <Box>
-            <Box sx={{ mt: 2 }}>
-              <TextField
+            /> */}
+
+                  <div className="input-container-recuperacion ic2-recuperacion">
+                    <input
+                      placeholder=""
+                      type="text"
+                      className="input-signUp"
+                      onChange={handleChangeVerificationCode}
+                    />
+                    <div className="cut cut-short">
+                      <label className="iLabel" htmlFor="email">
+                        Código
+                      </label>
+                    </div>
+                  </div>
+
+                  <div>
+                    <button
+                      className="form-submit-btn-recuperacion"
+                      onClick={verificationCode}
+                    >
+                      Verificar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div>
+              <div>
+                <div>
+                  {/* <input
                 type="password"
                 label="Ingrese nueva contraseña"
                 name="value1"
                 value={password.value1}
                 onChange={handleChangePassword}
-              />
-            </Box>
-            <Box sx={{ mt: 2 }}>
-              <TextField
+              /> */}
+                  <div className="input-container-recuperacion ic2-recuperacion">
+                    <input
+                      placeholder=""
+                      type="text"
+                      name="value1"
+                      className="input-signUp"
+                      onChange={handleChangePassword}
+                    />
+                    <div className="cut cut-short">
+                      <label className="iLabel" htmlFor="email">
+                        Nueva contraseña
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  {/* <input
                 type="password"
                 label="Repita su contraseña"
                 name="value2"
                 value={password.value2}
                 onChange={handleChangePassword}
-              />
-            </Box>
-            <Button
-              onClick={handleSubmitUser}
-              variant="outlined"
-              sx={{ mt: 2 }}
-            >
-              Cambiar contraseña
-            </Button>
-          </Box>
-        )}
-      </Box>
-    </Box>
+              /> */}
+                  <div className="input-container-recuperacion ic2-recuperacion">
+                    <input
+                      placeholder=""
+                      type="text"
+                      name="value2"
+                      className="input-signUp"
+                      onChange={handleChangePassword}
+                    />
+                    <div className="cut cut-short">
+                      <label className="iLabel" htmlFor="email">
+                        Repetir contraseña
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  className="form-submit-btn-recuperacion"
+                  onClick={handleSubmitUser}
+                >
+                  Cambiar contraseña
+                </button>
+              </div>
+            </div>
+          )}
+        </form>
+      </div>
+    </div>
   );
-}
+};
+
+export default RecuperarContraseña;
