@@ -31,6 +31,7 @@ import NotFoundComponent from './components/notFound/NotFound';
 import Noticias from './views/Noticias/Noticias';
 import SuccessPayment from './views/SuccessPayment/SuccessPayment';
 import QRCarnet from "./components/QrCarnet/QrCarnet";
+import Notices from './components/Notices/Notices';
 function App() {
   const storedThemeMode = localStorage.getItem('themeMode') || 'light';
   const [themeMode, setThemeMode] = useState(storedThemeMode);
@@ -59,6 +60,7 @@ function App() {
           <Route path={'/:id/profile'} element={<PerfilUsuario />} />
           <Route path={"/QrCarnetDigital/:dni"} element={<QRCarnet/>}/>
           <Route path={'/success/'} element={<SuccessPayment />} />
+          <Route path={"/noticias"} element={<Notices/>}/>
 
           
           <Route element={<ProtectedRoutes />}>
