@@ -11,7 +11,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 const SignUp = () => {
   const [loading, setLoading] = useState(false);
-const [showPass, setPass] = useState(false);
+  const [showPass, setPass] = useState(false);
   const navigate = useNavigate();
   const [showError, setShowError] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -105,7 +105,7 @@ const [showPass, setPass] = useState(false);
       setLoading(true);
       const response = await dispatch(registerUser(input));
       setLoading(false);
-      if (response.registered) {
+      if (response?.registered) {
         setShowSuccess(
           <AlertSuccess
             success={"Registrado con éxito. Será redireccionado."}
@@ -153,10 +153,8 @@ const [showPass, setPass] = useState(false);
         ) : null}
         {!verificacionEmail ? (
           <div>
-            <div className="title-signUp">Asociate!</div>
-            <div className="subtitle-signUp">
-              ¡Ayuda al club, hacete +Naranja!
-            </div>
+            <div className="title-signUp">Registrate</div>
+            <div className="subtitle-signUp">¡Sumate a la familia naranja!</div>
 
             <div className="input-container ic1">
               <input
@@ -218,7 +216,7 @@ const [showPass, setPass] = useState(false);
               onClick={handleSubmit}
               disabled={formErrors}
             >
-              ¡Únete a la familia naranja!
+              ¡Unirme a la familia naranja!
             </button>
           </div>
         ) : (
@@ -233,7 +231,7 @@ const [showPass, setPass] = useState(false);
                   value={codigoVerificacion}
                 />
                 <div className="cut">
-                  <label className="iLabel">Código de verificación</label>
+                  <label className="iLabel">Ingresa el código de verificación que enviaremos a tu correo</label>
                 </div>
               </div>
               <div>

@@ -1,9 +1,9 @@
 .homeContainer{
   width: 100vw;
-  height: auto;
-  display: grid;
+  height: auto; 
+  display: grid; /*Revisar*/
   grid-template-columns: 10% 80% 10%;
-  padding-bottom: 170px;
+  padding-bottom: 170px; /*Revisar espacio footer*/
 }
 
 .parteCentral{
