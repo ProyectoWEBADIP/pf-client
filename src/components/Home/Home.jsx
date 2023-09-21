@@ -14,19 +14,20 @@ import { getAllMatch } from '../../redux/partidosActions/partidosActions';
 import { setIsLoading } from '../../utils/setIsLoading';
 export default function Home() {
   const dispatch = useDispatch();
-  const noticias = useSelector((state) => state.noticias);
   const perfilUsuario = useSelector((state) => state.perfilUsuario);
   const isLoading = useSelector((state) => state.isLoading);
 
   useEffect(() => {
     dispatch(setIsLoading())
+    dispatch(getAllNoticias());
     dispatch(getAllCategories());
+    dispatch(getAllMatch());
+    dispatch(getAllSponsor());
+
     if (!perfilUsuario.length && localStorage.userId) {
       dispatch(getUserById(localStorage.userId));
     }
-    dispatch(getAllMatch());
-    dispatch(getAllNoticias());
-    dispatch(getAllSponsor());
+
   }, [dispatch]);
   return (
     <div>

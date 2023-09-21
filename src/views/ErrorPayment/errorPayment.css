@@ -1,12 +1,12 @@
-.success-payment-container{
+.error-payment-container{
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 100%;
   height: 100%;
-  text-align: center;
   align-items: center;
+  text-align: center;
 }
-.success-payment-container>img{
+.error-payment-container>img{
   width: 10%;
 }

@@ -143,7 +143,7 @@
   z-index: 100;
   padding: 10px;
   text-align: center;
-
+position: relative;
   background-color: rgb(255, 208, 180);
   display: flex;
   align-items: center;
