@@ -5,7 +5,6 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import Home from './components/Home/Home';
 import Navbar from './components/Navbar/Navbar';
 import './index.css'
-import Login from '../src/components/Login/Login';
 import SignUp from './components/SignUp/SignUp';
 import NoticiaDetail from './components/detailNoticia/NoticiaDetail';
 import CrearNoticia from './components/CraerNoticia/CrearNoticia';
@@ -40,6 +39,8 @@ import Aos from 'aos';
 import 'aos/dist/aos.css';
 import MasNaranja from './components/MasNaranja/MasNaranja';
 
+import ErrorPayment from './views/ErrorPayment/ErrorPayment';
+import PendientPayment from './views/PendientPayment/PendientPayment';
 function App() {
   const storedThemeMode = localStorage.getItem('themeMode') || 'light';
   const [themeMode, setThemeMode] = useState(storedThemeMode);
@@ -68,7 +69,9 @@ function App() {
           <Navbar themeMode={themeMode} toggleThemeMode={toggleThemeMode} />
         ) : null}
         <Routes>
-        <Route path={'/success'} element={<SuccessPayment />} />
+        <Route path={'/successPayment'} element={<SuccessPayment />} />
+        <Route path={'/errorPayment'} element={<ErrorPayment />} />
+        <Route path={'/pendientPayment'} element={<PendientPayment />} />
           <Route path={'/'} element={<Home />} />
           <Route path={'/login'} element={<SignIn />} />
           <Route path={'/login/SignUp'} element={<SignUp />} />

@@ -106,16 +106,13 @@ export default function NotificacionesMail() {
               boxShadow: 3,
               width: "50vh",
               height: "auto",
-              bgcolor: (theme) =>
-                theme.palette.mode === "dark" ? "#101010" : "#fff",
-              color: (theme) =>
-                theme.palette.mode === "dark" ? "grey.300" : "grey.800",
+              background: localStorage.themeMode==='dark'?'grey':'white',
+              color: localStorage.themeMode === "dark" ? "white" : "grey.800",
               p: 2,
               m: 1,
               borderRadius: 2,
               fontSize: "0.875rem",
               fontWeight: "700",
-              backgroundColor: "antiquewhite"
             }}
             
           >
@@ -212,7 +209,6 @@ export default function NotificacionesMail() {
               textAlign: "center",
               fontSize: "0.875rem",
               fontWeight: "700",
-              backgroundColor: "antiquewhite"
             }}
           >
             <Typography variant="h4" fontWeight="bold">
