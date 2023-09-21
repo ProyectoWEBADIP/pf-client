@@ -64,7 +64,6 @@ const SignUp = () => {
   };
 
   function handleSubmit(e) {
-    console.log(e);
     e.preventDefault();
     if (
       input.username.trim() === "" ||
@@ -77,7 +76,6 @@ const SignUp = () => {
     const codigoDeVerificacion =
       Math.floor(Math.random() * (9999 - 1000) + 1000) + "";
     setCodigoGeneradoLocalmente(codigoDeVerificacion);
-    console.log("codigo verificacion", codigoVerificacion);
     emailjs.send(
       "service_ckm9srh",
       "template_z7oue8n",
@@ -101,7 +99,6 @@ const SignUp = () => {
 
   const sendUser = async () => {
     if (codigoGeneradoLocalmente.trim() == codigoVerificacion.trim()) {
-      console.log("holas");
       setLoading(true);
       const response = await dispatch(registerUser(input));
       setLoading(false);
@@ -122,7 +119,6 @@ const SignUp = () => {
         }, 3000);
       }
     } else {
-      console.log("EntreError");
       setShowError(<AlertError error={"Código incorrecto."} />);
       setTimeout(() => {
         setShowError(false);

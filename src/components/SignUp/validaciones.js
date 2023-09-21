@@ -55,7 +55,7 @@ export default function Validation(date) {
 
   //*-----------------------------------------------------------!
 
-  if (date.password.length < 8 || date.password.length > 15) {
+  if (date.password.length < 8 ) {
     error.password = "Ingrese de 8 a no mas de 15";
   }
 

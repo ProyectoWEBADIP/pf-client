@@ -14,10 +14,10 @@ import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import WallpaperSharpIcon from '@mui/icons-material/WallpaperSharp';
 export const SidebarData = [
-  {
-    icon: UilEstate,
-    heading: "Panel principal"
-  },
+  // {
+  //   icon: UilEstate,
+  //   heading: "Panel principal"
+  // },
   {
     icon: UilClipboardAlt,
     heading: "Noticias"

@@ -26,11 +26,9 @@ export default function NotificacionesMail() {
   const [select, setSelect] = useState(false)
 
   const allUsers = useSelector((state) => state.allUsers);
-  console.log(allUsers);
 
   const handleChangeSearchUser = (event) => {
     setUserSearch(event.target.value);
-    console.log(userSearch);
   };
 
   const role = allUsers.map((el) => el.role);
@@ -40,27 +38,22 @@ export default function NotificacionesMail() {
 
   const handleSelectEmail = (event) => {
     setEmails([...emails, event.target.value]);
-    console.log("correos", emails);
   };
 
   const filterUsers = () => {
-    console.log(userSearch);
     const user = allUsers.filter((user) =>
       user.profile?.firstName.includes(userSearch)
       );
       setUserName(user);
-      console.log(userName);
       setSelect(true)
   };
 
   const handleChageMessage = (event) => {
     setMessage(event.target.value);
-    console.log(message);
   };
 
   async function sendEmails(array, message) {
     for (let i = 0; i < array.length; i++) {
-      console.log("Entre mail enviado:", array[i]);
       try {
         await emailjs.send(
           "service_ckm9srh",
@@ -225,7 +218,7 @@ export default function NotificacionesMail() {
             <Typography variant="h4" fontWeight="bold">
               Escribir el mensaje
             </Typography>
-            <Box sx={{ mt: 2 }}>
+            <Box >
               <TextareaAutosize
                 placeholder="Escriba su correo aquí..."
                 minRows="14"

@@ -8,7 +8,7 @@ export default function QRCarnet() {
   return (
     <div className='qr-container'> 
       <div>
-        <h1>Carnet Digital</h1>
+        <h1>Escanea este código para generar tu carnet digital</h1>
       </div>
       <div>
         <QRCode

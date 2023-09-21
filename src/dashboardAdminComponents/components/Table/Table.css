@@ -11,17 +11,17 @@
   position: relative;
   z-index: 1;
 }
-.dataGrid-container{
+.dataGrid-container {
   position: relative;
 }
-.add-user-container{
+.add-user-container {
   top: 8px;
   position: absolute;
   right: 5px;
   z-index: 1;
   cursor: pointer;
 }
-.add-user-container>span{
+.add-user-container > span {
   padding: 3px;
   color: rgb(255, 111, 8);
   font-weight: bold;
@@ -29,11 +29,11 @@
   align-items: center;
   text-align: center;
 }
-.add-user-container>span:hover{
+.add-user-container > span:hover {
   transition: 300ms ease all;
-  background-color:  rgba(255, 111, 8, 0.681);
+  background-color: rgba(255, 111, 8, 0.681);
   color: white;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
 }
 .overlay {
   position: absolute;
@@ -139,7 +139,7 @@
 }
 
 /* ADD NUEVO USUARIO*/
-.addUser-container{
+.addUser-container {
   z-index: 100;
   padding: 10px;
   text-align: center;
@@ -147,8 +147,8 @@
   background-color: rgb(255, 208, 180);
   display: flex;
   align-items: center;
-  border: .1rem solid rgb(0, 0, 0);
-  border-radius: .5rem;
+  border: 0.1rem solid rgb(0, 0, 0);
+  border-radius: 0.5rem;
   position: relative;
   flex-direction: column;
   box-shadow: -10px 10px 16px 2px rgba(0, 0, 0, 0.75);
@@ -156,19 +156,18 @@
   -moz-box-shadow: -10px 10px 16px 2px rgba(0, 0, 0, 0.75);
 }
 
-.addUser-container>h1{
-  border-bottom: .1rem solid black;
+.addUser-container > h1 {
+  border-bottom: 0.1rem solid black;
 }
-.add-user-input{
-  border-radius: .5rem;
+.add-user-input {
+  border-radius: 0.5rem;
   cursor: pointer;
   background-color: rgb(255, 111, 8);
-font-weight: bold;
-padding: 2px;
+  font-weight: bold;
+  padding: 2px;
 }
-.add-user-input:hover{
+.add-user-input:hover {
   background-color: rgb(245, 136, 57);
-
 }
 /*! LOADER*/
 .lds-spinner {
@@ -271,9 +270,9 @@ padding: 2px;
   .statusCont {
     width: 50%;
   }
-.tablaDataGrid{
-  height: 50%;
-}
+  .tablaDataGrid {
+    height: 50%;
+  }
   .MuiDataGrid-root {
     width: 137%;
   }
@@ -287,7 +286,7 @@ padding: 2px;
     height: 500px;
   }
 
-    .MuiDataGrid-root {
+  .MuiDataGrid-root {
     height: 300px;
   }
 }
