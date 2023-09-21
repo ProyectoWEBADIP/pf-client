@@ -29,10 +29,8 @@ export default function RecuperarContraseñas() {
   const [codigoVerificacionGenerado, setCodigoVerificacionGenerado] = useState("");
   const [password, setPassword] = useState({ value1: "", value2: "" });
   const [newPassword, setNewPassword] = useState(false);
-  console.log("password", password);
 
   const user = useSelector((state) => state.verificacionDeUsuario);
-  console.log("user ===>",user);
   const message = useSelector(
     (state) => state.mensajeDeVerificacionDeContraseña
   );
@@ -54,7 +52,6 @@ export default function RecuperarContraseñas() {
 
   const handlerSendEmail = () => {
     if (/^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/.test(emailRecuperacion)) {
-      console.log("correo dentro de la funcion", emailRecuperacion);
       dispatch(getUserByEmail(emailRecuperacion));
 
       const codigoRecuperacion = Math.floor(Math.random() * (9999 - 1000) + 1000 ) + "";
@@ -82,9 +79,7 @@ export default function RecuperarContraseñas() {
   };
 
   const verificationCode = () => {
-    console.log("user email:", user.email, "emailRecuperacion: ", emailRecuperacion);
     if(user.email == emailRecuperacion){
-      console.log("codigoVerificacion: ", codigoVerificacion, "codigoGeneradoLocalmente :", codigoVerificacionGenerado );
     if (codigoVerificacion == codigoVerificacionGenerado) {
         
         setNewPassword(true)

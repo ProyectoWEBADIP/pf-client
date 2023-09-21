@@ -27,7 +27,9 @@
   grid-template-columns: 13rem 60% auto;
   gap: 10px;
 }
-
+.AppGlass.dark {
+  background-color: rgba(204, 204, 204, 0.349);
+}
 :root {
   --yellow: linear-gradient(180deg, #f8d49a -146.42%, #fad79d -46.42%);
   --orange: #fca61f;

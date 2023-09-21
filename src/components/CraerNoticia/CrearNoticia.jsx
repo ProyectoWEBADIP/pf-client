@@ -76,7 +76,7 @@ export default function CrearNoticia() {
     })   
      const cloudiResponse= await dispatch(submitImgCloudinary(file))
      setInput({...input, imagen:cloudiResponse.secure_url})
-     console.log(input.imagen);
+     (input.imagen);
      setCanCreateNotice(true)
    
   }

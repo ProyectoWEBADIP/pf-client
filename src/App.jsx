@@ -68,7 +68,6 @@ function App() {
         ) : null}
         <Routes>
         <Route path={'/success'} element={<SuccessPayment />} />
-
           <Route path={'/'} element={<Home />} />
           <Route path={'/login'} element={<SignIn />} />
           <Route path={'/login/SignUp'} element={<SignUp />} />
