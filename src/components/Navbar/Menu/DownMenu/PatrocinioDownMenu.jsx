@@ -4,8 +4,12 @@ const PatrocinioMenu = () => {
   return (
     <div>
       <div className="paste-button">
-        <button className="button">Patrocinadores &nbsp; ⮟</button>
-        <div className="dropdown-content">
+        
+        <button className="button"> 
+        <Link to="/noticias">Noticias</Link>
+        </button>
+       
+        {/* <div className="dropdown-content">
           <Link id="top" to="/sponsors">
             Sponsor...
           </Link>
@@ -15,7 +19,7 @@ const PatrocinioMenu = () => {
           <Link id="bottom" to="/">
             Sponsor...
           </Link>
-        </div>
+        </div> */}
       </div>
     </div>
   );
