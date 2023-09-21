@@ -8,6 +8,7 @@ import PatrocinioMenu from "./DownMenu/PatrocinioDownMenu";
 import { Box, Menu } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
+import  NoticiasMenu  from "./DownMenu/NoticiasDownMenu"
 
 export const MenuItems = () => {
   const [open, setOpen] = useState(false);
@@ -41,6 +42,7 @@ export const MenuItems = () => {
           <ClubMenu />
           {/* <PatrocinioMenu /> */}
           <SocioMenu />
+          <NoticiasMenu/>
         </Box>
       </Menu>
       <Box
@@ -54,6 +56,7 @@ export const MenuItems = () => {
         <ClubMenu mode />
         {/* <PatrocinioMenu /> */}
         <SocioMenu />
+        <NoticiasMenu/>
       </Box>
     </div>
   );
