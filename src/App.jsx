@@ -37,6 +37,7 @@ import { FutbolMasculino } from './components/FutbolMasculino/FutbolMasculino';
 import FutbolLogros from './components/FutbolLogros/FutbolLogros';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
+import MasNaranja from './components/MasNaranja/MasNaranja';
 
 function App() {
   const storedThemeMode = localStorage.getItem('themeMode') || 'light';
@@ -60,6 +61,7 @@ function App() {
         <CssBaseline />
         {location.pathname === '/' || location.pathname === '/club/historia' || location.pathname === '/club/comision' 
         || location.pathname === '/club/contacto' || location.pathname === '/futbol/femenino' || location.pathname === '/futbol/masculino' || location.pathname === '/futbol/logros' 
+        || location.pathname === '/sumate/naranja' 
          ? <Banner /> : null }
         {location.pathname !== '/auth/dashboard' ? (
           <Navbar themeMode={themeMode} toggleThemeMode={toggleThemeMode} />
@@ -92,6 +94,8 @@ function App() {
           <Route path={'/futbol/femenino'} element={<FutbolFemenino />} />
           <Route path={'/futbol/masculino'} element={<FutbolMasculino />} />
           <Route path={'/futbol/logros'} element={<FutbolLogros />} />
+          <Route path={'/sumate/naranja'} element={<MasNaranja />} />
+
 
           <Route
             path={'/auth/dashboard'}

@@ -19,14 +19,14 @@ const ClubContacto = () => {
     <div>
         <div style={{marginTop: "20px"}}></div>
         <Container> 
-            <Grid container>
-            <Grid item xs={12} md={6}>
+            <Grid container  >
+            <Grid item xs={12} md={6} >
             <Typography mt={4} sx={{fontWeight: "bold"}} variant='h4'>CONTACTANOS!</Typography>
             <List
               sx={{
                 width: '100%',
                 maxWidth: 360,
-                bgcolor: 'background.paper',
+               
               }}
             >
               <ListItem>
@@ -83,7 +83,7 @@ const ClubContacto = () => {
             <List sx={{
                 width: '100%',
                 maxWidth: 360,
-                bgcolor: 'background.paper',
+                
               }}>
             <ListItem>
                 <ListItemAvatar>

@@ -19,7 +19,7 @@ const ClubHistoria = () => {
       </Typography>
       <Container sx={{ width: '100vw' }}>
         <Grid container>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={5}>
             <div data-aos="fade-up-right">
               <Box m={2}>
                 <Typography variant="body1">

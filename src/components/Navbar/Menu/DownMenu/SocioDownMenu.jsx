@@ -6,15 +6,9 @@ const SocioMenu = () => {
       <div className="paste-button">
         <button className="button">Sumate! &nbsp; ⮟</button>
         <div className="dropdown-content">
-          <Link id="top" to="/noticias">
-            Novedades
-          </Link>
-          <Link id="middle" to="/login/SingUp">
-            Registrate!
-          </Link>
-          <Link id="bottom" to="/+Naranja">
+        <Link id="bottom" to="/sumate/naranja">
             Hacete +Naranja!
-          </Link>
+          </Link>       
           <Link id="bottom2" to="/preguntasFrecuentes">
             Preguntas Frecuentes
           </Link>

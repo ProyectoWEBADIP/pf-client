@@ -70,7 +70,7 @@ const FutbolFemenino = () => {
               >
                 <img
                   style={{ objectFit: 'cover', maxWidth: '100%' }}
-                  src={"https://res.cloudinary.com/drpdobxfu/image/upload/v1695183965/info%20club/DSC_1520_cw222c.jpg"}
+                  src={"https://res.cloudinary.com/drpdobxfu/image/upload/v1695258061/info%20club/DSC_1520_io0z1k.jpg"}
                 />
               </Box>
             </div>
@@ -120,7 +120,7 @@ const FutbolFemenino = () => {
               >
                 <img
                   style={{ objectFit: 'cover', maxWidth: '100%' }}
-                  src={"https://res.cloudinary.com/drpdobxfu/image/upload/v1695184254/info%20club/IMG_7343_ezdm58.jpg"}
+                  src={"https://res.cloudinary.com/drpdobxfu/image/upload/v1695258081/info%20club/IMG_7343_acsbgh.jpg"}
                 />
               </Box>
             </div>

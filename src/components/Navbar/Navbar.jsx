@@ -21,7 +21,7 @@ const Navbar = ({ themeMode, toggleThemeMode }) => {
           position:
             location.pathname !== "/login" &&
             location.pathname !== "/login/recuperacion" &&
-            location.pathname !== "/login/SignUp"
+            location.pathname !== "/login/SignUp" 
               ? "fixed"
               : "static",
         }}
