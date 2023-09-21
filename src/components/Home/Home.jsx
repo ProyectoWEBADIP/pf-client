@@ -35,7 +35,6 @@ export default function Home() {
   return (
     <div>
       {!isLoading?<div className="homeContainer">
-      <div className="parteIzquierda"></div>
 
       <div className="parteCentral">
         <CardPartidoContainer />
@@ -47,7 +46,6 @@ export default function Home() {
           <Sponsor2 />
         </div>
       </div>
-      <div className="parteDerecha"></div>
     </div>:<div className='boxLoadingBall'>
           <div className='shadowLoadingBall'></div>
           <div className='gravityLoadingBall'>

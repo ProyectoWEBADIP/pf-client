@@ -24,7 +24,7 @@ const AdminDashboard = ({ themeMode, toggleThemeMode }) => {
   });
   return (
     <div className="App">
-      <div className="AppGlass">
+      <div className={localStorage.themeMode==='light'?'AppGlass': 'AppGlass dark'}>
         <div className="switchTheme">
           <SwichtThemes
             themeMode={themeMode}
@@ -33,9 +33,9 @@ const AdminDashboard = ({ themeMode, toggleThemeMode }) => {
         </div>
         <Sidebar />
         <MainDash />
-        {actualDash === 0 ? (
-          <RigthSide themeMode={themeMode} toggleThemeMode={toggleThemeMode} />
-        ) : null}
+        {/* {actualDash === 0 ? (
+          <RigthSide />
+        ) : null} */}
       </div>
     </div>
   );

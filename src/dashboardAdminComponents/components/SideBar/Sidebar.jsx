@@ -10,21 +10,22 @@ import { Link } from 'react-router-dom';
 const Sidebar = () => {
   const [selected, setSelected] = React.useState(0);
   const dispatch = useDispatch();
-  const userProfile = useSelector((state)=>state.perfilUsuario)
-const actualDash = useSelector(state=> state.actualDash)
+  const userProfile = useSelector((state) => state.perfilUsuario);
+  const actualDash = useSelector((state) => state.actualDash);
   function selectedAndRender(i) {
     setSelected(i);
     dispatch(changeDash(i));
   }
   return (
-    <div className="Sidebar">
+    <div
+      className={
+        localStorage.themeMode === 'light' ? 'Sidebar' : 'Sidebar dark'
+      }
+    >
       <div className="logoAndMenu">
         <div className="logo">
           <img src={userProfile.profile?.image} />
-          <span>
-            <span>A</span>
-            <span>D</span>M<span>I</span>N
-          </span>
+          <span>ADMIN</span>
         </div>
         <div className="menu">
           {SidebarData.map((item, i) => {
@@ -37,12 +38,11 @@ const actualDash = useSelector(state=> state.actualDash)
                 <item.icon />
                 <span>{item.heading}</span>
               </div>
-              
             );
           })}
           <div>
-            <Link to="/">
-              <UilSignOutAlt  className="outButton" />
+            <Link to={`/${userProfile.id}/profile`}>
+              <UilSignOutAlt className="outButton" />
             </Link>
           </div>
         </div>
