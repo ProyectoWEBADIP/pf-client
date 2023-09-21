@@ -6,19 +6,18 @@
     height: 90vh;
 }  
 
-
 .textarea-container {
-    width: 100%; /* Ocupa el 100% del ancho del contenedor padre */
-    max-width: 500px; /* Puedes ajustar esto según tus necesidades */
-    margin: 0 auto; /* Centra el contenedor si es necesario */
-    padding: 12px; /* Agrega espaciado si es necesario */
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 12px;
   }
   
   .responsive-textarea {
-    width: 100%; /* Ocupa el 100% del ancho del contenedor */
-    height: auto; /* El textarea se ajustará automáticamente en altura */
-    height: 115px; /* Ajusta la altura según tus necesidades */
-    box-sizing: border-box; /* Incluye el relleno en el cálculo del tamaño total */
-    resize: vertical; /* Permite que el usuario redimensione verticalmente si es necesario */
-    border: 1px solid #ccc; /* Puedes personalizar el estilo del borde */
+    width: 100%;
+    height: auto;
+    height: 115px;
+    box-sizing: border-box;
+    resize: vertical;
+    border: 1px solid #ccc;
   }
