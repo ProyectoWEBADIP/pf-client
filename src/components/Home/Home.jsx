@@ -1,8 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Typography } from '@mui/material';
-import CardsNoticias from '../CardsNoticias/CardsNoticias';
 import CardPartidoContainer from '../CardPartidoContainer/CardPartidoContainer';
-import Filtros from '../Filtros/Filtros';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllNoticias } from '../../redux/noticiasActions/noticiasActions';
@@ -13,24 +10,24 @@ import Sponsor1 from '../Sponsor/sponsor1/Sponsor1';
 import { getAllSponsor } from '../../redux/sponsorActions/sponsorActions';
 import { getUserById } from '../../redux/login-registerActions/loginActions';
 import SwiperNotices from '../SwiperNotices/SwiperNotices';
-import LastNotice from '../CardNoticiaGrande/LastNotice';
 import { getAllMatch } from '../../redux/partidosActions/partidosActions';
 import { setIsLoading } from '../../utils/setIsLoading';
 export default function Home() {
   const dispatch = useDispatch();
-  const noticias = useSelector((state) => state.noticias);
   const perfilUsuario = useSelector((state) => state.perfilUsuario);
   const isLoading = useSelector((state) => state.isLoading);
 
   useEffect(() => {
     dispatch(setIsLoading())
+    dispatch(getAllNoticias());
     dispatch(getAllCategories());
+    dispatch(getAllMatch());
+    dispatch(getAllSponsor());
+
     if (!perfilUsuario.length && localStorage.userId) {
       dispatch(getUserById(localStorage.userId));
     }
-    dispatch(getAllMatch());
-    dispatch(getAllNoticias());
-    dispatch(getAllSponsor());
+
   }, [dispatch]);
   return (
     <div>

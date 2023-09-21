@@ -5,7 +5,6 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import Home from './components/Home/Home';
 import Navbar from './components/Navbar/Navbar';
 import './index.css'
-import Login from '../src/components/Login/Login';
 import SignUp from './components/SignUp/SignUp';
 import NoticiaDetail from './components/detailNoticia/NoticiaDetail';
 import CrearNoticia from './components/CraerNoticia/CrearNoticia';
