@@ -2,6 +2,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import './SignIn.css';
 import {
+  clearError,
   googleRegisterUser,
   localLogin,
 } from '../../../redux/login-registerActions/loginActions';
@@ -41,7 +42,6 @@ export const SignIn = () => {
 
   async function handleSuccess(credentials) {
     setLoading(true);
-
     if (credentials.credential) {
       const userData = await dispatch(googleRegisterUser(credentials));
       setLoading(false)
@@ -51,7 +51,7 @@ export const SignIn = () => {
         navigate('/');
        }, 3000);
     }
-  }
+   }
   async function login(event) {
     event.preventDefault();
 
@@ -66,6 +66,10 @@ export const SignIn = () => {
       setSuccess(false)
       navigate('/');
      }, 3000);
+    } else{
+      setTimeout(() => {
+        dispatch(clearError())
+      }, 3000);
     }
   }
 
@@ -83,10 +87,10 @@ export const SignIn = () => {
           </div>
         ) : (
           <div className="container-signIn">
-            <div className="login-success">{success ? success: null}</div>
+           {success ?  <div className="login-success">{success}</div>: null}
 
-            <div className="login-success">{failed ? failed : null}</div>
-            <div className="login-errors">{errors ? <AlertError /> : null}</div>
+           {failed ?  <div className="login-success">{failed}</div> : null}
+           {errors ?  <div className="login-errors"><AlertError /> </div>: null}
             <div className="heading">Iniciar sesión</div>
             <div>
               <form action="" className="form-signIn" onSubmit={login}>
