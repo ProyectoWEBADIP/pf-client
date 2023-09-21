@@ -2,14 +2,6 @@ import { Box, Container, Grid, Typography } from '@mui/material';
 import { useEffect } from 'react';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
-import naranjitas from './img/naranjitas.jpg';
-import infant from './img/infantilesinicios.jpg';
-import comision from './img/comision.jpg';
-import globos from './img/globos.jpg';
-import pelotaviejo from './img/unnamed.png';
-import pelota from './img/EscudoPelota.png';
-import evolucion from './img/evolucion.png';
-import adip from './img/EscudoADIP.png';
 
 const ClubHistoria = () => {
   useEffect(() => {
@@ -17,7 +9,8 @@ const ClubHistoria = () => {
   }, []);
 
   return (
-    <Box sx={{paddingBottom:'150px'}}>
+    <div style={{marginTop: "30px"}}>
+    <Box>
       <Typography
         sx={{ fontWeight: 'bold', textAlign:'center'}}
         variant="h2"
@@ -26,7 +19,7 @@ const ClubHistoria = () => {
       </Typography>
       <Container sx={{ width: '100vw' }}>
         <Grid container>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={5}>
             <div data-aos="fade-up-right">
               <Box m={2}>
                 <Typography variant="body1">
@@ -65,7 +58,7 @@ const ClubHistoria = () => {
               >
                 <img
                   style={{ objectFit: 'cover', maxWidth: '100%' }}
-                  src={infant}
+                  src={"https://res.cloudinary.com/drpdobxfu/image/upload/v1695130616/info%20club/infantilesinicios--_bno5rx.jpg"}
                 />
               </Box>
             </div>
@@ -89,7 +82,7 @@ const ClubHistoria = () => {
               >
                 <img
                   style={{ objectFit: 'cover', maxWidth: '100%' }}
-                  src={comision}
+                  src={"https://res.cloudinary.com/drpdobxfu/image/upload/v1695130619/info%20club/comision--_fgvnye.jpg"}
                 />
               </Box>
             </div>
@@ -163,7 +156,7 @@ const ClubHistoria = () => {
               >
                 <img
                   style={{ objectFit: 'cover', maxWidth: '100%' }}
-                  src={naranjitas}
+                  src={"https://res.cloudinary.com/drpdobxfu/image/upload/v1695130618/info%20club/naranjitas-_mbroxe.jpg"}
                 />
               </Box>
             </div>
@@ -187,7 +180,7 @@ const ClubHistoria = () => {
               >
                 <img
                   style={{ objectFit: 'cover', maxWidth: '100%' }}
-                  src={comision}
+                  src={"https://res.cloudinary.com/drpdobxfu/image/upload/v1695130621/info%20club/globos--_icc1bc.jpg"}
                 />
               </Box>
             </div>
@@ -264,7 +257,7 @@ const ClubHistoria = () => {
               >
                 <img
                   style={{ objectFit: 'cover', maxWidth: '100%' }}
-                  src={evolucion}
+                  src={"https://res.cloudinary.com/drpdobxfu/image/upload/v1695131479/info%20club/evolucion_d1cufh.png  "}
                 />
               </Box>
             </div>
@@ -288,7 +281,7 @@ const ClubHistoria = () => {
               >
                 <img
                   style={{ objectFit: 'cover', maxWidth: '100%' }}
-                  src={pelotaviejo}
+                  src={"https://res.cloudinary.com/drpdobxfu/image/upload/v1695131487/info%20club/unnamed_qhhnst.png"}
                 />
               </Box>
             </div>
@@ -308,11 +301,12 @@ const ClubHistoria = () => {
               >
                 <img
                   style={{ objectFit: 'cover', maxWidth: '100%' }}
-                  src={pelota}
+                  src={"https://res.cloudinary.com/drpdobxfu/image/upload/v1695131483/info%20club/Escudo_Pelota_v0aahu.png"}
                 />
               </Box>
             </div>
           </Grid>
+
 
           <Grid item xs={6} md={4}>
             <div data-aos="fade-up-left">
@@ -328,14 +322,16 @@ const ClubHistoria = () => {
               >
                 <img
                   style={{ objectFit: 'cover', maxWidth: '100%' }}
-                  src={adip}
+                  src={"https://res.cloudinary.com/drpdobxfu/image/upload/v1695131726/info%20club/Escudo_ADIP_sin_fondo_wuzqti.png"}
                 />
               </Box>
             </div>
           </Grid>
         </Grid>
       </Container>
+
     </Box>
+    </div>
   );
 };
 
