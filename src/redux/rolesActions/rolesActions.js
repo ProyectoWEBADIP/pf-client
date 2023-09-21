@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
-import axios from "axios";
+import axios from '../../../axios-config';
+;
 import {
   GET_ALL_ROLES,
   GET_ALL_ROLES_BY_ID,

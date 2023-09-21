@@ -3,9 +3,69 @@
     align-items: center;
     justify-content: center;
     width: 75vw;    
-   
 } 
+.loader {
+    width: 48px;
+    height: 12px;
+    margin-top: 40px;
+    background: #FFF;
+    display: inline-block;
+    position: relative;
+  }
+  .loader::after {
+    content: '';  
+    left: 50%;
+    top: -47px;
+    transform: translate(-50%, 0);
+    position: absolute;
+    border: 15px solid transparent;
+    border-bottom-color: #FFF;
+    box-sizing: border-box;
+    animation: bump 0.4s ease-in-out infinite alternate;
+  }
+  .loader::before {
+    content: '';  
+    left: 50%;
+    bottom: 15px;
+    transform: translate(-50%, 0);
+    position: absolute;
+    width: 15px;
+    height: 20px;
+    background: #FFF;
+    box-sizing: border-box;
+    animation: bump 0.4s ease-in-out infinite alternate;
+  }
+  
+  @keyframes bump {
+    0% {
+      transform: translate(-50%, 5px);
+    }
+    100% {
+      transform: translate(-50%, -5px);
+    }
+  }
+      
+.loader_sponsor_container{
+display: flex;
+justify-content: center;
+align-items: center;
+width: 100%;
+height: 100%;
+position: absolute;
+background-color: rgba(66, 66, 64, 0.47);
+backdrop-filter: blur(3px);
+z-index: 10;
+border-radius: 1rem; 
+
+}
+.response-succes-sponsor{
+    position: absolute;
+    left: 0;
+    bottom: -10%;
+    z-index: 10;
+}
 .et_form_sponsor{
+    position: relative;
     background-color:#FBEED8;
     display: flex;
     align-items: center;

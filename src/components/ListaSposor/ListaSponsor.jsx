@@ -9,6 +9,7 @@ import { updateSponsor } from "../../redux/sponsorActions/sponsorActions";
 const ListaSponsor = () => {
   const sponsor = useSelector((state) => state.sponsor);
   const dispatch = useDispatch();
+  sponsor.sort((a, b) => a.location - b.location)
 
   useEffect(() => {
     dispatch(getAllSponsor());
