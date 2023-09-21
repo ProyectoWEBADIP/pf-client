@@ -88,8 +88,10 @@ const initialState = {
   updateSponsor: {},
   sponsorById: {},
   //ERRORS
-  errors: '',
-  partidos: [],
+  errors:'',
+   partidos: [],   
+   perfilUsuarioCarnet: {},
+
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -97,14 +99,13 @@ export default function rootReducer(state = initialState, action) {
     case CLEAR_ERR0R:
       return {
         ...state,
-        errors: '',
-      };
-    case ERROR:
-      return {
-        ...state,
-        errors: action.payload,
-      };
-
+        errors:''
+      }    
+      case ERROR:
+         return {
+            ...state,
+            errors:action.payload
+         }
     case IS_LOADING:
       return {
         ...state,
@@ -252,6 +253,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         isLoading: false,
         perfilUsuario: action.payload,
+        perfilUsuarioCarnet: action.payload
       };
     //DASHBOARD ADMIN STATES
     case RENDER_CORRECT_DASH:

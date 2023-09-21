@@ -20,7 +20,7 @@ export function getAllCategories() {
          const { data } = await axios("/categories");
          dispatch({ type: GET_ALL_CATEGORIES, payload: data });
       } catch (error) {
-         return console.log(error.message);
+        alert(error.message);
       }
    };
 }
