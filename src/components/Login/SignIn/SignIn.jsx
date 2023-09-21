@@ -54,7 +54,6 @@ export const SignIn = () => {
    }
   async function login(event) {
     event.preventDefault();
-
     setLoading(true);
     await dispatch(localLogin(users));
     const data = localStorage.access_token;

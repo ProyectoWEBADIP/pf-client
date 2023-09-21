@@ -31,6 +31,8 @@ import NotFoundComponent from './components/notFound/NotFound';
 import Noticias from './views/Noticias/Noticias';
 import SuccessPayment from './views/SuccessPayment/SuccessPayment';
 import QRCarnet from "./components/QrCarnet/QrCarnet";
+import ErrorPayment from './views/ErrorPayment/ErrorPayment';
+import PendientPayment from './views/PendientPayment/PendientPayment';
 function App() {
   const storedThemeMode = localStorage.getItem('themeMode') || 'light';
   const [themeMode, setThemeMode] = useState(storedThemeMode);
@@ -51,7 +53,9 @@ function App() {
           <Navbar themeMode={themeMode} toggleThemeMode={toggleThemeMode} />
         ) : null}
         <Routes>
-        <Route path={'/success'} element={<SuccessPayment />} />
+        <Route path={'/successPayment'} element={<SuccessPayment />} />
+        <Route path={'/errorPayment'} element={<ErrorPayment />} />
+        <Route path={'/pendientPayment'} element={<PendientPayment />} />
           <Route path={'/'} element={<Home />} />
           <Route path={'/login'} element={<SignIn />} />
           <Route path={'/login/SignUp'} element={<SignUp />} />

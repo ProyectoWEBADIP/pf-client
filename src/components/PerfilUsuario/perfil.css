@@ -484,4 +484,11 @@ color: white;
   border: 0.1rem solid orangered;
   border-radius: 0.5rem;
   color: orangered;
+  cursor: pointer;
+  background-color: white;
+}
+.update-perfil:hover {
+  cursor: pointer;
+  transition: 300ms ease all;
+  transform: scale(1.1);
 }

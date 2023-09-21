@@ -106,16 +106,13 @@ export default function NotificacionesMail() {
               boxShadow: 3,
               width: "25vw",
               height: "auto",
-              bgcolor: (theme) =>
-                theme.palette.mode === "dark" ? "#101010" : "#fff",
-              color: (theme) =>
-                theme.palette.mode === "dark" ? "grey.300" : "grey.800",
+              background: localStorage.themeMode==='dark'?'grey':'white',
+              color: localStorage.themeMode === "dark" ? "white" : "grey.800",
               p: 2,
               m: 1,
               borderRadius: 2,
               fontSize: "0.875rem",
               fontWeight: "700",
-              backgroundColor: "antiquewhite"
             }}
             
           >
@@ -202,30 +199,28 @@ export default function NotificacionesMail() {
               boxShadow: 3,
               width: "50vh",
               height: "21vw",
-              bgcolor: (theme) =>
-                theme.palette.mode === "dark" ? "#101010" : "#fff",
-              color: (theme) =>
-                theme.palette.mode === "dark" ? "grey.300" : "grey.800",
+              background: localStorage.themeMode==='dark'?'grey':'white',
+              color: localStorage.themeMode === "dark" ? "white" : "grey.800",
               p: 2,
               m: 2,
               borderRadius: 2,
               textAlign: "center",
               fontSize: "0.875rem",
               fontWeight: "700",
-              backgroundColor: "antiquewhite"
             }}
           >
             <Typography variant="h4" fontWeight="bold">
               Escribir el mensaje
             </Typography>
-            <Box >
+            <Box className='texarea-container' >
               <TextareaAutosize
                 placeholder="Escriba su correo aquí..."
-                minRows="14"
-                cols="30"
+                style={{
+                  width: '80%', // El ancho es el 80% del ancho del contenedor padre
+                  height: '90%', // La altura es el 40% de la altura de la ventana (viewport)
+                }}
                 value={message}
                 onChange={handleChageMessage}
-                fullWidth
               />
             </Box>
             <Button onClick={handleSubmit} variant="contained" sx={{ mt: 2 }}>
