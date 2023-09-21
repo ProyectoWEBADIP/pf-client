@@ -1,11 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import style from "./cardPartido.module.css";
-import logo from "../../assets/Escudo ADIP sin fondo.png";
 import { Box, Button, Input, Paper, Toolbar, Typography } from "@mui/material";
 import { useState } from "react";
 export default function CardPartido({
-   id,
    title,
    competence,
    Local_shield,
@@ -73,19 +70,13 @@ export default function CardPartido({
                   </Typography>
                )}
                <Toolbar>
-                  <div
-                     style={{
-                        marginRight: "10px",
-                        width: "60px",
-                        height: "60px",
-                     }}
-                  >
+                  <div style={{ marginRight: "10px" }}>
                      <img
                         src={Local_shield}
                         alt="logo"
                         style={{
-                           width: "100%",
-                           height: "100%",
+                           width: "60px",
+                           height: "60px",
                            objectFit: "cover",
                         }}
                      />
@@ -101,19 +92,13 @@ export default function CardPartido({
                         {title === "Proximo" ? null : visitor_goals}
                      </Typography>
                   </div>
-                  <div
-                     style={{
-                        marginLeft: "10px",
-                        width: "60px",
-                        height: "60px",
-                     }}
-                  >
+                  <div style={{ marginLeft: "10px" }}>
                      <img
                         src={visitor_shield}
                         alt="logo"
                         style={{
-                           width: "100%",
-                           height: "100%",
+                           width: "60px",
+                           height: "60px",
                            objectFit: "cover",
                         }}
                      />
@@ -134,36 +119,4 @@ export default function CardPartido({
          )}
       </Paper>
    );
-}
-
-{
-   /* <Paper elevation={3}>
-<Box sx={}>
-<div className={style.contenedorCard}>
-            <h1 className={style.title}>{titulo}</h1>
-            <h2>{categoria}</h2>
-            <h2 className={style.competencia}>{competencia}</h2>
-            
-            <Toolbar>
-                <div className={style.escudo}>
-                    <img src={logo} alt="logo"/>
-                </div>
-                <h1 className={style.result}>{resultado}</h1>
-                <div className={style.escudo}>
-                    <img src={logo} alt="logo"/>
-                </div>
-            </Toolbar>
-            
-            
-            <div>
-                <h3 className={style.name}>{fecha}</h3>
-                <p className={style.info}>{ubicacion}</p>
-            </div>
-
-            <button className={style.button}>
-                Ver detalle
-            </button>
-</div>
-</Box>
-</Paper> */
 }

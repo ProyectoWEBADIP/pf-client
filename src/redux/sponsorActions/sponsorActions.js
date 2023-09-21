@@ -66,10 +66,8 @@ export function submitImgCloudy(file){
             formData.append("cloud_name","drpdobxfu")
             
             const {data}= await axios.post("https://api.cloudinary.com/v1_1/drpdobxfu/image/upload",formData);
-
-            data.message= "Imagen subida con exito"
-             
-            alert("Subida con  exito!")  
+            data.message= "Imagen subida con éxito"           
+          
             return data        
             
           } catch (error) {
