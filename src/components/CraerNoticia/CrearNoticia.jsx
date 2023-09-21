@@ -13,7 +13,7 @@ import SucessAlert from '../../assets/AlertSuccess/AlertSuccess';
 import './crearNoticia.css';
 import { submitImgCloudinary } from '../../redux/noticiasActions/noticiasActions';
 import { Link } from 'react-router-dom';
-import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+import AlertSuccess from '../../assets/AlertSuccess/AlertSuccess';
 
 export default function CrearNoticia() {
   const imgDefault = 'https://res.cloudinary.com/drpdobxfu/image/upload/v1695161197/Noticias/xfy5crhkywnnpsakmbzr.png';
@@ -24,6 +24,7 @@ export default function CrearNoticia() {
     resumen: '',
     descripcion: '',
     imagen: '',
+    crear:''
   });
   const [error, setError] = useState({});
   const [imageURL, setImageURL] = useState(''); //url
@@ -32,7 +33,8 @@ export default function CrearNoticia() {
   const dispatch = useDispatch();
   const [canCreateNotice, setCanCreateNotice] = useState(false);
   const userId= localStorage.userId
- 
+  const [incluye,setIncluye]=useState("")
+ const errors= useSelector(state=>state.errors)
 
 
   useEffect(() => {
@@ -52,32 +54,39 @@ export default function CrearNoticia() {
       validation({
         ...input,
         [event.target.name]: event.target.value,
-      })
+      },event.target.name)
     );
+    
   };
 
   const handleCategoryChange = (event) => {
-    event.preventDefault();
+    event.preventDefault();   
     setInput({
       ...input,
       [event.target.name]: event.target.value,
     });
   };
-  
+  const [response,setResponse]=useState(false);
+  const [loading,setLoading]=useState(false);
 
   const handleImageChange= async(event)=>{
-    const file =  event.target.files[0];          
+    const file =  event.target.files[0];         
     
     setImageURL(URL.createObjectURL(file));  
     
     setInput({
       ...input,
       imagen: file
-    })   
+    }) 
+    setLoading(true)  
      const cloudiResponse= await dispatch(submitImgCloudinary(file))
-     setInput({...input, imagen:cloudiResponse.secure_url})
-     console.log(input.imagen);
      setCanCreateNotice(true)
+     setError({...error,imagen:""})
+     setLoading(false)
+     setResponse(<AlertSuccess success={cloudiResponse.message}/>)
+     setTimeout(()=>{setResponse(false)},3000)
+     setInput({...input, imagen:cloudiResponse.secure_url})
+     
    
   }
     const handleSelect=(e)=>{
@@ -95,14 +104,19 @@ export default function CrearNoticia() {
         id: idCategory,
         name:nameCategory
         }
-      ])    
-      }  
+      ])   
+      setIncluye("")
+      }else if(tieneID){
+        
+       setIncluye("*Esta categoria ya fue seleccionada*")
+        
+      }
 
       setError(validation(
         {
             ...input, 
             [e.target.name]: e.target.value
-        })          
+        },e.target.name)          
       )  
       
     }    
@@ -122,7 +136,7 @@ export default function CrearNoticia() {
     }
   
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
    
     event.preventDefault();
     const form = document.getElementById('formulario');
@@ -137,9 +151,22 @@ export default function CrearNoticia() {
       user_id:userId
     };
     
-    if (canCreateNotice) {
+    let disable=true 
+    for(const err in error){
+      if(error[err]===""){
+        disable=false
+      }else{
+        disable=true
+        break;
+      }
+    }
+    
+    if (canCreateNotice && !disable) {
       try {
-        dispatch(postNoticia(body));       
+        setLoading(true)
+       const data= await dispatch(postNoticia(body));     
+       setLoading(false)  
+        if(data){
         form.reset();
         setImageURL('');
 
@@ -155,6 +182,7 @@ export default function CrearNoticia() {
         setTimeout(() => {
           setShowSuccess(false);
         }, 5000);
+        }
       } catch (error) {
         setErrorAlert(error.message);
         setShowError(true);
@@ -163,7 +191,7 @@ export default function CrearNoticia() {
         }, 5000);
       }
     } else {
-      setErrorAlert('Faltó cargar la imágen.');
+      setErrorAlert('Revise los requisitos');
       setShowError(true);
       setTimeout(() => {
         setShowError(false);
@@ -171,18 +199,30 @@ export default function CrearNoticia() {
     }
   };
 
-  const crearCategoria = (event) => {
+  const crearCategoria = async (event) => {
     event.preventDefault();
-    const name = input.crear;   
-    setCrearCategory(name); 
-    dispatch(postCategoria({ active: true, name }));  
+    const name = input.crear;     
+    if(!name){
+      setError({
+        ...error,
+        crear:"*Escriba un nombre*"
+      }        
+      )
+    }else{
+      setCrearCategory(name); 
+      setLoading(true)
+      await dispatch(postCategoria({ active: true, name })); 
+      await dispatch(getAllCategories())
+      setLoading(false)
+      
+      setSuccessAlert('Categoria creada con exito!');
+      setShowSuccess(true);
+      setTimeout(() => {
+        setShowSuccess(false);
+      }, 5000);      
 
-    alert("Categoria creada con exito!")
-    // setSuccessAlert('Categoria creada con exito!');
-    // setShowSuccess(true);
-    // setTimeout(() => {
-    //   setShowSuccess(false);
-    // }, 5000);
+    }
+    
     
   };
   const [errorAlert, setErrorAlert] = useState('');
@@ -193,10 +233,16 @@ export default function CrearNoticia() {
   return (
     <div className='cont_general_noticia'>
       <div className='cont_link_buton'>
-        <Link className='icon_back_notice' to='/auth/dashboard#/crearNoticia'><KeyboardReturnIcon fontSize='large'/></Link>
-
+        <Link to='/auth/dashboard#/crearNoticia'>
+          <button className='link_volver-notice'>Volver a la Dash</button>
+        </Link>
       </div>
       <div className='cont_form_div'>
+        {loading? <div className='loader_notice_container'><span className="loaderNotice"></span></div> : null}
+        {response? <div className='response_notice_succes'>{response}</div>:null}
+        {errors? <div className='response_notice_succes'><AlertError/></div>:null}
+
+
           <form id="formulario" onSubmit={handleSubmit}>
 
             {showError ? (
@@ -252,6 +298,7 @@ export default function CrearNoticia() {
                 })}
               </select>
               {error.categoria && <p>{error.categoria}</p>}
+              {incluye!=="" && <p>{incluye}</p>}
             </div>
 
             <div className='map_category'>
@@ -273,6 +320,7 @@ export default function CrearNoticia() {
                 name="crear"
                 sx={{ mr: 3 }}
               />
+              {error.crear && <p>{error.crear}</p>}
               <Button className='button_crear_cate' onClick={crearCategoria}>Crear</Button>
             </div>
 
@@ -332,8 +380,7 @@ export default function CrearNoticia() {
         
           </div>
       
-    </div>
-           
+    </div>          
      
     )
   }

@@ -6,7 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1;
+  z-index: 3;
   background-color: rgba(0, 0, 0, 0.3)
 }
 .loading-update-profile{
@@ -156,7 +156,16 @@ border-radius: .5rem;
   font-weight: bold;
 }
 
-
+.updateModal.light {
+  background-color: #ededed; /* Color de fondo del modo claro */
+  border-color: #fc6504; /* Color del borde del modo claro */
+  color: black; /* Color del texto en el modo claro */
+}
+.updateModal.dark {
+  background-color: #4a4a4a; /* Color de fondo del modo oscuro */
+  border-color: #fc6504; /* Color del borde del modo oscuro */
+  color: white; /* Color del texto en el modo oscuro */
+}
 @media screen and (max-width: 1800px) {
   .updateModal {
     width: 60%;

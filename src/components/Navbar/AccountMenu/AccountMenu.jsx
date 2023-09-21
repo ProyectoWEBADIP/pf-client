@@ -83,7 +83,7 @@ export default function AccountMenu() {
               <ListItemIcon>
                 <Logout fontSize="small" />
               </ListItemIcon>
-              Cerrar Sesion
+              Cerrar sesión
             </MenuItem>
           </div>
         ) : (

@@ -1,8 +1,7 @@
 .container-footer {
-  bottom: 0;
-  width: 100%;
-  padding: 5px 0;
 
+  width: 100%;
+  padding: 25px 0;
 }
 
 .container-footer footer {
@@ -15,15 +14,14 @@
 }
 
 .logo-footer img {
-  width: 100px;
+  width: 100%;
 }
 
 .redes-footer {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
   gap: 15px;
-  margin: 20px;
+  margin-top: 50px;
 }
 
 .redes-footer a {
