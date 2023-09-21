@@ -1,4 +1,6 @@
 /* eslint-disable no-unused-vars */
+export const ERROR = "ERROR";
+export const CLEAR_ERR0R = "CLEAR_ERR0R";
 import {
    GET_ALL_NOTICIAS,
    FILTER_NOTICIAS,
@@ -27,7 +29,12 @@ export function getAllNoticias() {
          const { data } = await axios(`/notices`);
 
          dispatch({ type: GET_ALL_NOTICIAS, payload: data });
-      } catch (error) {}
+      } catch (error) {
+         dispatch({ type: ERROR, payload: "Error al mostrar las noticias" });
+         setTimeout(() => {
+            dispatch({ type: CLEAR_ERR0R });
+         }, 5000);
+      }
    };
 }
 export function paginado(noticias) {
@@ -38,10 +45,17 @@ export function paginado(noticias) {
 export function postNoticia(body) {
    return async (dispatch) => {
       try {
-         const { data } = await axios.post(`/notices`, `/notices`, body);
+         const { data } = await axios.post(`/notices`, body);
          dispatch({ type: POST_NOTICIA, payload: data });
+         return data;
       } catch (error) {
-         alert(error.message);
+         dispatch({
+            type: ERROR,
+            payload: "Hubo un error al crear la noticia",
+         });
+         setTimeout(() => {
+            dispatch({ type: CLEAR_ERR0R });
+         }, 5000);
       }
    };
 }
