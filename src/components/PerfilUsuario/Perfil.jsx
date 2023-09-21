@@ -16,8 +16,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import { setIsLoading } from "../../utils/setIsLoading";
 import {
    Alert,
+   Box,
    Button,
    FormControl,
+   Grid,
    InputLabel,
    MenuItem,
    Select,
@@ -44,10 +46,13 @@ import { showProfileEdit } from "../../redux/profileActions/profileActions";
 import jwtDecode from "jwt-decode";
 import { getAllNoticias } from "../../redux/noticiasActions/noticiasActions";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
+import QrCode2Icon from "@mui/icons-material/QrCode2";
+
 export default function Perfil() {
    //!HOOKS
    const [preferenceId, setPreferenceId] = useState(null);
    const dispatch = useDispatch();
+   const navigate = useNavigate();
    const id = localStorage.userId; //AGARRO ID DEL USER DEL LOCALSTORAGE
    const token = localStorage?.access_token;
    let role;
@@ -180,307 +185,386 @@ export default function Perfil() {
    const [errorAlert, setErrorAlert] = useState("");
    const [showError, setShowError] = useState(false);
    const defaultPortada =
-      "https://res.cloudinary.com/drpdobxfu/image/upload/v1695063800/kfoqlqqc1yevcyeoggvg.jpg";
+      "https://res.cloudinary.com/drpdobxfu/image/upload/v1695156861/info%20club/banderin2_smq847.jpg";
    return (
-      <div className={style.perfContainerContainer}>
-         {showError ? (
-            <div className="alerts">
+      <Box className={style.perfContainerContainer}>
+         {showError && (
+            <Box className="alerts">
                <AlertError error={errorAlert} />
-            </div>
-         ) : null}
-
+            </Box>
+         )}
          {!isLoading ? (
+            // FORM REGISTRO
             !perfilUsuario?.active ? (
                <div className={style.contProf}>
                   <form onSubmit={handleSubmit}>
                      <h2>¡Actualiza tu perfil para terminar de registrarte!</h2>
-                     <div className="name-lastname-img-container">
-                        <div className="names-create-profile-container">
-                           <div className="input-error-container">
-                              <TextField
-                                 margin="normal"
-                                 htmlFor="firstName"
-                                 name="firstName"
-                                 type="text"
-                                 label="Nombre"
-                                 onChange={handleChange}
-                              />
-                              {errors.firstName ? (
-                                 <span>{errors.firstName}</span>
-                              ) : null}
-                           </div>
-                           <div className="input-error-container">
-                              <TextField
-                                 margin="normal"
-                                 htmlFor="lastName"
-                                 name="lastName"
-                                 type="text"
-                                 label="Apellido"
-                                 onChange={handleChange}
-                              />
-                              {errors.lastName ? (
-                                 <span>{errors.lastName}</span>
-                              ) : null}
-                           </div>
-                        </div>
-                        <div className="photo-container">
-                           <img
-                              src={profileData.image ? imageURL : logo}
-                              alt=""
-                           />
-                           <div className="fileContModal">
-                              <input
-                                 onChange={handleChange}
-                                 name="image"
-                                 id="uploadImgInput"
-                                 type="file"
-                              />
-                              <label htmlFor="uploadImgInput">
-                                 <FileUploadIcon fontSize="large" />
-                              </label>
-                           </div>
-                        </div>
-                     </div>
 
-                     <div className="birth-gender-container-profile">
-                        <div className="input-error-container">
-                           <TextField
-                              margin="normal"
-                              htmlFor="birthDate"
-                              name="birthDate"
-                              type="date"
-                              focused
-                              label="Fecha de Nacimiento"
-                              onChange={handleChange}
-                              color="grey"
-                           />
-                           {errors.birthDate ? (
-                              <span>{errors.birthDate}</span>
-                           ) : null}
-                        </div>
+                     <Grid container>
+                        <Grid
+                           item
+                           xs={12}
+                           sm={12}
+                           md={6}
+                           sx={{ justifyContent: "center" }}
+                           container
+                           direction={"column"}
+                        >
+                           <div style={{ margin: "20px" }}>
+                              <div className="input-error-container">
+                                 <TextField
+                                    margin="normal"
+                                    htmlFor="firstName"
+                                    name="firstName"
+                                    type="text"
+                                    label="Nombre"
+                                    onChange={handleChange}
+                                 />
+                                 {errors.firstName ? (
+                                    <span>{errors.firstName}</span>
+                                 ) : null}
+                              </div>
+                              <div className="input-error-container">
+                                 <TextField
+                                    margin="normal"
+                                    htmlFor="lastName"
+                                    name="lastName"
+                                    type="text"
+                                    label="Apellido"
+                                    onChange={handleChange}
+                                 />
+                                 {errors.lastName ? (
+                                    <span>{errors.lastName}</span>
+                                 ) : null}
+                              </div>
 
-                        <div className="gender-container">
-                           <FormControl fullWidth>
-                              <InputLabel id="demo-simple-select-label">
-                                 Género
-                              </InputLabel>
-                              <Select
-                                 labelId="demo-simple-select-label"
-                                 id="demo-simple-select"
-                                 label="Género"
-                                 name="gender"
-                                 onChange={handleChange}
-                                 defaultValue=""
-                              >
-                                 <MenuItem value="Femenino">Femenino</MenuItem>
-                                 <MenuItem value="Masculino">
-                                    Masculino
-                                 </MenuItem>
-                              </Select>
-                           </FormControl>
-                        </div>
-                     </div>
-                     <div className="phone-dni-container">
-                        <div className="input-error-container">
-                           <TextField
-                              margin="normal"
-                              htmlFor="dni"
-                              name="dni"
-                              type="text"
-                              label="DNI"
-                              onChange={handleChange}
-                           />
-                           {errors.dni ? <span>{errors.dni}</span> : null}
-                        </div>
-                        <div className="input-error-container">
-                           <TextField
-                              margin="normal"
-                              name="phone"
-                              type="text"
-                              label="Teléfono"
-                              onChange={handleChange}
-                           />
-                           {errors.phone ? <span>{errors.phone}</span> : null}
-                        </div>
-                     </div>
-                     <p>
-                        {cloudinaryResponse ? (
-                           <div className={style.loader}></div>
-                        ) : (
-                           success
-                        )}
-                     </p>
+                              <div className="input-error-container">
+                                 <TextField
+                                    margin="normal"
+                                    htmlFor="birthDate"
+                                    name="birthDate"
+                                    type="date"
+                                    focused
+                                    label="Fecha de Nacimiento"
+                                    onChange={handleChange}
+                                    color="grey"
+                                 />
+                                 {errors.birthDate ? (
+                                    <span>{errors.birthDate}</span>
+                                 ) : null}
+                              </div>
 
-                     <div className="input-update-container">
-                        <input
-                           className="update-perfil"
-                           type="submit"
-                           disabled={disabler()}
-                           value={"Actualizar mi perfil"}
-                        />
-                     </div>
+                              <div className="input-error-container">
+                                 <TextField
+                                    margin="normal"
+                                    htmlFor="dni"
+                                    name="dni"
+                                    type="text"
+                                    label="DNI"
+                                    onChange={handleChange}
+                                 />
+                                 {errors.dni ? <span>{errors.dni}</span> : null}
+                              </div>
+                           </div>
+                        </Grid>
+
+                        <Grid
+                           item
+                           xs={12}
+                           sm={12}
+                           md={6}
+                           sx={{ justifyContent: "center" }}
+                           container
+                           direction={"column"}
+                        >
+                           <div style={{ margin: "20px" }}>
+                              <div className="photo-container">
+                                 <img
+                                    src={profileData.image ? imageURL : logo}
+                                    alt=""
+                                 />
+                                 <div className="fileContModal">
+                                    <input
+                                       onChange={handleChange}
+                                       name="image"
+                                       id="uploadImgInput"
+                                       type="file"
+                                    />
+                                    <label htmlFor="uploadImgInput">
+                                       <FileUploadIcon fontSize="large" />
+                                    </label>
+                                 </div>
+                              </div>
+
+                              <FormControl fullWidth>
+                                 <InputLabel id="demo-simple-select-label">
+                                    Género
+                                 </InputLabel>
+                                 <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    label="Género"
+                                    name="gender"
+                                    onChange={handleChange}
+                                    fullWidth
+                                 >
+                                    <MenuItem value="Femenino">
+                                       Femenino
+                                    </MenuItem>
+                                    <MenuItem value="Masculino">
+                                       Masculino
+                                    </MenuItem>
+                                 </Select>
+                              </FormControl>
+
+                              <div className="input-error-container">
+                                 <TextField
+                                    margin="normal"
+                                    name="phone"
+                                    type="text"
+                                    label="Teléfono"
+                                    onChange={handleChange}
+                                 />
+                                 {errors.phone ? (
+                                    <span>{errors.phone}</span>
+                                 ) : null}
+                              </div>
+
+                              <p>
+                                 {cloudinaryResponse ? (
+                                    <div className={style.loader}></div>
+                                 ) : (
+                                    success
+                                 )}
+                              </p>
+
+                              <div className="input-update-container">
+                                 <Button
+                                    type="submit"
+                                    disabled={disabler()}
+                                    variant="contained"
+                                 >
+                                    Actualizar mi perfil
+                                    {/* <input
+                  
+                  type="submit"
+                  disabled={disabler()}
+                  value={'Actualizar mi perfil'}
+                /> */}
+                                 </Button>
+                              </div>
+                           </div>
+                        </Grid>
+                     </Grid>
                   </form>
                </div>
             ) : (
-               <div className="profileContainer">
-                  <div className="leftProfileContainer"></div>
+               //!||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+               <Box className="profileContainer">
                   {!showEditProfile ? null : (
                      <UpdateProfile perfilUsuario={perfilUsuario} />
                   )}
-                  <div className="centerProfileContainer">
-                     <div className="portadaContainer">
-                        <img
-                           src={
-                              perfilUsuario?.image
-                                 ? perfilUsuario?.image
-                                 : defaultPortada
-                           }
-                           alt=""
-                        />
-                        <img
-                           src={
-                              perfilUsuario?.profile?.image
-                                 ? perfilUsuario?.profile?.image
-                                 : imgDefault
-                           }
-                           alt=""
-                        />
-                     </div>
-                     <div className="nameAndEditContainer">
-                        <h1>
-                           {perfilUsuario?.profile?.firstName}{" "}
-                           {perfilUsuario?.profile?.lastName}
-                        </h1>
-
-                        <div className="editButtonContainer">
-                           <div
-                              onClick={() => {
-                                 dispatch(showProfileEdit());
+                  <div>
+                     <Grid container className="">
+                        <Grid item xs={12} sm={6} md={8}>
+                           <Box
+                              className="centerProfileContainer"
+                              sx={{
+                                 boxShadow: 3,
+                                 width: "104vh",
+                                 height: "auto",
+                                 bgcolor: (theme) =>
+                                    theme.palette.mode === "dark"
+                                       ? "#101010"
+                                       : "#fff",
+                                 color: (theme) =>
+                                    theme.palette.mode === "dark"
+                                       ? "grey.300"
+                                       : "grey.800",
+                                 p: 2,
+                                 borderRadius: 2,
+                                 textAlign: "center",
+                                 fontSize: "0.875rem",
+                                 fontWeight: "700",
                               }}
                            >
-                              <Edit />
-                           </div>
-                        </div>
-                     </div>
-                     <div className="perfilInfoContainer">
-                        <div className="detallesContainer">
-                           <span className="detallesSpan">Detalles</span>
-                           <div className="dataContainers">
-                              <Email /> <span>{perfilUsuario?.email}</span>
-                           </div>
-                           <div className="dataContainers">
-                              <BadgeIcon />{" "}
-                              <span>{perfilUsuario?.profile?.dni}</span>
-                           </div>
-                           <div className="dataContainers">
-                              <CakeIcon />
-                              <span>
-                                 {
-                                    perfilUsuario?.profile?.birthDate.split(
-                                       "T"
-                                    )[0]
-                                 }
-                              </span>
-                           </div>
-                           <div className="dataContainers">
-                              <LocalPhoneIcon />
-                              <span>{perfilUsuario?.profile?.phone}</span>
-                           </div>
-                           <div className="dataContainers">
-                              {perfilUsuario?.profile?.gender === "Femenino" ? (
-                                 <FemaleIcon />
-                              ) : (
-                                 <MaleIcon />
-                              )}
-                              <span>{perfilUsuario?.profile?.gender}</span>
-                           </div>
-                        </div>
-                        <div className="estadoDeudaContainer">
-                           {perfilUsuario.profile.saldo > 0 ? (
-                              <div className="estadodeuda-container">
-                                 <span className="detallesSpan">
-                                    Estado de cuenta
-                                 </span>
-
-                                 <span className="deuda-span">
-                                    <AttachMoneyIcon fontSize="large" />
-                                    Deuda actual: ${perfilUsuario.profile.saldo}
-                                 </span>
-                                 <div className="mercadopagoContainer">
-                                    {mpLoading ? (
-                                       <div className="loader-barra-container">
-                                          <span className="loader-barra-mp"></span>
-                                       </div>
-                                    ) : preferenceId ? (
-                                       <div>
-                                          <Wallet
-                                             initialization={{ preferenceId }}
-                                          />
-                                       </div>
-                                    ) : (
-                                       <div className="pagarContainer">
-                                          {" "}
-                                          <button onClick={handleBuy}>
-                                             Pagar con MercadoPago
-                                          </button>
-                                       </div>
-                                    )}
-                                 </div>
-                              </div>
-                           ) : (
-                              <div className="aldia-container">
-                                 <span className="detallesSpan">
-                                    Estado de cuenta
-                                 </span>
-                                 <div>
-                                    <img
-                                       src="https://res.cloudinary.com/drpdobxfu/image/upload/v1695234309/utawyobyj6ujarsa52hm.png"
-                                       alt=""
-                                    />
-                                    <span>Usted no presenta deudas.</span>
-                                 </div>
-                              </div>
-                           )}
-                        </div>
-                     </div>
-                     <div className="carnet-container">
-                        <div className="gen-carnet-container">
-                           {perfilUsuario.active && (
-                              <Link
-                                 to={`/QrCarnetDigital/${perfilUsuario.profile.dni}`}
+                              <Box className="portadaContainer">
+                                 <img
+                                    src={
+                                       perfilUsuario?.image
+                                          ? perfilUsuario?.image
+                                          : defaultPortada
+                                    }
+                                    alt=""
+                                 />
+                                 <img
+                                    src={
+                                       perfilUsuario?.profile?.image
+                                          ? perfilUsuario?.profile?.image
+                                          : imgDefault
+                                    }
+                                    alt=""
+                                 />
+                              </Box>
+                              <Box
+                                 ml={28}
+                                 mt={2}
+                                 position="absolute"
+                                 zIndex={2}
                               >
-                                 <button>Generar carnet digital</button>
-                              </Link>
-                           )}
-                        </div>
-                     </div>
+                                 {role === "super_admin" &&
+                                 perfilUsuario?.profile ? (
+                                    <Box>
+                                       <Link to={"/auth/dashboard"}>
+                                          <Button variant="contained">
+                                             Administrador
+                                          </Button>
+                                       </Link>
+                                    </Box>
+                                 ) : null}
+                              </Box>
+
+                              <Box className="nameAndEditContainer">
+                                 <Box className="editButtonContainer">
+                                    <h1>
+                                       {perfilUsuario?.profile?.firstName}{" "}
+                                       {perfilUsuario?.profile?.lastName}
+                                    </h1>
+                                    <Box
+                                       onClick={() => {
+                                          dispatch(showProfileEdit());
+                                       }}
+                                       className="Editbutton"
+                                    >
+                                       <Edit />
+                                    </Box>
+                                 </Box>
+                              </Box>
+
+                              <Box className="perfilInfoContainer">
+                                 <Box className="detallesContainer">
+                                    <Box className="carnet-container">
+                                       <Box className="gen-carnet-container">
+                                          {perfilUsuario.active && (
+                                             <Link
+                                                to={`/QrCarnetDigital/${perfilUsuario.profile.dni}`}
+                                             >
+                                                <Button variant="contained">
+                                                   {" "}
+                                                   <QrCode2Icon fontSize="large" />
+                                                </Button>
+                                             </Link>
+                                          )}
+                                       </Box>
+                                    </Box>
+                                    <span className="detallesSpan">
+                                       Detalles
+                                    </span>
+                                    <Box className="dataContainers">
+                                       <Email />{" "}
+                                       <span>{perfilUsuario?.email}</span>
+                                    </Box>
+                                    <Box className="dataContainers">
+                                       <BadgeIcon />{" "}
+                                       <span>
+                                          {perfilUsuario?.profile?.dni}
+                                       </span>
+                                    </Box>
+                                    <Box className="dataContainers">
+                                       <CakeIcon />
+                                       <span>
+                                          {
+                                             perfilUsuario?.profile?.birthDate.split(
+                                                "T"
+                                             )[0]
+                                          }
+                                       </span>
+                                    </Box>
+                                    <Box className="dataContainers">
+                                       <LocalPhoneIcon />
+                                       <span>
+                                          {perfilUsuario?.profile?.phone}
+                                       </span>
+                                    </Box>
+                                    <Box className="dataContainers">
+                                       {perfilUsuario?.profile?.gender ===
+                                       "Femenino" ? (
+                                          <FemaleIcon />
+                                       ) : (
+                                          <MaleIcon />
+                                       )}
+                                       <span>
+                                          {perfilUsuario?.profile?.gender}
+                                       </span>
+                                    </Box>
+                                 </Box>
+                                 <Box className="estadoDeudaContainer">
+                                    {perfilUsuario.profile.saldo > 0 ? (
+                                       <Box className="estadodeuda-container">
+                                          <span className="detallesSpan">
+                                             Estado de cuenta
+                                          </span>
+
+                                          <span className="deuda-span">
+                                             <AttachMoneyIcon fontSize="large" />
+                                             Deuda actual: $
+                                             {perfilUsuario.profile.saldo}
+                                          </span>
+                                          <Box className="mercadopagoContainer">
+                                             {mpLoading ? (
+                                                <Box className="loader-barra-container">
+                                                   <span className="loader-barra-mp"></span>
+                                                </Box>
+                                             ) : preferenceId ? (
+                                                <Box>
+                                                   <Wallet
+                                                      initialization={{
+                                                         preferenceId,
+                                                      }}
+                                                   />
+                                                </Box>
+                                             ) : (
+                                                <Box className="pagarContainer">
+                                                   {" "}
+                                                   <button onClick={handleBuy}>
+                                                      Pagar con MercadoPago
+                                                   </button>
+                                                </Box>
+                                             )}
+                                          </Box>
+                                       </Box>
+                                    ) : (
+                                       <Box className="aldia-container">
+                                          <span className="detallesSpan">
+                                             Estado de cuenta
+                                          </span>
+                                          <Box>
+                                             <img
+                                                src="https://res.cloudinary.com/drpdobxfu/image/upload/v1695234309/utawyobyj6ujarsa52hm.png"
+                                                alt=""
+                                             />
+                                             <span>
+                                                Usted no presenta deudas.
+                                             </span>
+                                          </Box>
+                                       </Box>
+                                    )}
+                                 </Box>
+                              </Box>
+                           </Box>
+                        </Grid>
+                     </Grid>
                   </div>
-                  <div className="rigthProfileContainer">
-                     {role === "super_admin" && perfilUsuario?.profile ? (
-                        <div>
-                           <Link to={"/auth/dashboard"}>
-                              <button className="learn-more">
-                                 <span aria-hidden="true" className="circle">
-                                    <span className="icon arrow"></span>
-                                 </span>
-                                 <span className="button-text">
-                                    Administrador
-                                 </span>
-                              </button>
-                           </Link>
-                        </div>
-                     ) : null}
-                  </div>
-               </div>
+               </Box>
             )
          ) : (
-            <div className={style.boxLoadingBall}>
-               <div className={style.shadowLoadingBall}></div>
-               <div className={style.gravityLoadingBall}>
-                  <div className={style.ballLoadingBall}></div>
-               </div>
-            </div>
+            <Box className={style.boxLoadingBall}>
+               <Box className={style.shadowLoadingBall}></Box>
+               <Box className={style.gravityLoadingBall}>
+                  <Box className={style.ballLoadingBall}></Box>
+               </Box>
+            </Box>
          )}
-      </div>
+      </Box>
    );
 }
