@@ -13,7 +13,7 @@ import PerfilUsuario from "./components/PerfilUsuario/Perfil";
 import AdminDashboard from "./dashboardAdminComponents/adminDashboard/AdminDashboard";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { getDesignTokens } from "../helpers/theme";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import EditarPartidos from "./components/EditarPartidos/EditarPartidos";
 import { Banner } from "./components/Navbar/Banner/Banner";
 import { Footer } from "./components/Footer/Footer";
@@ -32,6 +32,14 @@ import Noticias from "./views/Noticias/Noticias";
 import SuccessPayment from "./views/SuccessPayment/SuccessPayment";
 import QRCarnet from "./components/QrCarnet/QrCarnet";
 import Notices from "./components/Notices/Notices";
+import ClubContacto from "./components/ClubContacto/ClubContacto";
+import FutbolFemenino from "./components/FutbolFemenino/FutbolFemenino";
+import { FutbolMasculino } from "./components/FutbolMasculino/FutbolMasculino";
+import FutbolLogros from "./components/FutbolLogros/FutbolLogros";
+import Aos from "aos";
+import "aos/dist/aos.css";
+import MasNaranja from "./components/MasNaranja/MasNaranja";
+
 function App() {
    const storedThemeMode = localStorage.getItem("themeMode") || "light";
    const [themeMode, setThemeMode] = useState(storedThemeMode);
@@ -43,11 +51,24 @@ function App() {
    };
    const location = useLocation();
    const theme = createTheme(getDesignTokens(themeMode));
+   useEffect(() => {
+      Aos.init();
+   }, []);
+
    return (
       <div className="AppContainer">
          <ThemeProvider theme={theme}>
             <CssBaseline />
-            {location.pathname !== "/" ? null : <Banner />}
+            {location.pathname === "/" ||
+            location.pathname === "/club/historia" ||
+            location.pathname === "/club/comision" ||
+            location.pathname === "/club/contacto" ||
+            location.pathname === "/futbol/femenino" ||
+            location.pathname === "/futbol/masculino" ||
+            location.pathname === "/futbol/logros" ||
+            location.pathname === "/sumate/naranja" ? (
+               <Banner />
+            ) : null}
             {location.pathname !== "/auth/dashboard" ? (
                <Navbar
                   themeMode={themeMode}
@@ -86,7 +107,15 @@ function App() {
                </Route>
                <Route path={"/club/historia"} element={<ClubHistoria />} />
                <Route path={"/club/comision"} element={<ClubComision />} />
-               {/* <Route path={'/noticias'} element={<Noticias />} /> */}
+               <Route path={"/club/contacto"} element={<ClubContacto />} />
+               <Route path={"/futbol/femenino"} element={<FutbolFemenino />} />
+               <Route
+                  path={"/futbol/masculino"}
+                  element={<FutbolMasculino />}
+               />
+               <Route path={"/futbol/logros"} element={<FutbolLogros />} />
+               <Route path={"/sumate/naranja"} element={<MasNaranja />} />
+
                <Route
                   path={"/auth/dashboard"}
                   element={

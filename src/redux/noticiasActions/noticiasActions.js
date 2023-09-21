@@ -6,7 +6,7 @@ import {
   CLEAN_NOTICIA_DETAIL,
   NOTICIAS_PER_PAGE,
 } from "./noticiasActionTypes";
-import axios from "axios";
+import axios from 'axios'
 import {
   GET_NOTICIA_DETAIL,
   GET_NOTICIAS_BY_CATEGORY,

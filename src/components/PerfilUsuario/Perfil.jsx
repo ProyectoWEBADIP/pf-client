@@ -188,6 +188,7 @@ export default function Perfil() {
                <AlertError error={errorAlert} />
             </div>
          ) : null}
+
          {!isLoading ? (
             !perfilUsuario?.active ? (
                <div className={style.contProf}>
