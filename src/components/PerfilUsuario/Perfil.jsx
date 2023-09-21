@@ -173,7 +173,6 @@ export default function Perfil() {
     dispatch(createLocalProfile(id, profileData));
   }
   const perfilUsuario = useSelector((state) => state.perfilUsuario);
-  console.log("usuario ",perfilUsuario);
   const showEditProfile = useSelector((state) => state.showEditProfile);
   const isLoading = useSelector((state) => state.isLoading);
 
