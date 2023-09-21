@@ -34,7 +34,7 @@ export default function CrearNoticia() {
   const [canCreateNotice, setCanCreateNotice] = useState(false);
   const userId= localStorage.userId
   const [incluye,setIncluye]=useState("")
- 
+ const errors= useSelector(state=>state.errors)
 
 
   useEffect(() => {
@@ -54,8 +54,9 @@ export default function CrearNoticia() {
       validation({
         ...input,
         [event.target.name]: event.target.value,
-      })
+      },event.target.name)
     );
+    
   };
 
   const handleCategoryChange = (event) => {
@@ -79,12 +80,13 @@ export default function CrearNoticia() {
     }) 
     setLoading(true)  
      const cloudiResponse= await dispatch(submitImgCloudinary(file))
+     setCanCreateNotice(true)
+     setError({...error,imagen:""})
      setLoading(false)
      setResponse(<AlertSuccess success={cloudiResponse.message}/>)
      setTimeout(()=>{setResponse(false)},3000)
      setInput({...input, imagen:cloudiResponse.secure_url})
      
-     setCanCreateNotice(true)
    
   }
     const handleSelect=(e)=>{
@@ -105,16 +107,16 @@ export default function CrearNoticia() {
       ])   
       setIncluye("")
       }else if(tieneID){
-        console.log("entre");
+        
        setIncluye("*Esta categoria ya fue seleccionada*")
-        console.log(incluye);
+        
       }
 
       setError(validation(
         {
             ...input, 
             [e.target.name]: e.target.value
-        })          
+        },e.target.name)          
       )  
       
     }    
@@ -134,7 +136,7 @@ export default function CrearNoticia() {
     }
   
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
    
     event.preventDefault();
     const form = document.getElementById('formulario');
@@ -149,9 +151,22 @@ export default function CrearNoticia() {
       user_id:userId
     };
     
-    if (canCreateNotice) {
+    let disable=true 
+    for(const err in error){
+      if(error[err]===""){
+        disable=false
+      }else{
+        disable=true
+        break;
+      }
+    }
+    
+    if (canCreateNotice && !disable) {
       try {
-        dispatch(postNoticia(body));       
+        setLoading(true)
+       const data= await dispatch(postNoticia(body));     
+       setLoading(false)  
+        if(data){
         form.reset();
         setImageURL('');
 
@@ -167,6 +182,7 @@ export default function CrearNoticia() {
         setTimeout(() => {
           setShowSuccess(false);
         }, 5000);
+        }
       } catch (error) {
         setErrorAlert(error.message);
         setShowError(true);
@@ -175,7 +191,7 @@ export default function CrearNoticia() {
         }, 5000);
       }
     } else {
-      setErrorAlert('Faltó cargar la imágen.');
+      setErrorAlert('Revise los requisitos');
       setShowError(true);
       setTimeout(() => {
         setShowError(false);
@@ -194,8 +210,10 @@ export default function CrearNoticia() {
       )
     }else{
       setCrearCategory(name); 
+      setLoading(true)
       await dispatch(postCategoria({ active: true, name })); 
       await dispatch(getAllCategories())
+      setLoading(false)
       
       setSuccessAlert('Categoria creada con exito!');
       setShowSuccess(true);
@@ -222,6 +240,9 @@ export default function CrearNoticia() {
       <div className='cont_form_div'>
         {loading? <div className='loader_notice_container'><span className="loaderNotice"></span></div> : null}
         {response? <div className='response_notice_succes'>{response}</div>:null}
+        {errors? <div className='response_notice_succes'><AlertError/></div>:null}
+
+
           <form id="formulario" onSubmit={handleSubmit}>
 
             {showError ? (

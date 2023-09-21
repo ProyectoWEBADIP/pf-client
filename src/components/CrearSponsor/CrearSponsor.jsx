@@ -6,6 +6,8 @@ import validation from "./validation";
 import { useEffect } from "react";
 import { submitImgCloudy } from "../../redux/sponsorActions/sponsorActions";
 import AlertSuccess from "../../assets/AlertSuccess/AlertSuccess";
+import AlertError from '../../assets/AlertError/AlertError';
+
 const CrearSponsor = () => {
     const [input,setInput]= useState({nombre:"",img:"",active:true});
     const [imagen,setImagen]=useState("");    
@@ -13,6 +15,10 @@ const CrearSponsor = () => {
     const [error,setError]=useState({});
     const [cloudinary,setCloudinary]=useState(false)   
     const userId= localStorage.userId;   
+    const [showSuccess, setShowSuccess] = useState(false);
+    const [successAlert, setSuccessAlert] = useState('');
+    const [errorAlert,setErrorAlert]=useState('')
+    const [showError,setShowError]=useState(false)
     
     useEffect(()=>{
         dispatch(getAllSponsor())
@@ -43,9 +49,15 @@ const CrearSponsor = () => {
 
             setImagen("")
 
-            alert("Sponsor creado con exito!")
+            setSuccessAlert('¡Sponsor creado con éxito!');
+            setShowSuccess(true);
+            setTimeout(() => {
+              setShowSuccess(false);
+            }, 4000);
         }else{
-            alert("Revisa los pasos para crear tu sponsor!")
+            setErrorAlert('Revisa los pasos para crear tu sponsor')
+            setShowError(true)
+            setTimeout(()=>{setShowError(false)},4000)
         }
 
     }
@@ -74,14 +86,22 @@ const CrearSponsor = () => {
         setTimeout(()=>{setResponse(false)},3000)
         setInput({...input,img:cloudiResponde.secure_url})
         setCloudinary(true)
-    }
-
-       
+    }       
      
 
   return (
     <div className="contenedor_form">
         <div className="cont_form_sponsor">
+        {showError ? (
+              <div className="alerts">
+                <AlertError error={errorAlert} />
+              </div>
+            ) : null}
+            {showSuccess ? (
+              <div className="alerts">
+                <AlertSuccess success={successAlert} />
+              </div>
+            ) : null}
             <form className="et_form_sponsor" id="formulario" onSubmit={handleSubmit}  >
                 {loading?<div className="loader_sponsor_container"><span className="loader"></span></div>:null}
                 {response?<div className="response-succes-sponsor">{response}</div>:null}
