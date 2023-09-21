@@ -20,9 +20,8 @@ const Navbar = ({ themeMode, toggleThemeMode }) => {
         sx={{
           position:
             location.pathname !== "/login" &&
-            location.pathname !== "/club/historia" &&
             location.pathname !== "/login/recuperacion" &&
-            location.pathname !== "/login/SignUp"
+            location.pathname !== "/login/SignUp" 
               ? "fixed"
               : "static",
         }}

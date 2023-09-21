@@ -54,7 +54,7 @@ export const MenuItems = () => {
         </Link>
         <FutbolMenu />
         <ClubMenu mode />
-        {/* <PatrocinioMenu /> */}
+        
         <SocioMenu />
         <NoticiasMenu/>
       </Box>
