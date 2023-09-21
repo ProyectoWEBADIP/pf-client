@@ -1,7 +1,23 @@
 .containerQR{
     display: flex;
     align-items: center;
-    flex-direction: row;
-    justify-content: center;
-    height: 80vh;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 90vh;
 }  
+
+.textarea-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 12px;
+  }
+  
+  .responsive-textarea {
+    width: 100%;
+    height: auto;
+    height: 115px;
+    box-sizing: border-box;
+    resize: vertical;
+    border: 1px solid #ccc;
+  }

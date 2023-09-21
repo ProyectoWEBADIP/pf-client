@@ -16,6 +16,8 @@ import {
   Button,
   Typography,
   InputAdornment,
+  Container,
+  Stack,
 } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import PersonIcon from "@mui/icons-material/Person";
@@ -57,9 +59,7 @@ export default function Login() {
       dispatch(googleRegisterUser(credentials));
       dispatch(localLogin())
       navigate("/");
-    
     }
-
   }
   //LOGIN LOCAL CON PASS Y EMAIL
   async function login(event) {
