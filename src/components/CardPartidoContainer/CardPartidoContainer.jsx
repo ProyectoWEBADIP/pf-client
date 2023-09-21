@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import CardPartido from '../CardPartido/CardPartido';
 import style from './CardPartidoContainer.module.css';
 import logo from './../../assets/Escudo ADIP sin fondo.png';
+import {Grid} from '@mui/material';
 export default function CardPartidoContainer() {
   const info = useSelector((state) => state.partidos);
 
@@ -16,6 +17,8 @@ export default function CardPartidoContainer() {
 
   return (
     <div className={style.cont}>
+      <Grid container>
+        <Grid item xs={12} md={5} sx={{justifyContent: "center"}} container direction={"row"}>
       {masculinos?.map((info, i) => {
         return (
           <div className={style.contCard} key={i}>
@@ -35,9 +38,13 @@ export default function CardPartidoContainer() {
           </div>
         );
       })}
+      </Grid>
+      <Grid item xs={12} md={1} sx={{justifyContent: "center"}}>
       <div className={style.separador}>
         <img src={logo} alt="" />
       </div>
+      </Grid>
+      <Grid item xs={12} md={5} sx={{justifyContent: "center"}} container direction={"row"}>
       {femeninos?.map((info, i) => {
         return (
           <div className={style.contCard} key={i}>
@@ -57,6 +64,8 @@ export default function CardPartidoContainer() {
           </div>
         );
       })}
+      </Grid>
+    </Grid>
     </div>
   );
 }

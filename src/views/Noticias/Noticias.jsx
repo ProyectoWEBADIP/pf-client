@@ -10,6 +10,7 @@ const Noticias = () => {
     dispatch(getAllNoticias())
   })
 const noticias = useSelector(state=>state.noticias)
+console.log(noticias);
   return (
     
     <div className="apartado-noticias-infinitescroll-container">

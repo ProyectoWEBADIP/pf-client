@@ -31,6 +31,7 @@ import NotFoundComponent from './components/notFound/NotFound';
 import Noticias from './views/Noticias/Noticias';
 import SuccessPayment from './views/SuccessPayment/SuccessPayment';
 import QRCarnet from "./components/QrCarnet/QrCarnet";
+import Notices from './components/Notices/Notices';
 import ClubContacto from './components/ClubContacto/ClubContacto';
 import FutbolFemenino from './components/FutbolFemenino/FutbolFemenino';
 import { FutbolMasculino } from './components/FutbolMasculino/FutbolMasculino';
@@ -75,6 +76,7 @@ function App() {
           <Route path={'/:id/profile'} element={<PerfilUsuario />} />
           <Route path={"/QrCarnetDigital/:dni"} element={<QRCarnet/>}/>
           <Route path={'/success/'} element={<SuccessPayment />} />
+          <Route path={"/noticias"} element={<Notices/>}/>
 
           
           <Route element={<ProtectedRoutes />}>
