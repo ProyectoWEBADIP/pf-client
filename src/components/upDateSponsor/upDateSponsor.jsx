@@ -4,6 +4,8 @@ import { useSelector,useDispatch } from 'react-redux';
 import { getAllSponsor,updateSponsor } from '../../redux/sponsorActions/sponsorActions';
 import './upDateSponsor.css';
 import { submitImgCloudy } from '../../redux/sponsorActions/sponsorActions';
+import AlertSuccess from '../../assets/AlertSuccess/AlertSuccess';
+import AlertError from '../../assets/AlertError/AlertError';
 
 
 
@@ -16,11 +18,14 @@ const UpDateSponsor = () => {
     const [newImg,setNewImg]=useState({});
     const [sure,setSure]=useState(false)   
     const [location,setLocation]=useState("");  
-    const[hayCambios,setHayCambios]=useState(false);
+    const [hayCambios,setHayCambios]=useState(false);
     const imgHome="https://res.cloudinary.com/drpdobxfu/image/upload/v1694726718/sponsor/Captura_de_pantalla_2023-09-14_181923_kct7tp.png";
     const imgDetalle="https://res.cloudinary.com/drpdobxfu/image/upload/v1694726718/sponsor/Captura_de_pantalla_2023-09-14_181954_t0gc1z.png";
-    const userId=localStorage.userId;
-    
+    const userId=localStorage.userId;    
+    const [response,setResponse]=useState(false)
+    const [loading,setLoading]=useState(false)
+    const [errorAlert,setErrorAlert]=useState('')
+    const [showError,setShowError]=useState(false)
     
     
     useEffect(()=>{
@@ -32,7 +37,8 @@ const UpDateSponsor = () => {
    
    
     const handleSelect=(event)=>{
-      //evetValue--> posicion del mapeo
+      setEnter(true)   
+      
       const obj= sponsor[+event.target.value]  
       
 
@@ -40,7 +46,6 @@ const UpDateSponsor = () => {
         setState({title:"",image:"",location:""})
       } else{
         //si selecciono sponsor para editar enter=true
-        setEnter(true)   
         setState(
           {
             id: obj.id,
@@ -53,38 +58,48 @@ const UpDateSponsor = () => {
       
     }    
 
+    
     const handleChange=(event)=>{
-      setHayCambios(true)
       if(enter){
+      setHayCambios(true)
         setState({
           ...state,
           [event.target.name]:event.target.value
         })       
         setLocation(state.location)        
       }else{
-        alert("seleccione sponsor a editar")
+        setErrorAlert('Seleccione un sponsor')
+        setShowError(true)
+        setTimeout(()=>{setShowError(false)},4000)
       }
        
     }
 
     const handleLocation=(event)=>{
       //value=ubication dnd quiero mostrarlo
-      setHayCambios(true)
+      if(enter){
+      setHayCambios(true)      
       setLocation(+event.target.value)
-      
-     //el que quiere cambiar lo busca por location
-      const aModificar= sponsor.filter((el)=>el.location==event.target.value)      
-      setSponsorPisado(aModificar[0])      
-      
-      if(!aModificar[0]){
-        setState({
-                ...state,
-                location:+event.target.value
-              })
-              
+        
+       //el que quiere cambiar lo busca por location
+        const aModificar= sponsor.filter((el)=>el.location==event.target.value)      
+        setSponsorPisado(aModificar[0])      
+        
+        if(!aModificar[0]){
+          setState({
+                  ...state,
+                  location:+event.target.value
+                })
+                
+        }else{
+          setSure(true)
+        }
       }else{
-        setSure(true)
+        setErrorAlert('Seleccione un sponsor')
+        setShowError(true)
+        setTimeout(()=>{setShowError(false)},4000)
       }
+      
       
     }
 
@@ -114,10 +129,16 @@ const UpDateSponsor = () => {
       if(enter){
         setNewImg(URL.createObjectURL(file))
         setState({...state, image:file})
+        setLoading(true)
         const cloudiResponse= await dispatch(submitImgCloudy(file))
+        setLoading(false)       
         setState({...state,image:cloudiResponse.secure_url})
+        setResponse(<AlertSuccess success={cloudiResponse.message}/>)
+        setTimeout(()=>{setResponse(false)},3000)
       }else{
-        alert("seleccione sponsor a editar")
+        setErrorAlert('Seleccione un sponsor')
+        setShowError(true)
+        setTimeout(()=>{setShowError(false)},4000)
       }
     }  
      
@@ -127,12 +148,11 @@ const UpDateSponsor = () => {
 
       setHayCambios(true)
       setState({...state,image:""})      
-      setLocation(state.location)
-      
+      setLocation(state.location)      
       
     }
 
-    const handleSubmit=(event)=>{
+    const handleSubmit=async (event)=>{
       event.preventDefault();
       const body={
         id: state.id,
@@ -145,16 +165,21 @@ const UpDateSponsor = () => {
       
       //si selecciono un sponsor y realizo cambios
       if(enter && hayCambios){
-        dispatch(updateSponsor(body.id,body))
-        alert("¡Sponsor editado con exito!")
+        setLoading(true)
+        await dispatch(updateSponsor(body.id,body))
+        setLoading(false)        
         dispatch(getAllSponsor());
         }else if(!enter){
-          alert("Seleccione un sponsor")
+          setErrorAlert('Seleccione un sponsor')
+          setShowError(true)
+          setTimeout(()=>{setShowError(false)},4000)
         }else if(enter && !hayCambios){
-          alert("No se registaron cambios")
+          setErrorAlert('No se registraron cambios')
+          setShowError(true)
+          setTimeout(()=>{setShowError(false)},4000)
         }
 
-    }   
+    }  
 
   return (
     
@@ -180,63 +205,68 @@ const UpDateSponsor = () => {
           </div>
                                         {/* ----------------------------carta DERECHA */}
           <div className='cardDerecha_update_sponsor'>
-              <input onChange={handleChange} className='campo1' type="text" name="title" placeholder='Nombre...' value={state.title}/>
-              <select value={state.location} name="location" onChange={handleLocation} className="campo2">
-                <option >Ubicacion</option>
-                <option value={1}>1</option>    
-                <option value={2}>2</option>   
-                <option value={3}>3</option>   
-                <option value={4}>4</option>
-                <option value={5}>5</option>
-                <option value={6}>6</option>
-                <option value={7}>7</option>
-                <option value={8}>8</option>
-                <option value={9}>9</option>
-                <option value={10}>10</option>
-                <option value={11}>11</option>
-                <option value={12}>12</option>
-                <option value={13}>13</option>
-                <option value={14}>14</option>
-                <option value={15}>15</option>
-                <option value={16}>16</option>
-                <option value={17}>17</option>
-                <option value={18}>18</option>
-                <option value={19}>19</option>
-                <option value={20}>20</option>         
-              </select> 
-              
-               <div className='cont_renderImg_sponsor'>
-                  {state.image !== "" ? (
-                    <img className='img_sponsor_editar' src={state?.image} alt="image"/> 
-                    ) : (
-                    <input className='file_sponsor_update' onChange={handleImgChange} type="file" name="image" accept="image/*"/>
-                    )
-                  }
-               </div>
-                  <div className='cont_alerta_sponsor'>
-                  {sure ?
-                   <div className="sure_sponsor_alerta">
-                      <h3>¿En esta ubicacion se encuentra: {sponsorPisado.title}, deseas reemplazarlo?</h3>
-                      <button className="aceptar_buton_sponsor" onClick={handleAcept}>Aceptar</button>
-                      <button className="aceptar_buton_sponsor" onClick={handleCancel}>Cancelar</button>
-                   </div>:null
-                  }
-                  </div>
-              <div>
-                {state.image!== "" && (
-                    <button className='eliminar_imagen_sponsor'  onClick={deleteImg}>Eliminar imagen</button>  
-                )}
-                            
-              </div>                
-
-              <div className='contenedor_guardar_sponsor'>
-                <button onClick={handleSubmit} className='butonUpdate_guardar_sponsor'>Guardar cambios</button>                
+          {showError ? (
+              <div className="alerts">
+                <AlertError error={errorAlert} />
               </div>
+            ) : null}
+            {loading? <div className='loader_update_sponsor'><span className="loader"></span></div>:null}
+              {response? <div className='response-update-sponsor'>{response}</div>:null}
+                <input onChange={handleChange} className='campo1' type="text" name="title" placeholder='Nombre...' value={state.title}/>
+                <select value={state.location} name="location" onChange={handleLocation} className="campo2">
+                  <option >Ubicacion</option>
+                  <option value={1}>1</option>    
+                  <option value={2}>2</option>   
+                  <option value={3}>3</option>   
+                  <option value={4}>4</option>
+                  <option value={5}>5</option>
+                  <option value={6}>6</option>
+                  <option value={7}>7</option>
+                  <option value={8}>8</option>
+                  <option value={9}>9</option>
+                  <option value={10}>10</option>
+                  <option value={11}>11</option>
+                  <option value={12}>12</option>
+                  <option value={13}>13</option>
+                  <option value={14}>14</option>
+                  <option value={15}>15</option>
+                  <option value={16}>16</option>
+                  <option value={17}>17</option>
+                  <option value={18}>18</option>
+                  <option value={19}>19</option>
+                  <option value={20}>20</option>         
+                </select> 
+                
+                <div className='cont_renderImg_sponsor'>
+                    {state.image !== "" ? (
+                      <img className='img_sponsor_editar' src={state?.image} alt="image"/> 
+                      ) : (
+                      <input className='file_sponsor_update' onChange={handleImgChange} type="file" name="image" accept="image/*"/>
+                      )
+                    }
+                </div>
+                    <div className='cont_alerta_sponsor'>
+                    {sure ?
+                    <div className="sure_sponsor_alerta">
+                        <h3>¿En esta ubicacion se encuentra: {sponsorPisado.title}, deseas reemplazarlo?</h3>
+                        <button className="aceptar_buton_sponsor" onClick={handleAcept}>Aceptar</button>
+                        <button className="aceptar_buton_sponsor" onClick={handleCancel}>Cancelar</button>
+                    </div>:null
+                    }
+                    </div>
+                <div>
+                  {state.image!== "" && (
+                      <button className='eliminar_imagen_sponsor'  onClick={deleteImg}>Eliminar imagen</button>  
+                  )}
+                              
+                </div>                
+
+                <div className='contenedor_guardar_sponsor'>
+                  <button onClick={handleSubmit} className='butonUpdate_guardar_sponsor'>Guardar cambios</button>                
+                </div>
+           
           </div>
-          {/* <div className="contenido_botones_">
-            <button className="buton_crear_sponsor">Crear Sponsor</button>
-            <button className="buton_crear_sponsor">Lista Sponsor</button>
-          </div> */}
+          
 
       </div>
     

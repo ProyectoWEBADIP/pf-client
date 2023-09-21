@@ -34,7 +34,7 @@ export default function Home() {
       {!isLoading?<div className="homeContainer">
 
       <div className="parteCentral">
-        <CardPartidoContainer />
+          <CardPartidoContainer />
         <div className="sponsor1">
           <Sponsor1 />
         </div>

@@ -1,8 +1,66 @@
 .cont_update_sponsor{    
     display: flex;   
     align-items: center;   
-    width: 75vw;
-    
+    width: 75vw;    
+}
+.loader_update_sponsor{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(66, 66, 64, 0.47);
+    backdrop-filter: blur(3px);
+    z-index: 10;
+    border-radius: 1rem; 
+
+}
+.loader {
+    width: 48px;
+    height: 12px;
+    margin-top: 40px;
+    background: #FFF;
+    display: inline-block;
+    position: relative;
+  }
+  .loader::after {
+    content: '';  
+    left: 50%;
+    top: -47px;
+    transform: translate(-50%, 0);
+    position: absolute;
+    border: 15px solid transparent;
+    border-bottom-color: #FFF;
+    box-sizing: border-box;
+    animation: bump 0.4s ease-in-out infinite alternate;
+  }
+  .loader::before {
+    content: '';  
+    left: 50%;
+    bottom: 15px;
+    transform: translate(-50%, 0);
+    position: absolute;
+    width: 15px;
+    height: 20px;
+    background: #FFF;
+    box-sizing: border-box;
+    animation: bump 0.4s ease-in-out infinite alternate;
+  }
+  
+  @keyframes bump {
+    0% {
+      transform: translate(-50%, 5px);
+    }
+    100% {
+      transform: translate(-50%, -5px);
+    }
+}
+.response-update-sponsor{
+    position: absolute;
+    left: 0;
+    bottom: 12%;
+    z-index: 10;    
 }
 .cardIzq_update_sponsor{    
     display: flex;
@@ -37,7 +95,28 @@
     width: 25rem;
     margin-left: 1rem;
     height: 25rem;
+    position: relative;
 
+}
+.windows_update_sponsor{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 12rem;
+    text-align: center;      
+    border-radius: 1rem;    
+    background-color: rgba(255, 166, 0, 0.116);
+    width: 25rem;
+    margin-left: 1rem;
+    height: 25rem;
+    text-align: center;      
+    border-radius: 1rem;    
+    position: relative;
+    background-color: rgba(4, 255, 0, 0.693);
+    width: 25rem;
+    margin-left: 1rem;
+    height: 33rem;
 }
 .campo1{
     display: flex;
