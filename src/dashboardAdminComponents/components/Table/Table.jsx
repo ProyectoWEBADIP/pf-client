@@ -46,31 +46,6 @@ export function calcularEdad(birthday) {
   }
   return '*';
 }
-
-//!FUNCION QUE AGREGA USUARIOS DESDE LA TABLA, INHABILITADA POR AHORA
-// function EditToolbar(props) {
-//   const { setRows, setRowModesModel } = props;
-
-//   const handleClick = () => {
-//     const newRow = { id: 150, username: '', email: '' };
-
-//     setRows((oldRows) => [...oldRows, newRow]);
-
-//     setRowModesModel((oldModel) => ({
-//       ...oldModel,
-//       [newRow.id]: { mode: GridRowModes.Edit, fieldToFocus: 'username' },
-//     }));
-//   };
-
-//   return (
-//     <GridToolbarContainer>
-//       <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-//         Agregar usuario
-//       </Button>
-//     </GridToolbarContainer>
-//   );
-// }
-
 export default function FullFeaturedCrudGrid() {
   const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.allUsers);
@@ -184,6 +159,7 @@ export default function FullFeaturedCrudGrid() {
       }
 
       dispatch(getAllUsers());
+      setIsLoading(false)
       setLoading(false);
     } else {
       setErrorAlert('Error al actualizar los datos del usuario.');
@@ -398,7 +374,11 @@ export default function FullFeaturedCrudGrid() {
   }
   async function addNewUser(e) {
     e.preventDefault();
+    setIsLoading(true)
+
     const registered = await dispatch(registerUser(newUser));
+    setIsLoading(false)
+
     if (registered?.registered) {
       await dispatch(getAllUsers());
       setSuccessAlert(registered.message);
@@ -466,6 +446,22 @@ export default function FullFeaturedCrudGrid() {
       {showAddUser ? (
         <div className="overlay">
           <div className="addUser-container">
+         {isLoading?<div className="loaderCont">
+            <div className="lds-spinner">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>:null}
             <div className="adduser-closebutton-container">
               {' '}
               <Close

@@ -34,41 +34,42 @@ export const SignIn = () => {
     });
   };
   function handleError() {
-    setFailed(<AlertError error={'Hubo un error iniciando sesión con Google.'}/>)
+    setFailed(
+      <AlertError error={'Hubo un error iniciando sesión con Google.'} />
+    );
     setTimeout(() => {
-      setFailed(false)
-     }, 3000);
+      setFailed(false);
+    }, 3000);
   }
 
   async function handleSuccess(credentials) {
     setLoading(true);
     if (credentials.credential) {
       const userData = await dispatch(googleRegisterUser(credentials));
-      setLoading(false)
-      setSuccess(<AlertSuccess success={userData.message}/>)
+      setLoading(false);
+
+      setSuccess(<AlertSuccess success={userData.message} />);
       setTimeout(() => {
-        setSuccess(false)
+        setSuccess(false);
         navigate('/');
-       }, 3000);
+      }, 3000);
     }
-   }
+  }
   async function login(event) {
     event.preventDefault();
-
     setLoading(true);
     await dispatch(localLogin(users));
     const data = localStorage.access_token;
     setLoading(false);
     if (data) {
-      setSuccess(<AlertSuccess success={'Iniciando sesión...'}/>)
-
-     setTimeout(() => {
-      setSuccess(false)
-      navigate('/');
-     }, 3000);
-    } else{
+      setSuccess(<AlertSuccess success={'Iniciando sesión...'} />);
       setTimeout(() => {
-        dispatch(clearError())
+        setSuccess(false);
+        navigate('/');
+      }, 3000);
+    } else {
+      setTimeout(() => {
+        dispatch(clearError());
       }, 3000);
     }
   }
@@ -87,10 +88,23 @@ export const SignIn = () => {
           </div>
         ) : (
           <div className="container-signIn">
-           {success ?  <div className="login-success">{success}</div>: null}
-
-           {failed ?  <div className="login-success">{failed}</div> : null}
-           {errors ?  <div className="login-errors"><AlertError /> </div>: null}
+            {success ? (
+              <div className="overlay-login">
+                <div className="login-success">{success}</div>
+              </div>
+            ) : null}
+            {failed ? (
+              <div className="overlay-login">
+                <div className="login-success">{failed}</div>
+              </div>
+            ) : null}
+            {errors ? (
+              <div className="overlay-login">
+                <div className="login-errors">
+                  <AlertError />{' '}
+                </div>
+              </div>
+            ) : null}
             <div className="heading">Iniciar sesión</div>
             <div>
               <form action="" className="form-signIn" onSubmit={login}>
@@ -129,7 +143,7 @@ export const SignIn = () => {
                   </div>
                   <div>
                     <Link to="/login/SignUp">
-                      <span className="forgot-password">Asociarme</span>
+                      <span className="forgot-password">Registrarme</span>
                     </Link>
                   </div>
                 </div>
@@ -143,10 +157,7 @@ export const SignIn = () => {
             <div className="social-account-container">
               <span className="title-signIn">Iniciar sesión con</span>
               <div className="social-accounts">
-                <GoogleLogin
-                  onError={handleError}
-                  onSuccess={handleSuccess}
-                />
+                <GoogleLogin onError={handleError} onSuccess={handleSuccess} />
               </div>
             </div>
           </div>

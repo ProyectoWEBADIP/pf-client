@@ -99,23 +99,20 @@ export default function NotificacionesMail() {
 
   return (
     <Box>
-      <Grid container spacing={7} className="containerQR">
-        <Grid item xs={1} md={5} className="cardContainer" >
+      <Grid container ml={16} spacing={2} className="containerQR">
+        <Grid item xs={10} md={5}>
           <Box
             sx={{
               boxShadow: 3,
-              width: "25vw",
+              width: "50vh",
               height: "auto",
-              bgcolor: (theme) =>
-                theme.palette.mode === "dark" ? "#101010" : "#fff",
-              color: (theme) =>
-                theme.palette.mode === "dark" ? "grey.300" : "grey.800",
+              background: localStorage.themeMode==='dark'?'grey':'white',
+              color: localStorage.themeMode === "dark" ? "white" : "grey.800",
               p: 2,
               m: 1,
               borderRadius: 2,
               fontSize: "0.875rem",
               fontWeight: "700",
-              backgroundColor: "antiquewhite"
             }}
             
           >
@@ -137,7 +134,7 @@ export default function NotificacionesMail() {
             >
               Buscar
             </Button>
-            <Box sx={{ minWidth: 120 }}>
+            <Box>
               {select && <FormControl fullWidth>
                 <InputLabel id="buscar_por_nombre" sx={{ mt: 2 }}>
                   Elegir Usuario
@@ -196,41 +193,40 @@ export default function NotificacionesMail() {
             </Box>
           </Box>
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={10} md={6} >
           <Box
             sx={{
               boxShadow: 3,
               width: "50vh",
-              height: "21vw",
+              height: "30vh",
               bgcolor: (theme) =>
                 theme.palette.mode === "dark" ? "#101010" : "#fff",
               color: (theme) =>
                 theme.palette.mode === "dark" ? "grey.300" : "grey.800",
               p: 2,
-              m: 2,
+              m: 1,
               borderRadius: 2,
               textAlign: "center",
               fontSize: "0.875rem",
               fontWeight: "700",
-              backgroundColor: "antiquewhite"
             }}
           >
             <Typography variant="h4" fontWeight="bold">
               Escribir el mensaje
             </Typography>
-            <Box >
-              <TextareaAutosize
+            <Box className="textarea-container">
+              <textarea
                 placeholder="Escriba su correo aquí..."
-                minRows="14"
-                cols="30"
                 value={message}
                 onChange={handleChageMessage}
-                fullWidth
+                className="responsive-textarea"
               />
             </Box>
+            <Box>
             <Button onClick={handleSubmit} variant="contained" sx={{ mt: 2 }}>
               Enviar email
             </Button>
+            </Box>
           </Box>
         </Grid>
       </Grid>
