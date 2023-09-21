@@ -159,6 +159,7 @@ export default function FullFeaturedCrudGrid() {
       }
 
       dispatch(getAllUsers());
+      setIsLoading(false)
       setLoading(false);
     } else {
       setErrorAlert('Error al actualizar los datos del usuario.');
@@ -373,7 +374,11 @@ export default function FullFeaturedCrudGrid() {
   }
   async function addNewUser(e) {
     e.preventDefault();
+    setIsLoading(true)
+
     const registered = await dispatch(registerUser(newUser));
+    setIsLoading(false)
+
     if (registered?.registered) {
       await dispatch(getAllUsers());
       setSuccessAlert(registered.message);
@@ -441,6 +446,22 @@ export default function FullFeaturedCrudGrid() {
       {showAddUser ? (
         <div className="overlay">
           <div className="addUser-container">
+         {isLoading?<div className="loaderCont">
+            <div className="lds-spinner">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>:null}
             <div className="adduser-closebutton-container">
               {' '}
               <Close

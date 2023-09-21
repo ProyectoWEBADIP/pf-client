@@ -143,7 +143,7 @@ export const SignIn = () => {
                   </div>
                   <div>
                     <Link to="/login/SignUp">
-                      <span className="forgot-password">Asociarme</span>
+                      <span className="forgot-password">Registrarme</span>
                     </Link>
                   </div>
                 </div>
