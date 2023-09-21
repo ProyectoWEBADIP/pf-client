@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {
   POST_SPONSOR,
   GET_ALL_SPONSOR,
@@ -23,7 +24,7 @@ export function getAllSponsor(){
     return async(dispatch)=>{
         try {            
             const {data}= await axios(`/sponsors`)            
-            dispatch({type:GET_ALL_SPONSOR ,payload:data})           
+            dispatch({type:GET_ALL_SPONSOR ,payload:data})
         } catch (error) {
             throw new Error({error:error.message})
         }

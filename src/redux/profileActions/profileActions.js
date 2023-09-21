@@ -13,6 +13,19 @@ export function unshowProfileEdit() {
   };
 }
 
+export function pagarCuotaPorMp(id,saldo){
+  return async(dispatch)=>{
+    try {
+      const {data} = await axios.patch(
+        `/users/updateSaldo/${id}`,
+        saldo
+      );
+      return data
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+}
 export function submitImgToCloudinary(file) {
   return async (dispatch) => {
     try {
@@ -47,17 +60,4 @@ export function updateUserProfile(id, userFields) {
       return alert(error.message);
     }
   };
-}
-export function pagarCuotaPorMp(id,saldo){
-  return async(dispatch)=>{
-    try {
-      const {data} = await axios.patch(
-        `/users/updateSaldo/${id}`,
-        saldo
-      );
-      return data
-    } catch (error) {
-      alert(error.message)
-    }
-  }
 }

@@ -11,7 +11,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 const SignUp = () => {
   const [loading, setLoading] = useState(false);
-const [showPass, setPass] = useState(false);
+  const [showPass, setPass] = useState(false);
   const navigate = useNavigate();
   const [showError, setShowError] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -64,7 +64,6 @@ const [showPass, setPass] = useState(false);
   };
 
   function handleSubmit(e) {
-    console.log(e);
     e.preventDefault();
     if (
       input.username.trim() === "" ||
@@ -77,7 +76,6 @@ const [showPass, setPass] = useState(false);
     const codigoDeVerificacion =
       Math.floor(Math.random() * (9999 - 1000) + 1000) + "";
     setCodigoGeneradoLocalmente(codigoDeVerificacion);
-    console.log("codigo verificacion", codigoVerificacion);
     emailjs.send(
       "service_ckm9srh",
       "template_z7oue8n",
@@ -101,11 +99,10 @@ const [showPass, setPass] = useState(false);
 
   const sendUser = async () => {
     if (codigoGeneradoLocalmente.trim() == codigoVerificacion.trim()) {
-      console.log("holas");
       setLoading(true);
       const response = await dispatch(registerUser(input));
       setLoading(false);
-      if (response.registered) {
+      if (response?.registered) {
         setShowSuccess(
           <AlertSuccess
             success={"Registrado con éxito. Será redireccionado."}
@@ -122,7 +119,6 @@ const [showPass, setPass] = useState(false);
         }, 3000);
       }
     } else {
-      console.log("EntreError");
       setShowError(<AlertError error={"Código incorrecto."} />);
       setTimeout(() => {
         setShowError(false);
@@ -153,10 +149,8 @@ const [showPass, setPass] = useState(false);
         ) : null}
         {!verificacionEmail ? (
           <div>
-            <div className="title-signUp">Asociate!</div>
-            <div className="subtitle-signUp">
-              ¡Ayuda al club, hacete +Naranja!
-            </div>
+            <div className="title-signUp">Registrate</div>
+            <div className="subtitle-signUp">¡Sumate a la familia naranja!</div>
 
             <div className="input-container ic1">
               <input
@@ -218,7 +212,7 @@ const [showPass, setPass] = useState(false);
               onClick={handleSubmit}
               disabled={formErrors}
             >
-              ¡Únete a la familia naranja!
+              ¡Unirme a la familia naranja!
             </button>
           </div>
         ) : (
@@ -233,7 +227,7 @@ const [showPass, setPass] = useState(false);
                   value={codigoVerificacion}
                 />
                 <div className="cut">
-                  <label className="iLabel">Código de verificación</label>
+                  <label className="iLabel">Ingresa el código de verificación que enviaremos a tu correo</label>
                 </div>
               </div>
               <div>
