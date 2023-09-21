@@ -31,6 +31,7 @@ import NotFoundComponent from "./components/notFound/NotFound";
 import Noticias from "./views/Noticias/Noticias";
 import SuccessPayment from "./views/SuccessPayment/SuccessPayment";
 import QRCarnet from "./components/QrCarnet/QrCarnet";
+import Notices from "./components/Notices/Notices";
 function App() {
    const storedThemeMode = localStorage.getItem("themeMode") || "light";
    const [themeMode, setThemeMode] = useState(storedThemeMode);
@@ -47,12 +48,12 @@ function App() {
          <ThemeProvider theme={theme}>
             <CssBaseline />
             {location.pathname !== "/" ? null : <Banner />}
-            {location.pathname !== "/auth/dashboard" && (
+            {location.pathname !== "/auth/dashboard" ? (
                <Navbar
                   themeMode={themeMode}
                   toggleThemeMode={toggleThemeMode}
                />
-            )}
+            ) : null}
             <Routes>
                <Route path={"/success"} element={<SuccessPayment />} />
                <Route path={"/"} element={<Home />} />
@@ -62,6 +63,7 @@ function App() {
                <Route path={"/:id/profile"} element={<PerfilUsuario />} />
                <Route path={"/QrCarnetDigital/:dni"} element={<QRCarnet />} />
                <Route path={"/success/"} element={<SuccessPayment />} />
+               <Route path={"/noticias"} element={<Notices />} />
 
                <Route element={<ProtectedRoutes />}>
                   <Route path={"/crearNoticia"} element={<CrearNoticia />} />
