@@ -2,55 +2,61 @@
 export const ERROR = "ERROR";
 export const CLEAR_ERR0R = "CLEAR_ERR0R";
 import {
-  GET_ALL_NOTICIAS,
-  FILTER_NOTICIAS,
-  POST_NOTICIA,
-  CLEAN_NOTICIA_DETAIL,
-  NOTICIAS_PER_PAGE,
+   GET_ALL_NOTICIAS,
+   FILTER_NOTICIAS,
+   POST_NOTICIA,
+   CLEAN_NOTICIA_DETAIL,
+   NOTICIAS_PER_PAGE,
 } from "./noticiasActionTypes";
-import axios from 'axios'
+import axios from "axios";
 import {
-  GET_NOTICIA_DETAIL,
-  GET_NOTICIAS_BY_CATEGORY,
-  DELETE_NOTICE,
-  GET_NOTICE_BY_ID,
-  UPDATE_NOTICE,
+   GET_NOTICIA_DETAIL,
+   GET_NOTICIAS_BY_CATEGORY,
+   DELETE_NOTICE,
+   GET_NOTICE_BY_ID,
+   UPDATE_NOTICE,
 } from "./noticiasActionTypes";
 
 import {
-  GET_NOTICIAS_BY_TITLE,
-  CLEAN_FILTERS_NOTICIAS,
-  NOT_FOUND_NOTICIAS,
+   GET_NOTICIAS_BY_TITLE,
+   CLEAN_FILTERS_NOTICIAS,
+   NOT_FOUND_NOTICIAS,
 } from "./noticiasActionTypes";
 
 export function getAllNoticias() {
    return async (dispatch) => {
       try {
          const { data } = await axios(`/notices`);
-         
+
          dispatch({ type: GET_ALL_NOTICIAS, payload: data });
       } catch (error) {
-         dispatch({ type: ERROR, payload: "error al mostrar noticias" });
-         setTimeout(()=>{dispatch({ type: CLEAR_ERR0R });},5000)
+         dispatch({ type: ERROR, payload: "Error al mostrar las noticias" });
+         setTimeout(() => {
+            dispatch({ type: CLEAR_ERR0R });
+         }, 5000);
       }
    };
 }
 export function paginado(noticias) {
-  return async (dispatch) => {
-    dispatch({ type: NOTICIAS_PER_PAGE, payload: noticias });
-  };
+   return async (dispatch) => {
+      dispatch({ type: NOTICIAS_PER_PAGE, payload: noticias });
+   };
 }
 export function postNoticia(body) {
-   
    return async (dispatch) => {
-      try {      
-         
-         const { data } = await axios.post(`/notices`,body);
+      try {
+         const { data } = await axios.post(`/notices`, body);
          dispatch({ type: POST_NOTICIA, payload: data });
          return data;
       } catch (error) {
-         dispatch({ type: ERROR, payload: "Hubo un error al crear la noticia" });
-         setTimeout(()=>{dispatch({ type: CLEAR_ERR0R });},5000)      }
+         dispatch({
+            type: ERROR,
+            payload: "Hubo un error al crear la noticia",
+         });
+         setTimeout(() => {
+            dispatch({ type: CLEAR_ERR0R });
+         }, 5000);
+      }
    };
 }
 
@@ -58,7 +64,7 @@ export function getNoticiaDetail(id) {
    return async (dispatch) => {
       try {
          const { data } = await axios(`/notices/${id}`);
-         
+
          dispatch({ type: GET_NOTICIA_DETAIL, payload: data[0] });
       } catch (error) {
          return alert(error.message);
@@ -81,25 +87,23 @@ export function getNoticiasByTitle(title) {
          if (!title) {
             return dispatch({ type: CLEAN_FILTERS_NOTICIAS });
          }
-         const { data } = await axios(
-            `/notices/byTitlePartial/${title}`
-         );
+         const { data } = await axios(`/notices/byTitlePartial/${title}`);
 
-      return dispatch({ type: GET_NOTICIAS_BY_TITLE, payload: data.data });
-    } catch (error) {
-      return dispatch({ type: NOT_FOUND_NOTICIAS });
-    }
-  };
+         return dispatch({ type: GET_NOTICIAS_BY_TITLE, payload: data.data });
+      } catch (error) {
+         return dispatch({ type: NOT_FOUND_NOTICIAS });
+      }
+   };
 }
 
 export function cleanNoticiaDetail() {
-  return async (dispatch) => {
-    try {
-      dispatch({ type: CLEAN_NOTICIA_DETAIL });
-    } catch (error) {
-      return alert(error.message);
-    }
-  };
+   return async (dispatch) => {
+      try {
+         dispatch({ type: CLEAN_NOTICIA_DETAIL });
+      } catch (error) {
+         return alert(error.message);
+      }
+   };
 }
 export function filteredNoticias(startDate, endDate) {
    return async (dispatch) => {
@@ -117,9 +121,7 @@ export function filteredNoticias(startDate, endDate) {
 export const getNoticiasByCategory = (id) => {
    return async (dispatch) => {
       try {
-         const { data } = await axios(
-            `/notices/byCategory/${id}`
-         );
+         const { data } = await axios(`/notices/byCategory/${id}`);
          dispatch({ type: GET_NOTICIAS_BY_CATEGORY, payload: data });
       } catch (error) {
          alert(error.message);
@@ -127,57 +129,55 @@ export const getNoticiasByCategory = (id) => {
    };
 };
 export const deleteNotice = (id, body) => {
-  return async (dispatch) => {
-    try {
-      const { data } = await axios.patch(`/notices/inact/${id}`, body)
-      
-      dispatch({type: DELETE_NOTICE, payload: data})
-    } catch (error) {
-      alert(error.message);
-    }
-  };
+   return async (dispatch) => {
+      try {
+         const { data } = await axios.patch(`/notices/inact/${id}`, body);
+
+         dispatch({ type: DELETE_NOTICE, payload: data });
+      } catch (error) {
+         alert(error.message);
+      }
+   };
 };
 export const getNoticeById = (id) => {
-  return async (dispatch) => {
-    try {
-      const { data } = await axios(`/notices/${id}`)
-      
-      
-      dispatch({type: GET_NOTICE_BY_ID, payload: data[0]})
-    } catch (error) {
-      alert(error.message);
-    }
-  };
+   return async (dispatch) => {
+      try {
+         const { data } = await axios(`/notices/${id}`);
+
+         dispatch({ type: GET_NOTICE_BY_ID, payload: data[0] });
+      } catch (error) {
+         alert(error.message);
+      }
+   };
 };
 export const updateNoticia = (id, body) => {
-
-    return async (dispatch) => {
+   return async (dispatch) => {
       try {
-       const { data } = await axios.patch(`/notices/${id}`, body) 
+         const { data } = await axios.patch(`/notices/${id}`, body);
 
-       dispatch({type: UPDATE_NOTICE, payload: data[0]})
+         dispatch({ type: UPDATE_NOTICE, payload: data[0] });
       } catch (error) {
-        alert(error.message);
+         alert(error.message);
       }
-    }
-}
+   };
+};
 
-export function submitImgCloudinary(file){
-   return async(dispatch)=>{
+export function submitImgCloudinary(file) {
+   return async (dispatch) => {
       try {
          const formData = new FormData();
-         formData.append('file', file);
-         formData.append('upload_preset', 'Noticias');
-         formData.append('cloud_name', 'drpdobxfu');
-   
+         formData.append("file", file);
+         formData.append("upload_preset", "Noticias");
+         formData.append("cloud_name", "drpdobxfu");
+
          const { data } = await axios.post(
-           'https://api.cloudinary.com/v1_1/drpdobxfu/image/upload',
-           formData
-         );   
-         data.message= "Imagen subida con exito"
-        return data
-       } catch (error) {
-         return {message:"Error al subir la imagen"}
-       }
-   }
+            "https://api.cloudinary.com/v1_1/drpdobxfu/image/upload",
+            formData
+         );
+         data.message = "Imagen subida con exito";
+         return data;
+      } catch (error) {
+         return { message: "Error al subir la imagen" };
+      }
+   };
 }
