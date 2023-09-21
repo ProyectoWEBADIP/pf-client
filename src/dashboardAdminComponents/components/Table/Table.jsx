@@ -24,13 +24,13 @@ import {
 } from '../../../redux/usersActions/usersActions';
 import logo from '../../../assets/Escudo ADIP sin fondo.png';
 import './Table.css';
-import { Add, Close } from '@mui/icons-material';
+import { Add, Close, Warning } from '@mui/icons-material';
 import defaultPhoto from '../../../assets/Escudo ADIP sin fondo.png';
 import { format } from 'date-fns';
 import AlertError from '../../../assets/AlertError/AlertError';
 import SucessAlert from '../../../assets/AlertSuccess/AlertSuccess';
 import { registerUser } from '../../../redux/login-registerActions/loginActions';
-import { FormControl, TextField } from '@mui/material';
+import { Alert, FormControl, TextField } from '@mui/material';
 
 export function calcularEdad(birthday) {
   if (birthday) {
@@ -125,10 +125,6 @@ export default function FullFeaturedCrudGrid() {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
   };
 
-  const handleSaveClick = (id) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
-  };
-
   const handleCancelClick = (id) => () => {
     setRowModesModel({
       ...rowModesModel,
@@ -145,13 +141,21 @@ export default function FullFeaturedCrudGrid() {
   const [successAlert, setSuccessAlert] = React.useState('');
   const [showSuccess, setShowSuccess] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  const [acept, setAcept] = React.useState(false);
+  const [showAcept, setShowAcept] = React.useState(false);
+  const [userId, setUserId] = React.useState(null);
 
-  const processRowUpdate = async (newRow) => {
+  const handleSaveClick = (id) => () => {
+    setShowAcept(true);
+    setUserId(id);
+  };
+
+  const processRowUpdate = async (newRow, id) => {
     const updatedRow = { ...newRow, isNew: false };
-    const confirm = window.confirm(
-      'Esta accion modificará información importante del usuario, ¿estás seguro?'
-    );
-    if (confirm) {
+
+    if (acept) {
+      setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+      setAcept(false);
       setLoading(true);
       const userFound = await dispatch(getUserById(newRow.id));
       if (newRow) {
@@ -393,25 +397,26 @@ export default function FullFeaturedCrudGrid() {
     });
   }
   async function addNewUser(e) {
-      e.preventDefault();
-      const registered = await dispatch(registerUser(newUser));
-      if (registered?.registered) {
-        await dispatch(getAllUsers());
-        setSuccessAlert(registered.message);
-        setShowError(false);
-        setShowSuccess(true);
-        setTimeout(() => {
-          setShowSuccess(false);
-        }, 5000);
-      } else{
-        setShowSuccess(false)
-      setErrorAlert('Error al registrar el usuario. Verifique no repetir email ni nombre de  usuario.');
+    e.preventDefault();
+    const registered = await dispatch(registerUser(newUser));
+    if (registered?.registered) {
+      await dispatch(getAllUsers());
+      setSuccessAlert(registered.message);
+      setShowError(false);
+      setShowSuccess(true);
+      setTimeout(() => {
+        setShowSuccess(false);
+      }, 5000);
+    } else {
+      setShowSuccess(false);
+      setErrorAlert(
+        'Error al registrar el usuario. Verifique no repetir email ni nombre de  usuario.'
+      );
       setShowError(true);
       setTimeout(() => {
         setShowError(false);
       }, 5000);
-      }
-      
+    }
   }
   return (
     <Box
@@ -424,6 +429,40 @@ export default function FullFeaturedCrudGrid() {
         },
       }}
     >
+      {showAcept ? (
+        <div className="overlay">
+          <div className="acept-container">
+            <span>
+              <Warning fontSize="large" />
+              Esta acción modificará información importante del usuario, ¿seguro
+              que quieres continuar?
+              <Warning fontSize="large" />
+            </span>
+            <div className="continuar-cancelar-container">
+              <button
+                className="acept-button"
+                onClick={() => {
+                  setAcept(true);
+                  setRowModesModel({
+                    ...rowModesModel,
+                    [userId]: { mode: GridRowModes.View },
+                  });
+                  setShowAcept(false);
+                }}
+              >
+                Continuar
+              </button>
+              <button
+                onClick={() => {
+                  setShowAcept(false);
+                }}
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
       {showAddUser ? (
         <div className="overlay">
           <div className="addUser-container">
@@ -437,7 +476,7 @@ export default function FullFeaturedCrudGrid() {
                 }}
               />
             </div>
-              <h1>Ingresa los datos del usuario a registrar</h1>
+            <h1>Ingresa los datos del usuario a registrar</h1>
             <form onSubmit={addNewUser} action="">
               <label htmlFor="">Nombre de usuario:</label>
               <div className="input-email-container">
@@ -468,7 +507,11 @@ export default function FullFeaturedCrudGrid() {
                   name="password"
                 />
               </div>
-              <input className='add-user-input' type="submit" value={'Registrar usuario'} />
+              <input
+                className="add-user-input"
+                type="submit"
+                value={'Registrar usuario'}
+              />
             </form>
           </div>
         </div>
@@ -567,9 +610,7 @@ export default function FullFeaturedCrudGrid() {
 
               <span className="mainSpan">
                 Categorías:{' '}
-                <span className="infoSpan">
-                  Acá irán las categorias donde participa.
-                </span>
+                <span className="infoSpan">No registra categorías.</span>
               </span>
 
               <span className="mainSpan">
@@ -614,7 +655,7 @@ export default function FullFeaturedCrudGrid() {
           </span>
         </div>
         <DataGrid
-        className='tablaDataGrid'
+          className="tablaDataGrid"
           localeText={{
             noRowsLabel: 'No se ha encontrado datos.',
             noResultsOverlayLabel: 'No se ha encontrado ningún resultado',
@@ -677,7 +718,7 @@ export default function FullFeaturedCrudGrid() {
             'filterOperator<': '<',
             'filterOperator<=': '<=',
           }}
-          sx={{ textAlign: 'justify',height:650}}
+          sx={{ textAlign: 'justify', height: 650 }}
           rows={users ? users : noRows}
           columns={columns}
           rowHeight={30}

@@ -36,7 +36,7 @@ const Navbar = ({ themeMode, toggleThemeMode }) => {
               themeMode={themeMode}
               toggleThemeMode={toggleThemeMode}
             />
-            <SearchBar />
+            {/* <SearchBar /> */}
             {/* <Notificaciones /> */}
             <AccountMenu />
           </div>

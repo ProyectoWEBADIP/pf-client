@@ -6,6 +6,10 @@
   height: 100%;
   justify-content: space-evenly;
 }
+
+.Sidebar.dark{
+  color: white;
+}
 .logoAndMenu {
   display: flex;
   flex-direction: column;
@@ -30,9 +34,7 @@
   height: 3rem;
   border-radius: 50%;
 }
-.logo > span > span {
-  color: var(--orange);
-}
+
 /* menu*/
 .menu {
   display: flex;

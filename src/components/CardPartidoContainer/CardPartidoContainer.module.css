@@ -1,13 +1,23 @@
 .cont {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  width: 100vw;
+  flex-direction: column;
+  margin-left: 10%;
 }
 
 .contCard {
   border: 2px;
   border-color: black;
   margin: 20px;
+  display: flex;
+  justify-content: center;
+}
+.separador{
+  display: flex;
+  justify-content: center;
+ margin-top: 10%;
 }
 .separador>img{
   width: 5rem;
