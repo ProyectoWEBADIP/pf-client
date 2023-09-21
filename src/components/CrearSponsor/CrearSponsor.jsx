@@ -5,6 +5,7 @@ import { postSponsor,getAllSponsor } from "../../redux/sponsorActions/sponsorAct
 import validation from "./validation";
 import { useEffect } from "react";
 import { submitImgCloudy } from "../../redux/sponsorActions/sponsorActions";
+import AlertSuccess from "../../assets/AlertSuccess/AlertSuccess";
 const CrearSponsor = () => {
     const [input,setInput]= useState({nombre:"",img:"",active:true});
     const [imagen,setImagen]=useState("");    
@@ -22,19 +23,18 @@ const CrearSponsor = () => {
     const handleSubmit=(event)=>{
         event.preventDefault();        
         const form= document.getElementById("formulario")
+
         const body={
             title:input.nombre,
             image:input.img,
             active:input.active,
             location: 0,
             user_id:userId
-        }        
+        }
 
-
-        if(cloudinary){            
+        if(cloudinary && input.nombre!==""){            
             dispatch(postSponsor(body))
             form.reset();
-
             setInput({
                 nombre:"",
                 img:"",                
@@ -50,8 +50,7 @@ const CrearSponsor = () => {
 
     }
 
-    const handleChange=(event)=>{
-        
+    const handleChange=(event)=>{        
         event.preventDefault();
         setInput({
             ...input,
@@ -61,17 +60,19 @@ const CrearSponsor = () => {
         setError(validation({...input,[event.target.name] : event.target.value}))  
 
     }
-
+    const [response,setResponse]=useState(false)
+    const[loading,setLoading]=useState(false)
     
     const handleImgChange= async(event)=>{
-
         const file=event.target.files[0]
         setImagen(URL.createObjectURL(file))        
         setInput({...input, img: file})  
-        
+        setLoading(true)
         const cloudiResponde= await dispatch(submitImgCloudy(file))
+        setLoading(false)
+        setResponse(<AlertSuccess success={cloudiResponde.message}/>)
+        setTimeout(()=>{setResponse(false)},3000)
         setInput({...input,img:cloudiResponde.secure_url})
-        console.log(input.img);
         setCloudinary(true)
     }
 
@@ -82,6 +83,8 @@ const CrearSponsor = () => {
     <div className="contenedor_form">
         <div className="cont_form_sponsor">
             <form className="et_form_sponsor" id="formulario" onSubmit={handleSubmit}  >
+                {loading?<div className="loader_sponsor_container"><span className="loader"></span></div>:null}
+                {response?<div className="response-succes-sponsor">{response}</div>:null}
                 <h2 className="h2_form_ponsor">Aqui crearas tu sponsor</h2>
 
                 <div className="name_sponsor_form">
@@ -104,10 +107,7 @@ const CrearSponsor = () => {
                 <button className="buton_create_sponsor" type="submit">Crear sponsor</button>
             </form>
         </div>      
-        {/* <div className="contenido_botones_">
-            <button className="buton_crear_sponsor">Lista Sponsor</button>
-            <button className="buton_crear_sponsor">Editar Sponsor</button>
-        </div> */}
+      
     </div>
   )
 }
