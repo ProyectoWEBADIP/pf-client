@@ -346,163 +346,168 @@ export default function Perfil() {
             </form>
           </div>
         ) : (
-          //!||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+          //!|||||||||||||||||||||||||perfil actualizado|||||||||||||||||||||||||||||||||||||
           <Box className="profileContainer">
             {!showEditProfile ? null : (
               <UpdateProfile perfilUsuario={perfilUsuario} />
             )}
             <div>
-            <Grid container className="">
-              <Grid item xs={12} sm={6} md={8}>
-                <Box
-                  className="centerProfileContainer"
-                  sx={{
-                    boxShadow: 3,
-                    width: "104vh",
-                    height: "auto",
-                    bgcolor: (theme) =>
-                      theme.palette.mode === "dark" ? "#101010" : "#fff",
-                    color: (theme) =>
-                      theme.palette.mode === "dark" ? "grey.300" : "grey.800",
-                    p: 2,
-                    borderRadius: 2,
-                    textAlign: "center",
-                    fontSize: "0.875rem",
-                    fontWeight: "700",
-                  }}
-                >
-                  <Box className="portadaContainer">
-                    <img
-                      src={
-                        perfilUsuario?.image
-                          ? perfilUsuario?.image
-                          : defaultPortada
-                      }
-                      alt=""
-                    />
-                    <img
-                      src={
-                        perfilUsuario?.profile?.image
-                          ? perfilUsuario?.profile?.image
-                          : imgDefault
-                      }
-                      alt=""
-                    />
-                  </Box>
-                  <Box ml={28} mt={2} position="absolute" zIndex={2}>
-                  {role === "super_admin" && perfilUsuario?.profile ? (
-                    <Box>
-                      <Link to={"/auth/dashboard"}>
-                        <Button variant="contained">Administrador</Button>
-                      </Link>
+              <Grid container className="">
+                <Grid item xs={12} sm={6} md={8}>
+                  <Box
+                    className="centerProfileContainer"
+                    sx={{
+                      boxShadow: 3,
+                      width: "104vh",
+                      height: "auto",
+                      bgcolor: (theme) =>
+                        theme.palette.mode === "dark" ? "#101010" : "#fff",
+                      color: (theme) =>
+                        theme.palette.mode === "dark" ? "grey.300" : "grey.800",
+                      p: 2,
+                      borderRadius: 2,
+                      textAlign: "center",
+                      fontSize: "0.875rem",
+                      fontWeight: "700",
+                    }}
+                  >
+                    <Box className="portadaContainer">
+                      <img
+                        src={
+                          perfilUsuario?.image
+                            ? perfilUsuario?.image
+                            : defaultPortada
+                        }
+                        alt=""
+                      />
+                      <img
+                        src={
+                          perfilUsuario?.profile?.image
+                            ? perfilUsuario?.profile?.image
+                            : imgDefault
+                        }
+                        alt=""
+                      />
                     </Box>
-                  ) : null}
-                  </Box>
-                  
-                  <Box className="nameAndEditContainer">
-                    <Box className="editButtonContainer">
-                    <h1>
-                      {perfilUsuario?.profile?.firstName}{" "}
-                      {perfilUsuario?.profile?.lastName}
-                    </h1>
-                      <Box
-                        onClick={() => {
-                          dispatch(showProfileEdit());
-                        }}
-                        className="Editbutton"
-                      >
-                        <Edit />
-                      </Box>
-                    </Box>
-                  </Box>
-
-                  <Box className="perfilInfoContainer">
-                    <Box className="detallesContainer">
-                    <Box className="carnet-container" >
-                      <Box className="gen-carnet-container">
-                        {perfilUsuario.active && (
-                          <Link
-                            to={`/QrCarnetDigital/${perfilUsuario.profile.dni}`}
-                          >
-                            <Button variant="contained">
-                              {" "}
-                              <QrCode2Icon fontSize="large" />
-                            </Button>
+                    <Box ml={28} mt={2} position="absolute" zIndex={2}>
+                      {role === "super_admin" && perfilUsuario?.profile ? (
+                        <Box>
+                          <Link to={"/auth/dashboard"}>
+                            <Button variant="contained">Administrador</Button>
                           </Link>
-                        )}
-                      </Box>
+                        </Box>
+                      ) : null}
                     </Box>
-                      <span className="detallesSpan">Detalles</span>
-                      <Box className="dataContainers">
-                        <Email /> <span>{perfilUsuario?.email}</span>
-                      </Box>
-                      <Box className="dataContainers">
-                        <BadgeIcon /> <span>{perfilUsuario?.profile?.dni}</span>
-                      </Box>
-                      <Box className="dataContainers">
-                        <CakeIcon />
-                        <span>
-                          {perfilUsuario?.profile?.birthDate.split("T")[0]}
-                        </span>
-                      </Box>
-                      <Box className="dataContainers">
-                        <LocalPhoneIcon />
-                        <span>{perfilUsuario?.profile?.phone}</span>
-                      </Box>
-                      <Box className="dataContainers">
-                        {perfilUsuario?.profile?.gender === "Femenino" ? (
-                          <FemaleIcon />
-                        ) : (
-                          <MaleIcon />
-                        )}
-                        <span>{perfilUsuario?.profile?.gender}</span>
-                      </Box>
-                    </Box>
-                    <Box className="estadoDeudaContainer">
-                      {perfilUsuario.profile.saldo > 0 ? (
-                        <Box className="estadodeuda-container">
-                          <span className="detallesSpan">Estado de cuenta</span>
 
-                          <span className="deuda-span">
-                            <AttachMoneyIcon fontSize="large" />
-                            Deuda actual: ${perfilUsuario.profile.saldo}
-                          </span>
-                          <Box className="mercadopagoContainer">
-                            {mpLoading ? (
-                              <Box className="loader-barra-container">
-                                <span className="loader-barra-mp"></span>
-                              </Box>
-                            ) : preferenceId ? (
-                              <Box>
-                                <Wallet initialization={{ preferenceId }} />
-                              </Box>
-                            ) : (
-                              <Box className="pagarContainer">
-                                {" "}
-                                <button onClick={handleBuy}>
-                                  Pagar con MercadoPago
-                                </button>
-                              </Box>
+                    <Box className="nameAndEditContainer">
+                      <Box className="editButtonContainer">
+                        <h1>
+                          {perfilUsuario?.profile?.firstName}{" "}
+                          {perfilUsuario?.profile?.lastName}
+                        </h1>
+                        <Box
+                          onClick={() => {
+                            dispatch(showProfileEdit());
+                          }}
+                          className="Editbutton"
+                        >
+                          <Edit />
+                        </Box>
+                      </Box>
+                    </Box>
+
+                    <Box className="perfilInfoContainer">
+                      <Box className="detallesContainer">
+                        <Box className="carnet-container">
+                          <Box className="gen-carnet-container">
+                            {perfilUsuario.active && (
+                              <Link
+                                to={`/QrCarnetDigital/${perfilUsuario.profile.dni}`}
+                              >
+                                <Button variant="contained">
+                                  {" "}
+                                  <QrCode2Icon fontSize="large" />
+                                </Button>
+                              </Link>
                             )}
                           </Box>
                         </Box>
-                      ) : (
-                        <Box className="aldia-container">
-                          <span className="detallesSpan">Estado de cuenta</span>
-                          <Box>
-                            <img
-                              src="https://res.cloudinary.com/drpdobxfu/image/upload/v1695234309/utawyobyj6ujarsa52hm.png"
-                              alt=""
-                            />
-                            <span>Usted no presenta deudas.</span>
-                          </Box>
+                        <span className="detallesSpan">Detalles</span>
+                        <Box className="dataContainers">
+                          <Email /> <span>{perfilUsuario?.email}</span>
                         </Box>
-                      )}
+                        <Box className="dataContainers">
+                          <BadgeIcon />{" "}
+                          <span>{perfilUsuario?.profile?.dni}</span>
+                        </Box>
+                        <Box className="dataContainers">
+                          <CakeIcon />
+                          <span>
+                            {perfilUsuario?.profile?.birthDate.split("T")[0]}
+                          </span>
+                        </Box>
+                        <Box className="dataContainers">
+                          <LocalPhoneIcon />
+                          <span>{perfilUsuario?.profile?.phone}</span>
+                        </Box>
+                        <Box className="dataContainers">
+                          {perfilUsuario?.profile?.gender === "Femenino" ? (
+                            <FemaleIcon />
+                          ) : (
+                            <MaleIcon />
+                          )}
+                          <span>{perfilUsuario?.profile?.gender}</span>
+                        </Box>
+                      </Box>
+                      <Box className="estadoDeudaContainer">
+                        {perfilUsuario.profile.saldo > 0 ? (
+                          <Box className="estadodeuda-container">
+                            <span className="detallesSpan">
+                              Estado de cuenta
+                            </span>
+
+                            <span className="deuda-span">
+                              <AttachMoneyIcon fontSize="large" />
+                              Deuda actual: ${perfilUsuario.profile.saldo}
+                            </span>
+                            <Box className="mercadopagoContainer">
+                              {mpLoading ? (
+                                <Box className="loader-barra-container">
+                                  <span className="loader-barra-mp"></span>
+                                </Box>
+                              ) : preferenceId ? (
+                                <Box>
+                                  <Wallet initialization={{ preferenceId }} />
+                                </Box>
+                              ) : (
+                                <Box className="pagarContainer">
+                                  {" "}
+                                  <button onClick={handleBuy}>
+                                    Pagar con MercadoPago
+                                  </button>
+                                </Box>
+                              )}
+                            </Box>
+                          </Box>
+                        ) : (
+                          <Box className="aldia-container">
+                            <span className="detallesSpan">
+                              Estado de cuenta
+                            </span>
+                            <Box>
+                              <img
+                                src="https://res.cloudinary.com/drpdobxfu/image/upload/v1695234309/utawyobyj6ujarsa52hm.png"
+                                alt=""
+                              />
+                              <span>Usted no presenta deudas.</span>
+                            </Box>
+                          </Box>
+                        )}
+                      </Box>
                     </Box>
                   </Box>
-                </Box>
+                </Grid>
               </Grid>
-            </Grid>
             </div>
           </Box>
         )
