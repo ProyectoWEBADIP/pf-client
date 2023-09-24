@@ -427,3 +427,5 @@ export default function CrearNoticia() {
       </div>
    );
 }
+
+// Path: pf-client/src/components/CraerNoticia/CrearNoticia.jsx
