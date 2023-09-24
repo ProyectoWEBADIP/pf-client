@@ -19,8 +19,8 @@ const UpDateSponsor = () => {
     const [sure,setSure]=useState(false)   
     const [location,setLocation]=useState("");  
     const [hayCambios,setHayCambios]=useState(false);
-    const imgHome="https://res.cloudinary.com/drpdobxfu/image/upload/v1694726718/sponsor/Captura_de_pantalla_2023-09-14_181923_kct7tp.png";
-    const imgDetalle="https://res.cloudinary.com/drpdobxfu/image/upload/v1694726718/sponsor/Captura_de_pantalla_2023-09-14_181954_t0gc1z.png";
+    const imgHome="https://res.cloudinary.com/drpdobxfu/image/upload/v1695303663/sponsor/Captura_de_pantalla_2023-09-14_181923_fxljsv.png";
+    const imgDetalle="https://res.cloudinary.com/drpdobxfu/image/upload/v1695303666/sponsor/Captura_de_pantalla_2023-09-14_181954_wphd7x.png";
     const userId=localStorage.userId;    
     const [response,setResponse]=useState(false)
     const [loading,setLoading]=useState(false)
@@ -107,9 +107,10 @@ const UpDateSponsor = () => {
       event.preventDefault()
 
       //setea en 0 la location del sponsor que quiere pisar
-      dispatch(updateSponsor(sponsorPisado.id,{location:0}))
-      alert(`Haz quitado a ${sponsorPisado.title}, para volver a mostrarlo debes darle una ubicacion`)      
-    
+      dispatch(updateSponsor(sponsorPisado.id,{location:0}))      
+      setErrorAlert(`Haz quitado a ${sponsorPisado.title}, para volver a mostrarlo debes darle una ubicacion`)
+        setShowError(true)
+        setTimeout(()=>{setShowError(false)},4000)
       //este es el psonsor que se mostrara
       setState({...state, location:sponsorPisado.location})    
       
@@ -186,18 +187,18 @@ const UpDateSponsor = () => {
       <div className='cont_update_sponsor'>
                                           {/* ----------------------------carta izquierda */}
           <div className='cardIzq_update_sponsor'>
-            <select onChange={handleSelect} className="select_sponsor_editar">
+            <select onChange={handleSelect} className="select_sponsor-_editar">
               <option value={-1} name="allsponsor">Seleccione sponsor a editar</option>
               {sponsor?.map((e,index)=>{
                 return(
-                  <option key={e.id} name={index} value={index}>Nombre:{e.title} Ubicacion:{e.location}</option>
+                  <option key={e.id} name={index} value={index}>Nombre:{e.title.split('',10)} Ubicacion:{e.location}</option>
                 )
               })}
             </select>
             <p className='texto_sponsor_ej'>Aqui te damos un ejemplo de como funcionan las ubicaciones</p>
               <div className='maqueta_ubicar_sponsor'>                
-                <img className="ejemplo" src={imgHome} alt="home" />
-                <img className="ejemplo" src={imgDetalle} alt="detalleNoticia" />
+                <img className="ejemplo_update_sponsor" src={imgHome} alt="home" />
+                <img className="ejemplo_update_sponsor" src={imgDetalle} alt="detalleNoticia" />
               </div>
               
 

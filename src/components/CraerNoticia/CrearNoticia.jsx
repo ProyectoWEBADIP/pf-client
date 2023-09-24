@@ -73,102 +73,110 @@ export default function CrearNoticia() {
    const [response, setResponse] = useState(false);
    const [loading, setLoading] = useState(false);
 
-   const handleImageChange = async (event) => {
-      const file = event.target.files[0];
-
-      setImageURL(URL.createObjectURL(file));
-
-      setInput({
-         ...input,
-         imagen: file,
-      });
-      setLoading(true);
-      const cloudiResponse = await dispatch(submitImgCloudinary(file));
-      setCanCreateNotice(true);
-      setError({ ...error, imagen: "" });
-      setLoading(false);
-      setResponse(<AlertSuccess success={cloudiResponse.message} />);
+  const handleImageChange= async(event)=>{
+    const file =  event.target.files[0];         
+    
+    setImageURL(URL.createObjectURL(file));  
+    
+    setInput({
+      ...input,
+      imagen: file
+    }) 
+    setLoading(true)  
+     const cloudiResponse= await dispatch(submitImgCloudinary(file))
+     setCanCreateNotice(true)
+     setError({...error,imagen:""})
+     setLoading(false)
+     setResponse(<AlertSuccess success={cloudiResponse.message}/>)
+     setTimeout(()=>{setResponse(false)},3000)
+     setInput({...input, imagen:cloudiResponse.secure_url})
+     
+   
+  }
+    const handleSelect=(e)=>{
+     const idCategory= +allCategorias[e.target.value].id;     
+     const nameCategory=allCategorias[e.target.value].name;   
+     const obj= {id:idCategory,name:nameCategory}    
+     const tieneID = category.some(e => e.id === obj.id)
+      
+     if(category.length>3){
+      setErrorAlert('Maximo 4 categorias');
+      setShowError(true);
       setTimeout(() => {
-         setResponse(false);
-      }, 3000);
-      setInput({ ...input, imagen: cloudiResponse.secure_url });
-   };
-   const handleSelect = (e) => {
-      const idCategory = +allCategorias[e.target.value].id;
-      const nameCategory = allCategorias[e.target.value].name;
-      const obj = { id: idCategory, name: nameCategory };
-      const tieneID = category.some((e) => e.id === obj.id);
-
-      if (category.length > 4) {
-         alert("Maximo 4 categorias");
-      } else if (!tieneID) {
-         setCategory([
-            ...category,
-            {
-               id: idCategory,
-               name: nameCategory,
-            },
-         ]);
-         setIncluye("");
-      } else if (tieneID) {
-         setIncluye("*Esta categoria ya fue seleccionada*");
+        setShowError(false);
+      }, 5000);
+     } else if(!tieneID){
+       setCategory([
+         ...category,
+         {         
+        id: idCategory,
+        name:nameCategory
+        }
+      ])   
+      setIncluye("")
+      }else if(tieneID){
+        
+       setIncluye("*Esta categoria ya fue seleccionada*")
+        
       }
 
-      setError(
-         validation(
-            {
-               ...input,
-               [e.target.name]: e.target.value,
-            },
-            e.target.name
-         )
-      );
-   };
+      setError(validation(
+        {
+            ...input, 
+            [e.target.name]: e.target.value
+        },e.target.name)          
+      )  
+      
+    }    
 
-   const deleteCategory = (e) => {
-      const categoryFilter = category.filter((c) => c !== e);
-      //los que no quiere eliminar
-      setCategory([...categoryFilter]);
-      if (categoryFilter.length == 0) {
-         setError({
-            ...error,
-            categoria: "*Campo obligatorio*",
-         });
+    const deleteCategory= (e)=>{
+      const categoryFilter= category.filter((c)=>c !== e)      
+      //los que no quiere eliminar   
+      setCategory([...categoryFilter])        
+      if(categoryFilter.length==0){
+        setError({
+          ...error,
+          categoria:"*Campo obligatorio*"
+        }        
+        )
       }
-   };
+     
+    }
+  
 
-   const handleSubmit = async (event) => {
-      event.preventDefault();
-      const form = document.getElementById("formulario");
-      const ids = category.map((item) => item.id);
-      const body = {
-         title: input.titulo,
-         resume: input.resumen,
-         content: input.descripcion,
-         image: input.imagen,
-         categoryIds: ids,
-         active: true,
-         user_id: userId,
-      };
-
-      let disable = true;
-      for (const err in error) {
-         if (error[err] === "") {
-            disable = false;
-         } else {
-            disable = true;
-            break;
-         }
+  const handleSubmit = async(event) => {
+   
+    event.preventDefault();
+    const form = document.getElementById('formulario');
+    const ids = category.map((item) => item.id); 
+    const body = {
+      title: input.titulo,
+      resume: input.resumen,
+      content: input.descripcion,
+      image: input.imagen,
+      categoryIds: ids,
+      active: true,
+      user_id:userId
+    };
+    
+    let disable=true 
+    for(const err in error){
+      if(error[err]===""){
+        disable=false
+      }else{
+        disable=true
+        break;
       }
-
-      if (canCreateNotice && !disable) {
-         try {
-            setLoading(true);
-            const data = await dispatch(postNoticia(body));
-            setLoading(false);
-            if (data) {
-               form.reset();
-               setImageURL("");
+    }
+    console.log(category.length>0);
+    if (canCreateNotice && !disable && category.length>0) {
+      try {
+        setLoading(true)
+       const data= await dispatch(postNoticia(body));     
+       setLoading(false)  
+        if(data){
+        form.reset();
+        setImageURL('');
 
                setInput({
                   titulo: "",
@@ -248,55 +256,54 @@ export default function CrearNoticia() {
                </div>
             ) : null}
 
-            <form id="formulario" onSubmit={handleSubmit}>
-               {showError ? (
-                  <div className="alerts">
-                     <AlertError error={errorAlert} />
-                  </div>
-               ) : null}
-               {showSuccess ? (
-                  <div className="alerts">
-                     <SucessAlert success={successAlert} />
-                  </div>
-               ) : null}
-               <TextField
-                  label="Título"
-                  helperText=" "
-                  type="text"
-                  name="titulo"
-                  value={input.titulo}
-                  required
-                  onChange={handleChange}
-                  fullWidth
-                  sx={{ color: "red" }}
-               />
-               {error.titulo && (
-                  <Typography variant="body1">{error.titulo}</Typography>
-               )}
+          <form id="formulario" onSubmit={handleSubmit}>
 
-               <TextField
-                  label="Resumen"
-                  type="text"
-                  name="resumen"
-                  value={input.resumen}
-                  required
-                  onChange={handleChange}
-                  fullWidth
-               />
-               {error.resumen && (
-                  <Typography variant="body1">{error.resumen}</Typography>
-               )}
+            {showError ? (
+              <div className="alerts">
+                <AlertError error={errorAlert} />
+              </div>
+            ) : null}
+            {showSuccess ? (
+              <div className="alerts">
+                <SucessAlert success={successAlert} />
+              </div>
+            ) : null}
+           <div className='titulo-input-notice'>
+           <input
+             placeholder='Titulo de la noticia'          
+              type="text"
+              name="titulo"
+              className='title-crearNotice'
+              value={input.titulo}
+              required
+              onChange={handleChange} 
+                            
+            />
+            {error.titulo && (
+              <p className='error-notice-form'>{error.titulo}</p>
+            )}
+           </div>
 
-               <div>
-                  <select
-                     className="select_category"
-                     value="def"
-                     onChange={handleSelect}
-                     name="categoria"
-                  >
-                     <option name="categoria" value="def">
-                        Seleccione categoria
-                     </option>
+           <div className='cont_resumen_notice_'>
+           <input
+             placeholder='Resumen'
+              type="text"
+              name="resumen"
+              value={input.resumen}
+              required
+              onChange={handleChange}
+                         
+            />
+            {error.resumen && (
+              <p className='error-notice-form'>{error.resumen}</p>
+            )}
+           </div>
+
+            <div className='div-selec-notice-'>
+              <select  className='select_category' value="def" onChange={handleSelect} name="categoria">
+                <option name="categoria" value="def">
+                  Seleccione categoria
+                </option>
 
                      {allCategorias?.map((c, index) => {
                         return (
@@ -324,87 +331,56 @@ export default function CrearNoticia() {
                   })}
                </div>
 
-               <br />
-               <div className="cont_crearCate_form">
-                  <TextField
-                     onChange={handleCategoryChange}
-                     label="Crear categoria"
-                     type="text"
-                     name="crear"
-                     sx={{ mr: 3 }}
-                  />
-                  {error.crear && <p>{error.crear}</p>}
-                  <Button
-                     className="button_crear_cate"
-                     onClick={crearCategoria}
-                  >
-                     Crear
-                  </Button>
-               </div>
+          
+            <div className='cont_moverInput_form'>
+              <input
+                onChange={handleCategoryChange}           
+                type="text"
+                name="crear"
+                
+              />
+              {error.crear && <p>{error.crear}</p>}
+              <Button className='button_crear_cate' onClick={crearCategoria}>Crear</Button>
+            </div>           
 
-               <br />
+           <div className='cont_moverInput_form'>
+              <input
+              placeholder='Descripcion'
+               type="text" name="descripcion" value={input.descripcion} required onChange={handleChange} />
+                {error.descripcion && <p>{error.descripcion}</p>}
+           </div>
+         
 
-               <TextField
-                  label="Descripción"
-                  type="text"
-                  name="descripcion"
-                  value={input.descripcion}
-                  required
-                  onChange={handleChange}
-               />
-               {error.descripcion && (
-                  <Typography variant="body1">{error.descripcion}</Typography>
-               )}
-               <br />
-               <br />
+            <div className='cont_selecImg_div'>
+            <input type="file" name="imagen" accept="image/*" onChange={handleImageChange}/>            
+            </div>        
+            
+              <div className='cont_img_notices_render'>
+                <img className='renderiza_img_notices' src={ imageURL? imageURL : imgDefault} alt="img"/>     
+              </div>      
+                     
 
-               <div className="cont_selecImg_div">
-                  <TextField
-                     type="file"
-                     name="imagen"
-                     accept="image/*"
-                     onChange={handleImageChange}
-                  />
-               </div>
+            <div className='div_submit_notice'>
+            <Button className='button_submit_notices' type="submit" variant="outlined" value="Crear Noticia">Crear noticia</Button>
+            </div>
+          </form>
+      </div>
 
-               <div className="cont_img_notices_render">
-                  <img
-                     className="renderiza_img_notices"
-                     src={imageURL ? imageURL : imgDefault}
-                     alt="img"
-                  />
-               </div>
-
-               <div className="div_submit_notice">
-                  <Button
-                     className="button_submit_notices"
-                     type="submit"
-                     variant="outlined"
-                     value="Crear Noticia"
-                  >
-                     Crear noticia
-                  </Button>
-               </div>
-            </form>
-         </div>
-
-         {/*------------------------- Previsualizar noticia ------------------------------------------------------------*/}
-         <div className="cont_previsu_div">
-            <Typography variant="headline">{input.titulo}</Typography>
-            <br />
+              
+        {/*------------------------- Previsualizar noticia ------------------------------------------------------------*/}
+          <div className='cont_previsu_div'>       
+            
+            <p className='title-previsu-notice'>{input.titulo}</p>
+                
 
             <div className="visualiza_resumen_notice">
                <Typography variant="body1">{input.resumen}</Typography>
             </div>
-            <br />
+                  
 
-            <div>
-               <img
-                  src={imageURL ? imageURL : imgDefault}
-                  alt="img"
-                  style={{ width: "300px", height: "auto", objectFit: "cover" }}
-               />
-            </div>
+            <div className='img_previsualiza-notice'>
+            <img src={ imageURL? imageURL : imgDefault} alt="img" style={{ width: '300px', height: 'auto', objectFit: "cover"}}/>
+            </div>   
 
             <div className="descripcion_previsualiza">
                <Typography variant="headline">{input.descripcion}</Typography>

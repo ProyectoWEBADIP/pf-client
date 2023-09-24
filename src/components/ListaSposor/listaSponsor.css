@@ -1,51 +1,52 @@
 .dash_img_sponsor{
    width: 100%;
    height: 100%;
-   padding-top: 0.5rem;
-   padding-bottom: 0.5rem;
-   padding-right: 1rem;      
+ 
 }
 .terciario_sponsor_cont{
-    height: 30rem;
+    width: 67vw;
+    height: 80vh;
     overflow: auto;
-    width: 46.1rem;
 }
 .cont_map_sponsor{
     display: flex;    
     background-color: #FCC8A5;
-    width: 45rem; 
+    width: 65vw;
     
 }
-.tabla_sponsor_{
-    width: 10rem;
-    border: 1.3px solid ;
-    padding-left: 1rem; 
-    height: 3rem;  
+.tabla_sponsor_img{     
+    border: 1.3px solid ; 
     align-items: center;
     display: flex;
+    width: 25vw;
+    height: 11vh;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    padding-left: 1.5vw;
+    padding-right: 1vw;
 }  
 .tabla_sponsor_title{
-    width: 25rem;
+    width: 30vw;
+    height: 11vh; 
     border: 1.3px solid ;
-    padding-left: 1rem; 
-    height: 3rem;  
+    padding-left: 1.5vw; 
     align-items: center;
     display: flex;
 }          
 .tabla_sponsor_nro{
-width: 5rem;
-border: 1.3px solid ;
-text-align: center;
-height: 3rem; 
-align-items: center;
-display: flex; 
-justify-content: center;
+    height: 11vh;
+    width: 5vw;
+    border: 1.3px solid ;
+    text-align: center;
+    align-items: center;
+    display: flex; 
+    justify-content: center;
 }
 .cont_titulos_sponsor{
     display: flex;
     align-items: center;  
     background-color: #FCA61F;
-    width: 45rem;
+    width: 65vw;
 }
 .secundario_sponsor_{
    background-color: rgb(190, 169, 153);
@@ -57,6 +58,9 @@ justify-content: center;
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    width: 15rem;  
-   
+    width: 15rem;    
 }
+.h4-updateSponsor{
+    font-size: 1.5vw;
+}
+

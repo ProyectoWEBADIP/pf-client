@@ -10,11 +10,11 @@ export default function UsuarioBaneado() {
 
   function HandleClick() {
     emailjs.send(
-      "service_8c6uo6a",
-      "template_p35w6dm",
+      "service_3otzb8r",
+      "template_c8wlhci",
       { to_email: "", 
         message: message  },
-      "LVu_qcdfDk8ci54aS"
+      "VnCsNpxaskLGMjw4N"
     );
   }
     
