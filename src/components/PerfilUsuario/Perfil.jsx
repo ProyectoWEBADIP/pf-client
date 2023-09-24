@@ -364,7 +364,7 @@ export default function Perfil() {
                   {!showEditProfile ? null : (
                      <UpdateProfile perfilUsuario={perfilUsuario} />
                   )}
-                  <div>
+                  <div className="divi" >
                      <Grid container className="">
                         <Grid item xs={12} sm={6} md={8}>
                            <Box
