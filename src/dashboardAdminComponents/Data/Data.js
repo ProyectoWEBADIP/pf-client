@@ -34,6 +34,10 @@ export const SidebarData = [
     icon: WallpaperSharpIcon,
     heading: "Sponsor"
   },
+  {
+    icon: NewspaperIcon,
+    heading: "Partidos",
+ },
 ]
 
 export const cardsData = [
