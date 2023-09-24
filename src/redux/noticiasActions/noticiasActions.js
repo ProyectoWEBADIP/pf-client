@@ -49,9 +49,10 @@ export function postNoticia(body) {
          dispatch({ type: POST_NOTICIA, payload: data });
          return data;
       } catch (error) {
+         console.log(error.response.data.message);
          dispatch({
             type: ERROR,
-            payload: "Hubo un error al crear la noticia",
+            payload:error.response.data.message ,
          });
          setTimeout(() => {
             dispatch({ type: CLEAR_ERR0R });
