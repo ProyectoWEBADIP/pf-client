@@ -11,7 +11,7 @@ export default function Validation(date) {
   //*------------------ Verificación de la longitud del nombre ------------!
 
   if (date.username.length < 8 || date.username.length > 15) {
-    error.username = "El nombre de usuario debe ser entre 8 y 15 caracteres";
+    error.username = "Usa entre 8 y 15 caracteres";
   }
 
   //*------------------ Verificación de la longitud del apellido -----------!
