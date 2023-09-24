@@ -59,8 +59,8 @@ const RecuperarContraseña = () => {
       setCodigoVerificacionGenerado(codigoRecuperacion);
 
       emailjs.send(
-        "service_ckm9srh",
-        "template_z7oue8n",
+        "service_3otzb8r",
+        "template_2xvt50e",
         {
           asunto: " Recuperación de Contraseña - Código de Verificación",
           to_email: emailRecuperacion,
@@ -70,7 +70,7 @@ const RecuperarContraseña = () => {
           verification_code: codigoRecuperacion,
           footer: `Utiliza este código en nuestra página de recuperación de contraseña para crear una nueva contraseña segura y acceder nuevamente a tu cuenta. Recuerda que este código de verificación es válido por un tiempo limitado, así que te recomendamos utilizarlo cuanto antes. Si no solicitaste esta acción o tienes alguna pregunta, por favor, contáctanos a través de Correo de Soporte.`,
         },
-        "Vfm3hxnSN68eRyMYf"
+        "VnCsNpxaskLGMjw4N"
       );
       setForgotPassword(2);
     }
