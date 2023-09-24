@@ -61,7 +61,7 @@ return (
           >
             <img
               style={{ objectFit: 'cover', maxWidth: '100%' }}
-              src={"https://res.cloudinary.com/drpdobxfu/image/upload/v1695130616/info%20club/infantilesinicios--_bno5rx.jpg"}
+              src={"https://res.cloudinary.com/drpdobxfu/image/upload/v1695417401/info%20club/DSC_0982_zt2sts.jpg"}
             />
           </Box>
         </div>
@@ -85,7 +85,7 @@ return (
           >
             <img
               style={{ objectFit: 'cover', maxWidth: '100%' }}
-              src={"https://res.cloudinary.com/drpdobxfu/image/upload/v1695130619/info%20club/comision--_fgvnye.jpg"}
+              src={"https://res.cloudinary.com/drpdobxfu/image/upload/v1695417050/info%20club/DSC_0397-2_zu1n8t.jpg"}
             />
           </Box>
         </div>
@@ -159,7 +159,7 @@ return (
           >
             <img
               style={{ objectFit: 'cover', maxWidth: '100%' }}
-              src={"https://res.cloudinary.com/drpdobxfu/image/upload/v1695130618/info%20club/naranjitas-_mbroxe.jpg"}
+              src={"https://res.cloudinary.com/drpdobxfu/image/upload/v1695416725/info%20club/DSC_0501_qohbo3.jpg"}
             />
           </Box>
         </div>
@@ -183,7 +183,7 @@ return (
           >
             <img
               style={{ objectFit: 'cover', maxWidth: '100%' }}
-              src={"https://res.cloudinary.com/drpdobxfu/image/upload/v1695130621/info%20club/globos--_icc1bc.jpg"}
+              src={"https://res.cloudinary.com/drpdobxfu/image/upload/v1695416954/info%20club/DSC_0871_v45bjn.jpg"}
             />
           </Box>
         </div>
