@@ -37,8 +37,18 @@ export default function EditarPartidos() {
    const partidos = useSelector((state) => state.partidos);
 
    useEffect(() => {
+      if (!imagenLocal) {
+         setImagenLocal(
+            (partidoModificado.Local_shield =
+               "https://png.pngtree.com/png-vector/20220621/ourmid/pngtree-soccer-ball-vector-design-png-image_5234917.png")
+         );
+         setImagenVisitante(
+            (partidoModificado.visitor_shield =
+               "https://png.pngtree.com/png-vector/20220621/ourmid/pngtree-soccer-ball-vector-design-png-image_5234917.png")
+         );
+      }
       dispatch(getAllMatch());
-   }, [dispatch]); //! modifivado para probar
+   }, []);
 
    const handleSelectImageLocal = async () => {
       if (imagenLocal) {

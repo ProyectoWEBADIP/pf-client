@@ -21,7 +21,7 @@ export const updateMatch = (id, body) => {
          console.log(id, body);
          const { data } = await axios.patch(`/partidos/${id}`, body);
          console.log("data:", data.response);
-         if (!data.length) alert(data.id);
+         if (!data.length) alert("Partido modificado correctamente");
       } catch (error) {
          console.error(error.message);
       }
