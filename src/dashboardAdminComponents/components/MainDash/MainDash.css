@@ -5,8 +5,7 @@
 .cont_notice_link{
   display: flex;  
   align-items: center;
-  justify-content: space-between;
-  
+  justify-content: space-between; 
 
 }
 .buton_notice_crear{
@@ -52,11 +51,11 @@
   justify-content: space-between;
   background-color: #000000;
   color: #fff;
-  font-size: 13px;
+  font-size: 1vw;
   border: 0.5px solid rgba(0, 0, 0, 0.1);
   padding-bottom: 8px;
-  width: 100px;
-  height: 60px;
+  width: 7vw;
+  height: 9vh;
   padding: 12px;
   border-radius: 15px 15px 12px 12px;
   cursor: pointer;

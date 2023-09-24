@@ -38,7 +38,18 @@ const CrearSponsor = () => {
             user_id:userId
         }
 
-        if(cloudinary && input.nombre!==""){            
+        let disable=true 
+        for(const err in error){
+        if(error[err]===""){
+            disable=false
+        }else{
+            disable=true
+            break;
+        }
+        }
+
+        
+        if(cloudinary && input.nombre!=="" && !disable){            
             dispatch(postSponsor(body))
             form.reset();
             setInput({
@@ -69,7 +80,7 @@ const CrearSponsor = () => {
             [event.target.name] : event.target.value            
         })          
        
-        setError(validation({...input,[event.target.name] : event.target.value}))  
+        setError(validation({...input,[event.target.name] : event.target.value},event.target.name))  
 
     }
     const [response,setResponse]=useState(false)
@@ -105,23 +116,26 @@ const CrearSponsor = () => {
             <form className="et_form_sponsor" id="formulario" onSubmit={handleSubmit}  >
                 {loading?<div className="loader_sponsor_container"><span className="loader"></span></div>:null}
                 {response?<div className="response-succes-sponsor">{response}</div>:null}
-                <h2 className="h2_form_ponsor">Aqui crearas tu sponsor</h2>
 
+               
+                
+                    <h2 className="h2_form_sponsor">Aqui crearas tu sponsor</h2>
+             
                 <div className="name_sponsor_form">
-                    <h4>1° paso</h4>
-                    <label htmlFor="">Coloca el nombre del sponsor</label>
+                    <h4 className="h4-div-sponsor">1° paso</h4>
+                    <label className="label_colocaNombre_">Coloca el nombre del sponsor</label>
                     <input className="input_name_sponsor" onChange={handleChange} type="text" name="nombre" value={input.nombre}/>
                     {error.nombre && <p>{error.nombre}</p>}
                 </div>          
 
                 <div className="Tipofile_sponsor_form">
-                    <h4>2° paso</h4>
-                    <label  htmlFor="">Selecciona la imagen</label>                    
+                    <h4 className="h4-div-sponsor"> 2° paso</h4>
+                    <label className="input_selecImg_sponsor" htmlFor="">Selecciona la imagen</label>                    
                     <input className="img_sponsor" onChange={handleImgChange} type="file" name="imagen" accept="image/*"/>
                 </div>                
 
                 <div className="renderiza_img_sponsor">
-                    {imagen && <img className ="imagen"src={imagen} alt="img"/>}
+                    {imagen && <img className ="imagen-crear-sponsor"src={imagen} alt="img"/>}
                 </div>            
                 <br />            
                 <button className="buton_create_sponsor" type="submit">Crear sponsor</button>
