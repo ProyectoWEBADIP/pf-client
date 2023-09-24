@@ -95,8 +95,12 @@ export default function CrearNoticia() {
      const obj= {id:idCategory,name:nameCategory}    
      const tieneID = category.some(e => e.id === obj.id)
       
-     if(category.length>4){
-       alert("Maximo 4 categorias")
+     if(category.length>3){
+      setErrorAlert('Maximo 4 categorias');
+      setShowError(true);
+      setTimeout(() => {
+        setShowError(false);
+      }, 5000);
      } else if(!tieneID){
        setCategory([
          ...category,
@@ -160,8 +164,8 @@ export default function CrearNoticia() {
         break;
       }
     }
-    
-    if (canCreateNotice && !disable) {
+    console.log(category.length>0);
+    if (canCreateNotice && !disable && category.length>0) {
       try {
         setLoading(true)
        const data= await dispatch(postNoticia(body));     
@@ -255,35 +259,38 @@ export default function CrearNoticia() {
                 <SucessAlert success={successAlert} />
               </div>
             ) : null}
-            <TextField
-              label="Título"
-              helperText=" "
+           <div className='titulo-input-notice'>
+           <input
+             placeholder='Titulo de la noticia'          
               type="text"
               name="titulo"
+              className='title-crearNotice'
               value={input.titulo}
               required
-              onChange={handleChange}
-              fullWidth
-              sx={{color:'red'}}                
+              onChange={handleChange} 
+                            
             />
             {error.titulo && (
-              <Typography variant="body1">{error.titulo}</Typography>
+              <p className='error-notice-form'>{error.titulo}</p>
             )}
+           </div>
 
-            <TextField
-              label="Resumen"
+           <div className='cont_resumen_notice_'>
+           <input
+             placeholder='Resumen'
               type="text"
               name="resumen"
               value={input.resumen}
               required
               onChange={handleChange}
-              fullWidth
+                         
             />
             {error.resumen && (
-              <Typography variant="body1">{error.resumen}</Typography>
+              <p className='error-notice-form'>{error.resumen}</p>
             )}
+           </div>
 
-            <div>
+            <div className='div-selec-notice-'>
               <select  className='select_category' value="def" onChange={handleSelect} name="categoria">
                 <option name="categoria" value="def">
                   Seleccione categoria
@@ -311,33 +318,33 @@ export default function CrearNoticia() {
               })}
             </div>
 
-            <br />
-            <div className='cont_crearCate_form'>
-              <TextField
-                onChange={handleCategoryChange}
-                label="Crear categoria"
+          
+            <div className='cont_moverInput_form'>
+              <input
+                onChange={handleCategoryChange}           
                 type="text"
                 name="crear"
-                sx={{ mr: 3 }}
+                
               />
               {error.crear && <p>{error.crear}</p>}
               <Button className='button_crear_cate' onClick={crearCategoria}>Crear</Button>
-            </div>
+            </div>           
 
-            <br />
-
-            <TextField label="Descripción"  type="text" name="descripcion" value={input.descripcion} required onChange={handleChange} />
-            {error.descripcion && <Typography variant="body1">{error.descripcion}</Typography>}
-            <br/>
-            <br/>
+           <div className='cont_moverInput_form'>
+              <input
+              placeholder='Descripcion'
+               type="text" name="descripcion" value={input.descripcion} required onChange={handleChange} />
+                {error.descripcion && <p>{error.descripcion}</p>}
+           </div>
+         
 
             <div className='cont_selecImg_div'>
-            <TextField type="file" name="imagen" accept="image/*" onChange={handleImageChange}/>            
+            <input type="file" name="imagen" accept="image/*" onChange={handleImageChange}/>            
             </div>        
             
               <div className='cont_img_notices_render'>
                 <img className='renderiza_img_notices' src={ imageURL? imageURL : imgDefault} alt="img"/>     
-              </div>            
+              </div>      
                      
 
             <div className='div_submit_notice'>
@@ -350,15 +357,15 @@ export default function CrearNoticia() {
         {/*------------------------- Previsualizar noticia ------------------------------------------------------------*/}
           <div className='cont_previsu_div'>       
             
-            <Typography variant="headline">{input.titulo}</Typography>
-            <br/>         
+            <p className='title-previsu-notice'>{input.titulo}</p>
+                
 
             <div className='visualiza_resumen_notice'>
               <Typography variant="body1" >{input.resumen}</Typography>
             </div>
-            <br/>          
+                  
 
-            <div>
+            <div className='img_previsualiza-notice'>
             <img src={ imageURL? imageURL : imgDefault} alt="img" style={{ width: '300px', height: 'auto', objectFit: "cover"}}/>
             </div>   
 

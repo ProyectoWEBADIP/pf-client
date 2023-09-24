@@ -2,7 +2,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 75vw;    
+    width: 85vw; 
+    height: 80vh;   
+    margin-top: 1.5vh;
 } 
 .loader {
     width: 48px;
@@ -11,7 +13,7 @@
     background: #FFF;
     display: inline-block;
     position: relative;
-  }
+}
   .loader::after {
     content: '';  
     left: 50%;
@@ -49,13 +51,14 @@
 display: flex;
 justify-content: center;
 align-items: center;
-width: 100%;
-height: 100%;
+width: 60vw; 
+height: 80vh; 
 position: absolute;
 background-color: rgba(66, 66, 64, 0.47);
 backdrop-filter: blur(3px);
 z-index: 10;
 border-radius: 1rem; 
+margin-top: -1vh;
 
 }
 .response-succes-sponsor{
@@ -64,8 +67,7 @@ border-radius: 1rem;
     bottom: -10%;
     z-index: 10;
 }
-.et_form_sponsor{
-    position: relative;
+.et_form_sponsor{    
     background-color:#FBEED8;
     display: flex;
     align-items: center;
@@ -73,31 +75,50 @@ border-radius: 1rem;
     flex-direction: column;
     border-radius: 1rem; 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);  
-    padding: 2rem;
-    margin-top: 1rem;
-    height: 28rem;
+    padding-top: 7vh;
+    padding-bottom: 6vh;
+    padding-left: 2vw;
+    padding-right: 2vw; 
+    width: 60vw; 
+    height: 80vh; 
 } 
-.h2_form_ponsor{
-    color: #FF6500;    
+.h2_form_sponsor{
+    color: #FF6500;  
+    font-size: 3vh;
+      
 }
 .name_sponsor_form{     
-    padding: 10px;   
+   padding: 2vh; 
     width: 100%;   
-}
-.name_sponsor_form h4{   
     align-items: center;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+
+}
+.h4-div-sponsor{   
+    font-size: 2.5vh;    
     margin-top: 3px;
     color:rgb(88, 88, 88);
 }
-.name_sponsor_form label{
-margin-left: 2rem;
-margin-right: 1rem;
+.label_colocaNombre_{
+font-size: 2.5vh;
+text-align: center;
+}
+.input_name_sponsor{
+    font-size: 2vh;
+    margin-top: 1vh;
+}
+.input_selecImg_sponsor{
+    font-size: 2.5vh; 
 }
 .Tipofile_sponsor_form{
-   width: 100%;
-   padding: 10px;
+    padding: 2vh; 
+    width: 100%;   
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 .Tipofile_sponsor_form h4{   
     display: flex;
@@ -113,10 +134,12 @@ margin-right: 1rem;
     border: 3px solid  #FF6500;
     padding: 4px;
     border-radius: 4px;
+    font-size: 2.2vh;
+    margin-top: 2vh;
 }
 .subirImagen_sponsor_form{
     align-items: center;   
-    padding: 10px;
+    padding: 10vh;
     width: 100%;   
 }
 .subirImagen_sponsor_form h4{   
@@ -141,14 +164,18 @@ margin-right: 1rem;
 .buton_create_sponsor{
     background-color: #FF6500;
     border-radius: 4px;
-    padding: 7px;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    border-bottom: 3vh;
+    font-size: 1.2vw;
 }
-.imagen{
-    width: 150px;
+.imagen-crear-sponsor{
+    width: 18vw;
     display: flex;
-    padding: 10px;    
+    margin-top: 1vh;
+    margin-bottom: 1vh;
 }
-.renderiza_img_sponsor{
-    margin-top: 1rem;
-}
+
 

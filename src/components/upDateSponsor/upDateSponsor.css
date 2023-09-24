@@ -1,7 +1,10 @@
 .cont_update_sponsor{    
     display: flex;   
     align-items: center;   
-    width: 75vw;    
+    width: 75vw;   
+    justify-content: center; 
+    
+    height: 80vh;
 }
 .loader_update_sponsor{
     display: flex;
@@ -14,7 +17,6 @@
     backdrop-filter: blur(3px);
     z-index: 10;
     border-radius: 1rem; 
-
 }
 .loader {
     width: 48px;
@@ -71,30 +73,43 @@
     padding: 1rem;    
     border-radius: 1rem;   
     background-color: rgba(255, 166, 0, 0.116);
-    width: 20rem;
-    height: 25rem;
+    width: 34.7vw;
+    height: 75vh;
 }
-.select_sponsor_editar{
+.select_sponsor-_editar{
     padding: 8px;
     background-color: wheat;
     border: 3px;
     border-radius:  1rem;
-    font-size: medium;    
+    font-size: 1.7vw;      
+    text-align: center;   
+    font-size: 1.5vw;
+    height: 7vh;
+    
 }
+.select_sponsor_editar option{
+    width: 1vw ;
+    font-size: 0.7vw;
+    background-color: yellow;    
+    
+}
+
+
+
 .cardDerecha_update_sponsor{
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     border: 3px solid orange;
-    padding: 9.5rem;
+    
     text-align: center;      
     border-radius: 1rem;    
     position: relative;
     background-color: rgba(255, 166, 0, 0.116);
-    width: 25rem;
+    width: 32vw;
+    height: 75vh;
     margin-left: 1rem;
-    height: 25rem;
     position: relative;
 
 }
@@ -128,6 +143,8 @@
     padding: 4px;
     border: 3px;
     border-radius:  1rem;
+    font-size: 3vh;
+    width: 14vw;
 }
 .campo2{
     background-color:wheat;
@@ -137,17 +154,22 @@
     padding: 4px;
     border: 3px;
     border-radius:  1rem;
+    font-size: 3vh;
+
     
 }
 .butonUpdate_guardar_sponsor{
-    margin-right: 4rem;  
+    
     background-color: rgba(245, 222, 179, 0.959);
+    font-size: 1.5vw;
    
 }
 .contenedor_guardar_sponsor{    
     position: absolute;
-    bottom: 1rem;    
-    margin-left: 3rem;  
+    bottom: 2rem;   
+   text-align: center;
+   display: flex;
+   justify-content: center;
          
 }
 .img_sponsor_editar{
@@ -155,23 +177,25 @@
     max-width: 100%;
 }
 .cont_renderImg_sponsor{
-   width: 20rem;
-   height: 10rem;   
+   width: 30vw;
+   height: 10vh; 
+ 
 }
 .maqueta_ubicar_sponsor{
     display: flex;    
-    max-width: 98%;   
-    justify-content: space-between;
-    margin-bottom: 1.5rem;
+    width: 33vw;     
+    justify-content: space-between;  
+      
       
 }
 .file_sponsor_update{    
     margin-bottom: 1rem;    
     margin-top: 6rem;
-    font-size: small;
+    font-size: 1.2vw;
+    
 }
 .eliminar_imagen_sponsor{
-    font-size: small;
+    font-size: 1.5vw;
     margin-top: 1rem;
     background-color: rgba(245, 222, 179, 0.959);
 }
@@ -180,11 +204,11 @@
     margin-top: 1rem;
     background-color: rgba(245, 222, 179, 0.959);  
 }
-.ejemplo{
+.ejemplo_update_sponsor{
     width: 45%;     
 }
 .texto_sponsor_ej{
-    font-size: medium;
+    font-size: 1.5vw;
     text-align: center;
 
 }
