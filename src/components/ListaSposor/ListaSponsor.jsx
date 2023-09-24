@@ -21,16 +21,16 @@ const ListaSponsor = () => {
         <div className="terciario_sponsor_cont">
           <div className="cont_titulos_sponsor">
             <div className="tabla_sponsor_nro">
-              <h4>ID</h4>
+              <h4 className="h4-updateSponsor">ID</h4>
             </div>
-            <div className="tabla_sponsor_">
-              <h4>Logo</h4>
+            <div className="tabla_sponsor_img">
+              <h4 className="h4-updateSponsor">Logo</h4>
             </div>
             <div className="tabla_sponsor_title">
-              <h4>Nombre</h4>
+              <h4 className="h4-updateSponsor">Nombre</h4>
             </div>
             <div className="tabla_sponsor_nro">
-              <h4 title="Ubicacion">Ubi</h4>
+              <h4 className="h4-updateSponsor" title="Ubicacion">Ubi</h4>
             </div>
           </div>
 
@@ -38,28 +38,22 @@ const ListaSponsor = () => {
             return (
               <div className="cont_map_sponsor" key={el.id}>
                 <div className="tabla_sponsor_nro">
-                  <h4>{el.id}</h4>
+                  <h4 className="h4-updateSponsor">{el.id}</h4>
                 </div>
 
-                <div className="tabla_sponsor_">
+                <div className="tabla_sponsor_img">
                   <img className="dash_img_sponsor" src={el.image} alt="img" />
                 </div>
                 <div className="tabla_sponsor_title">
-                  <h4>{el.title}</h4>
+                  <h4 className="h4-updateSponsor">{el.title}</h4>
                 </div>
                 <div className="tabla_sponsor_nro">
-                  <h4>{el.location}</h4>
+                  <h4 className="h4-updateSponsor">{el.location}</h4>
                 </div>
               </div>
             );
           })}
-        </div>
-
-          {/* <div className="contenido_botones_">
-            <button className="buton_crear_sponsor">Crear Sponsor</button>
-            <button className="buton_crear_sponsor">Editar Sponsor</button>
-          </div>
-          */}
+        </div>      
           
           
       </div>
