@@ -119,7 +119,6 @@ export default function EditarPartidos() {
     <div style={{display: "flex", width: "100vw", justifyContent: "center", alignItems: "center"}}>
       <Grid container spacing={{ md: 2 }} alignContent={"center"}>
         
-        
         <Grid item xs={12} sm={12} md={6} marginBottom={5} >
           <Container>
           
