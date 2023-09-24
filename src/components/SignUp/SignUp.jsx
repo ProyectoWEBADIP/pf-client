@@ -77,8 +77,8 @@ const SignUp = () => {
       Math.floor(Math.random() * (9999 - 1000) + 1000) + "";
     setCodigoGeneradoLocalmente(codigoDeVerificacion);
     emailjs.send(
-      "service_ckm9srh",
-      "template_z7oue8n",
+      "service_3otzb8r",
+      "template_pyf6hgh",
       {
         asunto: "Verificación de Correo Electrónico - Código de Confirmación",
         to_email: input.email,
@@ -89,7 +89,7 @@ const SignUp = () => {
         footer:
           "Por favor, utiliza este código en nuestra página de inicio de sesión para confirmar que tu correo electrónico está registrado en nuestra plataforma. Si no solicitaste esta acción o tienes alguna pregunta, por favor, contáctanos a través de Correo de Soporte proyectoadipweb@gmail.com",
       },
-      "Vfm3hxnSN68eRyMYf"
+      "VnCsNpxaskLGMjw4N"
     );
   }
   const handlerCodeVerification = (event) => {
