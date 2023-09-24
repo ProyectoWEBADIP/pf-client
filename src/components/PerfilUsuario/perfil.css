@@ -1,13 +1,13 @@
 .profileContainer {
-  display: flex;
   width: 100vw;
-  height:100vh;
+  height: 100vh;
+  display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.estadodeuda-container{
+.estadodeuda-container {
   width: 100%;
   height: 100%;
   display: flex;
@@ -16,10 +16,10 @@
   align-items: center;
 }
 
-.deuda-span{
-display: flex;
-justify-content: center;
-align-items: center;
+.deuda-span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .aldia-container {
   width: 100%;
@@ -28,10 +28,10 @@ align-items: center;
   flex-direction: column;
   align-items: center;
 }
-.aldia-container>div>img{
+.aldia-container > div > img {
   width: 20%;
 }
-.aldia-container>div{
+.aldia-container > div {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -84,7 +84,43 @@ align-items: center;
   gap: 1rem;
 }
 
-.Editbutton{
+@media (max-width: 700px) {
+  .nameAndEditContainer {
+    flex-direction: column; 
+    top: 3rem;
+    align-items: center; 
+  }
+
+  .editButtonContainer {
+    margin-top: 1rem; 
+  }
+}
+
+.adminButtonContainer {
+  left: 630px;
+  bottom: 365px;
+  position: absolute;
+  z-index: 2;
+}
+
+@media (max-width: 1024px) {
+  .adminButtonContainer {
+    position: absolute;
+    left: 240px;
+    top: 350px;
+  }
+}
+@media (max-width: 768px) {
+  .adminButtonContainer {
+    position: absolute;
+    left: 240px;
+    top: 200px;
+  }
+}
+
+
+
+.Editbutton {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -130,6 +166,7 @@ align-items: center;
   height: 30%;
   border-top: 0.1rem solid black;
   padding: 1rem;
+  top: 2rem;
 }
 
 .detallesContainer {
@@ -145,6 +182,31 @@ align-items: center;
   padding-left: 0.5rem;
   font-size: 1.2rem;
 }
+
+@media (max-width: 768px) {
+  .perfilInfoContainer,
+  .detallesContainer {
+    width: 100vw;
+    gap: 1rem;
+    width: 100%;
+    grid-template-columns: 100%;
+  }
+}
+
+.containerGlobal{
+  width: 60vw;
+  padding: 2rem;
+  background-color: rgb(252, 252, 252);
+  border-radius: 15px;
+  border: solid black 2px;
+}
+
+@media(max-width: 1024px){
+  .containerGlobal{
+    width: 100vw;
+  }
+}
+
 .detallesSpan {
   font-size: 1.8rem;
   font-weight: bold;
@@ -176,14 +238,13 @@ align-items: center;
   width: 100%;
   height: 30%;
 }
-.loader-barra-container{
+.loader-barra-container {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  
 }
-.loader-barra-mp{
+.loader-barra-mp {
   display: block;
   position: relative;
   height: 12px;
@@ -193,7 +254,7 @@ align-items: center;
   overflow: hidden;
 }
 .loader-barra-mp::after {
-  content: '';
+  content: "";
   width: 40%;
   height: 100%;
   background: #f78360;
@@ -203,7 +264,7 @@ align-items: center;
   box-sizing: border-box;
   animation: animloader-barra-mp 2s linear infinite;
 }
-.acept-container{
+.acept-container {
   display: flex;
   position: relative;
   flex-direction: column;
@@ -213,35 +274,32 @@ align-items: center;
   width: 50%;
   height: 20%;
   background-color: #ffb45f;
-  border-radius: .5rem;
-  border: .1rem solid black;
+  border-radius: 0.5rem;
+  border: 0.1rem solid black;
   font-weight: bold;
-
 }
-.acept-container>span{
+.acept-container > span {
   padding: 5px;
   display: flex;
   justify-content: center;
-  
 }
-.continuar-cancelar-container{
+.continuar-cancelar-container {
   display: flex;
   width: 50%;
   justify-content: space-between;
-
 }
-.continuar-cancelar-container>button:first-child{
+.continuar-cancelar-container > button:first-child {
   background-color: rgb(59, 135, 59);
-font-weight: bold;
-color: white;
+  font-weight: bold;
+  color: white;
 }
-.continuar-cancelar-container>button:first-child:hover{
-  border: .1rem solid black;
+.continuar-cancelar-container > button:first-child:hover {
+  border: 0.1rem solid black;
 }
-.continuar-cancelar-container>button:last-child:hover{
-  border: .1rem solid black;
+.continuar-cancelar-container > button:last-child:hover {
+  border: 0.1rem solid black;
 }
-.continuar-cancelar-container>button:last-child{
+.continuar-cancelar-container > button:last-child {
   background-color: rgb(247, 60, 60);
   font-weight: bold;
   color: white;
@@ -256,7 +314,7 @@ color: white;
     transform: translateX(0%);
   }
 }
-.carnet-container{
+.carnet-container {
   position: absolute;
   display: flex;
   bottom: 5px;
@@ -279,7 +337,6 @@ color: white;
   border: 0.2rem rgb(36, 36, 36) solid;
   font-size: 1.2rem;
 }
-
 
 .learn-more {
   width: 13rem;
@@ -329,7 +386,7 @@ color: white;
 
 .learn-more .circle .icon.arrow::before {
   position: absolute;
-  content: '';
+  content: "";
   top: -0.29rem;
   right: 0.0625rem;
   width: 0.625rem;

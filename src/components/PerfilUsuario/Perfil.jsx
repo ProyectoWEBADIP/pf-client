@@ -47,6 +47,7 @@ import jwtDecode from "jwt-decode";
 import { getAllNoticias } from "../../redux/noticiasActions/noticiasActions";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
+import ConstructionIcon from '@mui/icons-material/Construction';
 
 export default function Perfil() {
   //!HOOKS
@@ -184,7 +185,8 @@ export default function Perfil() {
   const [showError, setShowError] = useState(false);
   const defaultPortada =
     "https://res.cloudinary.com/drpdobxfu/image/upload/v1695156861/info%20club/banderin2_smq847.jpg";
-  return (
+
+    return (
     <Box className={style.perfContainerContainer}>
       {showError && (
         <Box className="alerts">
@@ -347,30 +349,15 @@ export default function Perfil() {
           </div>
         ) : (
           //!|||||||||||||||||||||||||perfil actualizado|||||||||||||||||||||||||||||||||||||
+
           <Box className="profileContainer">
             {!showEditProfile ? null : (
               <UpdateProfile perfilUsuario={perfilUsuario} />
             )}
             <div>
-              <Grid container className="">
-                <Grid item xs={12} sm={6} md={8}>
-                  <Box
-                    className="centerProfileContainer"
-                    sx={{
-                      boxShadow: 3,
-                      width: "104vh",
-                      height: "auto",
-                      bgcolor: (theme) =>
-                        theme.palette.mode === "dark" ? "#101010" : "#fff",
-                      color: (theme) =>
-                        theme.palette.mode === "dark" ? "grey.300" : "grey.800",
-                      p: 2,
-                      borderRadius: 2,
-                      textAlign: "center",
-                      fontSize: "0.875rem",
-                      fontWeight: "700",
-                    }}
-                  >
+              <Grid container>
+                <Grid item xs={12} sm={12} md={12} lg={6}>
+                  <Box className="containerGlobal">
                     <Box className="portadaContainer">
                       <img
                         src={
@@ -389,11 +376,13 @@ export default function Perfil() {
                         alt=""
                       />
                     </Box>
-                    <Box ml={28} mt={2} position="absolute" zIndex={2}>
+
+                    <Box className="adminButtonContainer">
                       {role === "super_admin" && perfilUsuario?.profile ? (
                         <Box>
                           <Link to={"/auth/dashboard"}>
-                            <Button variant="contained">Administrador</Button>
+                            <Button variant="contained"> <ConstructionIcon fontSize="large"/> </Button>
+                            
                           </Link>
                         </Box>
                       ) : null}
