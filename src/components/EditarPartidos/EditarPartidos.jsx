@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import {
   Box,
   Button,
+  Container,
+  FormControl,
   Grid,
   MenuItem,
   Paper,
@@ -116,29 +118,20 @@ export default function EditarPartidos() {
   return (
     <div style={{display: "flex", width: "100vw", justifyContent: "center", alignItems: "center"}}>
       <Grid container spacing={{ md: 2 }} alignContent={"center"}>
+        
+        
         <Grid item xs={12} sm={12} md={6} marginBottom={5} >
-          <Box
-            display="flex"
-            flexDirection={"column"}
-            alignItems="center"
-            justifyContent={"center"}
-            margin="auto"
-            padding={3}
-            my={4}
-            borderRadius={5}
-            boxShadow={"5px 5px 10px #ccc"}
-            sx={{
-              ":hover": { boxShadow: "5px 5px 10px #ccc" },
-              backgroundColor: "whitesmoke", width: "40vw"
-            }}
-          >
-
-            <Typography variant="body">Modificar tarjeta de partidos 🛠️</Typography>
-            
+          <Container>
+          
+            <Typography variant="body" fontWeight={"bold"}>Modificar tarjeta de partidos 🛠️</Typography>
+            <br/>
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 100 }}>
             <Select
               onChange={handleSelect}
+              labelId="demo-simple-select-standard-label"
+              id="demo-simple-select-standard"
               value={selectedOption}
-              sx={{width: "50%" , mt : 3}}
+              sx={{width: "100%" , mt : 3}}
               displayEmpty
               MenuProps={{ 
                 PaperProps: {
@@ -157,6 +150,10 @@ export default function EditarPartidos() {
                 </MenuItem>
               ))}
             </Select>
+            </FormControl>
+            <br/>
+              
+
             <TextField
               onChange={handleChange}
               type="text"
@@ -165,6 +162,7 @@ export default function EditarPartidos() {
               label="Competencia"
               margin="normal"
               size="small"
+              sx={{m: 1}}
             />
             <TextField
               onChange={handleChange}
@@ -174,6 +172,7 @@ export default function EditarPartidos() {
               label="Fecha"
               margin="normal"
               size="small"
+              sx={{m: 1}}
             />
             <TextField
               onChange={handleChange}
@@ -183,6 +182,7 @@ export default function EditarPartidos() {
               label="Ubicación"
               margin="normal"
               size="small"
+              sx={{m: 1}}
             />
             <TextField
               onChange={handleChange}
@@ -192,6 +192,7 @@ export default function EditarPartidos() {
               label="Descripción"
               margin="normal"
               size="small"
+              sx={{m: 1}}
             />
             <TextField
               onChange={handleChange}
@@ -201,6 +202,7 @@ export default function EditarPartidos() {
               label="Goles del equipo Local"
               margin="normal"
               size="small"
+              sx={{m: 1}}
             />
             <TextField
               onChange={handleChange}
@@ -210,6 +212,7 @@ export default function EditarPartidos() {
               label="Goles del equipo Visitante"
               margin="normal"
               size="small"
+              sx={{m: 1}}
             />
             <Toolbar>
 
@@ -221,12 +224,10 @@ export default function EditarPartidos() {
               margin="normal"
               onChange={() => setImagenLocal(event.target.files[0])}
               size="small"  
+              sx={{m: 1}}
               />
               <Button size="xs" variant="outlined" sx={{ marginLeft:"5px", fontSize: "15px", alignContent:"center"}} onClick={handleSelectImageLocal}>Subir</Button>
-            
-              
-             
-            
+       
             </Toolbar>
             <Toolbar>
             <TextField
@@ -237,20 +238,21 @@ export default function EditarPartidos() {
               margin="normal"
               onChange={() => setImagenVisitante(event.target.files[0])}
               size="small" 
+              sx={{m: 1}}
             />
             <Button size="xs" variant="outlined" sx={{ marginLeft:"5px", fontSize: "15px", alignContent:"center"}}  onClick={handleSelectImageVisitante}>Subir</Button>
             </Toolbar>
             <Button  variant="contained" onClick={handleSubmit}>Guardar</Button>
-          </Box>
+            </Container>
         </Grid>
 
         <Grid
           item
           md={6}
-          my={25}
           alignItems="center"
           justifyContent="center"
         >
+          <Container>
           <Paper elevation={3} sx={{ maxWidth: "250px", minHeight: "300px", display:"flex", justifyContent:"center" }}>
             <Box padding={2}>
               <Typography variant="h5" fontWeight="bold">
@@ -300,12 +302,12 @@ export default function EditarPartidos() {
               <Typography variant="body2" fontWeight="bold">
                 {partidoModificado.date}
               </Typography>
-              <Typography sx={{ mt: 1}}>ubicación:</Typography>
               <Typography variant="body2" fontWeight="light" sx={{ mt: 1}}>
                 {partidoModificado.location}
               </Typography>
             </Box>
           </Paper>
+          </Container>
         </Grid>
       </Grid>
     </div>
