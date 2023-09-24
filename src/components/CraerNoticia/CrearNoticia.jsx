@@ -1,73 +1,77 @@
 /* eslint-disable no-unused-vars */
-import { useState } from 'react';
-import validation from './validaciones';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { postNoticia } from '../../redux/noticiasActions/noticiasActions';
+import { useState } from "react";
+import validation from "./validaciones";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { postNoticia } from "../../redux/noticiasActions/noticiasActions";
 import { useSelector } from "react-redux";
-import { getAllCategories, postCategoria } from "../../redux/categoriasActions/categoriasActions";
+import {
+   getAllCategories,
+   postCategoria,
+} from "../../redux/categoriasActions/categoriasActions";
 import { TextField, Typography } from "@mui/material";
-import { Button} from "@mui/base";
-import AlertError from '../../assets/AlertError/AlertError';
-import SucessAlert from '../../assets/AlertSuccess/AlertSuccess';
-import './crearNoticia.css';
-import { submitImgCloudinary } from '../../redux/noticiasActions/noticiasActions';
-import { Link } from 'react-router-dom';
-import AlertSuccess from '../../assets/AlertSuccess/AlertSuccess';
+import { Button } from "@mui/base";
+import AlertError from "../../assets/AlertError/AlertError";
+import SucessAlert from "../../assets/AlertSuccess/AlertSuccess";
+import "./crearNoticia.css";
+import { submitImgCloudinary } from "../../redux/noticiasActions/noticiasActions";
+import { Link } from "react-router-dom";
+import AlertSuccess from "../../assets/AlertSuccess/AlertSuccess";
 
 export default function CrearNoticia() {
-  const imgDefault = 'https://res.cloudinary.com/drpdobxfu/image/upload/v1695161197/Noticias/xfy5crhkywnnpsakmbzr.png';
-  let allCategorias = useSelector((state) => state.categorias);
-  
-  const [input, setInput] = useState({
-    titulo: '',
-    resumen: '',
-    descripcion: '',
-    imagen: '',
-    crear:''
-  });
-  const [error, setError] = useState({});
-  const [imageURL, setImageURL] = useState(''); //url
-  const [category, setCategory] = useState([]); 
-  const [crearCategory, setCrearCategory] = useState('');
-  const dispatch = useDispatch();
-  const [canCreateNotice, setCanCreateNotice] = useState(false);
-  const userId= localStorage.userId
-  const [incluye,setIncluye]=useState("")
- const errors= useSelector(state=>state.errors)
+   const imgDefault =
+      "https://res.cloudinary.com/drpdobxfu/image/upload/v1695161197/Noticias/xfy5crhkywnnpsakmbzr.png";
+   let allCategorias = useSelector((state) => state.categorias);
 
+   const [input, setInput] = useState({
+      titulo: "",
+      resumen: "",
+      descripcion: "",
+      imagen: "",
+      crear: "",
+   });
+   const [error, setError] = useState({});
+   const [imageURL, setImageURL] = useState(""); //url
+   const [category, setCategory] = useState([]);
+   const [crearCategory, setCrearCategory] = useState("");
+   const dispatch = useDispatch();
+   const [canCreateNotice, setCanCreateNotice] = useState(false);
+   const userId = localStorage.userId;
+   const [incluye, setIncluye] = useState("");
+   const errors = useSelector((state) => state.errors);
 
-  useEffect(() => {
-    dispatch(getAllCategories());
-  }, [dispatch]);
+   useEffect(() => {
+      dispatch(getAllCategories());
+   }, [dispatch]);
 
-  const handleChange = (event) => {
-   event.preventDefault();
+   const handleChange = (event) => {
+      event.preventDefault();
 
-    setInput({
-      ...input,
-      [event.target.name]: event.target.value,
-    });
-    
-    
-    setError(
-      validation({
-        ...input,
-        [event.target.name]: event.target.value,
-      },event.target.name)
-    );
-    
-  };
+      setInput({
+         ...input,
+         [event.target.name]: event.target.value,
+      });
 
-  const handleCategoryChange = (event) => {
-    event.preventDefault();   
-    setInput({
-      ...input,
-      [event.target.name]: event.target.value,
-    });
-  };
-  const [response,setResponse]=useState(false);
-  const [loading,setLoading]=useState(false);
+      setError(
+         validation(
+            {
+               ...input,
+               [event.target.name]: event.target.value,
+            },
+            event.target.name
+         )
+      );
+   };
+
+   const handleCategoryChange = (event) => {
+      event.preventDefault();
+      setInput({
+         ...input,
+         [event.target.name]: event.target.value,
+      });
+   };
+   const [response, setResponse] = useState(false);
+   const [loading, setLoading] = useState(false);
 
   const handleImageChange= async(event)=>{
     const file =  event.target.files[0];         
@@ -174,78 +178,83 @@ export default function CrearNoticia() {
         form.reset();
         setImageURL('');
 
-        setInput({
-          titulo: '',
-          resumen: '',
-          detalle: '',
-          imagen: '',
-        });
-        setCategory([]);
-        setSuccessAlert('¡Noticia creada con éxito!');
-        setShowSuccess(true);
-        setTimeout(() => {
-          setShowSuccess(false);
-        }, 5000);
-        }
-      } catch (error) {
-        setErrorAlert(error.message);
-        setShowError(true);
-        setTimeout(() => {
-          setShowError(false);
-        }, 5000);
+               setInput({
+                  titulo: "",
+                  resumen: "",
+                  detalle: "",
+                  imagen: "",
+               });
+               setCategory([]);
+               setSuccessAlert("¡Noticia creada con éxito!");
+               setShowSuccess(true);
+               setTimeout(() => {
+                  setShowSuccess(false);
+               }, 5000);
+            }
+         } catch (error) {
+            setErrorAlert(error.message);
+            setShowError(true);
+            setTimeout(() => {
+               setShowError(false);
+            }, 5000);
+         }
+      } else {
+         setErrorAlert("Revise los requisitos");
+         setShowError(true);
+         setTimeout(() => {
+            setShowError(false);
+         }, 5000);
       }
-    } else {
-      setErrorAlert('Revise los requisitos');
-      setShowError(true);
-      setTimeout(() => {
-        setShowError(false);
-      }, 5000);
-    }
-  };
+   };
 
-  const crearCategoria = async (event) => {
-    event.preventDefault();
-    const name = input.crear;     
-    if(!name){
-      setError({
-        ...error,
-        crear:"*Escriba un nombre*"
-      }        
-      )
-    }else{
-      setCrearCategory(name); 
-      setLoading(true)
-      await dispatch(postCategoria({ active: true, name })); 
-      await dispatch(getAllCategories())
-      setLoading(false)
-      
-      setSuccessAlert('Categoria creada con exito!');
-      setShowSuccess(true);
-      setTimeout(() => {
-        setShowSuccess(false);
-      }, 5000);      
+   const crearCategoria = async (event) => {
+      event.preventDefault();
+      const name = input.crear;
+      if (!name) {
+         setError({
+            ...error,
+            crear: "*Escriba un nombre*",
+         });
+      } else {
+         setCrearCategory(name);
+         setLoading(true);
+         await dispatch(postCategoria({ active: true, name }));
+         await dispatch(getAllCategories());
+         setLoading(false);
 
-    }
-    
-    
-  };
-  const [errorAlert, setErrorAlert] = useState('');
-  const [showError, setShowError] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [successAlert, setSuccessAlert] = useState('');
+         setSuccessAlert("Categoria creada con exito!");
+         setShowSuccess(true);
+         setTimeout(() => {
+            setShowSuccess(false);
+         }, 5000);
+      }
+   };
+   const [errorAlert, setErrorAlert] = useState("");
+   const [showError, setShowError] = useState(false);
+   const [showSuccess, setShowSuccess] = useState(false);
+   const [successAlert, setSuccessAlert] = useState("");
 
-  return (
-    <div className='cont_general_noticia'>
-      <div className='cont_link_buton'>
-        <Link to='/auth/dashboard#/crearNoticia'>
-          <button className='link_volver-notice'>Volver a la Dash</button>
-        </Link>
-      </div>
-      <div className='cont_form_div'>
-        {loading? <div className='loader_notice_container'><span className="loaderNotice"></span></div> : null}
-        {response? <div className='response_notice_succes'>{response}</div>:null}
-        {errors? <div className='response_notice_succes'><AlertError/></div>:null}
-
+   return (
+      <div className="cont_general_noticia">
+         <div className="cont_link_buton">
+            <Link to="/auth/dashboard#/crearNoticia">
+               <button className="link_volver-notice">Volver a la Dash</button>
+            </Link>
+         </div>
+         <div className="cont_form_div">
+            {loading ? (
+               <div className="loader_notice_container">
+                  <span className="loaderNotice"></span>
+               </div>
+            ) : null}
+            {response ? (
+               <div className="response_notice_succes">{response}</div>
+            ) : null}
+            {errors ? (
+               <div className="response_notice_succes">
+                  <AlertError />
+               </div>
+            ) : null}
 
           <form id="formulario" onSubmit={handleSubmit}>
 
@@ -296,27 +305,31 @@ export default function CrearNoticia() {
                   Seleccione categoria
                 </option>
 
-                {allCategorias?.map((c, index) => {
-                  return (
-                    <option key={c.id} value={index}>
-                      {c.name}
-                    </option>
-                  );
-                })}
-              </select>
-              {error.categoria && <p>{error.categoria}</p>}
-              {incluye!=="" && <p>{incluye}</p>}
-            </div>
+                     {allCategorias?.map((c, index) => {
+                        return (
+                           <option key={c.id} value={index}>
+                              {c.name}
+                           </option>
+                        );
+                     })}
+                  </select>
+                  {error.categoria && <p>{error.categoria}</p>}
+                  {incluye !== "" && <p>{incluye}</p>}
+               </div>
 
-            <div className='map_category'>
-              {category?.map((e, index) => {
-                return (
-                  <div  key={index} onClick={()=>deleteCategory(e)}>
-                  {e.name? <Button className='category_selec_notices'>{e.name}</Button>:null}
-                  </div>
-                )
-              })}
-            </div>
+               <div className="map_category">
+                  {category?.map((e, index) => {
+                     return (
+                        <div key={index} onClick={() => deleteCategory(e)}>
+                           {e.name ? (
+                              <Button className="category_selec_notices">
+                                 {e.name}
+                              </Button>
+                           ) : null}
+                        </div>
+                     );
+                  })}
+               </div>
 
           
             <div className='cont_moverInput_form'>
@@ -360,8 +373,8 @@ export default function CrearNoticia() {
             <p className='title-previsu-notice'>{input.titulo}</p>
                 
 
-            <div className='visualiza_resumen_notice'>
-              <Typography variant="body1" >{input.resumen}</Typography>
+            <div className="visualiza_resumen_notice">
+               <Typography variant="body1">{input.resumen}</Typography>
             </div>
                   
 
@@ -369,25 +382,26 @@ export default function CrearNoticia() {
             <img src={ imageURL? imageURL : imgDefault} alt="img" style={{ width: '300px', height: 'auto', objectFit: "cover"}}/>
             </div>   
 
-          
-              <div className='descripcion_previsualiza'>
-                <Typography variant="headline" >{input.descripcion}</Typography>
-              </div>
-          
+            <div className="descripcion_previsualiza">
+               <Typography variant="headline">{input.descripcion}</Typography>
+            </div>
 
-            <div className='category_previsualiza'>
-              {category?.map((e,index)=>{
-                return(
-                  <div  key={index}>
-                    {e.name? <p className='category_name_previsualiza'>#{e.name}</p>:null}
-                  </div>
-                )
-              })}
-            </div>      
-        
-          </div>
-      
-    </div>          
-     
-    )
-  }
+            <div className="category_previsualiza">
+               {category?.map((e, index) => {
+                  return (
+                     <div key={index}>
+                        {e.name ? (
+                           <p className="category_name_previsualiza">
+                              #{e.name}
+                           </p>
+                        ) : null}
+                     </div>
+                  );
+               })}
+            </div>
+         </div>
+      </div>
+   );
+}
+
+// Path: pf-client/src/components/CraerNoticia/CrearNoticia.jsx
