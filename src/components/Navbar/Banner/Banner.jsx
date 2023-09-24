@@ -1,10 +1,6 @@
 import { Box } from "@mui/material";
 import naranjaTeam from "./img/naranjaTeam.jpg";
 import logo from './img/Escudo ADIP sin fondo.png'
-import banderin from "./img/banderin2.jpg"
-import masculino from "./img/masculino2.jpg"
-import logros from "./img/copa3.jpg"
-import femenino from "./img/femenino.jpg"
 import "./banner.css";
 import { Facebook, Instagram, Twitter } from "@mui/icons-material";
 import { Link, useLocation } from "react-router-dom";
@@ -27,7 +23,7 @@ export const Banner = () => {
           backgroundPosition: "center",
           backgroundSize: "cover",
           width: "100%",
-          height: 320,
+          height: 500,
           justifyContent: "center",
         }}
       >

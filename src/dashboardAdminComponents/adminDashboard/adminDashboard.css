@@ -2,7 +2,7 @@
 
 .App {
   width: 100vw;
-  height:100vh;  
+  height: 100vh;
   font-family: 'Inter', sans-serif;
   display: flex;
   justify-content: center;
@@ -10,22 +10,22 @@
   color: black;
   position: relative;
 }
-.switchTheme{
+.switchTheme {
   position: absolute;
   right: 2rem;
   z-index: 2;
   top: 1rem;
-
 }
 .AppGlass {
   display: grid;
   height: 98%;
+  position: relative;
+  z-index: 1;
   width: 97%;
   border-radius: 1rem;
   background-color: rgba(255, 166, 0, 0.349);
   overflow-y: auto;
-  grid-template-columns: 13rem 60% auto;
-  gap: 10px;
+  grid-template-columns: 15% 80%;
 }
 .AppGlass.dark {
   background-color: rgba(204, 204, 204, 0.349);
@@ -42,7 +42,6 @@
   --smboxShadow: -79px 51px 60px rgba(0, 0, 0, 0.08);
   --activeItem: #f799a354;
 }
-
 .AppGlass::-webkit-scrollbar {
   border-radius: 1rem;
   background: orange;
@@ -59,13 +58,13 @@
 }
 @media screen and (max-width: 1080px) {
   .AppGlass {
-    grid-template-columns: 14% 53% auto;
-    overflow-y: scroll;
+    grid-template-columns: 10% 85%;
   }
 }
+
 @media screen and (max-width: 768px) {
   .AppGlass {
-    grid-template-columns: 1fr;
+    grid-template-columns: 15% 80%;
     overflow: auto;
   }
   .AppGlass::-webkit-scrollbar {

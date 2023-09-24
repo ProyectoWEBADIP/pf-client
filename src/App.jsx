@@ -41,6 +41,7 @@ import MasNaranja from './components/MasNaranja/MasNaranja';
 
 import ErrorPayment from './views/ErrorPayment/ErrorPayment';
 import PendientPayment from './views/PendientPayment/PendientPayment';
+import Developers from './views/Developers/Developers';
 function App() {
   const storedThemeMode = localStorage.getItem('themeMode') || 'light';
   const [themeMode, setThemeMode] = useState(storedThemeMode);
@@ -99,6 +100,7 @@ function App() {
           <Route path={'/futbol/masculino'} element={<FutbolMasculino />} />
           <Route path={'/futbol/logros'} element={<FutbolLogros />} />
           <Route path={'/sumate/naranja'} element={<MasNaranja />} />
+          <Route path={'/developers'} element={<Developers />} />
 
 
           <Route

@@ -1,7 +1,8 @@
 .homeContainer{
+  display: flex;
   width: 100vw;
-  height: auto;
-  /* padding-bottom: 170px; */
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .parteCentral{
@@ -80,3 +81,5 @@
   100% {
   }
 }
+
+  

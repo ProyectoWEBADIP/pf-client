@@ -24,7 +24,7 @@ import {
 } from '../../../redux/noticiasActions/noticiasActions';
 import './noticiasDash.css';
 import { Clear, Close, Delete, RemoveCircle } from '@mui/icons-material';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 export default function FullFeaturedCrudGrid() {
   const noticias = useSelector((state) => state.noticias);
   const dispatch = useDispatch();
@@ -236,6 +236,7 @@ export default function FullFeaturedCrudGrid() {
           </div>
         </div>
       ) : null}
+     
       {!showStatus ? null : (
         <div className="overlay">
           <div className="noticeModalCont">
@@ -267,6 +268,12 @@ export default function FullFeaturedCrudGrid() {
           </div>
         </div>
       )}
+      <div className="dataGrid-notices-container">
+      <div className="crear-noticia-cont">
+      <Link to='/crearNoticia'>
+              <button className="buton_notice_crear">Crear Noticia</button>
+            </Link>
+      </div>
       <DataGrid
        localeText={{
         noRowsLabel: 'No se ha encontrado datos.',
@@ -343,6 +350,7 @@ export default function FullFeaturedCrudGrid() {
           toolbar: GridToolbar,
         }}
       />
+      </div>
     </Box>
   );
 }

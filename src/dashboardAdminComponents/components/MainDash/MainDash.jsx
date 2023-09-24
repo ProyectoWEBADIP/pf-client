@@ -32,9 +32,7 @@ const MainDash = () => {
             <h2>
               <span>P</span>anel de noticias
             </h2>
-            <Link to='/crearNoticia'>
-              <button className="buton_notice_crear">Crear Noticia</button>
-            </Link>
+         
           </div>
           
           <NoticiasDash/>
