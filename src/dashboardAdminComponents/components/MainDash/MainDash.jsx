@@ -12,6 +12,7 @@ import UpDateSponsor from "../../../components/upDateSponsor/upDateSponsor";
 import { Link } from "react-router-dom";
 
 import NotificacionesMail from '../NotificacionesMail/NotificacionesMail'
+import EditarPartidos from "../../../components/EditarPartidos/EditarPartidos";
 
 const MainDash = () => {
   const actualDash = useSelector((state) => state.actualDash);
@@ -79,7 +80,14 @@ const MainDash = () => {
             </div>
           </div>
         </div>
-      ) : null }
+      ) : actualDash === 4 ? (
+        <div className="MainDash">
+           <h1>Partidos</h1>
+           <EditarPartidos />
+        </div>
+     )
+      
+      : null }
     </div>
   );
 };
