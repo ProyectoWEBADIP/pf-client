@@ -391,20 +391,7 @@ export default function Perfil() {
                                  />
                               </Box>
 
-                              <Box className="adminButtonContainer">
-                                 {role === "super_admin" &&
-                                 perfilUsuario?.profile ? (
-                                    <Box>
-                                       <Link to={"/auth/dashboard"}>
-                                          <Button variant="contained">
-                                             {" "}
-                                             <ConstructionIcon fontSize="large" />{" "}
-                                          </Button>
-                                       </Link>
-                                    </Box>
-                                 ) : null}
-                              </Box>
-
+                             
                               <Box className="nameAndEditContainer">
                                  <Box className="editButtonContainer">
                                     <h1>
@@ -425,6 +412,20 @@ export default function Perfil() {
                               <Box className="perfilInfoContainer">
                                  <Box className="detallesContainer">
                                     <Box className="carnet-container">
+                                    <div >
+                                 {role === "super_admin" &&
+                                 perfilUsuario?.profile ? (
+                                    <div>
+                                       <Link to={"/auth/dashboard"}>
+                                          <Button variant="contained">
+                                             {" "}
+                                             <ConstructionIcon fontSize="large" />{" "}
+                                          </Button>
+                                       </Link>
+                                    </div>
+                                 ) : null}
+                              </div>
+
                                        <Box className="gen-carnet-container">
                                           {perfilUsuario.active && (
                                              <Link
