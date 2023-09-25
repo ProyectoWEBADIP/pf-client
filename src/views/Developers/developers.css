@@ -1,0 +1,137 @@
+@font-face {
+  font-family: "Renegade";
+  src: url("../../../fonts/Renegade\ Pursuit.otf");}
+
+.devs-view-container{
+  padding-top: 11vh;
+  width: 100%;
+  height:100%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.devs-view-container>span{
+  font-family: "Renegade";
+  font-size: 2.5rem;
+}
+.devs-container{
+  padding-top: 100px;
+  width: 65vw;
+  gap: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.cardContainer-developer {
+  width: 250px;
+  height: 300px;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition-duration: .7s;
+  cursor: pointer;
+}
+
+.profileDiv-dev {
+  overflow: hidden;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(24, 24, 24, 0);
+  transition-duration: .5s;
+  color: rgb(155, 155, 155);
+  font-family: Whitney, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.cardContainer-developer:hover .profileDiv-dev {
+  transform: translateX(-25%) translateY(-25%);
+  transition-duration: .5s;
+}
+
+.infoDiv-dev {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(168, 168, 168);
+  z-index: 1;
+}
+
+.nameDiv-dev {
+  width: 75%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: rgb(168, 168, 168);
+
+  font-family: Whitney, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  gap: 2px;
+}
+
+.name-dev {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: black;
+}
+
+.role-dev {
+  margin: 0;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 400;
+  color: rgb(48, 48, 48);
+  margin-bottom: 5px;
+}
+
+.socialDiv-dev {
+  width: 25%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: rgb(14, 14, 14);
+  gap: 10%;
+}
+
+.infoDiv-dev a {
+  width: 50%;
+}
+
+.socials {
+  width: 100%;
+  fill: rgb(14, 14, 14);
+}
+@media screen and (max-width:2560px){
+  .devs-container{
+  width: 50vw;
+  }
+}
+@media screen and (max-width:2100px){
+  .devs-container{
+  width: 60vw;
+  }
+}
+@media screen and (max-width:1620px){
+  .devs-container{
+  width: 75vw;
+  }
+}

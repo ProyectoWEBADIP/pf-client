@@ -99,11 +99,9 @@ export const SignIn = () => {
               </div>
             ) : null}
             {errors ? (
-              <div className="overlay-login">
                 <div className="login-errors">
                   <AlertError />{' '}
                 </div>
-              </div>
             ) : null}
             <div className="heading">Iniciar sesión</div>
             <div>

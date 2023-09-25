@@ -6,7 +6,6 @@
   height: 100%;
   justify-content: space-evenly;
 }
-
 .Sidebar.dark{
   color: white;
 }
@@ -18,12 +17,12 @@
   height: 60%;
 }
 .logo {
-  top: 3.2rem;
+  top: 10vh;
   position: absolute;
   display: flex;
   height: 5rem;
   font-weight: bold;
-  font-size: 22px;
+  font-size: 2vw;
   gap: 1rem;
   align-items: center;
   justify-content: center;
@@ -34,8 +33,6 @@
   height: 3rem;
   border-radius: 50%;
 }
-
-/* menu*/
 .menu {
   display: flex;
   justify-content: space-around;
@@ -49,6 +46,7 @@
   align-items: center;
   gap: 0.5rem;
   height: 2.5rem;
+  width: 100%;
   position: relative;
   transition: all 300ms ease;
   font-size: 14px;
@@ -82,22 +80,22 @@
 .outButton:active {
   transform: translate(1rem) scale(1.5);
 }
-
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1080px) {
   .menuItem > span {
     display: none;
   }
-  .Sidebar {
-    height: 50%;
+  .menuItem {
+    margin-left: 5vw;
+    width: 40%;
   }
-
+  .logo{
+    left: 25%;
+  }
   .logo > span {
     display: none;
   }
-}
-
-@media screen and (max-width: 768px) {
-  .Sidebar {
-    display: none;
+  .outButton{
+    left: 25%;
   }
 }
+

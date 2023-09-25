@@ -8,9 +8,8 @@ import { BrowserRouter, HashRouter } from "react-router-dom";
 import store from "./redux/store.js";
 import axios from "axios";
 
-axios.defaults.baseURL= "http://localhost:3001"
-// axios.defaults.baseURL= "https://backend-adipweb.onrender.com"
-
+// axios.defaults.baseURL= "http://localhost:3001"
+axios.defaults.baseURL= "https://backend-adipweb.onrender.com"
 ReactDOM.createRoot(document.getElementById("root")).render(
    <Provider store={store}>
       <HashRouter>

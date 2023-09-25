@@ -46,7 +46,6 @@ export default function CrearNoticia() {
 
    const handleChange = (event) => {
       event.preventDefault();
-
       setInput({
          ...input,
          [event.target.name]: event.target.value,
@@ -61,6 +60,7 @@ export default function CrearNoticia() {
             event.target.name
          )
       );
+      console.log(error);
    };
 
    const handleCategoryChange = (event) => {
@@ -256,7 +256,7 @@ export default function CrearNoticia() {
                </div>
             ) : null}
 
-          <form id="formulario" onSubmit={handleSubmit}>
+          <form id="formulario" className="etiquetaForm_notice" onSubmit={handleSubmit}>
 
             {showError ? (
               <div className="alerts">
@@ -269,34 +269,33 @@ export default function CrearNoticia() {
               </div>
             ) : null}
            <div className='titulo-input-notice'>
-           <input
-             placeholder='Titulo de la noticia'          
-              type="text"
-              name="titulo"
-              className='title-crearNotice'
-              value={input.titulo}
-              required
-              onChange={handleChange} 
-                            
-            />
-            {error.titulo && (
-              <p className='error-notice-form'>{error.titulo}</p>
-            )}
+            <input
+              placeholder='Titulo de la noticia'          
+                type="text"
+                name="titulo"
+                className='title-crearNotice'
+                value={input.titulo}
+                required
+                onChange={handleChange}                            
+              />
+              {error.titulo && (
+                <p className='error-notice-form'>{error.titulo}</p>)}
            </div>
 
            <div className='cont_resumen_notice_'>
-           <input
-             placeholder='Resumen'
-              type="text"
-              name="resumen"
-              value={input.resumen}
-              required
-              onChange={handleChange}
-                         
-            />
-            {error.resumen && (
-              <p className='error-notice-form'>{error.resumen}</p>
-            )}
+              <input
+              className='title-crearNotice'
+                placeholder='Resumen'
+                  type="text"
+                  name="resumen"
+                  value={input.resumen}
+                  required
+                  onChange={handleChange}
+                            
+                />
+                {error.resumen && (
+                  <p className='error-notice-form'>{error.resumen}</p>
+                )}
            </div>
 
             <div className='div-selec-notice-'>
@@ -312,10 +311,10 @@ export default function CrearNoticia() {
                            </option>
                         );
                      })}
-                  </select>
-                  {error.categoria && <p>{error.categoria}</p>}
-                  {incluye !== "" && <p>{incluye}</p>}
-               </div>
+              </select>
+                  {error.categoria && <p className='error-notice-form'>{error.categoria}</p>}
+                  {incluye !== "" && <p className='error-notice-form'>{incluye}</p>}
+            </div>
 
                <div className="map_category">
                   {category?.map((e, index) => {
@@ -331,28 +330,32 @@ export default function CrearNoticia() {
                   })}
                </div>
 
-          
-            <div className='cont_moverInput_form'>
+      
+            <div className='cont_moverInput__'>
               <input
                 onChange={handleCategoryChange}           
                 type="text"
                 name="crear"
-                
+                placeholder="Crear categoria"
+                className='crear-category-notice'
               />
-              {error.crear && <p>{error.crear}</p>}
               <Button className='button_crear_cate' onClick={crearCategoria}>Crear</Button>
+              <div className="error-crearCategory-">
+              {error.crear && <p className='error-notice-form'>{error.crear}</p>}
+              </div>
             </div>           
 
            <div className='cont_moverInput_form'>
               <input
-              placeholder='Descripcion'
+                className="input-description-notice"
+                placeholder='Descripcion'
                type="text" name="descripcion" value={input.descripcion} required onChange={handleChange} />
-                {error.descripcion && <p>{error.descripcion}</p>}
+                {error.descripcion && <p className='error-notice-form'>{error.descripcion}</p>}
            </div>
          
 
             <div className='cont_selecImg_div'>
-            <input type="file" name="imagen" accept="image/*" onChange={handleImageChange}/>            
+            <input className="input-file-notice" type="file" name="imagen" accept="image/*" onChange={handleImageChange}/>            
             </div>        
             
               <div className='cont_img_notices_render'>
@@ -370,20 +373,21 @@ export default function CrearNoticia() {
         {/*------------------------- Previsualizar noticia ------------------------------------------------------------*/}
           <div className='cont_previsu_div'>       
             
-            <p className='title-previsu-notice'>{input.titulo}</p>
-                
+                  <div className="title_previsu-div">
+                    <p className='title-previsu-notice'>{input.titulo}</p>
+                  </div>
 
             <div className="visualiza_resumen_notice">
-               <Typography variant="body1">{input.resumen}</Typography>
+               <p className='title-previsu-notice'>{input.resumen}</p>
             </div>
                   
 
             <div className='img_previsualiza-notice'>
-            <img src={ imageURL? imageURL : imgDefault} alt="img" style={{ width: '300px', height: 'auto', objectFit: "cover"}}/>
+            <img className='img-ver-prev' src={ imageURL? imageURL : imgDefault} alt="img" />
             </div>   
 
             <div className="descripcion_previsualiza">
-               <Typography variant="headline">{input.descripcion}</Typography>
+               <p className='title-previsu-notice'>{input.descripcion}</p>
             </div>
 
             <div className="category_previsualiza">
@@ -404,4 +408,3 @@ export default function CrearNoticia() {
    );
 }
 
-// Path: pf-client/src/components/CraerNoticia/CrearNoticia.jsx
