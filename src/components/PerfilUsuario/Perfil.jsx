@@ -370,7 +370,7 @@ export default function Perfil() {
                   )}
                   <div>
                      <Grid container>
-                        <Grid item xs={12} sm={12} md={12} lg={6}>
+                        <Grid >
                            <Box className="containerGlobal">
                               <Box className="portadaContainer">
                                  <img
@@ -391,20 +391,7 @@ export default function Perfil() {
                                  />
                               </Box>
 
-                              <Box className="adminButtonContainer">
-                                 {role === "super_admin" &&
-                                 perfilUsuario?.profile ? (
-                                    <Box>
-                                       <Link to={"/auth/dashboard"}>
-                                          <Button variant="contained">
-                                             {" "}
-                                             <ConstructionIcon fontSize="large" />{" "}
-                                          </Button>
-                                       </Link>
-                                    </Box>
-                                 ) : null}
-                              </Box>
-
+                             
                               <Box className="nameAndEditContainer">
                                  <Box className="editButtonContainer">
                                     <h1>
@@ -425,6 +412,20 @@ export default function Perfil() {
                               <Box className="perfilInfoContainer">
                                  <Box className="detallesContainer">
                                     <Box className="carnet-container">
+                                    <div >
+                                 {role === "super_admin" &&
+                                 perfilUsuario?.profile ? (
+                                    <div>
+                                       <Link to={"/auth/dashboard"}>
+                                          <Button variant="contained">
+                                             {" "}
+                                             <ConstructionIcon fontSize="large" />{" "}
+                                          </Button>
+                                       </Link>
+                                    </div>
+                                 ) : null}
+                              </div>
+
                                        <Box className="gen-carnet-container">
                                           {perfilUsuario.active && (
                                              <Link

@@ -1,6 +1,6 @@
 .conteiner-father-signIn {
   width: 100%;
-  height: 100%;
+  height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -258,4 +258,32 @@
   position: absolute;
   right: 15px;
   bottom: 6%;
+}
+
+@media screen and (max-width:600px){
+.container-signIn { 
+  width: 250px;
+
+  }
+  .heading {
+    text-align: center;
+    font-weight: 900;
+    font-size: 6vw;
+    color: rgb(255, 255, 255);
+  }
+  .form-signIn .input {
+    font-size: 3vw;
+    height: 30px;
+  }
+  .link-reg-log {
+    font-size: 3vw;
+  }
+  .form-signIn .login-button {
+    padding-block: 10px;
+    transition: all 0.2s ease-in-out;
+    font-size: 4vw;
+  }
+  .password-conteiner span {
+    font-size: .5vw;
+  }
 }

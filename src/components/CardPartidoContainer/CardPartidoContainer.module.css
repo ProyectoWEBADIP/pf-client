@@ -20,7 +20,13 @@
  margin-top: 10%;
 }
 .separador>img{
-  width: 5rem;
+  width: 5vw;
+  height: 5rem;
+}
+@media screen and (max-width:1366px){
+.separador{
+  display: none;
+}
 }
 @media screen and (max-width: 720px) {
   .cont {

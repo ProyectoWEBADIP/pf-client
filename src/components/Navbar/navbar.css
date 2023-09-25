@@ -1,10 +1,26 @@
 .conteinOrder {
   display: flex;
+  width: 15%;
+  align-items: center;
   justify-content: space-evenly;
+}
+.conteinOrder>div:first-child{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: .5rem;
+}
+@media screen and (max-width:700px){
+  .conteinOrder {
+    width: 50%;
+  }
 }
 .conteinNavBar {
   width: 100%;
-  align-items: end;
   justify-content: flex-end;
   display: flex;
+}
+.switch-profile-container{
+  display: flex;
+  justify-content: center;align-items: center;
 }

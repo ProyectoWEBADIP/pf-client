@@ -22,6 +22,7 @@ const AdminDashboard = ({ themeMode, toggleThemeMode }) => {
     dispatch(getAllNoticias());
     dispatch(getUserLoggedById(localStorage.userId));
   });
+
   return (
     <div className="App">
       <div className={localStorage.themeMode==='light'?'AppGlass': 'AppGlass dark'}>
@@ -33,9 +34,6 @@ const AdminDashboard = ({ themeMode, toggleThemeMode }) => {
         </div>
         <Sidebar />
         <MainDash />
-        {/* {actualDash === 0 ? (
-          <RigthSide />
-        ) : null} */}
       </div>
     </div>
   );
