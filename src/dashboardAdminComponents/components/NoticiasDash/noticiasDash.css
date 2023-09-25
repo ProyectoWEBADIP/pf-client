@@ -1,6 +1,6 @@
 .noticeModalCont {
-  width: 70%;
-  height: 50%;
+  width: 70vw;
+  height: 70vh;
   padding: 1rem;
   position: absolute;
   z-index: 2;
@@ -10,9 +10,15 @@
   overflow-y: auto;
   border-radius: 1rem;
 }
+.crear-noticia-cont{
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}
 .titleNoticeCont > span {
   font-weight: bold;
-  font-size: 2.3rem;
+  font-size: 3vh;
 }
 .titleNoticeCont {
   text-align: center;
@@ -22,10 +28,7 @@
   position: absolute;
   cursor: pointer;
   background-color: rgb(255, 111, 8);
-
   border-radius: 50%;
-
-  font-size: 2rem;
   top: 10px;
   right:10px;
 }
@@ -56,7 +59,7 @@
 } 
 
 .noticeDataContainer .imgNoticeContModal>img{
-  width: 80%;
+  width: 60%;
 } 
 .noticeDataContainer .imgNoticeContModal .resume-date-container{
   color: rgb(0, 0, 0);
@@ -69,17 +72,13 @@
   text-align: center;
   width: 80%;
 } 
-
+.dataGrid-notices-container{
+  position: relative;
+  height: 82vh;
+}
 .noticeDataContainer .contentContainer{
   padding: 1rem;
 
   display: flex;
   flex-direction: column;
-}
-
-@media screen and (max-width:1980px) {
-  .noticeModalCont{
-    width: 50%;
-     height: 70%;
-  }
 }

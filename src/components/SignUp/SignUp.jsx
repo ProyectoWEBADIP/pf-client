@@ -216,9 +216,10 @@ const SignUp = () => {
             </button>
           </div>
         ) : (
-          <div>
-            <div>
+            <div className="verificar-correo-container">
+              <label >Ingresa el código de verificación que enviaremos a tu correo</label>
               <div className="input-container ic2">
+
                 <input
                   className="input-signUp"
                   onChange={handlerCodeVerification}
@@ -226,9 +227,6 @@ const SignUp = () => {
                   name="codigoVerificacion"
                   value={codigoVerificacion}
                 />
-                <div className="cut">
-                  <label className="iLabel">Ingresa el código de verificación que enviaremos a tu correo</label>
-                </div>
               </div>
               <div>
                 <button className="submit-signUp" onClick={sendUser}>
@@ -236,7 +234,6 @@ const SignUp = () => {
                 </button>
               </div>
             </div>
-          </div>
         )}
       </div>
     </div>

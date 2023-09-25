@@ -39,11 +39,9 @@ export default function CardPartidoContainer() {
         );
       })}
       </Grid>
-      <Grid item xs={12} md={1} sx={{justifyContent: "center"}}>
       <div className={style.separador}>
         <img src={logo} alt="" />
       </div>
-      </Grid>
       <Grid item xs={12} md={5} sx={{justifyContent: "center"}} container direction={"row"}>
       {femeninos?.map((info, i) => {
         return (

@@ -21,8 +21,9 @@
   border-radius: 10px;
 }
 .form-container-recuperacion-father {
+  overflow: hidden;
   width: 100vw;
-  height: 65vh;
+  height:100vh;
   display: flex;
   align-items: center;
   justify-content: center;

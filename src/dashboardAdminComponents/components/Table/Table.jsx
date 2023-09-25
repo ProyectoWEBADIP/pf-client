@@ -400,6 +400,7 @@ export default function FullFeaturedCrudGrid() {
   }
   return (
     <Box
+    className='boxTable'
       sx={{
         '& .actions': {
           color: 'text.secondary',
@@ -544,7 +545,7 @@ export default function FullFeaturedCrudGrid() {
       ) : null}
       {!showStatus ? null : (
         <div className="overlay">
-          <div className="statusCont">
+          <div className={localStorage.themeMode==='dark'?"statusCont dark":"statusCont"}>
             <div className="statusTextCont">
               <div className="buttCont">
                 {' '}
@@ -557,7 +558,7 @@ export default function FullFeaturedCrudGrid() {
                 />
               </div>
               <div>
-                <span className="title">ESTADO DE USUARIO </span>
+                <span className="title-status">ESTADO DE USUARIO </span>
               </div>
               <span className="mainSpan">
                 Nombre completo:{' '}
@@ -714,7 +715,7 @@ export default function FullFeaturedCrudGrid() {
             'filterOperator<': '<',
             'filterOperator<=': '<=',
           }}
-          sx={{ textAlign: 'justify', height: 650 }}
+          sx={{ textAlign: 'justify'}}
           rows={users ? users : noRows}
           columns={columns}
           rowHeight={30}
