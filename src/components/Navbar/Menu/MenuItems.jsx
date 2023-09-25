@@ -9,7 +9,6 @@ import { Box, Menu } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
 import NoticiasMenu from "./DownMenu/NoticiasDownMenu";
-
 export const MenuItems = () => {
    const [open, setOpen] = useState(false);
    return (
@@ -18,6 +17,7 @@ export const MenuItems = () => {
             sx={{ display: { xs: "block", sm: "block", md: "none" } }}
             onClick={() => setOpen(!open)}
          ></MenuIcon>
+       
          <Menu
             id="basic-menu"
             open={open}
@@ -47,7 +47,7 @@ export const MenuItems = () => {
          </Menu>
          <Box
             className="conteinMenu"
-            sx={{ display: { xs: "none", sm: "none", md: "flex" } }}
+            sx={{ display: { xs: "none", sm: "none", md: "flex" },alignItems:'center' }}
          >
             <Link to="/">
                <HomeIcon sx={{ fontSize: "45px" }} />
@@ -57,7 +57,10 @@ export const MenuItems = () => {
 
             <SocioMenu />
             <NoticiasMenu />
+          
+            
          </Box>
+
       </div>
    );
 };

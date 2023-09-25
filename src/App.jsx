@@ -98,6 +98,7 @@ function App() {
           <Route path={'/futbol/masculino'} element={<FutbolMasculino />} />
           <Route path={'/futbol/logros'} element={<FutbolLogros />} />
           <Route path={'/sumate/naranja'} element={<MasNaranja />} />
+          <Route path={'/devs'} element={<Developers />} />
           <Route
             path={'/auth/dashboard'}
             element={
