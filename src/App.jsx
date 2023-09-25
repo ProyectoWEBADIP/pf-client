@@ -27,7 +27,6 @@ import ClubComision from './components/ClubComision/ClubComision';
 import ProtectedRoutes from './components/ProtectedRoutes/ProtectedRoutes';
 import ProtectedSuperAdminRoutes from './components/ProtectedRoutes/ProtectedSuperAdminRoutes';
 import NotFoundComponent from './components/notFound/NotFound';
-import Noticias from './views/Noticias/Noticias';
 import SuccessPayment from './views/SuccessPayment/SuccessPayment';
 import QRCarnet from './components/QrCarnet/QrCarnet';
 import Notices from './components/Notices/Notices';
@@ -61,7 +60,6 @@ function App() {
     <div className="AppContainer">
       <ThemeProvider theme={theme}>
         <CssBaseline />
-
         {location.pathname === '/' ||
         location.pathname === '/club/historia' ||
         location.pathname === '/club/comision' ||
@@ -100,18 +98,17 @@ function App() {
           <Route path={'/futbol/masculino'} element={<FutbolMasculino />} />
           <Route path={'/futbol/logros'} element={<FutbolLogros />} />
           <Route path={'/sumate/naranja'} element={<MasNaranja />} />
-          <Route path={'/developers'} element={<Developers />} />
-          <Route element={<ProtectedSuperAdminRoutes />}>
-            <Route
-              path={'/auth/dashboard'}
-              element={
+          <Route
+            path={'/auth/dashboard'}
+            element={
+              <ProtectedSuperAdminRoutes>
                 <AdminDashboard
                   themeMode={themeMode}
                   toggleThemeMode={toggleThemeMode}
                 />
-              }
-            />
-          </Route>
+              </ProtectedSuperAdminRoutes>
+            }
+          />
           <Route
             path={'/login/recuperacion'}
             element={<RecuperarContraseña />}

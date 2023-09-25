@@ -370,7 +370,7 @@ export default function Perfil() {
                   )}
                   <div>
                      <Grid container>
-                        <Grid item xs={12} sm={12} md={12} lg={6}>
+                        <Grid >
                            <Box className="containerGlobal">
                               <Box className="portadaContainer">
                                  <img
