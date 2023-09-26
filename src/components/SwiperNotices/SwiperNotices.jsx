@@ -26,6 +26,7 @@ export default function SwiperNotices() {
     progressCircle.current.style.setProperty('--progress', 1 - progress);
     progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
   };
+  const noticiasSwiper = noticias.slice(0,5)
   return (
     <>
       <Swiper
@@ -43,7 +44,7 @@ export default function SwiperNotices() {
         onAutoplayTimeLeft={onAutoplayTimeLeft}
         className="mySwiper"
       >
-        {noticias?.map((not,i)=>{
+        {noticiasSwiper?.map((not,i)=>{
           return (
         <SwiperSlide key={i}>
             <Card
